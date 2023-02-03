@@ -1,0 +1,214 @@
+<template>
+    <div class="container">
+        <div class="row">
+            <div class="content-page col-12">
+                <div class="filter-bar">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <ul class="filter-results">
+                                <li class="actions-btn">
+                                    <router-link :to="{name:'delivery-add-payment'}" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-plus-circle"></i>
+                                        اضافة مدفوعات جديدة
+                                    </router-link>
+                                </li>
+                                <li class="filter-item">
+                                    <i class="fas fa-users"></i>
+                                    2340130 تاجر
+                                </li>
+                                <li class="filter-item">
+                                    <i class="fas fa-user-check"></i>
+                                    2330 مسددة
+                                </li>
+                                <li class="filter-item">
+                                    <i class="fas fa-user-slash"></i>
+                                    2330 غير مسددة
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" placeholder="البحث فى المدفوعات" v-model="search" class="form-control search-input"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive text-nowrap">
+                    <!--Table-->
+                    <table class="table">
+                        <!--Table head-->
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>اسم شركة الشحن</th>
+                                <th>اجمالى المدفوعات</th>
+                                <th>المدفوعات المستحقة</th>
+                                <th>المدفوعات المسددة</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <!--Table head-->
+                        <!--Table body-->
+                        <tbody>
+                            <tr v-for="(delivery, key) in deliveries" :key="key">
+                                <th scope="row">{{ delivery.id }}</th>
+                                <td>{{ delivery.name }}</td>
+                                <td>{{ delivery.payments_total }} USD</td>
+                                <td>{{ delivery.payments_due  }} USD</td>
+                                <td>{{ delivery.payments_made }} USD</td>
+                                <td class="actions-btn">
+                                    <router-link :to="{path:'/dashboard/show-payments-delivery/'+delivery.id}"  class="btn btn-primary btn-sm">
+                                        <i class="fas fa-eye"></i>
+                                        تفاصيل
+                                    </router-link>
+                                    <router-link :to="{path:'/dashboard/delivery-add-payment/'+delivery.id}" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i>
+                                        اضافة المدفوعات
+                                    </router-link>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <!--Table body-->
+                    </table>
+                    <!--Table-->
+                    <nav v-if="this.infos.length != 0" aria-label="Page navigation example">
+                        <ul v-if="this.infos.total > deliveries.length" class="pagination">
+                            <li v-if="(this.infos.current_page != 1)" class="page-item">
+                                <router-link class="page-link" :to="{path: '/dashboard/payments/'+(this.infos.current_page - 1 == 0 ? 1 : this.infos.current_page - 1) }" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </router-link>
+                            </li>
+                            <li v-for="page in this.infos.last_page" class="page-item" :key="page">
+                                <template v-if="page == 1">
+                                    <router-link class="page-link" :to="{path: '/dashboard/payments/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                </template>
+                                <template v-else-if="page == this.infos.current_page">
+                                    <router-link class="page-link" :to="{path: '/dashboard/payments/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                </template>
+                                <template v-else-if="page == this.infos.current_page - 1">
+                                    <router-link class="page-link" :to="{path: '/dashboard/payments/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                </template>
+                                <template v-else-if="(page == this.infos.current_page + 1) && (this.infos.current_page != this.infos.last_page)">
+                                    <router-link class="page-link" :to="{path: '/dashboard/payments/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                </template>
+                                <template v-else-if="page == this.infos.last_page">
+                                    <router-link class="page-link" :to="{path: '/dashboard/payments/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                </template>
+                                <template v-else-if="(page == this.infos.current_page - 2) && (this.infos.current_page != this.infos.last_page)">
+                                    <router-link class="page-link" :to="{path: '/dashboard/payments/'+page}" active-class="active" exact>..</router-link>
+                                </template>
+                                <template v-else-if="(page == this.infos.current_page + 2) && (this.infos.current_page != this.infos.last_page)">
+                                    <router-link class="page-link" :to="{path: '/dashboard/payments/'+page}" active-class="active" exact>..</router-link>
+                                </template>
+                            </li>
+                            <li v-if="this.infos.current_page != this.infos.last_page" class="page-item">
+                                <router-link :to="{path: '/dashboard/payments/'+(this.infos.current_page + 1) }" class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </router-link>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            payment_due:0,
+            payment_made:0,
+            payment_total:0,
+            infos:[],
+            deliveries:[],
+            search:null,
+            params:{},
+            selected:[],
+            selected_all:null,
+            errors:{},
+            success:null,
+            showModel:false,
+            currency:'USD',
+            field:{
+                update_status:0,
+                ids:[]
+            }
+        };
+    },
+    methods:{
+        FetchDeliveryPayments:function(){
+            let self = this;
+            axios.get('/api/delivery-payments',{
+                params:self.params
+            }).then(function({data}){
+                console.log(data);
+                self.infos              = data.data_info;
+                self.deliveries          = self.infos.data;
+                self.payment_due        = data.payment_due;
+                self.payment_made       = data.payment_made;
+            }).catch(function({response}){
+                console.log(response);
+            });
+        }
+    },
+    created(){
+        this.params = {
+            page:(this.$route.params.page_no ? this.$route.params.page_no : 1)
+        };
+        this.FetchDeliveryPayments();
+    },
+    watch:{
+        search:function(search){
+            let self = this;
+            if((search.length != 0) && (search != null)){
+                this.params = {q:search};
+                axios.get('/api/delivery-payments/search',{
+                    params:self.params
+                }).then(function({data}){
+                    console.log(data);
+                    self.infos              = [];
+                    self.deliveries          = data.data_info;
+                    self.payment_due        = data.payment_due;
+                    self.payment_made       = data.payment_made;
+                    console.log(self.infos.length);
+                }).catch(function({response}){
+                    console.log(response);
+                });
+            }else{
+                self.params = {
+                    page:(this.$route.params.page_no ? this.$route.params.page_no : 1)
+                };
+                self.FetchDeliveryPayments();
+            }
+        }
+    }
+};
+</script>
+<style scoped>
+.content-page {
+    padding: 2%;
+}
+.actions-btn .btn{
+    margin:1%;
+}
+.filter-bar .filter-results{
+    list-style: none;
+    padding: 0px
+}
+.filter-bar .filter-results .filter-item{
+    padding: 10px 10px 10px 10px;
+    display: inline-block;
+    width: auto;
+    background-color: #eee;
+    margin: 0px 3px;
+}
+.filter-bar .search-input{
+    border:1px solid #eee;
+    background-color: white;
+    box-shadow: 0px 10px 23px 5px #eee;
+    border-radius: 0px;
+    height: 46px;
+    margin-top: 34px;
+}
+</style>
