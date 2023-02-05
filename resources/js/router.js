@@ -71,6 +71,30 @@ import ShowDueMerchantPayments from './components/dashboard/Merchant/Payments/Du
 import ShowMadeMerchantPayments from './components/dashboard/Merchant/Payments/Made.vue';
 import MerchantDashboard from './components/dashboard/Merchant/DashboardReports.vue';
 
+/**
+ * @Delivery area
+ * all components merchant
+ */
+// import DeliveryProducts from './components/dashboard/Delivery/Products/Index.vue';
+// import ShowDeliveryProduct from './components/dashboard/Delivery/Products/Show.vue';
+// import ShowLowStockDeliveryProduct from './components/dashboard/Delivery/Products/LowStock.vue';
+// import DeliveryOrders from './components/dashboard/Delivery/Orders/Index.vue';
+// import ShowDueDeliveryPayments from './components/dashboard/Delivery/Payments/Due.vue';
+// import ShowMadeDeliveryPayments from './components/dashboard/Delivery/Payments/Made.vue';
+import DeliveryDashboard from './components/dashboard/Delivery/DashboardReports.vue';
+import DeliveryOrdersDairy from './components/dashboard/Delivery/Orders/Dairy.vue';
+import DeliveryOrdersWait from './components/dashboard/Delivery/Orders/Wait.vue';
+import DeliveryOrdersProcess from './components/dashboard/Delivery/Orders/Process.vue';
+import DeliveryOrdersComplete from './components/dashboard/Delivery/Orders/Complete.vue';
+import DeliveryOrdersReturn from './components/dashboard/Delivery/Orders/Return.vue';
+import DeliveryOrdersCancelled from './components/dashboard/Delivery/Orders/Cancelled.vue';
+import DeliveryOrdersShow from './components/dashboard/Delivery/Orders/Show.vue';
+import ShowDueDeliveryPayments from './components/dashboard/Delivery/Payments/Due.vue';
+import ShowMadeDeliveryPayments from './components/dashboard/Delivery/Payments/Made.vue';
+import DeliveryShowProduct from './components/dashboard/Delivery/Products/Show.vue';
+
+
+
 const routes = [{
     path: '/',
     name: 'master-layout',
@@ -560,6 +584,136 @@ const routes = [{
                         menu_id: 'show-made-merchant-payments',
                     },
                 }
+            ]
+        }, {
+            path: 'delivery',
+            name: 'delivery',
+            component: Dashboard,
+            meta: {
+                requiresAuth: true,
+                AccountType: 'delivery'
+            },
+            children: [{
+                    path: 'delivery-reports',
+                    name: 'delivery-reports',
+                    component: DeliveryDashboard,
+                    meta: {
+                        ar_name: 'الرئيسية',
+                        requiresAuth: true,
+                        AccountType: 'delivery',
+                        menu_id: 'delivery-reports',
+                    }
+                }, {
+                    path: 'delivery-return-orders/:page_no?',
+                    name: 'delivery-return-orders',
+                    component: DeliveryOrdersReturn,
+                    meta: {
+                        ar_name: 'الطلبات المرتجعة',
+                        requiresAuth: true,
+                        AccountType: 'delivery',
+                        menu_id: 'delivery-return-orders',
+                    }
+                },
+                {
+                    path: 'delivery-dairy-orders/:page_no?',
+                    name: 'delivery-dairy-orders',
+                    component: DeliveryOrdersDairy,
+                    meta: {
+                        ar_name: 'الطلبات اليومية ',
+                        requiresAuth: true,
+                        AccountType: 'delivery',
+                        menu_id: 'delivery-dairy-orders',
+                    }
+                },
+                {
+                    path: 'delivery-wait-orders/:page_no?',
+                    name: 'delivery-wait-orders',
+                    component: DeliveryOrdersWait,
+                    meta: {
+                        ar_name: 'الطلبات المنتظرة ',
+                        requiresAuth: true,
+                        AccountType: 'delivery',
+                        menu_id: 'delivery-wait-orders',
+                    }
+                },
+                {
+                    path: 'delivery-process-orders/:page_no?',
+                    name: 'delivery-process-orders',
+                    component: DeliveryOrdersProcess,
+                    meta: {
+                        ar_name: 'الطلبات قيد التنفيذ ',
+                        requiresAuth: true,
+                        AccountType: 'delivery',
+                        menu_id: 'delivery-process-orders',
+                    }
+                },
+                {
+                    path: 'delivery-complete-orders/:page_no?',
+                    name: 'delivery-complete-orders',
+                    component: DeliveryOrdersComplete,
+                    meta: {
+                        ar_name: 'الطلبات المكتملة ',
+                        requiresAuth: true,
+                        AccountType: 'delivery',
+                        menu_id: 'delivery-complete-orders',
+                    }
+                },
+                {
+                    path: 'delivery-cancelled-orders/:page_no?',
+                    name: 'delivery-cancelled-orders',
+                    component: DeliveryOrdersCancelled,
+                    meta: {
+                        ar_name: 'الطلبات الملغية ',
+                        requiresAuth: true,
+                        AccountType: 'delivery',
+                        menu_id: 'delivery-cancelled-orders',
+                    }
+                },
+                {
+                    path: 'delivery-show-orders/:id',
+                    name: 'delivery-show-orders',
+                    component: DeliveryOrdersShow,
+                    meta: {
+                        ar_name: 'عرض الطلب',
+                        requiresAuth: true,
+                        AccountType: 'delivery',
+                        menu_id: 'delivery-show-orders',
+                    }
+                },
+                {
+                    path: 'show-due-delivery-payments/:page_no?',
+                    name: 'show-due-delivery-payments',
+                    component: ShowDueDeliveryPayments,
+                    meta: {
+                        ar_name: 'عرض الارباح المضافة',
+                        requiresAuth: true,
+                        AccountType: 'delivery',
+                        menu_id: 'show-due-delivery-payments',
+                    },
+                },
+                {
+                    path: 'show-made-delivery-payments/:page_no?',
+                    name: 'show-made-delivery-payments',
+                    component: ShowMadeDeliveryPayments,
+                    meta: {
+                        ar_name: 'عرض الارباح المسددة',
+                        requiresAuth: true,
+                        AccountType: 'delivery',
+                        menu_id: 'show-made-delivery-payments',
+                    },
+                },
+                {
+                    path: 'show-product/:id',
+                    name: 'delivery-show-product',
+                    component: DeliveryShowProduct,
+                    meta: {
+                        ar_name: 'عرض المنتج',
+                        requiresAuth: true,
+                        AccountType: 'delivery',
+                        menu_id: 'delivery-show-product',
+                    },
+                }
+
             ]
         }
     ]

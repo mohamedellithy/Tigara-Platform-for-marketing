@@ -15,6 +15,11 @@ class Delivery extends Authenticatable
      use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'users';
+
+    protected $guard = "delivery";
+
+    protected $primaryKey = 'id';
+
     protected $appends = [
         'payments_total',
         'payments_due',
@@ -83,7 +88,7 @@ class Delivery extends Authenticatable
     }
 
     public function orders(){
-        return $this->hasMany('App\Models\Orders','delivery_id','id');
+        return $this->hasMany('App\Models\Order','delivery_id','id');
     }
 
     public function totalSales() : Attribute

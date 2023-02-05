@@ -62,8 +62,8 @@
                                 <th>رقم الطلب</th>
                                 <th>المسوقين</th>
                                 <th>كمية الطلبية</th>
-                                <th>شركة الشحن</th>
                                 <th>سعر الطلبية</th>
+                                <th>شركة الشحن</th>
                                 <th>حالة الطلب</th>
                                 <th>حالة الشحن</th>
                                 <th>تاريخ الطلب</th>
@@ -79,7 +79,7 @@
                                 </th>
                                 <th scope="row"> # {{ order.id }}</th>
                                 <td>{{ order.marketer.name }}</td>
-                                <td>{{ order.quantity  }}</td>
+                                <td>{{ order.quantity }} قطعة</td>
                                 <td>{{ order.total }} USD</td>
                                 <td>{{ order.delivery.name }}</td>
                                 <td>{{ order.order_status_txt }}</td>

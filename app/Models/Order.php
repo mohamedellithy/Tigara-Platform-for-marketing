@@ -63,7 +63,8 @@ class Order extends Model
             '0' => 'انتظار الموافقة',
             '1' => 'جاري التنفيذ',
             '2' => 'مكتمل ',
-            '3' => 'مرفوض'
+            '3' => 'مرفوض',
+            '4' => 'مرتجع'
         ];
         return Attribute::make(
             get : fn() => $shipment_status[$this->shipping_status] ?: ''

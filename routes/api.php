@@ -28,6 +28,15 @@ use App\Http\Controllers\Api\Merchant\OrderController as MerchantOrderController
 use App\Http\Controllers\Api\Merchant\PaymentsController as MerchantPaymentsController;
 use App\Http\Controllers\Api\Merchant\MerchantStaticsController;
 
+/**
+ * @deliveries Controller
+ */
+
+use App\Http\Controllers\Api\Delivery\OrderController as DeliveryOrderController;
+use App\Http\Controllers\Api\Delivery\PaymentsController as DeliveryPaymentsController;
+use App\Http\Controllers\Api\Delivery\DeliveryStaticsController;
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -117,5 +126,27 @@ Route::domain('merchant.'.env('MAIN_DOMAIN'))->group(function () {
         Route::get('/merchant-due-payments',[MerchantPaymentsController::class,'due_payments']);
         Route::get('/merchant-made-payments',[MerchantPaymentsController::class,'made_payments']);
         Route::get('merchant-statics',[MerchantStaticsController::class,'index']);
+    });
+});
+
+
+Route::domain('delivery.'.env('MAIN_DOMAIN'))->group(function () {
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('/me',[ApiAuthController::class , 'me']);
+        Route::post('/logout',[ApiAuthController::class , 'logout']);
+        Route::get('/orders/search',[DeliveryOrderController::class,'search']);
+        Route::put('/orders/update-status',[DeliveryOrderController::class,'bulk_update_status']);
+        Route::apiResource('orders',DeliveryOrderController::class)->only([
+            'index','show','update'
+        ]);
+
+        Route::apiResource('products',ProductController::class)->only([
+            'show'
+        ]);
+        
+
+        Route::get('/delivery-due-payments',[DeliveryPaymentsController::class,'due_payments']);
+        Route::get('/delivery-made-payments',[DeliveryPaymentsController::class,'made_payments']);
+        Route::get('delivery-statics',[DeliveryStaticsController::class,'index']);
     });
 });

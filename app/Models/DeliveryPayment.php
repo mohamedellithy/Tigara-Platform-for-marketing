@@ -30,4 +30,11 @@ class DeliveryPayment extends Model
             get : fn() => $status[$this->type] ?: ''
         );
     }
+
+    public function CreatedAt() : Attribute
+    {
+        return Attribute::make(
+            get : fn($value,$attributes) => $attributes['created_at']
+        );
+    }
 }

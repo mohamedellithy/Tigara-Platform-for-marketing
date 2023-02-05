@@ -26,8 +26,8 @@
 
                 <admin-sidebar v-if="this.$auth.user.account_type == 0"></admin-sidebar>
                 <merchant-sidebar v-if="this.$auth.user.account_type == 1"></merchant-sidebar>
-                <Delivery-sidebar v-if="this.$auth.user.account_type == 2"></Delivery-sidebar>
-                <Marketer-sidebar v-if="this.$auth.user.account_type == 3"></Marketer-sidebar>
+                <delivery-sidebar v-if="this.$auth.user.account_type == 2"></delivery-sidebar>
+                <marketer-sidebar v-if="this.$auth.user.account_type == 3"></marketer-sidebar>
                 <!-- end menu items -->
             </ul>
         </div>
@@ -96,8 +96,10 @@ import svgrepoCom from '@/img/menu-2-svgrepo-com.svg';
 import iconsProfile from '@/img/Circle-icons-profile.svg.png';
 import AdminSidebar from './SideBars/AdminSidebar.vue';
 import MerchantSidebar from './SideBars/MerchantSidebar.vue';
+import DeliverySidebar from './SideBars/DeliverySidebar.vue';
+import MarketerSidebar from './SideBars/MarketerSidebar.vue';
 export default {
-    components: { AdminSidebar,MerchantSidebar },
+    components: { AdminSidebar,MerchantSidebar,DeliverySidebar,MarketerSidebar},
     data(){
         return {
            toggle:false,
@@ -344,7 +346,7 @@ export default {
      /* animation: activeListMenu 1s ease-in-out .3s forwards; */
     height:0px !important;
     overflow: hidden;
-} 
+}
 
 @media(min-width:1000px){
     .active.sidemenu {

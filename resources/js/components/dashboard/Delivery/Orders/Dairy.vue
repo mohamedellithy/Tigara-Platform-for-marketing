@@ -18,25 +18,14 @@
                         </div>
                         <div class="col-md-8">
                             <ul class="filter-results">
+                                <li class="actions-btn">
+                                    <button @click="ShowModelUpdateStatus" class="btn btn-warning btn-sm" :disabled="(selected.length == 0)">
+                                        تحديث الحالة
+                                    </button>
+                                </li>
                                 <li class="filter-item">
                                     <i class="fas fa-users"></i>
-                                    {{ orders.length }} الطلبات
-                                </li>
-                                <li class="filter-item">
-                                    <i class="fas fa-user-check"></i>
-                                    {{ active_orders }} جاري التنفيذ
-                                </li>
-                                <li class="filter-item">
-                                    <i class="fas fa-user-slash"></i>
-                                    {{ no_active_orders }} انتظار الموافقة
-                                </li>
-                                <li class="filter-item">
-                                    <i class="fas fa-user-check"></i>
-                                    {{ active_orders }} المكتملة
-                                </li>
-                                <li class="filter-item">
-                                    <i class="fas fa-user-slash"></i>
-                                    {{ no_active_orders }} المرفوضة
+                                    {{ orders_count }} الطلبات
                                 </li>
                             </ul>
                         </div>
@@ -51,34 +40,39 @@
                         <!--Table head-->
                         <thead>
                             <tr>
+                                <th>
+                                    <input class="" type="checkbox" v-model="selected_all"/>
+                                </th>
                                 <th>رقم الطلب</th>
-                                <th>صورة المنتج</th>
-                                <th>المنتج</th>
                                 <th>كمية الطلبية</th>
-                                <th>سعر الوحدة</th>
-                                <th>الخصم</th>
                                 <th>سعر الطلبية</th>
                                 <th>حالة الطلب</th>
                                 <th>حالة الشحن</th>
                                 <th>تاريخ الطلب</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <!--Table head-->
                         <!--Table body-->
                         <tbody>
                             <tr v-for="(order, key) in orders" :key="key">
-                                <th scope="row"> # {{ order.order_id }}</th>
                                 <th scope="row">
-                                    <img style="width: 50px;height: 50px;" :src="order.product.thumbnail_item.image_url" />
+                                    <input type="checkbox" v-model="selected" :value="order.id" :checked="selected.indexOf(order.id) != -1"/>
                                 </th>
-                                <td>{{ order.product.name }}</td>
+                                <th scope="row"> # {{ order.id }}</th>
                                 <td>{{ order.quantity }} قطعة</td>
-                                <td>{{ order.unit_price }} USD</td>
-                                <td>{{ order.discount }}</td>
-                                <td>{{ order.sub_total }} USD</td>
-                                <td>{{ order.order.order_status_txt }}</td>
-                                <td>{{ order.order.shipping_status_txt }}</td>
+                                <td>{{ order.total }} USD</td>
+                                <td>{{ order.order_status_txt }}</td>
+                                <td>{{ order.shipping_status_txt }}</td>
                                 <td>{{ order.created_at }}</td>
+                                <td class="actions-btn">
+                                    <router-link :to="{path:'/delivery/delivery-show-orders/'+order.id}"  class="btn btn-primary btn-sm">
+                                        عرض
+                                    </router-link>
+                                    <button @click="SingleStatus(order)" class="btn btn-warning btn-sm">
+                                        تحديث الحالة
+                                    </button>
+                                </td>
                             </tr>
                         </tbody>
                         <!--Table body-->
@@ -87,42 +81,75 @@
                     <nav v-if="this.infos.length != 0" aria-label="Page navigation example">
                         <ul v-if="this.infos.total > orders.length" class="pagination">
                             <li v-if="(this.infos.current_page != 1)" class="page-item">
-                                <router-link class="page-link" :to="{path: '/merchant/orders/'+(this.infos.current_page - 1 == 0 ? 1 : this.infos.current_page - 1) }" aria-label="Previous">
+                                <router-link class="page-link" :to="{path: '/delivery/delivery-dairy-orders/'+(this.infos.current_page - 1 == 0 ? 1 : this.infos.current_page - 1) }" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                     <span class="sr-only">Previous</span>
                                 </router-link>
                             </li>
                             <li v-for="page in this.infos.last_page" class="page-item" :key="page">
                                 <template v-if="page == 1">
-                                    <router-link class="page-link" :to="{path: '/merchant/orders/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/delivery/delivery-dairy-orders/'+page}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="page == this.infos.current_page">
-                                    <router-link class="page-link" :to="{path: '/merchant/orders/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/delivery/delivery-dairy-orders/'+page}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="page == this.infos.current_page - 1">
-                                    <router-link class="page-link" :to="{path: '/merchant/orders/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/delivery/delivery-dairy-orders/'+page}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="(page == this.infos.current_page + 1) && (this.infos.current_page != this.infos.last_page)">
-                                    <router-link class="page-link" :to="{path: '/merchant/orders/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/delivery/delivery-dairy-orders/'+page}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="page == this.infos.last_page">
-                                    <router-link class="page-link" :to="{path: '/merchant/orders/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/delivery/delivery-dairy-orders/'+page}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="(page == this.infos.current_page - 2) && (this.infos.current_page != this.infos.last_page)">
-                                    <router-link class="page-link" :to="{path: '/merchant/orders/'+page}" active-class="active" exact>..</router-link>
+                                    <router-link class="page-link" :to="{path: '/delivery/delivery-dairy-orders/'+page}" active-class="active" exact>..</router-link>
                                 </template>
                                 <template v-else-if="(page == this.infos.current_page + 2) && (this.infos.current_page != this.infos.last_page)">
-                                    <router-link class="page-link" :to="{path: '/merchant/orders/'+page}" active-class="active" exact>..</router-link>
+                                    <router-link class="page-link" :to="{path: '/delivery/delivery-dairy-orders/'+page}" active-class="active" exact>..</router-link>
                                 </template>
                             </li>
                             <li v-if="this.infos.current_page != this.infos.last_page" class="page-item">
-                                <router-link :to="{path: '/merchant/orders/'+(this.infos.current_page + 1) }" class="page-link" href="#" aria-label="Next">
+                                <router-link :to="{path: '/delivery/delivery-dairy-orders/'+(this.infos.current_page + 1) }" class="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                     <span class="sr-only">Next</span>
                                 </router-link>
                             </li>
                         </ul>
                     </nav>
+                </div>
+                <div v-show="this.showModel == true " id="exampleModalLive" class="modal fade " :class="[ this.showModel == true ? 'show' : '' ]" tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel" :style="`padding-right: 17px; display:block;padding-top: 10%;z-index: 100000;background: #0000001f;`">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLiveLabel">
+                                تحديث حالة الطلب 
+                                <template v-if="field.order_id != null">
+                                    # {{ field.order_id }}
+                                </template>
+                            </h5>
+                        </div>
+                        <div class="modal-body">
+                            <p>حالة الشحن</p>
+                            <select type="text" class="form-control" v-model="field.shipping_status">
+                                <option :value="0" selected>بانتظار الموافقة</option>
+                                <option :value="1">جاري التنفيذ</option>
+                                <option :value="2">مكتملة</option>
+                                <option :value="3">مرفوضة</option>
+                                <option :value="4">مرتجع</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <template v-if="field.order_id == null">
+                                <button @click="UpdateStatus()" type="button" class="btn btn-primary" fdprocessedid="3xp1pw">تحديث الحالة</button>
+                            </template>
+                            <template v-if="field.order_id != null">
+                                <button @click="UpdateSingleStatus(field.order_id)" type="button" class="btn btn-primary" fdprocessedid="3xp1pw">تحديث الحالة</button>
+                            </template>
+                            <button @click="CloseModelUpdateStatus()" type="button" class="btn btn-secondary" data-dismiss="modal" fdprocessedid="c9npk">الغاء</button>
+                        </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -132,12 +159,15 @@
 export default {
     data() {
         return {
-            no_active_orders:0,
-            active_orders:0,
+            orders_count:0,
             infos:[],
             orders: [],
             search:null,
-            params:{},
+            params:{
+                q:null,
+                page:null,
+                type:0
+            },
             selected:[],
             selected_all:null,
             errors:{},
@@ -160,8 +190,7 @@ export default {
                 console.log(data);
                 self.infos            = data.data_info;
                 self.orders           = self.infos.data;
-                self.no_active_orders = data.no_active_orders;
-                self.active_orders    = data.active_orders;
+                self.orders_count     = data.orders_count;
                 console.log(self.orders);
             }).catch(function({response}){
                 console.log(response);
@@ -187,9 +216,8 @@ export default {
                 self.errors   = {};
                 self.success  = data.result;
                 console.log(self.success);
-                self.params = {
-                    page:(self.$route.params.page_no ? self.$route.params.page_no : 1)
-                };
+                self.params.page = (self.$route.params.page_no ? self.$route.params.page_no : 1);
+                self.params.type = 0;
                 self.FetchOrders();
                 self.CloseModelUpdateStatus();
             }).catch(function({response}) {
@@ -211,9 +239,8 @@ export default {
                 self.errors   = {};
                 self.success  = data.result;
                 console.log(self.success);
-                self.params = {
-                    page:(self.$route.params.page_no ? self.$route.params.page_no : 1)
-                };
+                self.params.page = (self.$route.params.page_no ? self.$route.params.page_no : 1);
+                self.params.type = 0;
                 self.FetchOrders();
                 self.CloseModelUpdateStatus();
             }).catch(function({response}) {
@@ -223,32 +250,29 @@ export default {
         }
     },
     created:function(){
-        this.params = {
-            page:(this.$route.params.page_no ? this.$route.params.page_no : 1)
-        };
+        this.params.page = (this.$route.params.page_no ? this.$route.params.page_no : 1);
+        this.params.type = 0;
         this.FetchOrders();
     },
     watch:{
         search:function(search){
             let self = this;
             if((search.length != 0) && (search != null)){
-                this.params = {q:search};
-                axios.get('/api/products/search',{
+                this.params.q = search;
+                axios.get('/api/orders/search',{
                     params:self.params
                 }).then(function({data}){
                     console.log(data);
-                    self.infos                 = [];
-                    self.products              = data.data_info;
-                    self.no_active_products  = data.no_active_products;
-                    self.active_products     = data.active_products;
+                    self.infos                  = [];
+                    self.orders                 = data.data_info;
+                    self.orders_count           = data.orders_count;
                     console.log(self.infos.length);
                 }).catch(function({response}){
                     console.log(response);
                 });
             }else{
-                self.params = {
-                    page:(this.$route.params.page_no ? this.$route.params.page_no : 1)
-                };
+                self.params.page = (this.$route.params.page_no ? this.$route.params.page_no : 1);
+                self.params.type = 0;
                 self.FetchProducts();
             }
         },

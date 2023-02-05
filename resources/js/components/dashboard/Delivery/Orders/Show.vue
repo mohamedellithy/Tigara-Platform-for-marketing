@@ -73,42 +73,6 @@
                         </div>
                     </div>
                     <div class="row">
-                        <hr/>
-                        <br/>
-                        <div class="col-lg-6">
-                            <p class="alert" style="margin-bottom:0px;padding-bottom: 0px;">
-                                <strong>
-                                    تفاصيل شركة الشحن
-                                </strong>
-                            </p>
-                            <div class="form-group">
-                                <label for="merchant-name">
-                                <i class="fas fa-user-edit" style="padding: 5px;"></i>
-                                    اسم شركة الشحن
-                                </label>
-                                <p class="alert">
-                                    {{ order.delivery.name }}
-                                    <router-link class="btn btn-primary btn-sm" style="float:left" :to="{path:'/dashboard/show-delivery/'+order.delivery.id}">تفاصيل</router-link>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <p class="alert" style="margin-bottom:0px;padding-bottom: 0px;">
-                                <strong>
-                                 تفاصيل المسوق
-                                </strong>
-                            </p>
-                            <div class="form-group">
-                                <label for="merchant-name">
-                                <i class="fas fa-user-edit" style="padding: 5px;"></i>
-                                    اسم المسوق
-                                </label>
-                                <p class="alert">
-                                    {{ order.marketer.name }}
-                                    <router-link class="btn btn-primary btn-sm" style="float:left" :to="{path:'/dashboard/show-marketer/'+order.marketer.id}">تفاصيل</router-link>
-                                </p>
-                            </div>
-                        </div>
                     </div>
                     <div class="row">
                         <hr/>
@@ -126,21 +90,23 @@
                                         <td>كمية</td>
                                         <td>خصم </td>
                                         <td>سعر الوحدة</td>
+                                        <td>سعر الاجمالى</td>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr v-for="(order_detail,key) in order.order_details" :key="key">
                                         <td>
-                                            <router-link style="text-decoration:none" :to="{path:'/dashboard/show-product/'+order_detail.id}">
+                                            <router-link style="text-decoration:none" :to="{path:'/delivery/show-product/'+order_detail.product.id}">
                                                 {{ order_detail.product_name }}
                                             </router-link>
                                         </td>
                                         <td>{{ order_detail.quantity }}</td>
                                         <td>{{ order_detail.discount }}</td>
                                         <td>{{ order_detail.unit_price }} USD</td>
+                                        <td>{{ order_detail.sub_total }} USD</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3">
+                                        <td colspan="4">
                                             <strong>
                                                 المجموع الكلي
                                             </strong>
