@@ -57,7 +57,7 @@
                                  <span>ليس لديك حساب ؟</span>
                             </div>
                             <router-link tag="a" :to="{name:'register'}" class="link-register"> انشاء حساب جديد </router-link>
-                            
+
                         </div>
                     </form>
                 </div>

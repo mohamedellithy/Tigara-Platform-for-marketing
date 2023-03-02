@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
 use App\Services\Authorize;
+use App\Http\Resources\User as UserResource;
 class ApiAuthController extends Controller
 {
     public function register(Request $request) {
@@ -38,7 +39,7 @@ class ApiAuthController extends Controller
 
     public function me(Request $request){
         $user = $request->user();
-        return response()->json(['user' => $user], 200);
+        return response()->json(['user' => new UserResource($user)], 200);
     }
 
     public function logout(Request $request){

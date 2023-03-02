@@ -49,6 +49,12 @@
                             <input placeholder="Search..." name="" class="form-control search-navbar"/>
                         </li>
                         <!-- end search bar -->
+                        <li class="nav-item top-cart-icon" @click="ToggleMiniCart">
+                            <a class="nav-link">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="show-cart-notification">{{ this.total_cart_items || 0  }}</span>
+                            </a>
+                        </li>
                         <!-- Profile dropdown menu -->
                         <li class="nav-item dropdown profile-dropdown" @click="toggleDropdown">
                             <img :src="this.iconsProfile" />
@@ -84,10 +90,45 @@
                                 {{ this.$route.meta.ar_name }}
                             </router-link>
                         </div>
-                        <router-view :key="$route.fullPath"></router-view>
+                        <router-view :key="$route.fullPath" @updateQuantity="updateQuantity"></router-view>
                     </div>
                 <!-- </div>
             </div> -->
+        </div>
+        <div class="container-mini-cart" v-if="toggleMiniCart">
+            <div class="content-mini-cart">
+                <table class="table mini-cart">
+                    <tr>
+                        <th>المنتج</th>
+                        <th>كمية المنتج</th>
+                        <th>سعر المنتج</th>
+                        <th></th>
+                    </tr>
+                    <tr v-for="(item,key) in cart_items" :key="key">
+                        <td>
+                            <img :src="item.product.thumbnail_item.image_url"  class="mini-cart-product-image"/>
+                            <label class="product-name">
+                                {{ item.product.name }}
+                            </label>
+                        </td>
+                        <td>
+                            <span class="fas fa-plus quantity-varite" @click="PlusQuantity(item)"></span>
+                            <label class="quantity-mini-cart">{{  item.quantity || 1  }}</label>
+                            <span class="fas fa-minus quantity-varite" @click="MinusQuantity(item)"></span>
+                        </td>
+                        <td>{{ item.price }} USD</td>
+                        <td>
+                            <i class="fas fa-times-circle" @click="deleteItemFromCart(item)"></i>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="text-center" style="padding:10px">
+                <router-link class="btn go_to_checkout" :to="{name:'marketer-carts'}">
+                    <i class="fas fa-dolly-flatbed"></i>
+                    استكمال الطلب
+                </router-link>
+            </div>
         </div>
     </div>
 </template>
@@ -104,9 +145,12 @@ export default {
         return {
            toggle:false,
            toggleSide:false,
+           toggleMiniCart:false,
            svgrepoCom,
            iconsProfile,
            expanded:[],
+           total_cart_items:0,
+           cart_items:[]
         }
     },
     methods: {
@@ -126,6 +170,9 @@ export default {
         ToggleSidebar:function(){
             this.toggleSide = !this.toggleSide;
         },
+        ToggleMiniCart:function(){
+            this.toggleMiniCart = !this.toggleMiniCart;
+        },
         toggleListMenuSidebar:function(item){
             if(this.expanded.indexOf(item) !== -1){
                 this.expanded.pop(item);
@@ -136,13 +183,88 @@ export default {
                 this.expanded.push(item);
             }
             console.log(this.expanded);
+        },
+        updateQuantity:function(qunatity,cart_items){
+            this.total_cart_items = qunatity;
+            this.cart_items = cart_items;
+            console.log('hi update here');
+        },
+        async FetchCartItems(){
+            let self = this;
+            await axios.get('/api/marketer-carts').then(function({data}){
+                console.log(data);
+                self.cart_items = data.cart_items;
+            }).catch(function({response}){
+                console.log(response);
+            });
+        },
+        PlusQuantity:async function(item){
+            let self = this;
+            let field = {};
+            field.type = "plus";
+            await axios.put('/api/marketer-carts/'+item.id,field).then(function({data}){
+                self.cart_items = data.cart_items;
+                self.total_cart_items = data.total_quantity;
+                console.log(data);
+            }).catch(function({response}){
+                console.log(response);
+            });
+        },
+        MinusQuantity:async function(item){
+            let self = this;
+            let field = {};
+            if(item.quantity == 1){
+                return;
+            }
+            field.type = "minus";
+            await axios.put('/api/marketer-carts/'+item.id,field).then(function({data}){
+                self.cart_items = data.cart_items;
+                self.total_cart_items = data.total_quantity;
+                console.log(data);
+            }).catch(function({response}){
+                console.log(response);
+            });
+        },
+        deleteItemFromCart:async function(item){
+            let self = this;
+            await axios.delete('/api/marketer-carts/'+item.id).then(function({data}){
+                self.cart_items = data.cart_items;
+                self.total_cart_items = data.total_quantity;
+                console.log(data);
+            }).catch(function({response}){
+                console.log(response);
+            });
         }
     },
-    created(){
-        console.log(this.$auth.user);
+    async created(){
+        this.total_cart_items = this.$auth.user.total_cart_items;
+        await this.FetchCartItems();
     }
 }
 </script>
+<style>
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: hsl(0deg 0% 56% / 74%);
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: hsl(0deg 3% 20% / 74%);
+    border-radius: 10px;
+}
+</style>
 <style scoped>
 
 .section-row-layouts{
@@ -264,7 +386,7 @@ export default {
 .search-navbar:focus{
     top: 16px;
     left: 334px;
-    width: 905px;
+    width: 850px;
     height: 40px;
     background: var(--grey-300) 0% 0% no-repeat padding-box;
     background: #E8E8E8 0% 0% no-repeat padding-box;
@@ -347,7 +469,98 @@ export default {
     height:0px !important;
     overflow: hidden;
 }
+.nav-item.top-cart-icon{
+    font-size: 22px;
+    padding: 0px 16px;
+    color: #1b965d;
+    position: relative;
+    cursor: pointer;
+}
+.nav-item.top-cart-icon .show-cart-notification{
+    position: absolute;
+    right: 6px;
+    top: 0px;
+    background: #da1326;
+    min-width: 23px;
+    text-align: center;
+    border-radius: 26px;
+    font-size: 14px;
+    color: white;
+    border: 1px solid #da1326;
+    cursor: pointer;
+}
+.container-mini-cart{
+    position: fixed;
+    top: 10%;
+    left: 8%;
+    right: auto;
+    min-height: 200px;
+    max-height: 500px;
+    width: 40%;
+    background-color: white;
+    border: 2px solid #eee;
+    border-radius: 19px;
+    padding: 10px;
+    box-shadow: 0px 6px 18px 10px #a8a8a857;
+    z-index: 100000;
 
+
+}
+.container-mini-cart .content-mini-cart{
+    max-height: 360px;
+    overflow-y: auto;
+}
+.container-mini-cart table.mini-cart tr{
+    border-bottom: 2px solid #eee;;
+}
+.container-mini-cart table.mini-cart tr:first-child
+{
+    position: sticky;
+    top: 0px;
+    background-color: white;
+}
+.container-mini-cart table.mini-cart tr th{
+    padding: 10px;
+    text-align: right;
+}
+.container-mini-cart table.mini-cart tr th:first-child{
+    width: 45%;
+}
+.container-mini-cart table.mini-cart tr td{
+    padding: 10px;
+    text-align: right;
+    width: 35%;
+}
+.container-mini-cart table.mini-cart tr td i.fa-times-circle{
+    color: red;
+}
+.go_to_checkout{
+    background-color: #1b965d;
+    color: white;
+    margin: auto;
+    border-radius: 27px;
+
+}
+.container-mini-cart table.mini-cart tr td img.mini-cart-product-image{
+    width: 25%;
+
+}
+.quantity-mini-cart{
+    background: #eee;
+    text-align: center;
+    font-weight: bold;
+    padding: 4px 26px;
+}
+.quantity-varite{
+    padding: 1px 6px;
+    font-size: 13px;
+    cursor: pointer;
+}
+.container-mini-cart table.mini-cart tr td .product-name{
+    font-weight: 500;
+    padding: 6px;
+    font-size: 13px;
+}
 @media(min-width:1000px){
     .active.sidemenu {
         animation: activeSubmenu .2s ease-in-out 0s forwards;

@@ -94,6 +94,19 @@ import ShowMadeDeliveryPayments from './components/dashboard/Delivery/Payments/M
 import DeliveryShowProduct from './components/dashboard/Delivery/Products/Show.vue';
 
 
+/**
+ * @Marketer area
+ * all components Marketer
+ */
+import MarketerProducts from './components/dashboard/Marketer/Products/Index.vue';
+import ShowMarketerProduct from './components/dashboard/Marketer/Products/Show.vue';
+import ShowLowStockMarketerProduct from './components/dashboard/Marketer/Products/LowStock.vue';
+import MarketerOrders from './components/dashboard/Marketer/Orders/Index.vue';
+import ShowDueMarketerPayments from './components/dashboard/Marketer/Payments/Due.vue';
+import ShowMadeMarketerPayments from './components/dashboard/Marketer/Payments/Made.vue';
+import MarketerDashboard from './components/dashboard/Marketer/DashboardReports.vue';
+import MarketerCartsDashboard from './components/dashboard/Marketer/Cart/Index.vue';
+
 
 const routes = [{
     path: '/',
@@ -714,6 +727,104 @@ const routes = [{
                     },
                 }
 
+            ]
+        }, {
+            path: 'marketer',
+            name: 'marketer',
+            component: Dashboard,
+            meta: {
+                requiresAuth: true,
+                AccountType: 'marketer'
+            },
+            children: [{
+                    path: 'marketer-reports',
+                    name: 'marketer-reports',
+                    component: MarketerDashboard,
+                    meta: {
+                        ar_name: 'الرئيسية',
+                        requiresAuth: true,
+                        AccountType: 'marketer',
+                        menu_id: 'marketer-reports',
+                    },
+                }, {
+                    path: 'products/:page_no?/:filter_products?',
+                    name: 'marketer-products',
+                    component: MarketerProducts,
+                    meta: {
+                        ar_name: 'عرض المنتجات',
+                        requiresAuth: true,
+                        AccountType: 'marketer',
+                        menu_id: 'marketer-products',
+                    },
+                },
+                {
+                    path: 'show-product/:id',
+                    name: 'show-marketer-product',
+                    component: ShowMarketerProduct,
+                    meta: {
+                        ar_name: 'عرض منتج',
+                        menu_id: 'marketer-products',
+                        requiresAuth: true,
+                        AccountType: 'marketer'
+                    }
+                },
+                {
+                    path: 'lowstock-marketer-products',
+                    name: 'lowstock-marketer-products',
+                    component: ShowLowStockMarketerProduct,
+                    meta: {
+                        ar_name: 'عرض المنتجات المنتهية',
+                        menu_id: 'lowstock-marketer-products',
+                        requiresAuth: true,
+                        AccountType: 'marketer'
+                    }
+                },
+                // end of products
+                {
+                    path: 'orders/:page_no?',
+                    name: 'marketer-orders',
+                    component: MarketerOrders,
+                    meta: {
+                        ar_name: 'عرض الطلبات',
+                        requiresAuth: true,
+                        AccountType: 'marketer',
+                        menu_id: 'marketer-orders',
+                    },
+                },
+                // end of orders
+                {
+                    path: 'show-due-marketer-payments/:page_no?',
+                    name: 'show-due-marketer-payments',
+                    component: ShowDueMarketerPayments,
+                    meta: {
+                        ar_name: 'عرض الارباح المضافة',
+                        requiresAuth: true,
+                        AccountType: 'marketer',
+                        menu_id: 'show-due-marketer-payments',
+                    },
+                },
+                {
+                    path: 'show-made-marketer-payments/:page_no?',
+                    name: 'show-made-marketer-payments',
+                    component: ShowMadeMarketerPayments,
+                    meta: {
+                        ar_name: 'عرض الارباح المسددة',
+                        requiresAuth: true,
+                        AccountType: 'marketer',
+                        menu_id: 'show-made-marketer-payments',
+                    },
+                },
+                {
+                    path: 'carts',
+                    name: 'marketer-carts',
+                    component: MarketerCartsDashboard,
+                    meta: {
+                        ar_name: 'السلة',
+                        requiresAuth: true,
+                        AccountType: 'marketer',
+                        menu_id: 'marketer-carts',
+                    },
+                }
             ]
         }
     ]

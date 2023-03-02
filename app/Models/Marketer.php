@@ -15,12 +15,18 @@ class Marketer extends Authenticatable
      use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'users';
+
+    protected $guard = "marketer";
+
+    protected $primaryKey = 'id';
+
     protected $appends = [
         'status_text',
         'total_sales',
         'total_profites',
         'total_paid',
         'total_un_paid',
+        'total_cart_items'
     ];
 
     /**
@@ -91,6 +97,10 @@ class Marketer extends Authenticatable
         return $this->hasMany('App\Models\Order','marketer_id','id');
     }
 
+    public function carts(){
+        return $this->hasMany('App\Models\Cart','marketer_id','id');
+    }
+
     public function payments(){
         return $this->hasMany('App\Models\MarketerPayment','marketer_id','id');
     }
@@ -128,6 +138,13 @@ class Marketer extends Authenticatable
     {
         return Attribute::make(
             get: fn() => $this->total_profites - $this->total_paid
+        );
+    }
+
+    public function TotalCartItems() : Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->carts()->sum('quantity')
         );
     }
 

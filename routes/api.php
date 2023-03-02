@@ -37,6 +37,17 @@ use App\Http\Controllers\Api\Delivery\PaymentsController as DeliveryPaymentsCont
 use App\Http\Controllers\Api\Delivery\DeliveryStaticsController;
 
 
+/**
+ * @Marketer Controller
+ */
+
+ use App\Http\Controllers\Api\Marketer\ProductController as MarketerProductController;
+ use App\Http\Controllers\Api\Marketer\OrderController as MarketerOrderController;
+ use App\Http\Controllers\Api\Marketer\PaymentsController as MarketerPaymentsController;
+ use App\Http\Controllers\Api\Marketer\CartController as MarketerCartController;
+ use App\Http\Controllers\Api\Marketer\MarketerStaticsController;
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -143,10 +154,32 @@ Route::domain('delivery.'.env('MAIN_DOMAIN'))->group(function () {
         Route::apiResource('products',ProductController::class)->only([
             'show'
         ]);
-        
+
 
         Route::get('/delivery-due-payments',[DeliveryPaymentsController::class,'due_payments']);
         Route::get('/delivery-made-payments',[DeliveryPaymentsController::class,'made_payments']);
         Route::get('delivery-statics',[DeliveryStaticsController::class,'index']);
+    });
+});
+
+
+Route::domain('marketer.'.env('MAIN_DOMAIN'))->group(function () {
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('/me',[ApiAuthController::class , 'me']);
+        Route::post('/logout',[ApiAuthController::class , 'logout']);
+        Route::get('/products/search',[MerchantProductController::class,'search']);
+        Route::get('/lowstock-products',[MerchantProductController::class,'lowstock_products']);
+        Route::apiResource('marketer-products',MarketerProductController::class)->only([
+            'index','show'
+        ]);
+        Route::apiResource('orders',MerchantOrderController::class)->only([
+            'index','show'
+        ]);
+
+        Route::apiResource('marketer-carts',MarketerCartController::class);
+
+        Route::get('/merchant-due-payments',[MerchantPaymentsController::class,'due_payments']);
+        Route::get('/merchant-made-payments',[MerchantPaymentsController::class,'made_payments']);
+        Route::get('merchant-statics',[MerchantStaticsController::class,'index']);
     });
 });
