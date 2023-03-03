@@ -42,9 +42,10 @@ use App\Http\Controllers\Api\Delivery\DeliveryStaticsController;
  */
 
  use App\Http\Controllers\Api\Marketer\ProductController as MarketerProductController;
- use App\Http\Controllers\Api\Marketer\OrderController as MarketerOrderController;
  use App\Http\Controllers\Api\Marketer\PaymentsController as MarketerPaymentsController;
  use App\Http\Controllers\Api\Marketer\CartController as MarketerCartController;
+ use App\Http\Controllers\Api\Marketer\OrderController as MarketerOrderController;
+ use App\Http\Controllers\Api\Marketer\FavouritController as MarketerFavouritController;
  use App\Http\Controllers\Api\Marketer\MarketerStaticsController;
 
 
@@ -172,11 +173,10 @@ Route::domain('marketer.'.env('MAIN_DOMAIN'))->group(function () {
         Route::apiResource('marketer-products',MarketerProductController::class)->only([
             'index','show'
         ]);
-        Route::apiResource('orders',MerchantOrderController::class)->only([
-            'index','show'
-        ]);
 
         Route::apiResource('marketer-carts',MarketerCartController::class);
+        Route::apiResource('marketer-orders',MarketerOrderController::class);
+        Route::apiResource('marketer-favourits',MarketerFavouritController::class);
 
         Route::get('/merchant-due-payments',[MerchantPaymentsController::class,'due_payments']);
         Route::get('/merchant-made-payments',[MerchantPaymentsController::class,'made_payments']);

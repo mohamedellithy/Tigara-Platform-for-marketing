@@ -15,13 +15,15 @@ class MarketerProductsRepository extends MarketerProductsRepositoryInterface{
             return response()->json([
                 'data_info'          => Product::paginate(5),
                 'active_products'    => $request->user()->products()->count(),
-                'finished_products'  => $request->user()->products()->where('quantity',0)->count()
+                'finished_products'  => $request->user()->products()->where('quantity',0)->count(),
+                'favourits'          => $request->user()->favourites()->pluck('product_id')->toArray()
             ]);
         else:
             return response()->json([
                 'data_info'          => Product::paginate(5),
                 'active_products'    => $request->user()->products()->count(),
-                'finished_products'  => $request->user()->products()->where('quantity',0)->count()
+                'finished_products'  => $request->user()->products()->where('quantity',0)->count(),
+                'favourits'          => $request->user()->favourites()->pluck('product_id')->toArray()
             ]);
         endif;
     }

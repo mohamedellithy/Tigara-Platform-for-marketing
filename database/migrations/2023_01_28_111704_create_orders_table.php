@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreign('delivery_id')->references('id')->on('users')->onDelete('set Null');
             $table->string('order_status')->default('0')->comment('0 => pending , 1 => processing , 3 => completed , 4 => cancelled');
             $table->string('shipping_status')->default('0')->comment('0 => pending , 1 => processing , 3 => completed , 4 => cancelled');
+            $table->text('track_notice_order')->nullable();
             $table->timestamps();
         });
     }

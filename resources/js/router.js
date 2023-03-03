@@ -106,6 +106,7 @@ import ShowDueMarketerPayments from './components/dashboard/Marketer/Payments/Du
 import ShowMadeMarketerPayments from './components/dashboard/Marketer/Payments/Made.vue';
 import MarketerDashboard from './components/dashboard/Marketer/DashboardReports.vue';
 import MarketerCartsDashboard from './components/dashboard/Marketer/Cart/Index.vue';
+import MarketerFavouritsDashboard from './components/dashboard/Marketer/Favourits/Index.vue';
 
 
 const routes = [{
@@ -815,7 +816,7 @@ const routes = [{
                     },
                 },
                 {
-                    path: 'carts',
+                    path: 'carts/:action?/:order_id?',
                     name: 'marketer-carts',
                     component: MarketerCartsDashboard,
                     meta: {
@@ -823,6 +824,17 @@ const routes = [{
                         requiresAuth: true,
                         AccountType: 'marketer',
                         menu_id: 'marketer-carts',
+                    },
+                },
+                {
+                    path: 'favourits/:page_no?',
+                    name: 'marketer-favourits',
+                    component: MarketerFavouritsDashboard,
+                    meta: {
+                        ar_name: 'المفضلة',
+                        requiresAuth: true,
+                        AccountType: 'marketer',
+                        menu_id: 'marketer-favourits',
                     },
                 }
             ]

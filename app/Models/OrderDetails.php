@@ -14,7 +14,7 @@ class OrderDetails extends Model
         'product_name'
     ];
 
-    protected $fillable = ['order_id', 'quantity', 'unit_price', 'discount'];
+    protected $fillable = ['order_id', 'quantity','product_id','unit_price', 'discount'];
 
     public function order(){
         return $this->belongsTo('App\Models\Order','order_id','id');

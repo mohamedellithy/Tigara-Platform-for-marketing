@@ -23,26 +23,9 @@
             </div>
         </div>
         <div class="row">
-            <ul class="col-12 list-filter-items">
-                <li class="list-filter-item">
-                    <router-link :to="{name:'marketer-products'}" active-class="active"  axact>المنتجات</router-link>
-                </li>
-                <li class="list-filter-item">
-                    <a href="#">الاكثر مبيعا</a>
-                </li>
-                <li class="list-filter-item">
-                    <a href="#">الاعلي سعرا</a>
-                </li>
-                <li class="list-filter-item">
-                    <a href="#">الاقل سعرا</a>
-                </li>
-            </ul>
             <ul class="content-page col-12">
                 <li v-for="(product,key) in products" :key="key" class="col-md-3 item-product">
                     <div class="inner-product-item">
-                        <i class="fas fa-heart favourits-add" 
-                           @click="addToFavourit(product.id)"
-                           :style="this.favourits.indexOf(product.id) != -1 ? 'color:#cb1515' : ''"></i>
                         <img :src="product.thumbnail_item.image_url || ImageProd1" class="image-product">
                         <p>{{ product.name }}</p>
                         <table class="table product-info-details">
@@ -93,36 +76,36 @@
             <nav v-if="this.infos.length != 0" aria-label="Page navigation example">
                 <ul v-if="this.infos.total > products.length" class="pagination">
                     <li v-if="(this.infos.current_page != 1)" class="page-item">
-                        <router-link class="page-link" :to="{path: '/marketer/products/'+(this.infos.current_page - 1 == 0 ? 1 : this.infos.current_page - 1) }" aria-label="Previous">
+                        <router-link class="page-link" :to="{path: '/marketer/favourits/'+(this.infos.current_page - 1 == 0 ? 1 : this.infos.current_page - 1) }" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                             <span class="sr-only">Previous</span>
                         </router-link>
                     </li>
                     <li v-for="page in this.infos.last_page" class="page-item" :key="page">
                         <template v-if="page == 1">
-                            <router-link class="page-link" :to="{path: '/marketer/products/'+page}" active-class="active" exact>{{ page }}</router-link>
+                            <router-link class="page-link" :to="{path: '/marketer/favourits/'+page}" active-class="active" exact>{{ page }}</router-link>
                         </template>
                         <template v-else-if="page == this.infos.current_page">
-                            <router-link class="page-link" :to="{path: '/marketer/products/'+page}" active-class="active" exact>{{ page }}</router-link>
+                            <router-link class="page-link" :to="{path: '/marketer/favourits/'+page}" active-class="active" exact>{{ page }}</router-link>
                         </template>
                         <template v-else-if="page == this.infos.current_page - 1">
-                            <router-link class="page-link" :to="{path: '/marketer/products/'+page}" active-class="active" exact>{{ page }}</router-link>
+                            <router-link class="page-link" :to="{path: '/marketer/favourits/'+page}" active-class="active" exact>{{ page }}</router-link>
                         </template>
                         <template v-else-if="(page == this.infos.current_page + 1) && (this.infos.current_page != this.infos.last_page)">
-                            <router-link class="page-link" :to="{path: '/marketer/products/'+page}" active-class="active" exact>{{ page }}</router-link>
+                            <router-link class="page-link" :to="{path: '/marketer/favourits/'+page}" active-class="active" exact>{{ page }}</router-link>
                         </template>
                         <template v-else-if="page == this.infos.last_page">
-                            <router-link class="page-link" :to="{path: '/marketer/products/'+page}" active-class="active" exact>{{ page }}</router-link>
+                            <router-link class="page-link" :to="{path: '/marketer/favourits/'+page}" active-class="active" exact>{{ page }}</router-link>
                         </template>
                         <template v-else-if="(page == this.infos.current_page - 2) && (this.infos.current_page != this.infos.last_page)">
-                            <router-link class="page-link" :to="{path: '/marketer/products/'+page}" active-class="active" exact>..</router-link>
+                            <router-link class="page-link" :to="{path: '/marketer/favourits/'+page}" active-class="active" exact>..</router-link>
                         </template>
                         <template v-else-if="(page == this.infos.current_page + 2) && (this.infos.current_page != this.infos.last_page)">
-                            <router-link class="page-link" :to="{path: '/marketer/products/'+page}" active-class="active" exact>..</router-link>
+                            <router-link class="page-link" :to="{path: '/marketer/favourits/'+page}" active-class="active" exact>..</router-link>
                         </template>
                     </li>
                     <li v-if="this.infos.current_page != this.infos.last_page" class="page-item">
-                        <router-link :to="{path: '/marketer/products/'+(this.infos.current_page + 1) }" class="page-link" href="#" aria-label="Next">
+                        <router-link :to="{path: '/marketer/favourits/'+(this.infos.current_page + 1) }" class="page-link" href="#" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                             <span class="sr-only">Next</span>
                         </router-link>
@@ -169,21 +152,19 @@ export default {
                 products:[]
             },
             filter_products:null,
-            orders:[],
-            favourits:[]
+            orders:[]
         }
     },
     methods:{
         FetchProducts:function(){
             let self = this;
-            axios.get('/api/marketer-products',{
+            axios.get('/api/marketer-favourits',{
                 params:self.params
             }).then(function({data}){
                 self.infos              = data.data_info;
                 self.products           = self.infos.data;
                 self.finished_products  = data.finished_products;
                 self.active_products    = data.active_products;
-                self.favourits          = data.favourits;
                 console.log(data);
             }).catch(function({response}){
                 console.log(response);
@@ -219,26 +200,6 @@ export default {
             this.orders[product.id].quantity   = (this.orders[product.id].quantity ? Number(this.orders[product.id].quantity) : 1) - 1;
             this.orders[product.id].price      = product.price;
             console.log(this.orders);
-        },
-        addToFavourit:async function(product_id){
-            let self = this;
-            let field = {};
-            field.product_id = product_id;
-           if(self.favourits.indexOf(product_id) == -1){
-               await axios.post('/api/marketer-favourits',field).then(function({data}){
-                   self.favourits.push(product_id);
-                   console.log(data);
-               }).catch(function({response}){
-                   console.log(response);
-               });
-           } else {
-                await axios.delete('/api/marketer-favourits/'+product_id).then(function({data}){
-                   self.favourits.splice(self.favourits.indexOf(product_id),1);
-                   console.log(data);
-                }).catch(function({response}){
-                   console.log(response);
-                });
-           }
         }
     },
     created:async function(){
@@ -486,15 +447,6 @@ export default {
     padding: 10px 0px;
 }
 .product-info-details .product-info-quantity .quantity-varite{
-    cursor: pointer;
-}
-.favourits-add{
-    position: absolute;
-    left: 6px;
-    top: 9px;
-    color: #afb4b8;
-    font-size: 22px;
-    font-weight: bold;
     cursor: pointer;
 }
 </style>

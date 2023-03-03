@@ -9,14 +9,21 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'customer_id',
+        'marketer_id',
+        'delivery_id',
+        'order_status',
+        'shipping_status',
+        'track_notice_order'
+    ];
+
     protected $appends = [
        'quantity',
        'total',
        'order_status_txt',
        'shipping_status_txt'
     ];
-
-    protected $fillable = ['marketer_id','delivery_id','order_status','shipping_status'];
 
     public function marketer(){
         return $this->belongsTo('App\Models\Marketer','marketer_id','id');
@@ -53,7 +60,7 @@ class Order extends Model
             '3' => 'مرفوض'
         ];
         return Attribute::make(
-            get : fn() => $status[$this->order_status] ?: ''
+            get : fn() => $this->order_status != null ? $status[$this->order_status] : ''
         );
     }
 
@@ -67,7 +74,7 @@ class Order extends Model
             '4' => 'مرتجع'
         ];
         return Attribute::make(
-            get : fn() => $shipment_status[$this->shipping_status] ?: ''
+            get : fn() => $this->shipping_status != null ? $shipment_status[$this->shipping_status] : ''
         );
     }
 

@@ -71,29 +71,29 @@
         <li class="list-items-menu">
             <router-link
                 tag="a"
-                @click="toggleListMenuSidebar('lowstock-merchant-products')"
+                @click="toggleListMenuSidebar('marketer-carts')"
                 class="item-menu active"
                 active-class="active"
-                :to="{ name: 'lowstock-merchant-products' }"
+                :to="{ name: 'marketer-carts' }"
                 exact>
                 <i class="fas fa-pallet"></i>
                 <label>السلة</label>
                 <i
                     class="fas fa-chevron-down chevron"
-                    v-show="this.expanded.indexOf('lowstock-merchant-products') !== 0"
+                    v-show="this.expanded.indexOf('marketer-carts') !== 0"
                 ></i>
                 <i
                     class="fas fa-chevron-up chevron"
-                    v-show="this.expanded.indexOf('lowstock-merchant-products') === 0"
+                    v-show="this.expanded.indexOf('marketer-carts') === 0"
                 ></i>
             </router-link>
             <ul
                 :class="`child-list-items-menu ${
-                    this.expanded.indexOf('lowstock-merchant-products') !== 0 ? 'active' : ''
+                    this.expanded.indexOf('marketer-carts') !== 0 ? 'active' : ''
                 }`"
             >
                 <li class="li-child-list-items-menu">
-                    <router-link :to="{name:'lowstock-merchant-products'}" class="a-child-list-item-menu" active-class="active" exact>
+                    <router-link :to="{name:'marketer-carts'}" class="a-child-list-item-menu" active-class="active" exact>
                         <i class="fas fa-pallet"></i>
                         <label>السلة</label>
                     </router-link>
@@ -104,29 +104,62 @@
         <li class="list-items-menu">
             <router-link
                 tag="a"
-                @click="toggleListMenuSidebar('merchant-orders')"
+                @click="toggleListMenuSidebar('marketer-favourits')"
                 class="item-menu active"
                 active-class="active"
-                :to="{ name: 'merchant-orders' }"
+                :to="{ name: 'marketer-favourits' }"
+                exact>
+                <i class="fas fa-heart"></i>
+                <label>المفضلة</label>
+                <i
+                    class="fas fa-chevron-down chevron"
+                    v-show="this.expanded.indexOf('marketer-favourits') !== 0"
+                ></i>
+                <i
+                    class="fas fa-chevron-up chevron"
+                    v-show="this.expanded.indexOf('marketer-favourits') === 0"
+                ></i>
+            </router-link>
+            <ul
+                :class="`child-list-items-menu ${
+                    this.expanded.indexOf('marketer-favourits') !== 0 ? 'active' : ''
+                }`"
+            >
+                <li class="li-child-list-items-menu">
+                    <router-link :to="{name:'marketer-favourits'}" class="a-child-list-item-menu" active-class="active" exact>
+                        <i class="fas fa-heart"></i>
+                        <label>المفضلة</label>
+                    </router-link>
+                </li>
+            </ul>
+        </li>
+
+        <li class="list-items-menu">
+            <router-link
+                tag="a"
+                @click="toggleListMenuSidebar('marketer-orders')"
+                class="item-menu active"
+                active-class="active"
+                :to="{ name: 'marketer-orders' }"
                 exact>
                 <i class="fas fa-pallet"></i>
                 <label>الطلبات</label>
                 <i
                     class="fas fa-chevron-down chevron"
-                    v-show="this.expanded.indexOf('merchant-orders') !== 0"
+                    v-show="this.expanded.indexOf('marketer-orders') !== 0"
                 ></i>
                 <i
                     class="fas fa-chevron-up chevron"
-                    v-show="this.expanded.indexOf('merchant-orders') === 0"
+                    v-show="this.expanded.indexOf('marketer-orders') === 0"
                 ></i>
             </router-link>
             <ul
                 :class="`child-list-items-menu ${
-                    this.expanded.indexOf('merchant-orders') !== 0 ? 'active' : ''
+                    this.expanded.indexOf('marketer-orders') !== 0 ? 'active' : ''
                 }`"
             >
                 <li class="li-child-list-items-menu">
-                    <router-link :to="{name:'merchant-orders'}" class="a-child-list-item-menu" active-class="active" exact>
+                    <router-link :to="{name:'marketer-orders'}" class="a-child-list-item-menu" active-class="active" exact>
                         <i class="fas fa-pallet"></i>
                         <label>عرض الطلبات</label>
                     </router-link>

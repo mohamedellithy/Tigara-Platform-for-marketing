@@ -3,19 +3,19 @@
         <div class="row">
             <div class="col-md-8">
                 <ul class="top-cart-complete">
-                    <li class="active">
+                    <li :class="!this.$route.params.action ? 'active':''">
                         <span class="container-icon">
                             <i class="fas fa-shopping-cart"></i>
                         </span>
                         <label>السلة</label>
                     </li>
-                    <li>
+                    <li :class="this.$route.params.action == 'customer-info' ? 'active':''">
                         <span class="container-icon">
                             <i class="fas fa-id-card-alt"></i>
                         </span>
                         <label>بيانات الزبون</label>
                     </li>
-                    <li>
+                    <li :class="this.$route.params.action == 'order-status' ? 'active':''">
                         <span class="container-icon">
                             <i class="fas fa-pallet"></i>
                         </span>
@@ -23,7 +23,21 @@
                     </li>
                 </ul>
                 <div class="row">
-                    <div class="container-mini-cart">
+                    <div class="container-page-content" v-if="!this.$route.params.action">
+                        <ul class="buttons-arrows-actions">
+                            <li>
+                                <router-link :to="{name:'marketer-products'}" class="btn prev btn-block">
+                                    <i class="fas fa-long-arrow-alt-right"></i>
+                                    السابق
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link :to="{path:'/marketer/carts/customer-info'}" class="btn btn-primary next btn-block">
+                                    التالى
+                                    <i class="fas fa-long-arrow-alt-left"></i>
+                                </router-link>
+                            </li>
+                        </ul>
                         <h4>تفاصيل السلة</h4>
                         <div class="content-mini-cart">
                             <table class="table mini-cart">
@@ -53,10 +67,96 @@
                             </table>
                         </div>
                     </div>
+                    <div class="container-page-content" v-if="this.$route.params.action == 'customer-info'">
+                        <ul class="buttons-arrows-actions">
+                            <li>
+                                <router-link :to="{path:'/marketer/carts'}" class="btn prev btn-block">
+                                    <i class="fas fa-long-arrow-alt-right"></i>
+                                    السابق
+                                </router-link>
+                            </li>
+                        </ul>
+                        <h4>بيانات الزبون</h4>
+                        <form method="post" @submit.prevent="AddCustomerInfo()">
+                            <div class="row content-customer-info">
+                                <div class="form-group col-md-12">
+                                    <!-- <label class="form-label">اسم الزبون</label> -->
+                                    <input v-model="customer.name" type="text" class="form-control" placeholder="اسم الزبون" required/>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <!-- <label class="form-label">البريد الالكترونى</label> -->
+                                    <input v-model="customer.email" type="text" class="form-control" placeholder="البريد الالكترونى" required/>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <!-- <label class="form-label">رقم الجوال</label> -->
+                                    <input v-model="customer.phone" type="text" class="form-control" placeholder="رقم الجوال" required/>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <!-- <label class="form-label">المدينة</label> -->
+                                    <select v-model="customer.city" class="form-control" placeholder="المدينة" required>
+                                        <option v-for="(city,key) in cities" :value="city" :key="key">{{ city }}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <!-- <label class="form-label">العنوان بالكامل</label> -->
+                                    <textarea v-model="customer.address" class="form-control" placeholder="العنوان بالكامل" required></textarea>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <!-- <label class="form-label">ملاحظات </label> -->
+                                    <textarea v-model="customer.notice" class="form-control" placeholder="ملاحظات "></textarea>
+                                </div>
+                            </div>
+                            <ul class="buttons-arrows-actions">
+                                <li>
+                                    <button type="submit" class="btn btn-primary next btn-block">
+                                        التالى
+                                        <i class="fas fa-long-arrow-alt-left"></i>
+                                    </button>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                    <div class="container-page-content" v-if="this.$route.params.action == 'order-status'">
+                        <p class="alert text-center" style="background-color: #5ed09b;border-radius: 0px;color: white;font-weight: bold;">
+                            تم انشاء الطلبية بنجاح
+                        </p>
+                        <h6 style="padding:10px">حالة الطلبية </h6>
+                        <table class="table order-status-summary">
+                            <tr>
+                                <th>رقم الطلب </th>
+                                <td># {{ order.id  }}</td>
+                            </tr>
+                            <tr>
+                                <th>كمية الطلبية</th>
+                                <td>{{  order.quantity  }}</td>
+                            </tr>
+                            <tr>
+                                <th>حالة الطلبية</th>
+                                <td>{{  order.order_status_txt  }}</td>
+                            </tr>
+                            <tr>
+                                <th>حالة الشحن</th>
+                                <td>{{ order.shipping_status_txt  }}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <router-link :to="{path:'/marketer'}" class="btn DetailsSOrder">
+                                        <i class="fas fa-eye"></i>
+                                        تفاصيل الطلبية
+                                    </router-link>
+                                    <router-link :to="{path:'/marketer/products'}" class="btn completeShoping">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        استكمال التسوق
+                                    </router-link>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4 order-details">
                 <div class="order-details-info">
+                    <h5 style="padding:20px">تفاصيل الطلب</h5>
                     <table class="table">
                         <tr>
                             <th>كمية الطلبية</th>
@@ -109,7 +209,14 @@ export default{
     data(){
         return {
             message: 'Hello World',
-            cart_items:[]
+            cart_items:[],
+            customer:{},
+            cities:[
+                'نواكشوط',
+                'المدينة',
+                'البليلة'
+            ],
+            order:{}
         }
     },
     methods : { 
@@ -122,9 +229,65 @@ export default{
                 console.log(response);
             });
         },
+        PlusQuantity:async function(item){
+            let self = this;
+            let field = {};
+            field.type = "plus";
+            await axios.put('/api/marketer-carts/'+item.id,field).then(function({data}){
+                self.cart_items = data.cart_items;
+                self.$emit('updateQuantity',data.total_quantity,data.cart_items);
+                console.log(data);
+            }).catch(function({response}){
+                console.log(response);
+            });
+        },
+        MinusQuantity:async function(item){
+            let self = this;
+            let field = {};
+            if(item.quantity == 1){
+                return;
+            }
+            field.type = "minus";
+            await axios.put('/api/marketer-carts/'+item.id,field).then(function({data}){
+                self.cart_items = data.cart_items;
+                self.$emit('updateQuantity',data.total_quantity,data.cart_items);
+                console.log(data);
+            }).catch(function({response}){
+                console.log(response);
+            });
+        },
+        deleteItemFromCart:async function(item){
+            let self = this;
+            await axios.delete('/api/marketer-carts/'+item.id).then(function({data}){
+                self.cart_items = data.cart_items;
+                self.$emit('updateQuantity',data.total_quantity,data.cart_items);
+                console.log(data);
+            }).catch(function({response}){
+                console.log(response);
+            });
+        },
+        AddCustomerInfo:async function(){
+            let self = this;
+            await axios.post('/api/marketer-orders',this.customer).then(function({data}){
+                console.log(data);
+                self.order = data.order;
+                self.$router.push({path:'/marketer/carts/order-status/'+data.order.id})
+            }).catch(function({response}){
+                console.log(response);
+            });
+        }
     },
-    created(){
+    async created(){
+        let self = this;
         this.FetchCartItems();
+        if(this.$route.params.action == 'order-status'){
+            await axios.get('/api/marketer-orders/'+this.$route.params.order_id).then(function({data}){
+                 self.order = data.order;
+                 console.log(data);
+            }).catch(function({response}){
+                 console.log(response);
+            });
+        }
     }
 }
 </script>
@@ -133,17 +296,18 @@ export default{
     padding:20px;
 }
 .order-details-info{
-    background-color: #75e3b087;
+    /* background-color: #75e3b087; */
+    background-color: white;
     box-shadow: 3px 13px 13px 14px #eee;
 }
 .order-details-info tr:not(tr:last-child)
 {
-    border-bottom: 3px dashed #5c5b5b47;
+    border-bottom: 2px dashed #5c5b5b47;
 }
 .order-details-info tr th,
 .order-details-info tr td
 {
-    padding: 30px 20px;
+    padding:30px;
 }
 .order-details-info tr th{
     text-align: right;
@@ -154,8 +318,15 @@ export default{
 .completeShoping{
     background-color: #171717;
     border-radius: 29px;
-    padding: 10px 20px;
+    padding: 6px 14px;
     color: white;
+}
+.DetailsSOrder{
+    background-color: hsl(11deg 80% 45%);
+    border-radius: 29px;
+    padding: 6px 14px;
+    color: white;
+    margin: 10px;
 }
 .top-cart-complete{
     list-style: none;
@@ -190,45 +361,39 @@ export default{
     color: #ffc30d;
 }
 
-.container-mini-cart{
-    /* min-height: 200px;
-    max-height: 500px; */
+.container-page-content{
     background-color: white;
     padding: 10px;
-    z-index: 100000;
 }
-.container-mini-cart
+.container-page-content
 {
     padding: 10px 7px;
 }
-.container-mini-cart .content-mini-cart{
-    /* max-height: 360px;
-    overflow-y: auto; */
-}
 
-.container-mini-cart table.mini-cart tr{
+.container-page-content table.mini-cart tr{
     border-bottom: 2px solid #eee;;
 }
-.container-mini-cart table.mini-cart tr:first-child
+.container-page-content table.mini-cart tr:first-child
 {
     position: sticky;
     top: 0px;
     background-color: white;
 }
-.container-mini-cart table.mini-cart tr th{
+.container-page-content table.mini-cart tr th{
     padding: 10px;
     text-align: right;
 }
-.container-mini-cart table.mini-cart tr th:first-child{
+.container-page-content table.mini-cart tr th:first-child{
     width: 45%;
 }
-.container-mini-cart table.mini-cart tr td{
+.container-page-content table.mini-cart tr td{
     padding: 10px;
     text-align: right;
     width: 35%;
 }
-.container-mini-cart table.mini-cart tr td i.fa-times-circle{
+.container-page-content table.mini-cart tr td i.fa-times-circle{
     color: red;
+    cursor: pointer;
 }
 .go_to_checkout{
     background-color: #1b965d;
@@ -237,7 +402,7 @@ export default{
     border-radius: 27px;
 
 }
-.container-mini-cart table.mini-cart tr td img.mini-cart-product-image{
+.container-page-content table.mini-cart tr td img.mini-cart-product-image{
     width: 25%;
 
 }
@@ -252,9 +417,58 @@ export default{
     font-size: 13px;
     cursor: pointer;
 }
-.container-mini-cart table.mini-cart tr td .product-name{
+.container-page-content table.mini-cart tr td .product-name{
     font-weight: 500;
     padding: 6px;
     font-size: 13px;
+}
+.buttons-arrows-actions{
+    padding: 10px 0px !important;
+}
+.buttons-arrows-actions li .btn{
+   padding: 5px 20px;
+   border-radius: 30px;
+}
+.buttons-arrows-actions li{
+    display: inline-block;
+    margin: 2px 10px;
+}
+.buttons-arrows-actions li .btn.prev{
+    background-color:#991414;
+    border:2px solid #991414;
+    color:white;
+}
+.buttons-arrows-actions li .btn.next{
+    background-color:#198754;
+    border:2px solid #198754;
+}
+.content-customer-info{
+    padding:0px 10px;
+}
+.content-customer-info .form-group
+{
+    padding: 16px 15px;
+}
+.content-customer-info .form-group .form-control{
+    height: 50px;
+    background-color:#eee;
+}
+.content-customer-info .form-group textarea.form-control{
+   height: 65px;
+}
+.order-status-summary{
+    color:black
+}
+.order-status-summary tr:not(:last-child)
+{
+    border-bottom: 1px solid #eee;
+}
+.order-status-summary tr th,
+.order-status-summary tr td{
+    padding: 14px;
+}
+.order-status-summary tr:last-child th ,
+.order-status-summary tr:last-child td{
+    border-bottom: 0px;
 }
 </style>

@@ -52,33 +52,33 @@
                         <thead>
                             <tr>
                                 <th>رقم الطلب</th>
-                                <th>صورة المنتج</th>
-                                <th>المنتج</th>
                                 <th>كمية الطلبية</th>
-                                <th>سعر الوحدة</th>
-                                <th>الخصم</th>
                                 <th>سعر الطلبية</th>
+                                <th>ربح من الطلبية</th>
+                                <th>الخصم</th>
                                 <th>حالة الطلب</th>
                                 <th>حالة الشحن</th>
                                 <th>تاريخ الطلب</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <!--Table head-->
                         <!--Table body-->
                         <tbody>
                             <tr v-for="(order, key) in orders" :key="key">
-                                <th scope="row"> # {{ order.order_id }}</th>
-                                <th scope="row">
-                                    <img style="width: 50px;height: 50px;" :src="order.product.thumbnail_item.image_url" />
-                                </th>
-                                <td>{{ order.product.name }}</td>
+                                <th scope="row"> # {{ order.id }}</th>
                                 <td>{{ order.quantity }} قطعة</td>
-                                <td>{{ order.unit_price }} USD</td>
+                                <td>{{ order.total }} USD</td>
+                                <td>{{ order.total }} USD</td>
                                 <td>{{ order.discount }}</td>
-                                <td>{{ order.sub_total }} USD</td>
-                                <td>{{ order.order.order_status_txt }}</td>
-                                <td>{{ order.order.shipping_status_txt }}</td>
+                                <td>{{ order.order_status_txt }}</td>
+                                <td>{{ order.shipping_status_txt }}</td>
                                 <td>{{ order.created_at }}</td>
+                                <td class="actions">
+                                    <button class="btn btn-info btn-sm">تفاصيل الطلبية</button>
+                                    <button class="btn btn-primary btn-sm">تعديل الطلبية</button>
+                                    <button class="btn btn-danger btn-sm">الغاء الطلبية</button>
+                                </td>
                             </tr>
                         </tbody>
                         <!--Table body-->
@@ -154,7 +154,7 @@ export default {
     methods:{
         FetchOrders:function(){
             let self = this;
-            axios.get('/api/orders',{
+            axios.get('/api/marketer-orders',{
                 params:self.params
             }).then(function({data}){
                 console.log(data);
@@ -311,5 +311,8 @@ export default {
     color: black;
     margin: 10px;
     border: 1px solid orange;
+}
+table .actions .btn{
+    margin:2px;
 }
 </style>
