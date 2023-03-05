@@ -38,29 +38,29 @@
         <li class="list-items-menu">
             <router-link
                 tag="a"
-                @click="toggleListMenuSidebar('delivery-dairy-orders')"
+                @click="toggleListMenuSidebar('dairy')"
                 class="item-menu active"
                 active-class="active"
-                :to="{ name: 'delivery-dairy-orders' }"
+                :to="{path:'/delivery/delivery-orders/dairy'}"
                 exact>
                 <i class="fas fa-dolly-flatbed"></i>
                 <label>الطلبات اليومية</label>
                 <i
                     class="fas fa-chevron-down chevron"
-                    v-show="this.expanded.indexOf('delivery-dairy-orders') !== 0"
+                    v-show="this.expanded.indexOf('dairy') !== 0"
                 ></i>
                 <i
                     class="fas fa-chevron-up chevron"
-                    v-show="this.expanded.indexOf('delivery-dairy-orders') === 0"
+                    v-show="this.expanded.indexOf('dairy') === 0"
                 ></i>
             </router-link>
             <ul
                 :class="`child-list-items-menu ${
-                    this.expanded.indexOf('delivery-dairy-orders') !== 0 ? 'active' : ''
+                    this.expanded.indexOf('dairy') !== 0 ? 'active' : ''
                 }`"
             >
                 <li class="li-child-list-items-menu">
-                    <router-link :to="{name:'delivery-dairy-orders'}" class="a-child-list-item-menu" active-class="active" exact>
+                    <router-link :to="{path:'/delivery/delivery-orders/dairy'}" class="a-child-list-item-menu" active-class="active" exact>
                         <i class="fas fa-dolly-flatbed"></i>
                         <label>عرض الطلبات اليومية</label>
                     </router-link>
@@ -71,29 +71,29 @@
         <li class="list-items-menu">
             <router-link
                 tag="a"
-                @click="toggleListMenuSidebar('delivery-wait-orders')"
+                @click="toggleListMenuSidebar('wait')"
                 class="item-menu active"
                 active-class="active"
-                :to="{ name: 'delivery-wait-orders' }"
+                :to="{ path: '/delivery/delivery-orders/wait' }"
                 exact>
                 <i class="fas fa-dolly-flatbed"></i>
                 <label>الطلبات المنتظرة</label>
                 <i
                     class="fas fa-chevron-down chevron"
-                    v-show="this.expanded.indexOf('delivery-wait-orders') !== 0"
+                    v-show="this.expanded.indexOf('wait') !== 0"
                 ></i>
                 <i
                     class="fas fa-chevron-up chevron"
-                    v-show="this.expanded.indexOf('delivery-wait-orders') === 0"
+                    v-show="this.expanded.indexOf('wait') === 0"
                 ></i>
             </router-link>
             <ul
                 :class="`child-list-items-menu ${
-                    this.expanded.indexOf('delivery-wait-orders') !== 0 ? 'active' : ''
+                    this.expanded.indexOf('wait') !== 0 ? 'active' : ''
                 }`"
             >
                 <li class="li-child-list-items-menu">
-                    <router-link :to="{name:'delivery-wait-orders'}" class="a-child-list-item-menu" active-class="active" exact>
+                    <router-link :to="{path: '/delivery/delivery-orders/wait'}" class="a-child-list-item-menu" active-class="active" exact>
                         <i class="fas fa-dolly-flatbed"></i>
                         <label>الطلبات المنتظرة</label>
                     </router-link>
@@ -104,29 +104,29 @@
         <li class="list-items-menu">
             <router-link
                 tag="a"
-                @click="toggleListMenuSidebar('delivery-process-orders')"
+                @click="toggleListMenuSidebar('process')"
                 class="item-menu active"
                 active-class="active"
-                :to="{ name: 'delivery-process-orders' }"
+                :to="{ path: '/delivery/delivery-orders/process' }"
                 exact>
                 <i class="fas fa-dolly-flatbed"></i>
                 <label>الطلبات قيد التنفيذ</label>
                 <i
                     class="fas fa-chevron-down chevron"
-                    v-show="this.expanded.indexOf('delivery-process-orders') !== 0"
+                    v-show="this.expanded.indexOf('process') !== 0"
                 ></i>
                 <i
                     class="fas fa-chevron-up chevron"
-                    v-show="this.expanded.indexOf('delivery-process-orders') === 0"
+                    v-show="this.expanded.indexOf('process') === 0"
                 ></i>
             </router-link>
             <ul
                 :class="`child-list-items-menu ${
-                    this.expanded.indexOf('delivery-process-orders') !== 0 ? 'active' : ''
+                    this.expanded.indexOf('process') !== 0 ? 'active' : ''
                 }`"
             >
                 <li class="li-child-list-items-menu">
-                    <router-link :to="{name:'delivery-process-orders'}" class="a-child-list-item-menu" active-class="active" exact>
+                    <router-link :to="{path: '/delivery/delivery-orders/process'}" class="a-child-list-item-menu" active-class="active" exact>
                         <i class="fas fa-dolly-flatbed"></i>
                         <label>الطلبات قيد التنفيذ</label>
                     </router-link>
@@ -137,29 +137,29 @@
         <li class="list-items-menu">
             <router-link
                 tag="a"
-                @click="toggleListMenuSidebar('delivery-complete-orders')"
+                @click="toggleListMenuSidebar('complete')"
                 class="item-menu active"
                 active-class="active"
-                :to="{ name: 'delivery-complete-orders' }"
+                :to="{ path: '/delivery/delivery-orders/complete' }"
                 exact>
                 <i class="fas fa-dolly-flatbed"></i>
                 <label>الطلبات المكتملة</label>
                 <i
                     class="fas fa-chevron-down chevron"
-                    v-show="this.expanded.indexOf('delivery-complete-orders') !== 0"
+                    v-show="this.expanded.indexOf('complete') !== 0"
                 ></i>
                 <i
                     class="fas fa-chevron-up chevron"
-                    v-show="this.expanded.indexOf('delivery-complete-orders') === 0"
+                    v-show="this.expanded.indexOf('complete') === 0"
                 ></i>
             </router-link>
             <ul
                 :class="`child-list-items-menu ${
-                    this.expanded.indexOf('delivery-complete-orders') !== 0 ? 'active' : ''
+                    this.expanded.indexOf('complete') !== 0 ? 'active' : ''
                 }`"
             >
                 <li class="li-child-list-items-menu">
-                    <router-link :to="{name:'delivery-complete-orders'}" class="a-child-list-item-menu" active-class="active" exact>
+                    <router-link :to="{path:'/delivery/delivery-orders/complete'}" class="a-child-list-item-menu" active-class="active" exact>
                         <i class="fas fa-dolly-flatbed"></i>
                         <label>الطلبات المكتملة</label>
                     </router-link>
@@ -170,29 +170,29 @@
         <li class="list-items-menu">
             <router-link
                 tag="a"
-                @click="toggleListMenuSidebar('delivery-cancelled-orders')"
+                @click="toggleListMenuSidebar('cancelled')"
                 class="item-menu active"
                 active-class="active"
-                :to="{ name: 'delivery-cancelled-orders' }"
+                :to="{ path: '/delivery/delivery-orders/cancelled' }"
                 exact>
                 <i class="fas fa-pallet"></i>
                 <label>الطلبات الملغية</label>
                 <i
                     class="fas fa-chevron-down chevron"
-                    v-show="this.expanded.indexOf('delivery-cancelled-orders') !== 0"
+                    v-show="this.expanded.indexOf('cancelled') !== 0"
                 ></i>
                 <i
                     class="fas fa-chevron-up chevron"
-                    v-show="this.expanded.indexOf('delivery-cancelled-orders') === 0"
+                    v-show="this.expanded.indexOf('cancelled') === 0"
                 ></i>
             </router-link>
             <ul
                 :class="`child-list-items-menu ${
-                    this.expanded.indexOf('delivery-cancelled-orders') !== 0 ? 'active' : ''
+                    this.expanded.indexOf('cancelled') !== 0 ? 'active' : ''
                 }`"
             >
                 <li class="li-child-list-items-menu">
-                    <router-link :to="{name:'delivery-cancelled-orders'}" class="a-child-list-item-menu" active-class="active" exact>
+                    <router-link :to="{path:'/delivery/delivery-orders/cancelled'}" class="a-child-list-item-menu" active-class="active" exact>
                         <i class="fas fa-pallet"></i>
                         <label>الطلبات الملغية</label>
                     </router-link>
@@ -203,29 +203,29 @@
         <li class="list-items-menu">
             <router-link
                 tag="a"
-                @click="toggleListMenuSidebar('delivery-return-orders')"
+                @click="toggleListMenuSidebar('return')"
                 class="item-menu active"
                 active-class="active"
-                :to="{ name: 'delivery-return-orders' }"
+                :to="{ path: '/delivery/delivery-orders/return' }"
                 exact>
                 <i class="fas fa-pallet"></i>
                 <label> الطلبات المرتجعة</label>
                 <i
                     class="fas fa-chevron-down chevron"
-                    v-show="this.expanded.indexOf('delivery-return-orders') !== 0"
+                    v-show="this.expanded.indexOf('return') !== 0"
                 ></i>
                 <i
                     class="fas fa-chevron-up chevron"
-                    v-show="this.expanded.indexOf('delivery-return-orders') === 0"
+                    v-show="this.expanded.indexOf('return') === 0"
                 ></i>
             </router-link>
             <ul
                 :class="`child-list-items-menu ${
-                    this.expanded.indexOf('delivery-return-orders') !== 0 ? 'active' : ''
+                    this.expanded.indexOf('return') !== 0 ? 'active' : ''
                 }`"
             >
                 <li class="li-child-list-items-menu">
-                    <router-link :to="{name:'delivery-return-orders'}" class="a-child-list-item-menu" active-class="active" exact>
+                    <router-link :to="{path:'/delivery/delivery-orders/return'}" class="a-child-list-item-menu" active-class="active" exact>
                         <i class="fas fa-pallet"></i>
                         <label> الطلبات المرتجعة</label>
                     </router-link>
@@ -297,7 +297,7 @@ export default {
     },
     created(){
         console.log(this.$route.meta.menu_id);
-        this.toggleListMenuSidebar(this.$route.meta.menu_id);
+        this.toggleListMenuSidebar(this.$route.meta.menu_id ? this.$route.meta.menu_id : this.$route.params.type );
     }
 };
 </script>

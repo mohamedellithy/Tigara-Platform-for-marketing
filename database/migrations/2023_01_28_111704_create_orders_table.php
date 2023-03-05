@@ -22,6 +22,9 @@ return new class extends Migration
             $table->string('order_status')->default('0')->comment('0 => pending , 1 => processing , 2 => completed , 3 => refused , 4 => cancelled');
             $table->string('shipping_status')->default('0')->comment('0 => pending , 1 => processing , 2 => completed , 3 => refused');
             $table->text('track_notice_order')->nullable();
+            $table->decimal('cash_delivered',12,2)->default(0);
+            $table->decimal('cash_delivery_refund',12,2)->nullable();
+            $table->text('delivery_notice')->nullable();
             $table->timestamps();
         });
     }

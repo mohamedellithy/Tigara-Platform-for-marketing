@@ -75,9 +75,46 @@
                     <div class="row">
                     </div>
                     <div class="row">
-                        <hr/>
-                        <br/>
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <p class="alert" style="margin-bottom:0px;">
+                                <strong>
+                                    تفاصيل الزبون
+                                </strong>
+                            </p>
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <th>اسم الزبون</th>
+                                        <td>{{ order.customer.name  }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>البريد الالكترونى</th>
+                                        <td>{{ order.customer.email  }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>رقم الجوال</th>
+                                        <td>{{ order.customer.phone  }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>رقم جوال اخر</th>
+                                        <td>{{ order.customer.another_phone  }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>المدينة</th>
+                                        <td>{{ order.customer.city  }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>العنوان كاملا</th>
+                                        <td>{{ order.customer.address  }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ملاحظات اخري</th>
+                                        <td>{{ order.customer.notice  }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-lg-6">
                             <p class="alert" style="margin-bottom:0px;">
                                 <strong>
                                     تفاصيل الطلبية
@@ -135,7 +172,8 @@ export default {
         return{
             order:{
                 delivery:{},
-                marketer:{}
+                marketer:{},
+                customer:{}
             },
             errors:{},
             success:null
@@ -176,7 +214,7 @@ export default {
 .container-form-new-merchant .form-group label
 {
     line-height: 3em;
-    font-size: 17px;
+    font-size: 14px;
 }
 .container-submit-btn-merchant{
     text-align: left;

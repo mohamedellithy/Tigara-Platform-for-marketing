@@ -73,7 +73,7 @@ import MerchantDashboard from './components/dashboard/Merchant/DashboardReports.
 
 /**
  * @Delivery area
- * all components merchant
+ * all components Delivery
  */
 // import DeliveryProducts from './components/dashboard/Delivery/Products/Index.vue';
 // import ShowDeliveryProduct from './components/dashboard/Delivery/Products/Show.vue';
@@ -83,11 +83,12 @@ import MerchantDashboard from './components/dashboard/Merchant/DashboardReports.
 // import ShowMadeDeliveryPayments from './components/dashboard/Delivery/Payments/Made.vue';
 import DeliveryDashboard from './components/dashboard/Delivery/DashboardReports.vue';
 import DeliveryOrdersDairy from './components/dashboard/Delivery/Orders/Dairy.vue';
-import DeliveryOrdersWait from './components/dashboard/Delivery/Orders/Wait.vue';
-import DeliveryOrdersProcess from './components/dashboard/Delivery/Orders/Process.vue';
-import DeliveryOrdersComplete from './components/dashboard/Delivery/Orders/Complete.vue';
-import DeliveryOrdersReturn from './components/dashboard/Delivery/Orders/Return.vue';
-import DeliveryOrdersCancelled from './components/dashboard/Delivery/Orders/Cancelled.vue';
+import DeliveryOrders from './components/dashboard/Delivery/Orders/Index.vue';
+// import DeliveryOrdersWait from './components/dashboard/Delivery/Orders/Index.vue';
+// import DeliveryOrdersProcess from './components/dashboard/Delivery/Orders/Process.vue';
+// import DeliveryOrdersComplete from './components/dashboard/Delivery/Orders/Complete.vue';
+// import DeliveryOrdersReturn from './components/dashboard/Delivery/Orders/Return.vue';
+// import DeliveryOrdersCancelled from './components/dashboard/Delivery/Orders/Cancelled.vue';
 import DeliveryOrdersShow from './components/dashboard/Delivery/Orders/Show.vue';
 import ShowDueDeliveryPayments from './components/dashboard/Delivery/Payments/Due.vue';
 import ShowMadeDeliveryPayments from './components/dashboard/Delivery/Payments/Made.vue';
@@ -619,70 +620,16 @@ const routes = [{
                         AccountType: 'delivery',
                         menu_id: 'delivery-reports',
                     }
-                }, {
-                    path: 'delivery-return-orders/:page_no?',
-                    name: 'delivery-return-orders',
-                    component: DeliveryOrdersReturn,
-                    meta: {
-                        ar_name: 'الطلبات المرتجعة',
-                        requiresAuth: true,
-                        AccountType: 'delivery',
-                        menu_id: 'delivery-return-orders',
-                    }
                 },
                 {
-                    path: 'delivery-dairy-orders/:page_no?',
-                    name: 'delivery-dairy-orders',
-                    component: DeliveryOrdersDairy,
+                    path: 'delivery-orders/:type/:page_no?',
+                    name: 'delivery-orders',
+                    component: DeliveryOrders,
                     meta: {
-                        ar_name: 'الطلبات اليومية ',
+                        ar_name: 'الطلبات ',
                         requiresAuth: true,
                         AccountType: 'delivery',
-                        menu_id: 'delivery-dairy-orders',
-                    }
-                },
-                {
-                    path: 'delivery-wait-orders/:page_no?',
-                    name: 'delivery-wait-orders',
-                    component: DeliveryOrdersWait,
-                    meta: {
-                        ar_name: 'الطلبات المنتظرة ',
-                        requiresAuth: true,
-                        AccountType: 'delivery',
-                        menu_id: 'delivery-wait-orders',
-                    }
-                },
-                {
-                    path: 'delivery-process-orders/:page_no?',
-                    name: 'delivery-process-orders',
-                    component: DeliveryOrdersProcess,
-                    meta: {
-                        ar_name: 'الطلبات قيد التنفيذ ',
-                        requiresAuth: true,
-                        AccountType: 'delivery',
-                        menu_id: 'delivery-process-orders',
-                    }
-                },
-                {
-                    path: 'delivery-complete-orders/:page_no?',
-                    name: 'delivery-complete-orders',
-                    component: DeliveryOrdersComplete,
-                    meta: {
-                        ar_name: 'الطلبات المكتملة ',
-                        requiresAuth: true,
-                        AccountType: 'delivery',
-                        menu_id: 'delivery-complete-orders',
-                    }
-                },
-                {
-                    path: 'delivery-cancelled-orders/:page_no?',
-                    name: 'delivery-cancelled-orders',
-                    component: DeliveryOrdersCancelled,
-                    meta: {
-                        ar_name: 'الطلبات الملغية ',
-                        requiresAuth: true,
-                        AccountType: 'delivery',
-                        menu_id: 'delivery-cancelled-orders',
+                        menu_id: null,
                     }
                 },
                 {

@@ -123,7 +123,7 @@
                         <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLiveLabel">
-                                تحديث حالة الطلب 
+                                تحديث حالة الطلب
                                 <template v-if="field.order_id != null">
                                     # {{ field.order_id }}
                                 </template>
@@ -141,12 +141,12 @@
                         </div>
                         <div class="modal-footer">
                             <template v-if="field.order_id == null">
-                                <button @click="UpdateStatus()" type="button" class="btn btn-primary" fdprocessedid="3xp1pw">تحديث الحالة</button>
+                                <button @click="UpdateStatus()" type="button" class="btn btn-primary btn-sm" fdprocessedid="3xp1pw">تحديث الحالة</button>
                             </template>
                             <template v-if="field.order_id != null">
-                                <button @click="UpdateSingleStatus(field.order_id)" type="button" class="btn btn-primary" fdprocessedid="3xp1pw">تحديث الحالة</button>
+                                <button @click="UpdateSingleStatus(field.order_id)" type="button" class="btn btn-primary btn-sm" fdprocessedid="3xp1pw">تحديث الحالة</button>
                             </template>
-                            <button @click="CloseModelUpdateStatus()" type="button" class="btn btn-secondary" data-dismiss="modal" fdprocessedid="c9npk">الغاء</button>
+                            <button @click="CloseModelUpdateStatus()" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" fdprocessedid="c9npk">الغاء</button>
                         </div>
                         </div>
                     </div>

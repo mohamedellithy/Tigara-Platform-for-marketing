@@ -46,6 +46,8 @@
                                 <th>رقم الطلب</th>
                                 <th>كمية الطلبية</th>
                                 <th>سعر الطلبية</th>
+                                <th>المبلغ المحصل</th>
+                                <th>المبلغ المرتجع</th>
                                 <th>حالة الطلب</th>
                                 <th>حالة الشحن</th>
                                 <th>تاريخ الطلب</th>
@@ -62,6 +64,8 @@
                                 <th scope="row"> # {{ order.id }}</th>
                                 <td>{{ order.quantity }} قطعة</td>
                                 <td>{{ order.total }} USD</td>
+                                <td>{{ order.cash_delivered > 0 ? order.cash_delivered + 'USD' : 'لم يتم تحصيل' }} </td>
+                                <td>{{ order.cash_delivery_refund ? order.cash_delivery_refund  + 'USD' : 'لايوجد'  }} </td>
                                 <td>{{ order.order_status_txt }}</td>
                                 <td>{{ order.shipping_status_txt }}</td>
                                 <td>{{ order.created_at }}</td>
@@ -81,36 +85,36 @@
                     <nav v-if="this.infos.length != 0" aria-label="Page navigation example">
                         <ul v-if="this.infos.total > orders.length" class="pagination">
                             <li v-if="(this.infos.current_page != 1)" class="page-item">
-                                <router-link class="page-link" :to="{path: '/delivery/delivery-return-orders/'+(this.infos.current_page - 1 == 0 ? 1 : this.infos.current_page - 1) }" aria-label="Previous">
+                                <router-link class="page-link" :to="{path: '/delivery/delivery-wait-orders/'+(this.infos.current_page - 1 == 0 ? 1 : this.infos.current_page - 1) }" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                     <span class="sr-only">Previous</span>
                                 </router-link>
                             </li>
                             <li v-for="page in this.infos.last_page" class="page-item" :key="page">
                                 <template v-if="page == 1">
-                                    <router-link class="page-link" :to="{path: '/delivery/delivery-return-orders/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/delivery/delivery-wait-orders/'+page}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="page == this.infos.current_page">
-                                    <router-link class="page-link" :to="{path: '/delivery/delivery-return-orders/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/delivery/delivery-wait-orders/'+page}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="page == this.infos.current_page - 1">
-                                    <router-link class="page-link" :to="{path: '/delivery/delivery-return-orders/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/delivery/delivery-wait-orders/'+page}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="(page == this.infos.current_page + 1) && (this.infos.current_page != this.infos.last_page)">
-                                    <router-link class="page-link" :to="{path: '/delivery/delivery-return-orders/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/delivery/delivery-wait-orders/'+page}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="page == this.infos.last_page">
-                                    <router-link class="page-link" :to="{path: '/delivery/delivery-return-orders/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/delivery/delivery-wait-orders/'+page}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="(page == this.infos.current_page - 2) && (this.infos.current_page != this.infos.last_page)">
-                                    <router-link class="page-link" :to="{path: '/delivery/delivery-return-orders/'+page}" active-class="active" exact>..</router-link>
+                                    <router-link class="page-link" :to="{path: '/delivery/delivery-wait-orders/'+page}" active-class="active" exact>..</router-link>
                                 </template>
                                 <template v-else-if="(page == this.infos.current_page + 2) && (this.infos.current_page != this.infos.last_page)">
-                                    <router-link class="page-link" :to="{path: '/delivery/delivery-return-orders/'+page}" active-class="active" exact>..</router-link>
+                                    <router-link class="page-link" :to="{path: '/delivery/delivery-wait-orders/'+page}" active-class="active" exact>..</router-link>
                                 </template>
                             </li>
                             <li v-if="this.infos.current_page != this.infos.last_page" class="page-item">
-                                <router-link :to="{path: '/delivery/delivery-return-orders/'+(this.infos.current_page + 1) }" class="page-link" href="#" aria-label="Next">
+                                <router-link :to="{path: '/delivery/delivery-wait-orders/'+(this.infos.current_page + 1) }" class="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                     <span class="sr-only">Next</span>
                                 </router-link>
@@ -139,6 +143,18 @@
                                 <option :value="4">مرتجع</option>
                             </select>
                         </div>
+                        <div class="modal-body" v-if="field.shipping_status == 2">
+                            <p>المبلغ الذى تم تحصيلة من الزبون</p>
+                            <input type="text" class="form-control" v-model="field.cash_delivered"/>
+                        </div>
+                        <div class="modal-body" v-if="field.shipping_status == 4">
+                            <p>المبلغ الذى تم استرجاعة للزبون</p>
+                            <input type="text" class="form-control" v-model="field.cash_delivery_refund"/>
+                        </div>
+                        <div class="modal-body">
+                            <p>ملاحظات</p>
+                            <textarea type="text" class="form-control" v-model="field.delivery_notice"></textarea>
+                        </div>
                         <div class="modal-footer">
                             <template v-if="field.order_id == null">
                                 <button @click="UpdateStatus()" type="button" class="btn btn-primary btn-sm" fdprocessedid="3xp1pw">تحديث الحالة</button>
@@ -163,10 +179,19 @@ export default {
             infos:[],
             orders: [],
             search:null,
+            types_orders:{
+                dairy:0,
+                wait:1,
+                process:2,
+                complete:3,
+                cancelled:4,
+                return:5,
+
+            },
             params:{
                 q:null,
                 page:null,
-                type:4
+                type:1
             },
             selected:[],
             selected_all:null,
@@ -175,7 +200,7 @@ export default {
             showModel:false,
             field:{
                 order_status:0,
-                shipping_status:3,
+                shipping_status:0,
                 order_id:null,
                 ids:[]
             }
@@ -202,7 +227,7 @@ export default {
         CloseModelUpdateStatus:function(){
             this.field = {
                 order_status:0,
-                shipping_status:3,
+                shipping_status:0,
                 order_id:null,
                 ids:[]
             }
@@ -217,7 +242,7 @@ export default {
                 self.success  = data.result;
                 console.log(self.success);
                 self.params.page = (self.$route.params.page_no ? self.$route.params.page_no : 1);
-                self.params.type = 5;
+                self.params.type = 1;
                 self.FetchOrders();
                 self.CloseModelUpdateStatus();
             }).catch(function({response}) {
@@ -229,6 +254,9 @@ export default {
             let self = this;
             this.field.order_status = order.order_status;
             this.field.shipping_status = order.shipping_status;
+            this.field.cash_delivered = order.cash_delivered;
+            this.field.cash_delivery_refund = order.cash_delivery_refund;
+            this.field.delivery_notice = order.delivery_notice;
             this.field.order_id = order.id;
             this.ShowModelUpdateStatus();
         },
@@ -240,7 +268,7 @@ export default {
                 self.success  = data.result;
                 console.log(self.success);
                 self.params.page = (self.$route.params.page_no ? self.$route.params.page_no : 1);
-                self.params.type = 5;
+                self.params.type = 1;
                 self.FetchOrders();
                 self.CloseModelUpdateStatus();
             }).catch(function({response}) {
@@ -251,7 +279,7 @@ export default {
     },
     created:function(){
         this.params.page = (this.$route.params.page_no ? this.$route.params.page_no : 1);
-        this.params.type = 5;
+        this.params.type = this.types_orders[this.$route.params.type] || 0;
         this.FetchOrders();
     },
     watch:{
@@ -272,7 +300,7 @@ export default {
                 });
             }else{
                 self.params.page = (this.$route.params.page_no ? this.$route.params.page_no : 1);
-                self.params.type = 5;
+                self.params.type = 1;
                 self.FetchProducts();
             }
         },

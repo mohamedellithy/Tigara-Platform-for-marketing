@@ -14,7 +14,7 @@ class DeliveryOrdersRepository extends DeliveryOrdersRepositoryInterface{
             $order_query = $order_query->where([
                 'order_status'    => 1,
                 'shipping_status' => 0
-            ])->where('created_at', '>=', Carbon::today()->toDateString());
+            ])->where('updated_at', '>=', Carbon::today()->toDateString());
         // wait
         elseif($request->query('type') == '1'):
             $order_query = $order_query->where([
@@ -83,7 +83,7 @@ class DeliveryOrdersRepository extends DeliveryOrdersRepositoryInterface{
 
     public function show(Request $request,$id){
         return response()->json([
-            'order'          => $request->user()->orders()->with('order_details')->where('id',$id)->first()
+            'order'          => $request->user()->orders()->with('order_details','customer')->where('id',$id)->first()
         ]);
     }
 }

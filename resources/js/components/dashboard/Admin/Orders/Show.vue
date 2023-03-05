@@ -53,6 +53,24 @@
                                 <p class="alert">{{ order.order_status_txt }}</p>
                             </div>
                         </div>
+                        <div class="col-lg-3" v-if="order.cash_delivered > 0">
+                            <div class="form-group">
+                                <label for="merchant-name">
+                                <i class="fas fa-user-edit" style="padding: 5px;"></i>
+                                    ما تم تحصيلة من الزبون
+                                </label>
+                                <p class="alert">{{ order.cash_delivered }} USD</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3" v-if="order.cash_delivery_refund">
+                            <div class="form-group">
+                                <label for="merchant-name">
+                                <i class="fas fa-user-edit" style="padding: 5px;"></i>
+                                    ما تم استرجاعه الى الزبون
+                                </label>
+                                <p class="alert">{{ order.cash_delivery_refund }} USD</p>
+                            </div>
+                        </div>
                         <div class="col-lg-3">
                             <div class="form-group">
                                 <label for="merchant-name">
@@ -69,6 +87,15 @@
                                     تاريخ الانشاء
                                 </label>
                                 <p class="alert">{{ order.created_at }}</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="merchant-name">
+                                <i class="fas fa-user-edit" style="padding: 5px;"></i>
+                                    ملاحظات شركة الشحن
+                                </label>
+                                <p class="alert">{{ order.delivery_notice || 'لا توجد اى ملاحظات' }}</p>
                             </div>
                         </div>
                     </div>
@@ -210,7 +237,7 @@ export default {
 .container-form-new-merchant .form-group label
 {
     line-height: 3em;
-    font-size: 17px;
+    font-size: 14px;
 }
 .container-submit-btn-merchant{
     text-align: left;
@@ -312,5 +339,10 @@ export default {
     padding: 10px 32px;
     background-color: #eee;
     border-radius: 0px;
+}
+hr{
+    border: 2px dashed gray;
+    height: 1px;
+    margin: 18px;
 }
 </style>

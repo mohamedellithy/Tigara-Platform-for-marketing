@@ -15,7 +15,10 @@ class Order extends Model
         'delivery_id',
         'order_status',
         'shipping_status',
-        'track_notice_order'
+        'track_notice_order',
+        'cash_delivered',
+        'cash_delivery_refund',
+        'delivery_notice'
     ];
 
     protected $appends = [
