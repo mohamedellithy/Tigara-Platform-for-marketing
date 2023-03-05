@@ -23,7 +23,7 @@ class User extends JsonResource
             'id'           => $this->id,
             'name'         => $this->name,
             'orders_details' => $this->orders_details,
-            'carts'          => Cart::collection($this->carts),
+            'carts'          => $this->carts ? Cart::collection($this->carts) : null,
             'phone'         => $this->phone,
             'status'        => $this->status,
             'status_text'   => $this->status_text,

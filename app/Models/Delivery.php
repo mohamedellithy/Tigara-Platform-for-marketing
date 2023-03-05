@@ -36,8 +36,8 @@ class Delivery extends Authenticatable
         'name',
         'phone',
         'email',
-        'account_type',
         'status',
+        'account_type',
         'password',
     ];
 

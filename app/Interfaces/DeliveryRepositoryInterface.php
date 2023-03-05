@@ -1,8 +1,8 @@
 <?php
 namespace App\Interfaces;
-
+use Illuminate\Http\Request;
 class DeliveryRepositoryInterface{
-    public function all(){}
+    public function all(Request $request){}
 
     public function search($search = null){}
 

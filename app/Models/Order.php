@@ -33,6 +33,10 @@ class Order extends Model
         return $this->belongsTo('App\Models\Delivery','delivery_id','id');
     }
 
+    public function customer(){
+        return $this->belongsTo('App\Models\Customer','customer_id','id');
+    }
+
     public function order_details(){
         return $this->hasMany('App\Models\OrderDetails','order_id','id');
     }
@@ -57,7 +61,8 @@ class Order extends Model
             '0' => 'انتظار الموافقة',
             '1' => 'جاري التنفيذ',
             '2' => 'مكتمل ',
-            '3' => 'مرفوض'
+            '3' => 'مرفوض',
+            '4' => 'ملغي'
         ];
         return Attribute::make(
             get : fn() => $this->order_status != null ? $status[$this->order_status] : ''

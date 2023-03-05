@@ -59,11 +59,46 @@ class MarketerOrdersRepository extends MarketerOrdersRepositoryInterface{
 
     public function show(Request $request,$id){
         return response()->json([
-            'order'          => $request->user()->orders()->where('id',$id)->first()
+            'order'          => $request->user()->orders()->with('customer','order_details')->where('id',$id)->first()
         ]);
     }
 
-    public function update(Request $request,$id){}
+    public function update(Request $request,$id){
+        $update_order = $request->user()->orders()->where('id',$id)->update($request->except(['order_details','customer']));
+
+        if($request->has('order_details')):
+            $order = $request->user()->orders()->where('id',$id)->first();
+            foreach($request->input('order_details') as $order_detail):
+                $order->order_details()->where('id',$order_detail['id'])->delete();
+                $order->order_details()->create([
+                    'product_id' => $order_detail['product_id'],
+                    'quantity'   => $order_detail['quantity'],
+                    'unit_price' => $order_detail['unit_price']
+                ]);
+            endforeach;
+        endif;
+
+        if($request->has('customer')):
+            $order = $request->user()->orders()->where('id',$id)->first();
+            $customer = $request->input('customer');
+            $order->customer()->where('id',$customer['id'])->update([
+                'name' => $customer['name'],
+                'email' => $customer['email'],
+                'phone' => $customer['phone'],
+                'another_phone' => $customer['another_phone'],
+                'city' => $customer['city'],
+                'address' => $customer['address'],
+                'notice' => $customer['notice']
+            ]);
+        endif;
+
+        if($update_order):
+            return response()->json([
+                'result' => 'تم تعديل الطلب بنجاح',
+                'order'  => $request->user()->orders()->with('customer','order_details')->where('id',$id)->first()
+            ]);
+        endif;
+    }
 
     public function delete(Request $request,$id){}
 }

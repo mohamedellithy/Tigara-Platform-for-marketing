@@ -49,7 +49,7 @@
                             <input placeholder="Search..." name="" class="form-control search-navbar"/>
                         </li>
                         <!-- end search bar -->
-                        <li class="nav-item top-cart-icon" @click="ToggleMiniCart">
+                        <li v-if="this.$auth.user.account_type == '3'" class="nav-item top-cart-icon" @click="ToggleMiniCart">
                             <a class="nav-link">
                                 <i class="fas fa-shopping-cart"></i>
                                 <span class="show-cart-notification">{{ this.total_cart_items || 0  }}</span>
@@ -237,8 +237,10 @@ export default {
         }
     },
     async created(){
-        this.total_cart_items = this.$auth.user.total_cart_items;
-        await this.FetchCartItems();
+        if(this.$auth.user.account_type == '3'){
+            this.total_cart_items = this.$auth.user.total_cart_items;
+            await this.FetchCartItems();
+        }
     }
 }
 </script>

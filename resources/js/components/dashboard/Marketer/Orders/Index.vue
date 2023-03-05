@@ -75,9 +75,10 @@
                                 <td>{{ order.shipping_status_txt }}</td>
                                 <td>{{ order.created_at }}</td>
                                 <td class="actions">
-                                    <button class="btn btn-info btn-sm">تفاصيل الطلبية</button>
-                                    <button class="btn btn-primary btn-sm">تعديل الطلبية</button>
-                                    <button class="btn btn-danger btn-sm">الغاء الطلبية</button>
+                                    <router-link :to="{path:'/marketer/show-order/'+order.id}" class="btn btn-info btn-sm">تفاصيل الطلبية</router-link>
+                                    <router-link v-if="order.order_status == '0'" :to="{path:'/marketer/edit-order/'+order.id}" class="btn btn-primary btn-sm" >تعديل الطلبية</router-link>
+                                    <button v-if="order.order_status == '0'" class="btn btn-danger btn-sm" @click="CanceledOrder(order.id)">الغاء الطلبية</button>
+                                    <button v-if="order.order_status == '4'" class="btn btn-warning btn-sm" @click="RestoreOrder(order.id)">استرجاع الطلبية</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -129,6 +130,8 @@
     </div>
 </template>
 <script>
+import { CanceledError } from 'axios';
+
 export default {
     data() {
         return {
@@ -220,6 +223,32 @@ export default {
                 console.log(response);
                 self.errors = response.data;
             });
+        },
+        updateAction:async function(order_id,field){
+            let self = this;
+            await axios.put('/api/marketer-orders/'+order_id,field).then(function({data}) {
+                    self.FetchOrders();
+                }).catch(function({response}){
+                console.log(response);
+                });
+        },
+        CanceledOrder:async function(order_id){
+            if(confirm('تأكيد الغاء الطلب ') == true){
+                let self = this;
+                let field = {};
+                field.order_status = 4;
+                field.shipping_status = 3;
+                await self.updateAction(order_id,field);
+            }
+        },
+        RestoreOrder:async function(order_id){
+            if(confirm('تأكيد استرجاع الطلب ') == true){
+                let self = this;
+                let field = {};
+                field.order_status = 0;
+                field.shipping_status = 0;
+                await self.updateAction(order_id,field);
+            }
         }
     },
     created:function(){

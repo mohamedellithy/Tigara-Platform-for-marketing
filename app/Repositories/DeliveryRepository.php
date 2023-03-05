@@ -4,12 +4,17 @@ use App\Interfaces\DeliveryRepositoryInterface;
 use App\Models\Delivery;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\Delivery as DeliveryResource;
+use Illuminate\Http\Request;
 class DeliveryRepository extends DeliveryRepositoryInterface{
 
-    public function all(){
-       // return response()->json(['data' => $request->all()]);
+    public function all(Request $request){
+        if($request->query('paginate') == '-1'){
+            $deliveries = new DeliveryResource(Delivery::all());
+        } else {
+            $deliveries = new DeliveryResource(Delivery::paginate(2));
+        }
         return response()->json([
-            'data_info'          => new DeliveryResource(Delivery::paginate(2)),
+            'data_info'            => $deliveries,
             'active_deliveries'    => Delivery::where('status',1)->count(),
             'no_active_deliveries' => Delivery::where('status',0)->count()
         ]);

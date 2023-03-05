@@ -46,6 +46,8 @@ class ProductRepository extends ProductRepositoryInterface{
         $add_new_product = Product::create([
             'name'          => $data['name'],
             'merchant_id'   => $data['merchant_id'],
+            'merchant_commission'   => $data['merchant_commission'],
+            'marketer_commission'   => $data['marketer_commission'],
             'price'         => $data['price'],
             'quantity'      => $data['quantity'] ?: 0,
             'description'   => $data['description'] ?: 1,

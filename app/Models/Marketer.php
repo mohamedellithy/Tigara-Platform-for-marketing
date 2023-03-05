@@ -38,8 +38,9 @@ class Marketer extends Authenticatable
         'name',
         'phone',
         'email',
-        'account_type',
+        'commission',
         'status',
+        'account_type',
         'password',
     ];
 

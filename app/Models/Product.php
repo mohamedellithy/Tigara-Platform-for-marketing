@@ -17,7 +17,7 @@ class Product extends Model
         'thumbnail_item','attachments_items','status_text'
     ];
     protected $fillable = [
-        'name','price','quantity','description','status','merchant_id'
+        'name','price','quantity','description','status','merchant_id','marketer_commission','merchant_commission'
     ];
 
     /**

@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreign('marketer_id')->references('id')->on('users')->onDelete('Cascade');
             $table->unsignedBigInteger('delivery_id');
             $table->foreign('delivery_id')->references('id')->on('users')->onDelete('set Null');
-            $table->string('order_status')->default('0')->comment('0 => pending , 1 => processing , 3 => completed , 4 => cancelled');
-            $table->string('shipping_status')->default('0')->comment('0 => pending , 1 => processing , 3 => completed , 4 => cancelled');
+            $table->string('order_status')->default('0')->comment('0 => pending , 1 => processing , 2 => completed , 3 => refused , 4 => cancelled');
+            $table->string('shipping_status')->default('0')->comment('0 => pending , 1 => processing , 2 => completed , 3 => refused');
             $table->text('track_notice_order')->nullable();
             $table->timestamps();
         });

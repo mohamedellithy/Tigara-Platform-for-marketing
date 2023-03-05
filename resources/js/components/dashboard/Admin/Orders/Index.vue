@@ -81,7 +81,7 @@
                                 <td>{{ order.marketer.name }}</td>
                                 <td>{{ order.quantity }} قطعة</td>
                                 <td>{{ order.total }} USD</td>
-                                <td>{{ order.delivery.name }}</td>
+                                <td>{{ order.delivery ? order.delivery.name : 'لم يحدد' }}</td>
                                 <td>{{ order.order_status_txt }}</td>
                                 <td>{{ order.shipping_status_txt }}</td>
                                 <td>{{ order.created_at }}</td>
@@ -89,9 +89,14 @@
                                     <router-link :to="{path:'/dashboard/show-order/'+order.id}"  class="btn btn-primary btn-sm">
                                         عرض
                                     </router-link>
-                                    <button @click="SingleStatus(order)" class="btn btn-warning btn-sm">
+                                    <button v-if="order.delivery" @click="SingleStatus(order)" class="btn btn-warning btn-sm">
                                         تحديث الحالة
                                     </button>
+
+                                    <button v-if="!order.delivery" @click="AttachOrderDelivery(order)" class="btn btn-warning btn-sm">
+                                        تحديد شركة الشحن
+                                    </button>
+
                                 </td>
                             </tr>
                         </tbody>
@@ -138,44 +143,62 @@
                         </ul>
                     </nav>
                 </div>
-                <div v-show="this.showModel == true " id="exampleModalLive" class="modal fade " :class="[ this.showModel == true ? 'show' : '' ]" tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel" :style="`padding-right: 17px; display:block;padding-top: 10%;z-index: 100000;background: #0000001f;`">
+                <div v-show="this.showModel == true " id="exampleModalLive" class="modal fade " :class="[ this.showModel == true ? 'show' : '' ]" tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel" :style="`padding-right: 17px; display:block;padding-top: 10%;z-index: 100000;background:rgb(0 0 0 / 28%)`">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLiveLabel">
-                                تحديث حالة الطلب 
-                                <template v-if="field.order_id != null">
-                                    # {{ field.order_id }}
+                            <template v-if="field.delivery_model">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLiveLabel">
+                                        ارفاق شركة الشحن للطلبية رقم 
+                                        <template v-if="field.order_id != null">
+                                            # {{ field.order_id }}
+                                        </template>
+                                    </h5>
+                                </div>
+                                <div class="modal-body">
+                                    <p>شركة الشحن</p>
+                                    <select type="text" class="form-control" v-model="field.delivery_id">
+                                        <option v-for="(delivery,key) in deliveries" :value="delivery.id" :key="key">{{  delivery.name  }}</option>
+                                    </select>
+                                </div>
+                            </template>
+                            <template v-else>
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLiveLabel">
+                                        تحديث حالة الطلب 
+                                        <template v-if="field.order_id != null">
+                                            # {{ field.order_id }}
+                                        </template>
+                                    </h5>
+                                </div>
+                                <div class="modal-body">
+                                    <p>حالة الطلبية</p>
+                                    <select type="text" class="form-control" v-model="field.order_status">
+                                        <option :value="0" selected>بانتظار الموافقة</option>
+                                        <option :value="1">جاري التنفيذ</option>
+                                        <option :value="2">مكتملة</option>
+                                        <option :value="3">مرفوضة</option>
+                                    </select>
+                                </div>
+                                <div class="modal-body">
+                                    <p>حالة الشحن</p>
+                                    <select type="text" class="form-control" v-model="field.shipping_status">
+                                        <option :value="0" selected>بانتظار الموافقة</option>
+                                        <option :value="1">جاري التنفيذ</option>
+                                        <option :value="2">مكتملة</option>
+                                        <option :value="3">مرفوضة</option>
+                                    </select>
+                                </div>
+                            </template>
+                            <div class="modal-footer">
+                                <template v-if="field.order_id == null">
+                                    <button @click="UpdateStatus()" type="button" class="btn btn-primary btn-sm" fdprocessedid="3xp1pw">تحديث الحالة</button>
                                 </template>
-                            </h5>
-                        </div>
-                        <div class="modal-body">
-                            <p>حالة الطلبية</p>
-                            <select type="text" class="form-control" v-model="field.order_status">
-                                <option :value="0" selected>بانتظار الموافقة</option>
-                                <option :value="1">جاري التنفيذ</option>
-                                <option :value="2">مكتملة</option>
-                                <option :value="3">مرفوضة</option>
-                            </select>
-                        </div>
-                        <div class="modal-body">
-                            <p>حالة الشحن</p>
-                            <select type="text" class="form-control" v-model="field.shipping_status">
-                                <option :value="0" selected>بانتظار الموافقة</option>
-                                <option :value="1">جاري التنفيذ</option>
-                                <option :value="2">مكتملة</option>
-                                <option :value="3">مرفوضة</option>
-                            </select>
-                        </div>
-                        <div class="modal-footer">
-                            <template v-if="field.order_id == null">
-                                <button @click="UpdateStatus()" type="button" class="btn btn-primary" fdprocessedid="3xp1pw">تحديث الحالة</button>
-                            </template>
-                            <template v-if="field.order_id != null">
-                                <button @click="UpdateSingleStatus(field.order_id)" type="button" class="btn btn-primary" fdprocessedid="3xp1pw">تحديث الحالة</button>
-                            </template>
-                            <button @click="CloseModelUpdateStatus()" type="button" class="btn btn-secondary" data-dismiss="modal" fdprocessedid="c9npk">الغاء</button>
-                        </div>
+                                <template v-if="field.order_id != null">
+                                    <button @click="UpdateSingleStatus(field.order_id)" type="button" class="btn btn-primary btn-sm" fdprocessedid="3xp1pw">تحديث الحالة</button>
+                                </template>
+                                <button @click="CloseModelUpdateStatus()" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" fdprocessedid="c9npk">الغاء</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -202,8 +225,10 @@ export default {
                 order_status:0,
                 shipping_status:0,
                 order_id:null,
-                ids:[]
-            }
+                ids:[],
+                delivery_model:false
+            },
+            deliveries:[]
         };
     },
     methods:{
@@ -218,6 +243,20 @@ export default {
                 self.no_active_orders = data.no_active_orders;
                 self.active_orders    = data.active_orders;
                 console.log(self.orders);
+            }).catch(function({response}){
+                console.log(response);
+            });
+        },
+        FetchDeliveries:async function(){
+            let self = this;
+            await axios.get('/api/deliveries',{
+                params:{
+                    paginate : '-1'
+                }
+            }).then(function({data}){
+                console.log(data);
+                self.deliveries       = data.data_info;
+                console.log(self.deliveries,'nnnnnnnnnnn');
             }).catch(function({response}){
                 console.log(response);
             });
@@ -259,6 +298,13 @@ export default {
             this.field.order_id = order.id;
             this.ShowModelUpdateStatus();
         },
+        AttachOrderDelivery:function(order){
+            let self = this;
+            this.field.delivery_model = true;
+            this.field.order_id = order.id;
+            console.log(this.field);
+            this.ShowModelUpdateStatus();
+        },
         UpdateSingleStatus:function(order_id){
             let self = this;
             axios.put('/api/orders/'+order_id,this.field).then(function({data}) {
@@ -282,6 +328,7 @@ export default {
             page:(this.$route.params.page_no ? this.$route.params.page_no : 1)
         };
         this.FetchOrders();
+        this.FetchDeliveries();
     },
     watch:{
         search:function(search){

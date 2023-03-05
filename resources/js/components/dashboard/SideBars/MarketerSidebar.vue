@@ -171,38 +171,31 @@
         <li class="list-items-menu">
             <router-link
                 tag="a"
-                @click="toggleListMenuSidebar('show-due-merchant-payments')"
+                @click="toggleListMenuSidebar('marketer-payments')"
                 class="item-menu active"
                 active-class="active"
-                :to="{ name: 'show-due-merchant-payments' }"
+                :to="{ name: 'marketer-payments' }"
                 exact>
                 <i class="fas fa-pallet"></i>
-                <label>مدفوعات الارباح</label>
+                <label>طلبات الارباح</label>
                 <i
                     class="fas fa-chevron-down chevron"
-                    v-show="this.expanded.indexOf('show-due-merchant-payments') !== 0"
+                    v-show="this.expanded.indexOf('marketer-payments') !== 0"
                 ></i>
                 <i
                     class="fas fa-chevron-up chevron"
-                    v-show="this.expanded.indexOf('show-due-merchant-payments') === 0"
+                    v-show="this.expanded.indexOf('marketer-payments') === 0"
                 ></i>
             </router-link>
             <ul
                 :class="`child-list-items-menu ${
-                    this.expanded.indexOf('show-due-merchant-payments') !== 0 ? 'active' : ''
+                    this.expanded.indexOf('marketer-payments') !== 0 ? 'active' : ''
                 }`"
             >
                 <li class="li-child-list-items-menu">
-                    <router-link :to="{name:'show-due-merchant-payments'}" class="a-child-list-item-menu" active-class="active" exact>
+                    <router-link :to="{name:'marketer-payments'}" class="a-child-list-item-menu" active-class="active" exact>
                         <i class="fas fa-pallet"></i>
-                        <label> الارباح المضافة</label>
-                    </router-link>
-                </li>
-
-                <li class="li-child-list-items-menu">
-                    <router-link :to="{name:'show-made-merchant-payments'}" class="a-child-list-item-menu" active-class="active" exact>
-                        <i class="fas fa-pallet"></i>
-                        <label> الارباح المسددة</label>
+                        <label> طلبات السحب</label>
                     </router-link>
                 </li>
             </ul>

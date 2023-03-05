@@ -24,15 +24,23 @@ class MarketerPayment extends Model
         return $this->belongsTo('App\Models\Marketer','marketer_id','id');
     }
 
-     public function StatusText(): Attribute
+    public function StatusText(): Attribute
     {
         $status = [
             '0' => 'انتظار الموافقة',
             '1' => 'مكتمل ',
-            '2' => 'مرفوض'
+            '2' => 'مرفوض',
+            '3' => 'طلب ملغي'
         ];
         return Attribute::make(
             get : fn() => $status[$this->payment_status] ?: ''
+        );
+    }
+
+    public function CreatedAt(): Attribute
+    {
+        return Attribute::make(
+            get : fn() => date('Y-m-d h:i:s',$this->create_at)
         );
     }
 }

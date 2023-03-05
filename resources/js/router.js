@@ -102,11 +102,13 @@ import MarketerProducts from './components/dashboard/Marketer/Products/Index.vue
 import ShowMarketerProduct from './components/dashboard/Marketer/Products/Show.vue';
 import ShowLowStockMarketerProduct from './components/dashboard/Marketer/Products/LowStock.vue';
 import MarketerOrders from './components/dashboard/Marketer/Orders/Index.vue';
-import ShowDueMarketerPayments from './components/dashboard/Marketer/Payments/Due.vue';
-import ShowMadeMarketerPayments from './components/dashboard/Marketer/Payments/Made.vue';
+import ShowMarketerOrder from './components/dashboard/Marketer/Orders/Show.vue';
+import MarketerEditOrder from './components/dashboard/Marketer/Orders/Edit.vue';
+import ShowMarketerPayments from './components/dashboard/Marketer/Payments/Index.vue';
 import MarketerDashboard from './components/dashboard/Marketer/DashboardReports.vue';
 import MarketerCartsDashboard from './components/dashboard/Marketer/Cart/Index.vue';
 import MarketerFavouritsDashboard from './components/dashboard/Marketer/Favourits/Index.vue';
+
 
 
 const routes = [{
@@ -794,25 +796,14 @@ const routes = [{
                 },
                 // end of orders
                 {
-                    path: 'show-due-marketer-payments/:page_no?',
-                    name: 'show-due-marketer-payments',
-                    component: ShowDueMarketerPayments,
+                    path: 'payments/:page_no?',
+                    name: 'marketer-payments',
+                    component: ShowMarketerPayments,
                     meta: {
-                        ar_name: 'عرض الارباح المضافة',
+                        ar_name: 'طلبات سحب الارباح',
                         requiresAuth: true,
                         AccountType: 'marketer',
-                        menu_id: 'show-due-marketer-payments',
-                    },
-                },
-                {
-                    path: 'show-made-marketer-payments/:page_no?',
-                    name: 'show-made-marketer-payments',
-                    component: ShowMadeMarketerPayments,
-                    meta: {
-                        ar_name: 'عرض الارباح المسددة',
-                        requiresAuth: true,
-                        AccountType: 'marketer',
-                        menu_id: 'show-made-marketer-payments',
+                        menu_id: 'marketer-payments',
                     },
                 },
                 {
@@ -835,6 +826,29 @@ const routes = [{
                         requiresAuth: true,
                         AccountType: 'marketer',
                         menu_id: 'marketer-favourits',
+                    },
+                },
+                {
+                    path: 'show-order/:id',
+                    name: 'marketer-show-marketer',
+                    component: ShowMarketerOrder,
+                    meta: {
+                        ar_name: 'عرض الطلب',
+                        menu_id: 'marketers',
+                        requiresAuth: true,
+                        AccountType: 'marketer',
+                        menu_id: 'marketer-orders',
+                    }
+                },
+                {
+                    path: 'edit-order/:order_id/:action?',
+                    name: 'marketer-edit-order',
+                    component: MarketerEditOrder,
+                    meta: {
+                        ar_name: 'تعديل الطلب',
+                        requiresAuth: true,
+                        AccountType: 'marketer',
+                        menu_id: 'marketer-orders',
                     },
                 }
             ]

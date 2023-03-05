@@ -19,6 +19,8 @@ return new class extends Migration
             $table->double('price')->default(0.0);
             $table->integer('quantity')->required();
             $table->text('description')->nullable();
+            $table->string('marketer_commission')->nullable();
+            $table->string('merchant_commission')->nullable();
             $table->string('status')->default(1);
             $table->timestamps();
         });

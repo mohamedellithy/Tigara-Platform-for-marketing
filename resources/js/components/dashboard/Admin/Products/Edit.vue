@@ -32,43 +32,59 @@
                     </div>
                 </div>
                 <div class="col-lg-8 container-form-new-merchant">
-                    <div class="form-group">
-                        <label for="merchant-name">
-                           <i class="fas fa-user-edit" style="padding: 5px;"></i>
-                            اسم المنتج
-                        </label>
-                        <input id="merchant-name" placeholder="اسم المنتج" class="form-control" type="text" v-model="product.name"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="merchant-name">
-                            <i class="fas fa-user-edit" style="padding: 5px;"></i>
-                            سعر المنتج
-                        </label>
-                        <input id="merchant-name" placeholder="سعر المنتج" class="form-control" type="text" v-model="product.price"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="merchant-name">
-                            <i class="fas fa-user" style="padding: 5px;"></i>
-                            اختيار التاجر
-                        </label>
-                        <select id="merchant-name" placeholder="اسم التاجر" class="form-control" type="text" v-model="product.merchant_id">
-                            <option value="null">اختيار التاجر</option>
-                            <option v-for="(merchant,index) in merchants" :value="merchant.id" :key="index">{{ merchant.name  }}</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="merchant-name">
-                            <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
-                            عدد المنتجات
-                        </label>
-                        <input id="merchant-name" placeholder="عدد المنتجات" class="form-control" type="text" v-model="product.quantity"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="merchant-name">
-                            <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
-                            وصف المنتج
-                        </label>
-                        <textarea rows="10" cols="20" id="merchant-name" placeholder="وصف المنتج" class="form-control" type="text" v-model="product.description"></textarea>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="merchant-name">
+                               <i class="fas fa-user-edit" style="padding: 5px;"></i>
+                                اسم المنتج
+                            </label>
+                            <input id="merchant-name" placeholder="اسم المنتج" class="form-control" type="text" v-model="product.name"/>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="merchant-name">
+                                <i class="fas fa-user-edit" style="padding: 5px;"></i>
+                                سعر المنتج
+                            </label>
+                            <input id="merchant-name" placeholder="سعر المنتج" class="form-control" type="text" v-model="product.price"/>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="merchant-name">
+                                <i class="fas fa-user-edit" style="padding: 5px;"></i>
+                                عمولة التاجر بالنسبة المئوية (%)
+                            </label>
+                            <input id="merchant-name" placeholder="عمولة التاجر" class="form-control" type="text" v-model="product.merchant_commission"/>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="merchant-name">
+                                <i class="fas fa-user-edit" style="padding: 5px;"></i>
+                                عمولة المسوق بالقيمة ( USD )
+                            </label>
+                            <input id="merchant-name" placeholder="عمولة المسوق" class="form-control" type="text" v-model="product.marketer_commission"/>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="merchant-name">
+                                <i class="fas fa-user" style="padding: 5px;"></i>
+                                اختيار التاجر
+                            </label>
+                            <select id="merchant-name" placeholder="اسم التاجر" class="form-control" type="text" v-model="product.merchant_id">
+                                <option value="null">اختيار التاجر</option>
+                                <option v-for="(merchant,index) in merchants" :value="merchant.id" :key="index">{{ merchant.name  }}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="merchant-name">
+                                <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
+                                عدد المنتجات
+                            </label>
+                            <input id="merchant-name" placeholder="عدد المنتجات" class="form-control" type="text" v-model="product.quantity"/>
+                        </div>
+                        <div class="form-group ">
+                            <label for="merchant-name">
+                                <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
+                                وصف المنتج
+                            </label>
+                            <textarea rows="10" cols="20" id="merchant-name" placeholder="وصف المنتج" class="form-control" type="text" v-model="product.description"></textarea>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-4 container-form-new-merchant">
@@ -164,7 +180,8 @@ export default {
             product.append('quantity',this.product.quantity);
             product.append('status',this.product.status);
             product.append('merchant_id',this.product.merchant_id);
-            
+            product.append('merchant_commission',this.product.merchant_commission);
+            product.append('marketer_commission',this.product.marketer_commission);
             if(this.product.thumbnail){
                 product.append('thumbnail',this.product.thumbnail);
             }

@@ -4,17 +4,22 @@ namespace App\Http\Controllers\Api\Marketer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Interfaces\MarketerPaymentsRepositoryInterface;
 class PaymentsController extends Controller
 {
+    protected MarketerPaymentsRepositoryInterface $marketer_payments;
+    public function __construct(MarketerPaymentsRepositoryInterface $marketer_payments){
+            $this->marketer_payments = $marketer_payments;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        return $this->marketer_payments->all($request);
     }
 
     /**
@@ -26,17 +31,7 @@ class PaymentsController extends Controller
     public function store(Request $request)
     {
         //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return $this->marketer_payments->save($request);
     }
 
     /**
@@ -49,16 +44,6 @@ class PaymentsController extends Controller
     public function update(Request $request, $id)
     {
         //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return $this->marketer_payments->update($request, $id);
     }
 }
