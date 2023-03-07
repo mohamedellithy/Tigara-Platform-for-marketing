@@ -130,6 +130,11 @@
                 </router-link>
             </div>
         </div>
+        <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
+        @update_success="showsuccess = false"
+        @update_errors="showerrors = false" :errors="errors"
+        :success_message="success_message"
+        :error_message="error_message"></alert-response>
     </div>
 </template>
 <script>
@@ -150,7 +155,11 @@ export default {
            iconsProfile,
            expanded:[],
            total_cart_items:0,
-           cart_items:[]
+           cart_items:[],
+           showsuccess:false,
+           showerrors:false,
+           success_message:'تم انشاء التاجر بنجاح',
+           error_message:'حدث خطأ اثناء انشاء التاجر'
         }
     },
     methods: {
@@ -203,6 +212,10 @@ export default {
             let field = {};
             field.type = "plus";
             await axios.put('/api/marketer-carts/'+item.id,field).then(function({data}){
+                if(data.status){
+                    self.showerrors = true;
+                    self.error_message = data.status;
+                }
                 self.cart_items = data.cart_items;
                 self.total_cart_items = data.total_quantity;
                 console.log(data);

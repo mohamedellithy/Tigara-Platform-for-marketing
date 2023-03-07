@@ -69,7 +69,7 @@
                                     <span class="fas fa-minus quantity-varite" @click="MinusQuantity(product)"></span>
                                 </td>
                                 <td>
-                                    <span v-if="product.quantity == 0" style="color: red;position: absolute;font-weight: bold;">منتهى</span>
+                                    <span v-if="product.quantity == 0" style="color: red;font-weight: bold;">منتهى</span>
                                 </td>
                             </tr>
                             <tr class="actions">
@@ -130,6 +130,11 @@
                 </ul>
             </nav>
         </div>
+        <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
+        @update_success="showsuccess = false"
+        @update_errors="showerrors = false" :errors="errors"
+        :success_message="success_message"
+        :error_message="error_message"></alert-response>
     </div>
 </template>
 <script>
@@ -170,7 +175,11 @@ export default {
             },
             filter_products:null,
             orders:[],
-            favourits:[]
+            favourits:[],
+            showsuccess:false,
+            showerrors:false,
+            success_message:'تم انشاء التاجر بنجاح',
+            error_message:'حدث خطأ اثناء انشاء التاجر'
         }
     },
     methods:{
@@ -196,6 +205,10 @@ export default {
             this.orders[product.id].quantity   = (this.orders[product.id].quantity ? Number(this.orders[product.id].quantity) : 1);
             this.orders[product.id].price      = product.price;
             await axios.post('/api/marketer-carts',this.orders[product.id]).then(function({data}){
+                if(data.status){
+                    self.showerrors = true;
+                    self.error_message = data.status;
+                }
                 self.orders[product.id].quantity = 1;
                 self.$emit('updateQuantity',data.total_quantity,data.cart_items);
                 console.log(data);

@@ -34,6 +34,7 @@ class Merchant extends Authenticatable
         'commission',
         'status',
         'account_type',
+        'store_name',
         'password',
     ];
 

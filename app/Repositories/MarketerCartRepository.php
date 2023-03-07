@@ -4,6 +4,8 @@ use App\Interfaces\MarketerCartRepositoryInterface;
 use App\Models\Cart;
 use Illuminate\Http\Request;
 use App\Http\Resources\Cart as CartResource;
+use App\Services\StockService;
+use App\Models\Product;
 class MarketerCartRepository extends MarketerCartRepositoryInterface{
 
     public function all(Request $request){
@@ -14,6 +16,25 @@ class MarketerCartRepository extends MarketerCartRepositoryInterface{
 
     public function save(Request $request){
         $cart = $request->user()->carts()->where('product_id',$request->input('product_id'))->exists();
+        
+        // check stock availability
+        $stock = new StockService(
+            Product::find($request->input('product_id'))
+        );
+
+        // set quantity
+        $stock->required_quantity = $request->input('quantity');
+
+        // is stock is not available
+        if($stock->stock_availaibility() == false):
+            return response()->json([
+                'status'         => 'كمية المحددة غير متاحة للمنتج',
+                'data'           => $request->user()->carts,
+                'total_quantity' => $request->user()->total_cart_items,
+                'cart_items'     => CartResource::collection($request->user()->carts)
+            ]);
+        endif;
+
         if($cart){
             $insertCart = $request->user()->carts()->where('product_id',$request->input('product_id'))->increment('quantity',$request->input('quantity'));
         } else {
@@ -23,6 +44,7 @@ class MarketerCartRepository extends MarketerCartRepositoryInterface{
                 'price'      => $request->input('price')
             ]);
         }
+        
         return response()->json([
             'data' => $request->user()->carts,
             'total_quantity' => $request->user()->total_cart_items,
@@ -30,16 +52,34 @@ class MarketerCartRepository extends MarketerCartRepositoryInterface{
         ]);
     }
 
-    public function show($id){}
-
     public function update(Request $request,$id){
+
+        $item_in_cart = $request->user()->carts()->where('id',$id);
+
         if($request->input('type') == 'plus'){
-        
-            $request->user()->carts()->where('id',$id)->increment('quantity',1);
+
+            // check stock
+            $stock = new StockService(
+                Product::find($item_in_cart->first()->product_id),
+            );
+
+            // set quantity
+            $stock->required_quantity = 1;
+
+            // is stock is not available
+            if($stock->stock_availaibility() == false):
+                return response()->json([
+                    'status'         => 'كمية المحددة غير متاحة للمنتج',
+                    'total_quantity' => $request->user()->total_cart_items,
+                    'cart_items' => CartResource::collection($request->user()->carts)
+                ]);
+            endif;
+
+            $item_in_cart->increment('quantity',1);
         
         } else if($request->input('type') == 'minus'){
         
-            $request->user()->carts()->where('id',$id)->decrement('quantity',1);
+            $item_in_cart->decrement('quantity',1);
         }
 
         return response()->json([

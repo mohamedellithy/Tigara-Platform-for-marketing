@@ -201,6 +201,11 @@
                 </div>
             </div>
         </div>
+        <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
+        @update_success="showsuccess = false"
+        @update_errors="showerrors = false" :errors="errors"
+        :success_message="success_message"
+        :error_message="error_message"></alert-response>
     </div>
 </template>
 
@@ -216,7 +221,11 @@ export default{
                 'المدينة',
                 'البليلة'
             ],
-            order:{}
+            order:{},
+            showsuccess:false,
+            showerrors:false,
+            success_message:'تم انشاء التاجر بنجاح',
+            error_message:'حدث خطأ اثناء انشاء التاجر'
         }
     },
     methods : { 
@@ -236,6 +245,10 @@ export default{
             await axios.put('/api/marketer-carts/'+item.id,field).then(function({data}){
                 self.cart_items = data.cart_items;
                 self.$emit('updateQuantity',data.total_quantity,data.cart_items);
+                if(data.status){
+                    self.showerrors = true;
+                    self.error_message = data.status;
+                }
                 console.log(data);
             }).catch(function({response}){
                 console.log(response);
@@ -268,9 +281,9 @@ export default{
         },
         AddCustomerInfo:async function(){
             let self = this;
+            window.localStorage.setItem('customer',JSON.stringify(this.customer));
             await axios.post('/api/marketer-orders',this.customer).then(function({data}){
                 console.log(data);
-                self.order = data.order;
                 self.$router.push({path:'/marketer/carts/order-status/'+data.order.id})
             }).catch(function({response}){
                 console.log(response);
@@ -280,6 +293,7 @@ export default{
     async created(){
         let self = this;
         this.FetchCartItems();
+        self.customer = JSON.parse(window.localStorage.getItem('customer')) || {};
         if(this.$route.params.action == 'order-status'){
             await axios.get('/api/marketer-orders/'+this.$route.params.order_id).then(function({data}){
                  self.order = data.order;

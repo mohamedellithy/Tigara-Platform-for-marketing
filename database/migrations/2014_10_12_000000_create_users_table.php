@@ -21,6 +21,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->enum('account_type',['0','1','2','3','4','5'])->comment('0 => admin , 1 => merchant, 2 => delivery , 3 => marketer');
             $table->enum('status', ['0', '1'])->comment('0 => not - active , 1 => active')->default(1);
+            $table->string('store_name')->nullable();
             $table->string('password');
             $table->string('commission')->nullable();
             $table->rememberToken();

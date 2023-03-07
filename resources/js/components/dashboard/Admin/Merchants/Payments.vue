@@ -52,7 +52,7 @@
                             <tr v-for="(merchant, key) in merchants" :key="key">
                                 <th scope="row">{{ merchant.id }}</th>
                                 <td>{{ merchant.name }}</td>
-                                <td>{{ merchant.name }}</td>
+                                <td>{{ merchant.store_name || '-' }}</td>
                                 <td>{{ merchant.payments_total }} {{ currency }}</td>
                                 <td>{{ merchant.payments_due }} {{ currency }}</td>
                                 <td>{{ merchant.payments_made }} {{ currency }}</td>

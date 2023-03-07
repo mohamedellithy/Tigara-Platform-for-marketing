@@ -46,6 +46,7 @@ app.use(router);
 app.config.globalProperties.$auth = Auth;
 
 import MasterContent from './components/MasterContent.vue';
+import AlertResponse from './components/AlertResponse.vue';
 
 app.config.globalProperties.$filters = {
     handleEmail: function(value) {
@@ -54,4 +55,5 @@ app.config.globalProperties.$filters = {
 }
 
 app.component('MasterContent', MasterContent);
+app.component('AlertResponse', AlertResponse);
 app.mount('#app');

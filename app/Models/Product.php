@@ -14,7 +14,7 @@ class Product extends Model
     use HasFactory;
 
     protected $appends = [
-        'thumbnail_item','attachments_items','status_text'
+        'thumbnail_item','attachments_items','status_text','hold_stock'
     ];
     protected $fillable = [
         'name','price','quantity','description','status','merchant_id','marketer_commission','merchant_commission'
@@ -67,5 +67,16 @@ class Product extends Model
 
     public function order_details(){
         return $this->hasMany('App\Models\OrderDetails','product_id','id');
+    }
+
+    public function cart(){
+        return $this->hasMany('App\Models\Cart','product_id','id');
+    }
+
+    public function HoldStock(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->cart()->sum('quantity') ?: 0
+        );
     }
 }

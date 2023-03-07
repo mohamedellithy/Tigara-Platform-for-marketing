@@ -11,6 +11,7 @@ class MerchantRepository extends MerchantRepositoryInterface{
        // return response()->json(['data' => $request->all()]);
         return response()->json([
             'data_info'          => new MerchantCollectionsResource(Merchant::paginate(12)),
+            'all_merchants'      => Merchant::count(),
             'active_merchant'    => Merchant::where('status',1)->count(),
             'no_active_merchant' => Merchant::where('status',0)->count()
         ]);
@@ -19,6 +20,7 @@ class MerchantRepository extends MerchantRepositoryInterface{
     public function search($search = null){
         return response()->json([
             'data_info'          => MerchantResource::collection(Merchant::where('name','Like','%'.$search.'%')->get()),
+            'all_merchants'      => Merchant::count(),
             'active_merchant'    => Merchant::where('status',1)->where('name','Like','%'.$search.'%')->count(),
             'no_active_merchant' => Merchant::where('status',0)->where('name','Like','%'.$search.'%')->count()
         ]);
@@ -29,6 +31,7 @@ class MerchantRepository extends MerchantRepositoryInterface{
         $add_new_merchant = Merchant::create([
             'name'          => $data['name'],
             'phone'         => $data['phone'],
+            'store_name'    => $data['store_name'],
             'email'         => $data['email'],
             'account_type'  => $data['account_type'],
             'password'      => Hash::make($data['password']),
@@ -56,7 +59,7 @@ class MerchantRepository extends MerchantRepositoryInterface{
             endif;
 
             $add_new_merchant = $merchant->update($data);
-       
+
             if($add_new_merchant):
                 return response()->json([
                     'result' => 'تم تعديل حساب تاجر بنجاح'
@@ -66,11 +69,11 @@ class MerchantRepository extends MerchantRepositoryInterface{
     }
 
     public function bulk_update($data){
-        
+
         $update_merchant = Merchant::whereIn('id',$data['ids'])->update([
             'status' => $data['update_status']
         ]);
-    
+
         if($update_merchant):
             return response()->json([
                 'result' => 'تم تعديل  بنجاح'

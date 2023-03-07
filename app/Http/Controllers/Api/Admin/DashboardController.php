@@ -21,7 +21,7 @@ class DashboardController extends Controller
             'products_count'     => Product::count(),
             'orders_count'       => Order::count(),
             'orders'             => Order::with('marketer')->orderBy('created_at','asc')->limit(5)->get(),
-            'products'           => Product::with('merchant')->orderBy('created_at','asc')->limit(5)->get(),
+            'products'           => Product::where('quantity',0)->orderBy('created_at','asc')->limit(5)->get(),
         ]);
     }
 }

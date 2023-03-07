@@ -19,18 +19,6 @@
                 </div>
             </div>
             <div class="row">
-                <div v-if="Object.keys(this.errors).length !== 0" class="col-12 container-errors">
-                    <div class="alert alert-danger">
-                         <ul>
-                            <li v-for="(error,index) in errors" :key="index"> {{ error[0] }}</li>
-                         </ul>
-                    </div>
-                </div>
-                <div v-if="this.success" class="col-12 container-errors">
-                    <div class="alert alert-success">
-                         <p>{{ success }}</p>
-                    </div>
-                </div>
                 <div class="col-lg-6 container-form-new-merchant">
                     <div class="form-group">
                         <label for="merchant-name">
@@ -58,6 +46,13 @@
                     <div class="form-group">
                         <label for="merchant-name">
                             <i class="fas fa-lock" style="padding: 5px;"></i>
+                            اسم المتجر
+                        </label>
+                        <input id="merchant-name" placeholder="اسم المتجر" class="form-control" type="text" v-model="merchant.store_name"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="merchant-name">
+                            <i class="fas fa-lock" style="padding: 5px;"></i>
                             كلمة المرور
                         </label>
                         <input id="merchant-name" placeholder="كلمة المرور" class="form-control" type="password" v-model="merchant.password"/>
@@ -72,6 +67,11 @@
                 </div>
             </div>
         </form>
+        <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
+        @update_success="showsuccess = false"
+        @update_errors="showerrors = false" :errors="errors"
+        :success_message="success_message"
+        :error_message="error_message"></alert-response>
     </div>
 </template>
 <script>
@@ -80,32 +80,35 @@ export default {
         return{
             merchant:{},
             errors:{},
-            success:null
+            success:null,
+            showsuccess:false,
+            showerrors:false,
+            success_message:'تم تحديث التاجر بنجاح',
+            error_message:'حدث خطأ اثناء تحديث التاجر'
         }
     },
     methods:{
         FetchMerchant:function(){
             let self = this;
-            console.log(this.$route.params.id);
             axios.get('/api/merchants/'+this.$route.params.id).then(function({data}) {
                 console.log(data);
-                self.errors   = {};
                 self.merchant = data.merchant;
             }).catch(function({response}) {
                 console.log(response);
-                self.errors = response.data;
             })
-            console.log(this.merchant);
         },
         UpdateMerchant:function(){
             let self = this;
+            this.merchant.account_type = 1;
             axios.put('/api/merchants/'+this.$route.params.id,this.merchant).then(function({data}) {
                 console.log(data);
                 self.errors   = {};
-                self.success  = data.result;
+                self.success_message  = data.result;
+                self.showsuccess = true;
                 console.log(self.success);
             }).catch(function({response}) {
                 console.log(response);
+                self.showerrors = true;
                 self.errors = response.data;
             })
         },

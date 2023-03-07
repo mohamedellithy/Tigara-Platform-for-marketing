@@ -52,7 +52,7 @@
                                     <span class="fas fa-minus quantity-varite" @click="MinusQuantity(product)"></span>
                                 </td>
                                 <td>
-                                    <span v-if="product.quantity == 0" style="color: red;position: absolute;font-weight: bold;">منتهى</span>
+                                    <span v-if="product.quantity == 0" style="color: red;font-weight: bold;">منتهى</span>
                                 </td>
                             </tr>
                             <tr class="actions">

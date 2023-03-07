@@ -5,11 +5,14 @@ use App\Models\Product;
 use App\Models\Order;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use App\Services\OrderActionsProcess;
+use Illuminate\Support\Facades\DB;
+use App\Services\StockService;
 class MarketerOrdersRepository extends MarketerOrdersRepositoryInterface{
 
     public function all(Request $request){
         return response()->json([
-            'data_info'          => $request->user()->orders()->paginate(10),
+            'data_info'          => $request->user()->orders()->orderBy('created_at','desc')->paginate(10),
             'active_products'    => $request->user()->orders()->count(),
             'finished_products'  => $request->user()->orders()->count()
         ]);
@@ -32,16 +35,25 @@ class MarketerOrdersRepository extends MarketerOrdersRepositoryInterface{
             ]);
         }
 
-        if($order){
+        if($order):
+
             foreach($request->user()->carts as $cart):
+
                 $order->order_details()->create([
                     'product_id' => $cart->product_id,
                     'quantity'   => $cart->quantity,
                     'unit_price' => $cart->price
                 ]);
+
                 $cart->delete();
+
             endforeach;
-        }
+
+            // process the order
+            $order_process = new OrderActionsProcess(Order::find($order->id));
+            $order_process->handle_process_order_status();
+
+        endif;
 
         return response()->json([
             'order' => $order
@@ -64,12 +76,58 @@ class MarketerOrdersRepository extends MarketerOrdersRepositoryInterface{
     }
 
     public function update(Request $request,$id){
-        $update_order = $request->user()->orders()->where('id',$id)->update($request->except(['order_details','customer']));
+        $query_order  = $request->user()->orders()->where('id',$id);
+
+        $update_order = $query_order->update($request->except(['order_details','customer']));
+
+        if($request->has('order_status')):
+            // process the order
+            $order_process = new OrderActionsProcess($query_order->first());
+
+            // incase restore order cancelled 
+            // if($order_process->order_stock_availability() == false):
+            //     return response()->json([
+            //         'status' => 'كمية الطلبات غير متوفرة فى المخزن'
+            //     ]);
+            // endif;
+
+            $order_process->handle_process_order_status();
+        endif;
 
         if($request->has('order_details')):
-            $order = $request->user()->orders()->where('id',$id)->first();
+            
+            $order = $query_order->first();
+
             foreach($request->input('order_details') as $order_detail):
-                $order->order_details()->where('id',$order_detail['id'])->delete();
+
+                $item_order = $order->order_details()->where('id',$order_detail['id']);
+                
+                // check stock availability
+                $stock = new StockService(
+                    Product::find($order_detail['product_id'])
+                );
+
+                if($order_detail['quantity'] > ( $old_quantity = $item_order->first()->quantity ) ):
+
+                    // set quantity
+                    $stock->required_quantity = intval($order_detail['quantity'] - $old_quantity);
+
+                    if($stock->stock_availaibility() == false):
+                        continue;
+                    endif;
+
+                    $stock->decrease_stock();
+
+                elseif($order_detail['quantity'] < $old_quantity ):
+
+                    // set quantity
+                    $stock->required_quantity = intval($old_quantity - $order_detail['quantity']);
+
+                    $stock->increase_stock();
+                
+                endif;
+
+                $item_order->delete();
                 $order->order_details()->create([
                     'product_id' => $order_detail['product_id'],
                     'quantity'   => $order_detail['quantity'],
@@ -79,7 +137,7 @@ class MarketerOrdersRepository extends MarketerOrdersRepositoryInterface{
         endif;
 
         if($request->has('customer')):
-            $order = $request->user()->orders()->where('id',$id)->first();
+            $order = $query_order->first();
             $customer = $request->input('customer');
             $order->customer()->where('id',$customer['id'])->update([
                 'name' => $customer['name'],

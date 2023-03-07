@@ -4,18 +4,6 @@
             <div class="content-page col-12">
                 <div class="filter-bar">
                     <div class="row">
-                        <div v-if="Object.keys(this.errors).length !== 0" class="col-12 container-errors">
-                            <div class="alert alert-danger">
-                                <ul>
-                                    <li v-for="(error,index) in errors" :key="index"> {{ error[0] }}</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div v-if="this.success" class="col-12 container-errors">
-                            <div class="alert alert-success">
-                                <p>{{ success }}</p>
-                            </div>
-                        </div>
                         <div class="col-md-8">
                             <ul class="filter-results">
                                 <li class="actions-btn">
@@ -34,7 +22,7 @@
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-users"></i>
-                                    {{ merchants.length }} تاجر
+                                    {{ all_merchants  }} عدد  التجار  
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-check"></i>
@@ -43,6 +31,11 @@
                                 <li class="filter-item">
                                     <i class="fas fa-user-slash"></i>
                                     {{ no_active_merchant }} غير مفعل
+                                </li>
+                                <br/> <br/>
+                                <li class="filter-item" style="background-color: #ffeaea;">
+                                    <i class="fas fa-eye"></i>
+                                    {{ merchants.length }} معروض
                                 </li>
                             </ul>
                         </div>
@@ -62,6 +55,7 @@
                                 </th>
                                 <th>#</th>
                                 <th>اسم التاجر</th>
+                                <th>اسم المتجر</th>
                                 <th>البريدالالكترونى</th>
                                 <th>رقم الجوال</th>
                                 <th>حالة التاحر</th>
@@ -79,6 +73,7 @@
                                     {{ merchant.id }}
                                 </th>
                                 <td>{{ merchant.name }}</td>
+                                <td>{{ merchant.store_name || '-' }}</td>
                                 <td>{{ merchant.email }}</td>
                                 <td>{{ merchant.phone }}</td>
                                 <td>
@@ -169,6 +164,11 @@
                 </div>
             </div>
         </div>
+        <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
+        @update_success="showsuccess = false"
+        @update_errors="showerrors = false" :errors="errors"
+        :success_message="success_message"
+        :error_message="error_message"></alert-response>
     </div>
 </template>
 <script>
@@ -177,6 +177,7 @@ export default {
         return {
             no_active_merchant:0,
             active_merchant:0,
+            all_merchants:0,
             infos:[],
             merchants:[],
             search:null,
@@ -189,7 +190,11 @@ export default {
             field:{
                 update_status:0,
                 ids:[]
-            }
+            },
+            showsuccess:false,
+            showerrors:false,
+            success_message:'تم انشاء التاجر بنجاح',
+            error_message:'حدث خطأ اثناء انشاء التاجر'
         };
     },
     methods:{
@@ -203,6 +208,7 @@ export default {
                 self.merchants          = self.infos.data;
                 self.no_active_merchant = data.no_active_merchant;
                 self.active_merchant    = data.active_merchant;
+                self.all_merchants      = data.all_merchants;
             }).catch(function({response}){
                 console.log(response);
             });
@@ -213,13 +219,16 @@ export default {
                 axios.delete('/api/merchants/'+id).then(function({data}){
                     console.log(data);
                     self.errors   = {};
-                    self.success  = data.result;
+                    self.showsuccess = true;
+                    self.success_message = data.result;
                     self.params = {
                         page:(self.$route.params.page_no ? self.$route.params.page_no : 1)
                     };
                     self.FetchMerchants();
                 }).catch(function({response}){
                     console.log(response);
+                    self.showerrors = false;
+                    self.error_message = 'فشل حذف التاجر';
                 });
             }
         },
@@ -254,12 +263,15 @@ export default {
                 }).then(function({data}){
                     console.log(data);
                     self.errors   = {};
-                    self.success  = data.result;
+                    self.showsuccess = true;
+                    self.success_message = data.result;
                     self.params = {
                         page:(self.$route.params.page_no ? self.$route.params.page_no : 1)
                     };
                     self.FetchMerchants();
                 }).catch(function({response}){
+                    self.showerrors = false;
+                    self.error_message = 'فشل حذف التاجر';
                     console.log(response);
                 });
             }
@@ -276,7 +288,8 @@ export default {
             axios.put('/api/merchants/update-status',this.field).then(function({data}) {
                 console.log(data);
                 self.errors   = {};
-                self.success  = data.result;
+                self.showsuccess = true;
+                self.success_message = data.result;
                 console.log(self.success);
                 self.params = {
                     page:(self.$route.params.page_no ? self.$route.params.page_no : 1)
@@ -285,6 +298,7 @@ export default {
                 self.CloseModelUpdateStatus();
             }).catch(function({response}) {
                 console.log(response);
+                self.showerrors = false;
                 self.errors = response.data;
             })
         }

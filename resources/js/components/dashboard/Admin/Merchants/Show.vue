@@ -32,6 +32,13 @@
                 <div class="form-group">
                     <label for="merchant-name">
                         <i class="fas fa-user-edit" style="padding: 5px;"></i>
+                        اسم المتجر
+                    </label>
+                    <p class="container-value-p">{{ merchant.store_name }}</p>
+                </div>
+                <div class="form-group">
+                    <label for="merchant-name">
+                        <i class="fas fa-user-edit" style="padding: 5px;"></i>
                         البريد الالكترونى
                     </label>
                     <p class="container-value-p">{{ merchant.email }}</p>
