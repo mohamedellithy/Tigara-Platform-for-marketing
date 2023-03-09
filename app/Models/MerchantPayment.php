@@ -12,13 +12,18 @@ class MerchantPayment extends Model
     protected $fillable = [
         'merchant_id',
         'value',
-        'type'
+        'type',
+        'item_id'
     ];
 
     protected $appends = ['type_text'];
 
     public function merchant(){
         return $this->belongsTo('App\Models\Merchant','id','merchant_id');
+    }
+
+    public function item_details(){
+        return $this->belongsTo('App\Models\OrderDetails','item_id','id');
     }
 
      public function TypeText(): Attribute

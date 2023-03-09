@@ -6,7 +6,7 @@
                 <ul class="filter-results">
                     <li class="filter-item">
                         <i class="fas fa-users"></i>
-                        {{ products.length }} منتجات
+                        {{ total_products }} منتجات
                     </li>
                     <li class="filter-item">
                         <i class="fas fa-users"></i>
@@ -25,22 +25,30 @@
         <div class="row">
             <ul class="col-12 list-filter-items">
                 <li class="list-filter-item">
-                    <router-link :to="{name:'marketer-products'}" active-class="active"  axact>المنتجات</router-link>
+                    <button @click="BrowseProduct(null)" :class="$route.query.filter == null ? 'active' : ''" >المنتجات</button>
                 </li>
                 <li class="list-filter-item">
-                    <a href="#">الاكثر مبيعا</a>
+                    <button @click="BrowseProduct('more-sales')" :class="$route.query.filter == 'more-sales' ? 'active' : ''" >الاكثر مبيعا</button>
                 </li>
                 <li class="list-filter-item">
-                    <a href="#">الاعلي سعرا</a>
+                    <button @click="BrowseProduct('less-sales')" :class="$route.query.filter == 'less-sales' ? 'active' : ''" >الاقل مبيعا</button>
                 </li>
                 <li class="list-filter-item">
-                    <a href="#">الاقل سعرا</a>
+                    <button @click="BrowseProduct('high-price')" :class="$route.query.filter == 'high-price' ? 'active' : ''" >الاعلي سعرا</button>
                 </li>
+                <li class="list-filter-item">
+                    <button @click="BrowseProduct('low-price')" :class="$route.query.filter == 'low-price' ? 'active' : ''"  >الاقل سعرا</button>
+                </li>
+                <br/><br/>
+                
             </ul>
-            <ul class="content-page col-12">
+            <label>
+                {{ products.length }} المعروض
+            </label>
+            <ul class="content-page row">
                 <li v-for="(product,key) in products" :key="key" class="col-md-3 item-product">
                     <div class="inner-product-item">
-                        <i class="fas fa-heart favourits-add" 
+                        <i class="fas fa-heart favourits-add"
                            @click="addToFavourit(product.id)"
                            :style="this.favourits.indexOf(product.id) != -1 ? 'color:#cb1515' : ''"></i>
                         <img :src="product.thumbnail_item.image_url || ImageProd1" class="image-product">
@@ -59,7 +67,7 @@
                                     <strong>الربح</strong>
                                 </td>
                                 <td>
-                                    <strong>USD {{ product.price }} </strong>
+                                    <strong>USD {{ product.marketer_profit || 0 }} </strong>
                                 </td>
                             </tr>
                             <tr>
@@ -80,7 +88,7 @@
                                     </button>
                                 </td>
                                 <td>
-                                    <button class="btn btn-info buy-now" @click="BuyNow">
+                                    <button class="btn btn-info buy-now" @click="BuyNow(product)">
                                         <i class="fas fa-dolly-flatbed"></i>
                                         شراء الان
                                     </button>
@@ -93,36 +101,36 @@
             <nav v-if="this.infos.length != 0" aria-label="Page navigation example">
                 <ul v-if="this.infos.total > products.length" class="pagination">
                     <li v-if="(this.infos.current_page != 1)" class="page-item">
-                        <router-link class="page-link" :to="{path: '/marketer/products/'+(this.infos.current_page - 1 == 0 ? 1 : this.infos.current_page - 1) }" aria-label="Previous">
+                        <router-link class="page-link" :to="{path: '/marketer/products/'+(this.infos.current_page - 1 == 0 ? 1 : this.infos.current_page - 1),query:$route.query }" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                             <span class="sr-only">Previous</span>
                         </router-link>
                     </li>
                     <li v-for="page in this.infos.last_page" class="page-item" :key="page">
                         <template v-if="page == 1">
-                            <router-link class="page-link" :to="{path: '/marketer/products/'+page}" active-class="active" exact>{{ page }}</router-link>
+                            <router-link class="page-link" :to="{path: '/marketer/products/'+page,query:$route.query}" active-class="active" exact>{{ page }}</router-link>
                         </template>
                         <template v-else-if="page == this.infos.current_page">
-                            <router-link class="page-link" :to="{path: '/marketer/products/'+page}" active-class="active" exact>{{ page }}</router-link>
+                            <router-link class="page-link" :to="{path: '/marketer/products/'+page,query:$route.query}" active-class="active" exact>{{ page }}</router-link>
                         </template>
                         <template v-else-if="page == this.infos.current_page - 1">
-                            <router-link class="page-link" :to="{path: '/marketer/products/'+page}" active-class="active" exact>{{ page }}</router-link>
+                            <router-link class="page-link" :to="{path: '/marketer/products/'+page,query:$route.query}" active-class="active" exact>{{ page }}</router-link>
                         </template>
                         <template v-else-if="(page == this.infos.current_page + 1) && (this.infos.current_page != this.infos.last_page)">
-                            <router-link class="page-link" :to="{path: '/marketer/products/'+page}" active-class="active" exact>{{ page }}</router-link>
+                            <router-link class="page-link" :to="{path: '/marketer/products/'+page,query:$route.query}" active-class="active" exact>{{ page }}</router-link>
                         </template>
                         <template v-else-if="page == this.infos.last_page">
-                            <router-link class="page-link" :to="{path: '/marketer/products/'+page}" active-class="active" exact>{{ page }}</router-link>
+                            <router-link class="page-link" :to="{path: '/marketer/products/'+page,query:$route.query}" active-class="active" exact>{{ page }}</router-link>
                         </template>
                         <template v-else-if="(page == this.infos.current_page - 2) && (this.infos.current_page != this.infos.last_page)">
-                            <router-link class="page-link" :to="{path: '/marketer/products/'+page}" active-class="active" exact>..</router-link>
+                            <router-link class="page-link" :to="{path: '/marketer/products/'+page,query:$route.query}" active-class="active" exact>..</router-link>
                         </template>
                         <template v-else-if="(page == this.infos.current_page + 2) && (this.infos.current_page != this.infos.last_page)">
-                            <router-link class="page-link" :to="{path: '/marketer/products/'+page}" active-class="active" exact>..</router-link>
+                            <router-link class="page-link" :to="{path: '/marketer/products/'+page,query:$route.query}" active-class="active" exact>..</router-link>
                         </template>
                     </li>
                     <li v-if="this.infos.current_page != this.infos.last_page" class="page-item">
-                        <router-link :to="{path: '/marketer/products/'+(this.infos.current_page + 1) }" class="page-link" href="#" aria-label="Next">
+                        <router-link :to="{path: '/marketer/products/'+(this.infos.current_page + 1),query:$route.query }" class="page-link" href="#" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                             <span class="sr-only">Next</span>
                         </router-link>
@@ -135,25 +143,23 @@
         @update_errors="showerrors = false" :errors="errors"
         :success_message="success_message"
         :error_message="error_message"></alert-response>
+        <div class="loading-overflow" v-show="showLoading">
+            <img :src="loading" />
+        </div>
     </div>
 </template>
 <script>
 import marketerImage from '@/img/Circle-icons-profile.svg.png';
-import ImageProd1 from '@/img/81g63eBEhxL._AC_UF894,1000_QL80_.jpg';
-import ImageProd2 from '@/img/prod-2.png';
-import ImageProd3 from '@/img/prod-3.png';
-import ImageProd4 from '@/img/prod-4.png';
+import loading from '@/img/loading.webp';
 export default {
-    components: {marketerImage,ImageProd1,ImageProd2,ImageProd3,ImageProd4},
+    components: {marketerImage,loading},
     data(){
         return {
-            ImageProd1,
-            ImageProd2,
-            ImageProd3,
-            ImageProd4,
             marketerImage,
+            loading,
             active_products:0,
             finished_products:0,
+            total_products:0,
             infos:[],
             marketer:{
                 products:[]
@@ -178,8 +184,9 @@ export default {
             favourits:[],
             showsuccess:false,
             showerrors:false,
-            success_message:'تم انشاء التاجر بنجاح',
-            error_message:'حدث خطأ اثناء انشاء التاجر'
+            success_message:'تم اضافة المنتج للسلة',
+            error_message:'حدث خطأ اضافة المنتج للسلة',
+            showLoading:false
         }
     },
     methods:{
@@ -192,6 +199,7 @@ export default {
                 self.products           = self.infos.data;
                 self.finished_products  = data.finished_products;
                 self.active_products    = data.active_products;
+                self.total_products     = data.total_products;
                 self.favourits          = data.favourits;
                 console.log(data);
             }).catch(function({response}){
@@ -204,6 +212,7 @@ export default {
             this.orders[product.id].product_id = product.id;
             this.orders[product.id].quantity   = (this.orders[product.id].quantity ? Number(this.orders[product.id].quantity) : 1);
             this.orders[product.id].price      = product.price;
+            this.showLoading = true;
             await axios.post('/api/marketer-carts',this.orders[product.id]).then(function({data}){
                 if(data.status){
                     self.showerrors = true;
@@ -214,6 +223,19 @@ export default {
                 console.log(data);
             }).catch(function({response}){
                 console.log(response);
+            }).then(function(){
+                self.showsuccess = true;
+                self.showLoading = false;
+            });
+        },
+        BuyNow:async function(product){
+            this.orders[product.id] = this.orders[product.id] || {};
+            this.orders[product.id].product_id = product.id;
+            this.orders[product.id].quantity   = (this.orders[product.id].quantity ? Number(this.orders[product.id].quantity) : 1);
+            this.orders[product.id].price      = product.price;
+            await this.AddtoCart(product);
+            this.$router.replace({
+                path:'/marketer/carts'
             });
         },
         PlusQuantity:function(product){
@@ -237,26 +259,42 @@ export default {
             let self = this;
             let field = {};
             field.product_id = product_id;
-           if(self.favourits.indexOf(product_id) == -1){
+            this.showLoading = true;
+            if(self.favourits.indexOf(product_id) == -1){
                await axios.post('/api/marketer-favourits',field).then(function({data}){
                    self.favourits.push(product_id);
                    console.log(data);
                }).catch(function({response}){
                    console.log(response);
-               });
-           } else {
+               }).then(function(){
+                    self.showsuccess = true;
+                    self.showLoading = false;
+                    self.success_message = 'تم اضافة المنتج للمفضلة';
+                });
+            } else {
                 await axios.delete('/api/marketer-favourits/'+product_id).then(function({data}){
                    self.favourits.splice(self.favourits.indexOf(product_id),1);
                    console.log(data);
                 }).catch(function({response}){
                    console.log(response);
+                }).then(function(){
+                    self.showsuccess = true;
+                    self.showLoading = false;
+                    self.success_message = 'تم حذف المنتج من المفضلة';
                 });
-           }
+            }
+        },
+        BrowseProduct:function(filter){
+            let self = this;
+            let filters = {};
+            filters.filter = filter;
+            this.$router.replace({ 
+                query:filters
+            });
         }
     },
     created:async function(){
-        this.filter_products = window.localStorage.getItem('filter_products');
-        this.params.filter_products = this.filter_products;
+        this.params.filter = this.$route.query.filter;
         this.params.page = this.$route.params.page_no ? this.$route.params.page_no : 1;
         await this.FetchProducts();
     },
@@ -272,6 +310,7 @@ export default {
                     self.products          = data.data_info;
                     self.finished_products = data.finished_products;
                     self.active_products    = data.active_products;
+                    self.total_products     = data.total_products;
                 }).catch(function({response}){
                     console.log(response);
                 });
@@ -295,28 +334,29 @@ export default {
                 });
             }
         },
-        filter_products:function(filter_products){
-            let self =this;
-            window.localStorage.setItem('filter_products',filter_products);
-            this.params.filter_products = filter_products;
-            if((filter_products.length != 0) && (filter_products != null)){
-                axios.get('/api/products',{
-                    params:self.params
-                }).then(function({data}){
-                    console.log(data);
-                    self.infos              = data.data_info;
-                    self.products           = self.infos.data;
-                    self.finished_products = data.finished_products;
-                    self.active_products    = data.active_products;
-                }).catch(function({response}){
-                    console.log(response);
-                });
-            }else{
-                this.params.filter_products = null;
-                self.params.page = (this.$route.params.page_no ? this.$route.params.page_no : 1)
-                self.FetchProducts();
-            }
-        }
+        // filter_products:function(filter_products){
+        //     let self =this;
+        //     window.localStorage.setItem('filter_products',filter_products);
+        //     this.params.filter_products = filter_products;
+        //     if((filter_products.length != 0) && (filter_products != null)){
+        //         axios.get('/api/products',{
+        //             params:self.params
+        //         }).then(function({data}){
+        //             console.log(data);
+        //             self.infos              = data.data_info;
+        //             self.products           = self.infos.data;
+        //             self.finished_products = data.finished_products;
+        //             self.active_products    = data.active_products;
+        //             self.total_products     = data.total_products;
+        //         }).catch(function({response}){
+        //             console.log(response);
+        //         });
+        //     }else{
+        //         this.params.filter_products = null;
+        //         self.params.page = (this.$route.params.page_no ? this.$route.params.page_no : 1)
+        //         self.FetchProducts();
+        //     }
+        // }
     }
 }
 </script>
@@ -349,7 +389,7 @@ export default {
     margin-bottom: 0;
 }
 .content-page{
-    display: inline-table;
+    display: inline-flex;
 }
 .inner-product-item strong{
     line-height: 2.5em;
@@ -479,14 +519,16 @@ export default {
 .list-filter-item{
     display: inline-block;
 }
-.list-filter-item a
+.list-filter-item button
 {
     padding: 9px 15px;
     color: black;
     border-radius: 33px;
     text-decoration: none;
+    border: 0px;
+    margin: 0px 8px;
 }
-.list-filter-item a.active{
+.list-filter-item button.active{
     background: #1b965d;
     color: white;
 }
@@ -509,5 +551,22 @@ export default {
     font-size: 22px;
     font-weight: bold;
     cursor: pointer;
+}
+.loading-overflow{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1000000;
+    width: 100% !important;
+    text-align: center;
+    padding-top: 12%;
+    background-color: #06060647;
+}
+.loading-overflow img{
+    width: 20% !important;
+    margin: auto;
+    
 }
 </style>

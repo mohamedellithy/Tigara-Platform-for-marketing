@@ -14,6 +14,7 @@ class Auth {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.token;
 
         let { data } = await axios.get('/api/me');
+        console.log(data);
         if (data) {
             this.user = data.user;
             return true;

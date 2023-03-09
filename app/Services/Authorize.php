@@ -41,7 +41,7 @@ class Authorize{
                 return response()->json(['errors'=>
                 [
                     "email" => [
-                        "Email is not exist please try again " . \Config::get('app.Current_Domain')
+                        "Email is not exist please try again " 
                     ]
                 ]], 401);
             endif;

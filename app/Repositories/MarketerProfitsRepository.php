@@ -9,15 +9,20 @@ use Illuminate\Http\Request;
 use App\Http\Resources\Marketer as MarketerResource;
 use App\Http\Resources\MarketerPayment as MarketerPaymentResource;
 use App\Http\Resources\Product as ProductResource;
+use App\Models\OrderDetails;
+use App\Models\Order;
+use Illuminate\Support\Facades\DB;
 class MarketerProfitsRepository extends MarketerProfitsRepositoryInterface{
 
     public function profits_all(){
         return response()->json([
             'data_info'         => new MarketerResource(Marketer::with('products','orders')->whereHas('orders')->paginate(3)),
-            'active_marketers'  => Marketer::whereHas('orders')->where('status',1)->count(),
-            'products'          => '1234',
-            'orders'            => '341234',
-            'profits'           => '741234',
+            'active_marketer'   => Marketer::whereHas('orders',function($query){
+                $query->where('order_status',1);
+            })->count(),
+            'total_orders'      => Order::where('order_status',2)->count(),
+            'total_sales'       => Order::where('order_status',2)->join('order_details','orders.id','=','order_details.order_id')->sum(DB::raw('unit_price * quantity')),
+            'profits'           => Order::sum('marketer_profit'),
         ]);
     }
 
@@ -30,12 +35,14 @@ class MarketerProfitsRepository extends MarketerProfitsRepositoryInterface{
     }
 
     public function payments_all(){
+        $payment_make  = MarketerPayment::where('payment_status',1)->sum('value');
+        $payment_due = MarketerPayment::where('payment_status',0)->sum('value');
         return response()->json([
-            'data_info'         => new MarketerPaymentResource(MarketerPayment::with('marketer')->paginate(3)),
-            'active_marketers'  => '6586',
-            'products'          => '1234',
-            'orders'            => '341234',
-            'profits'           => '741234',
+            'data_info'         => new MarketerPaymentResource(MarketerPayment::with('marketer')->paginate(15)),
+            'active_marketers'  => Marketer::whereHas('payments')->count(),
+            'payments_due'      => Order::sum('marketer_profit') - $payment_make,
+            'payments_make'     => $payment_make,
+            'profits'           => Order::sum('marketer_profit'),
         ]);
     }
 

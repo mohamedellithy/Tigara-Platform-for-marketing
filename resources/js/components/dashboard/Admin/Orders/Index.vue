@@ -25,23 +25,23 @@
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-users"></i>
-                                    {{ orders.length }} الطلبات
+                                    {{ all_orders }} الطلبات
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-check"></i>
-                                    {{ active_orders }} جاري التنفيذ
+                                    {{ process_orders }} جاري التنفيذ
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-slash"></i>
-                                    {{ no_active_orders }} انتظار الموافقة
+                                    {{ wait_orders }} انتظار الموافقة
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-check"></i>
-                                    {{ active_orders }} المكتملة
+                                    {{ complete_orders }} المكتملة
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-slash"></i>
-                                    {{ no_active_orders }} المرفوضة
+                                    {{ refused_orders }} المرفوضة
                                 </li>
                             </ul>
                         </div>
@@ -89,14 +89,15 @@
                                     <router-link :to="{path:'/dashboard/show-order/'+order.id}"  class="btn btn-primary btn-sm">
                                         عرض
                                     </router-link>
-                                    <button v-if="order.delivery" @click="SingleStatus(order)" class="btn btn-warning btn-sm">
-                                        تحديث الحالة
-                                    </button>
-
-                                    <button v-if="!order.delivery" @click="AttachOrderDelivery(order)" class="btn btn-warning btn-sm">
-                                        تحديد شركة الشحن
-                                    </button>
-
+                                    <template v-if="order.order_status != '4'">
+                                        <button v-if="order.delivery" @click="SingleStatus(order)" class="btn btn-warning btn-sm">
+                                            تحديث الحالة
+                                        </button>
+    
+                                        <button v-if="!order.delivery" @click="AttachOrderDelivery(order)" class="btn btn-warning btn-sm">
+                                            تحديد شركة الشحن
+                                        </button>
+                                    </template>
                                 </td>
                             </tr>
                         </tbody>
@@ -204,14 +205,22 @@
                 </div>
             </div>
         </div>
+        <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
+        @update_success="showsuccess = false"
+        @update_errors="showerrors = false" :errors="errors"
+        :success_message="success_message"
+        :error_message="error_message"></alert-response>
     </div>
 </template>
 <script>
 export default {
     data() {
         return {
-            no_active_orders:0,
-            active_orders:0,
+            all_orders:0,
+            process_orders:0,
+            wait_orders:0,
+            complete_orders:0,
+            refused_orders:0,
             infos:[],
             orders: [],
             search:null,
@@ -228,7 +237,11 @@ export default {
                 ids:[],
                 delivery_model:false
             },
-            deliveries:[]
+            deliveries:[],
+            showsuccess:false,
+            showerrors:false,
+            success_message:'تم انشاء التاجر بنجاح',
+            error_message:'حدث خطأ اثناء انشاء التاجر'
         };
     },
     methods:{
@@ -240,8 +253,11 @@ export default {
                 console.log(data);
                 self.infos            = data.data_info;
                 self.orders           = self.infos.data;
-                self.no_active_orders = data.no_active_orders;
-                self.active_orders    = data.active_orders;
+                self.all_orders       = data.all_orders;
+                self.process_orders   = data.process_orders;
+                self.wait_orders      = data.wait_orders;
+                self.complete_orders  = data.complete_orders;
+                self.refused_orders   = data.refused_orders;
                 console.log(self.orders);
             }).catch(function({response}){
                 console.log(response);
@@ -279,7 +295,8 @@ export default {
             axios.put('/api/orders/update-status',this.field).then(function({data}) {
                 console.log(data);
                 self.errors   = {};
-                self.success  = data.result;
+                self.showsuccess = true;
+                self.success_message = data.result;
                 console.log(self.success);
                 self.params = {
                     page:(self.$route.params.page_no ? self.$route.params.page_no : 1)
@@ -288,6 +305,7 @@ export default {
                 self.CloseModelUpdateStatus();
             }).catch(function({response}) {
                 console.log(response);
+                self.showerrors = true;
                 self.errors = response.data;
             })
         },
@@ -310,7 +328,8 @@ export default {
             axios.put('/api/orders/'+order_id,this.field).then(function({data}) {
                 console.log(data);
                 self.errors   = {};
-                self.success  = data.result;
+                self.showsuccess = true;
+                self.success_message = data.result;
                 console.log(self.success);
                 self.params = {
                     page:(self.$route.params.page_no ? self.$route.params.page_no : 1)
@@ -319,6 +338,7 @@ export default {
                 self.CloseModelUpdateStatus();
             }).catch(function({response}) {
                 console.log(response);
+                self.showerrors = true;
                 self.errors = response.data;
             });
         }

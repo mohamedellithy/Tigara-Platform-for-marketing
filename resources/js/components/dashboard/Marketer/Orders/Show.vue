@@ -50,7 +50,7 @@
                                 <i class="fas fa-user-edit" style="padding: 5px;"></i>
                                     الربح من الطلبية
                                 </label>
-                                <p class="alert">{{ order.total }} USD</p>
+                                <p class="alert">{{ order.marketer_profit }} USD</p>
                             </div>
                         </div>
                         <div class="col-lg-3">
@@ -144,6 +144,7 @@
                                         <td>اسم المنتج</td>
                                         <td>كمية</td>
                                         <td>خصم </td>
+                                        <td>أرباحك</td>
                                         <td>سعر الوحدة</td>
                                     </tr>
                                 </thead>
@@ -156,6 +157,7 @@
                                         </td>
                                         <td>{{ order_detail.quantity }}</td>
                                         <td>{{ order_detail.discount }}</td>
+                                        <td>{{ order_detail.sub_marketer_profit }}</td>
                                         <td>{{ order_detail.unit_price }} USD</td>
                                     </tr>
                                     <tr>
@@ -164,7 +166,12 @@
                                                 المجموع الكلي
                                             </strong>
                                         </td>
-                                        <td colspan="2">
+                                        <td colspan="1">
+                                            <strong>
+                                                {{ order.marketer_profit }} USD
+                                            </strong>
+                                        </td>
+                                        <td colspan="1">
                                             <strong>
                                                 {{ order.total }} USD
                                             </strong>

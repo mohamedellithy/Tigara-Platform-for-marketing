@@ -8,19 +8,19 @@
                             <ul class="filter-results">
                                 <li class="filter-item">
                                     <i class="fas fa-users"></i>
-                                    2340130 مسوق
+                                    {{ active_marketer }} مسوق
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-check"></i>
-                                    2330 منتج
+                                    {{ total_orders }} طلب
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-slash"></i>
-                                    2330 مبيعات
+                                    {{ total_sales }} مبيعات
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-slash"></i>
-                                    2330 أرباح
+                                    {{ profits }} أرباح
                                 </li>
                             </ul>
                         </div>
@@ -112,7 +112,9 @@
 export default {
    data() {
         return {
-            no_active_marketer:0,
+            profits:0,
+            total_sales:0,
+            total_orders:0,
             active_marketer:0,
             infos:[],
             marketers:[],
@@ -138,7 +140,9 @@ export default {
                 console.log(data);
                 self.infos              = data.data_info;
                 self.marketers          = self.infos.data;
-                self.no_active_marketer = data.no_active_marketer;
+                self.profits            = data.profits;
+                self.total_sales        = data.total_sales;
+                self.total_orders       = data.total_orders;
                 self.active_marketer    = data.active_marketer;
             }).catch(function({response}){
                 console.log(response);

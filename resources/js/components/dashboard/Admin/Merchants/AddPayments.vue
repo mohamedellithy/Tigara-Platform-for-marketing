@@ -15,18 +15,6 @@
                 </div>
             </div>
             <div class="row">
-                <div v-if="Object.keys(this.errors).length !== 0" class="col-12 container-errors">
-                    <div class="alert alert-danger">
-                        <ul>
-                            <li v-for="(error,index) in errors" :key="index"> {{ error[0] }}</li>
-                        </ul>
-                    </div>
-                </div>
-                <div v-if="this.success" class="col-12 container-errors">
-                    <div class="alert alert-success">
-                        <p>{{ success }}</p>
-                    </div>
-                </div>
                 <div class="col-lg-8 container-form-new-merchant">
                     <div class="form-group">
                         <label for="merchant-name">
@@ -106,6 +94,11 @@
                 </div>
             </div>
         </form>
+        <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
+        @update_success="showsuccess = false"
+        @update_errors="showerrors = false" :errors="errors"
+        :success_message="success_message"
+        :error_message="error_message"></alert-response>
     </div>
 </template>
 <script>
@@ -123,6 +116,10 @@ export default {
             iconsProfile,
             errors:{},
             success:null,
+            showsuccess:false,
+            showerrors:false,
+            success_message:'تم انشاء التاجر بنجاح',
+            error_message:'حدث خطأ اثناء انشاء التاجر'
         }
     },
     methods:{
@@ -131,14 +128,17 @@ export default {
             axios.post('/api/merchant-payments',this.payment).then(function({data}) {
                 console.log(data);
                 self.success = data.result;
+                self.showsuccess = true;
+                self.success_message = data.result;
                 self.payment = {
-                    merchant_id: self.$route.params.id ? self.$route.params.id : null,
+                    merchant_id: self.merchant.id ? self.merchant.id : null,
                     type:0,
                     value:0
                 };
                 self.SelectMerchant();
             }).catch(function({response}) {
                console.log(response);
+               self.showerrors = true;
                self.errors = response.data;
             });
         },

@@ -14,29 +14,35 @@ class MerchantPaymentRepository extends MerchantPaymentRepositoryInterface{
        // return response()->json(['data' => $request->all()]);
         if($request->has('merchant_id')):
             return response()->json([
-                'data_info'          => new MerchantPaymentResource(MerchantPayment::where('merchant_id', $request->query('merchant_id'))->paginate(10))
+                'data_info'          => new MerchantPaymentResource(MerchantPayment::where('merchant_id', $request->query('merchant_id'))->with('item_details')->paginate(15))
             ]);
         else:
+            $payment_made = MerchantPayment::where('type',1)->sum('value');
+            $payment_total = MerchantPayment::where('type',0)->sum('value');
             return response()->json([
-                'data_info'          => new MerchantCollectionsResource(Merchant::whereHas('merchant_payments')->with('merchant_payments')->paginate(2)),
-                'active_merchant'    => Merchant::whereHas('merchant_payments')->where('status',1)->count(),
-                'no_active_merchant' => Merchant::whereHas('merchant_payments')->where('status',0)->count()
+                'data_info'          => new MerchantCollectionsResource(Merchant::whereHas('merchant_payments')->with('merchant_payments')->paginate(15)),
+                'payment_total'      => $payment_total,
+                'payment_due'        => ($payment_total - $payment_made),
+                'payment_made'       => $payment_made,
             ]);
         endif;
     }
 
     public function search($search = null){
+        $payment_made = MerchantPayment::where('type',1)->sum('value');
+        $payment_total = MerchantPayment::where('type',0)->sum('value');
         return response()->json([
             'data_info'          => MerchantResource::collection(Merchant::whereHas('merchant_payments')->where('name','Like','%'.$search.'%')->get()),
-            'active_merchant'    => Merchant::whereHas('merchant_payments')->where('status',1)->where('name','Like','%'.$search.'%')->count(),
-            'no_active_merchant' => Merchant::whereHas('merchant_payments')->where('status',0)->where('name','Like','%'.$search.'%')->count()
+            'payment_total'      => $payment_total,
+            'payment_due'        => ($payment_total - $payment_made),
+            'payment_made'       => $payment_made,
         ]);
 
     }
 
     public function save($data){
         $add_new_merchant_payment = MerchantPayment::create([
-            'merchant_id'          => $data['merchant_id'],
+            'merchant_id'   => $data['merchant_id'],
             'value'         => $data['value'],
             'type'          => $data['type']
         ]);

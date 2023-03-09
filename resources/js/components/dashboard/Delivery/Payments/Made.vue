@@ -3,27 +3,19 @@
         <div class="row">
             <div class="filter-bar">
                 <div class="row">
-                    <div v-if="Object.keys(this.errors).length !== 0" class="col-12 container-errors">
-                        <div class="alert alert-danger">
-                            <ul>
-                                <li v-for="(error,index) in errors" :key="index"> {{ error[0] }}</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div v-if="this.success" class="col-12 container-errors">
-                        <div class="alert alert-success">
-                            <p>{{ success }}</p>
-                        </div>
-                    </div>
                     <div class="col-md-8">
                         <ul class="filter-results">
                             <li class="filter-item">
                                 <i class="fas fa-users"></i>
-                                12344 اجمالى المبالغ 
+                                {{ total_profits }} اجمالى الارباح
                             </li>
                             <li class="filter-item">
                                 <i class="fas fa-users"></i>
-                                12344 اجمالى المبالغ الغير مسددة
+                                {{ payment_due }} اجمالى المبالغ الغير مسددة
+                            </li>
+                            <li class="filter-item">
+                                <i class="fas fa-users"></i>
+                                {{ payment_made }} اجمالى المبالغ مسددة
                             </li>
                         </ul>
                     </div>
@@ -111,8 +103,9 @@ export default {
                 q:null,
                 merchant_id:null
             },
-            no_active_orders:0,
-            active_orders:0,
+            total_profits:0,
+            payment_due:0,
+            payment_made:0,
             infos:[],
             payments: [],
             search:null,
@@ -140,8 +133,9 @@ export default {
                 console.log(data);
                 self.infos             = data.data_info;
                 self.payments          = self.infos.data;
-                self.no_active_payment = data.no_active_payment;
-                self.active_payment    = data.active_payment;
+                self.total_profits     = data.total_profits;
+                self.payment_due       = data.payment_due;
+                self.payment_made      = data.payment_made;
             }).catch(function({response}){
                 console.log(response);
             });

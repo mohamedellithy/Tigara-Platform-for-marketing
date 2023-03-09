@@ -9,7 +9,9 @@ class MarketerPaymentsRepository extends MarketerPaymentsRepositoryInterface{
 
     public function all(Request $request){
         return response()->json([
-            'data_info'          => $request->user()->payments()->paginate(10)
+            'data_info'          => $request->user()->payments()->paginate(10),
+            'total_profits'      => $request->user()->orders()->where('order_status',2)->sum('marketer_profit'),
+            'total_payments'     => $request->user()->payments()->where('payment_status',1)->sum('value')
         ]);
     }
 

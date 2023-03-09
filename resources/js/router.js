@@ -697,9 +697,12 @@ const routes = [{
                         menu_id: 'marketer-reports',
                     },
                 }, {
-                    path: 'products/:page_no?/:filter_products?',
+                    path: 'products/:page_no?',
                     name: 'marketer-products',
                     component: MarketerProducts,
+                    query: {
+                        fitler: null
+                    },
                     meta: {
                         ar_name: 'عرض المنتجات',
                         requiresAuth: true,

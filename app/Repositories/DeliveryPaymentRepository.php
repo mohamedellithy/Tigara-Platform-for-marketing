@@ -17,10 +17,13 @@ class DeliveryPaymentRepository extends DeliveryPaymentRepositoryInterface{
                 'data_info'          => new DeliveryPaymentResource(DeliveryPayment::where('delivery_id', $request->query('delivery_id'))->paginate(10))
             ]);
         else:
+            $payment_made = DeliveryPayment::where('type',1)->sum('value');
+            $payment_total = DeliveryPayment::where('type',0)->sum('value');
             return response()->json([
                 'data_info'          => new MerchantCollectionsResource(Delivery::whereHas('delivery_payments')->with('delivery_payments')->paginate(2)),
-                'active_merchant'    => Delivery::whereHas('delivery_payments')->where('status',1)->count(),
-                'no_active_merchant' => Delivery::whereHas('delivery_payments')->where('status',0)->count()
+                'payment_total'      => $payment_total,
+                'payment_due'        => ($payment_total - $payment_made),
+                'payment_made'       => $payment_made,
             ]);
         endif;
     }

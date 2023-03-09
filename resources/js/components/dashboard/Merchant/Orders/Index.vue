@@ -20,23 +20,27 @@
                             <ul class="filter-results">
                                 <li class="filter-item">
                                     <i class="fas fa-users"></i>
-                                    {{ orders.length }} الطلبات
+                                    {{ all_orders }} الطلبات
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-check"></i>
-                                    {{ active_orders }} جاري التنفيذ
+                                    {{ process_orders }} جاري التنفيذ
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-slash"></i>
-                                    {{ no_active_orders }} انتظار الموافقة
+                                    {{ wait_orders }} انتظار الموافقة
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-check"></i>
-                                    {{ active_orders }} المكتملة
+                                    {{ complete_orders }} المكتملة
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-slash"></i>
-                                    {{ no_active_orders }} المرفوضة
+                                    {{ refused_orders }} المرفوضة
+                                </li>
+                                <br/><br/>
+                                <li>
+                                    {{ orders.length }} المعروض
                                 </li>
                             </ul>
                         </div>
@@ -73,9 +77,9 @@
                                 </th>
                                 <td>{{ order.product.name }}</td>
                                 <td>{{ order.quantity }} قطعة</td>
-                                <td>{{ order.unit_price }} USD</td>
+                                <td>{{ order.product.merchant_commission || order.unit_price }} USD</td>
                                 <td>{{ order.discount }}</td>
-                                <td>{{ order.sub_total }} USD</td>
+                                <td>{{ order.sub_total_original || order.sub_total }} USD</td>
                                 <td>{{ order.order.order_status_txt }}</td>
                                 <td>{{ order.order.shipping_status_txt }}</td>
                                 <td>{{ order.created_at }}</td>
@@ -132,8 +136,11 @@
 export default {
     data() {
         return {
-            no_active_orders:0,
-            active_orders:0,
+            all_orders:0,
+            wait_orders:0,
+            process_orders:0,
+            complete_orders:0,
+            refused_orders:0,
             infos:[],
             orders: [],
             search:null,
@@ -160,8 +167,11 @@ export default {
                 console.log(data);
                 self.infos            = data.data_info;
                 self.orders           = self.infos.data;
-                self.no_active_orders = data.no_active_orders;
-                self.active_orders    = data.active_orders;
+                self.all_orders       = data.all_orders;
+                self.wait_orders      = data.wait_orders;
+                self.process_orders   = data.process_orders;
+                self.complete_orders  = data.complete_orders;
+                self.refused_orders   = data.refused_orders;
                 console.log(self.orders);
             }).catch(function({response}){
                 console.log(response);

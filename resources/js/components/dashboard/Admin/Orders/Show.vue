@@ -113,9 +113,12 @@
                                 <i class="fas fa-user-edit" style="padding: 5px;"></i>
                                     اسم شركة الشحن
                                 </label>
-                                <p class="alert">
+                                <p v-if="order.delivery" class="alert">
                                     {{ order.delivery.name }}
-                                    <router-link class="btn btn-primary btn-sm" style="float:left" :to="{path:'/dashboard/show-delivery/'+order.delivery.id}">تفاصيل</router-link>
+                                    <router-link  class="btn btn-primary btn-sm" style="float:left" :to="{path:'/dashboard/show-delivery/'+order.delivery.id}">تفاصيل</router-link>
+                                </p>
+                                <p v-else class="alert">
+                                    لم تحدد بعد
                                 </p>
                             </div>
                         </div>

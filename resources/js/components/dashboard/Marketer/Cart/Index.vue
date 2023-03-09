@@ -45,6 +45,7 @@
                                     <th>المنتج</th>
                                     <th>كمية المنتج</th>
                                     <th>سعر المنتج</th>
+                                    <th>ارباحك</th>
                                     <th></th>
                                 </tr>
                                 <tr v-for="(item,key) in cart_items" :key="key">
@@ -60,6 +61,7 @@
                                         <span class="fas fa-minus quantity-varite" @click="MinusQuantity(item)"></span>
                                     </td>
                                     <td>{{ item.price }} USD</td>
+                                    <td>{{ item.product.marketer_profit * item.quantity }} USD</td>
                                     <td>
                                         <i class="fas fa-times-circle" @click="deleteItemFromCart(item)"></i>
                                     </td>
@@ -92,12 +94,16 @@
                                     <input v-model="customer.phone" type="text" class="form-control" placeholder="رقم الجوال" required/>
                                 </div>
                                 <div class="form-group col-md-6">
+                                    <!-- <label class="form-label">رقم الجوال</label> -->
+                                    <input v-model="customer.another_phone" type="text" class="form-control" placeholder="رقم جوال بديل"/>
+                                </div>
+                                <div class="form-group col-md-6">
                                     <!-- <label class="form-label">المدينة</label> -->
                                     <select v-model="customer.city" class="form-control" placeholder="المدينة" required>
                                         <option v-for="(city,key) in cities" :value="city" :key="key">{{ city }}</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-md-6">
                                     <!-- <label class="form-label">العنوان بالكامل</label> -->
                                     <textarea v-model="customer.address" class="form-control" placeholder="العنوان بالكامل" required></textarea>
                                 </div>
@@ -140,7 +146,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <router-link :to="{path:'/marketer'}" class="btn DetailsSOrder">
+                                    <router-link :to="{path:'/marketer/show-order/'+order.id}" class="btn DetailsSOrder">
                                         <i class="fas fa-eye"></i>
                                         تفاصيل الطلبية
                                     </router-link>
@@ -161,31 +167,31 @@
                         <tr>
                             <th>كمية الطلبية</th>
                             <td>
-                                <strong>1220 USD</strong>
+                                <strong>{{ total_cart_items }} قطعة</strong>
                             </td>
                         </tr>
                         <tr>
                             <th>عدد المنتجات</th>
                             <td>
-                                <strong>122</strong>
+                                <strong>{{  total_products  }} منتج</strong>
                             </td>
                         </tr>
                         <tr>
                             <th>الخصم على الطلبية</th>
                             <td>
-                                <strong>1220 USD</strong>
+                                <strong>0 USD</strong>
                             </td>
                         </tr>
                         <tr>
                             <th>اجمالى الطلبية</th>
                             <td>
-                                <strong>109374 USD</strong>
+                                <strong>{{  total_cart_cost  }} USD</strong>
                             </td>
                         </tr>
                         <tr>
                             <th>الربح من الطلبية</th>
                             <td>
-                                <strong>122 USD</strong>
+                                <strong>{{ total_marketer_profits }} USD</strong>
                             </td>
                         </tr>
                        
@@ -206,15 +212,25 @@
         @update_errors="showerrors = false" :errors="errors"
         :success_message="success_message"
         :error_message="error_message"></alert-response>
+        <div class="loading-overflow" v-show="showLoading">
+            <img :src="loading" />
+        </div>
     </div>
 </template>
 
 <script>
+import loading from '@/img/loading.webp';
 export default{
+    components: {loading},
     data(){
         return {
             message: 'Hello World',
+            loading,
             cart_items:[],
+            total_cart_cost:0,
+            total_cart_items : 0,
+            total_products : 0,
+            total_marketer_profits : 0,
             customer:{},
             cities:[
                 'نواكشوط',
@@ -224,8 +240,9 @@ export default{
             order:{},
             showsuccess:false,
             showerrors:false,
-            success_message:'تم انشاء التاجر بنجاح',
-            error_message:'حدث خطأ اثناء انشاء التاجر'
+            success_message:'تم تحديث السلة بنجاح',
+            error_message:'حدث خطأ اثناء تحديث السلة ',
+            showLoading:false
         }
     },
     methods : { 
@@ -234,6 +251,11 @@ export default{
             await axios.get('/api/marketer-carts').then(function({data}){
                 console.log(data);
                 self.cart_items = data.cart_items;
+                self.total_cart_cost = data.total_cart_cost;
+                self.total_cart_items = data.total_cart_items;
+                self.total_products = data.total_products;
+                self.total_marketer_profits = data.total_marketer_profits;
+
             }).catch(function({response}){
                 console.log(response);
             });
@@ -242,9 +264,14 @@ export default{
             let self = this;
             let field = {};
             field.type = "plus";
+            self.showLoading = true;
             await axios.put('/api/marketer-carts/'+item.id,field).then(function({data}){
                 self.cart_items = data.cart_items;
                 self.$emit('updateQuantity',data.total_quantity,data.cart_items);
+                self.total_cart_cost = data.total_cart_cost;
+                self.total_cart_items = data.total_cart_items;
+                self.total_products = data.total_products;
+                self.total_marketer_profits = data.total_marketer_profits;
                 if(data.status){
                     self.showerrors = true;
                     self.error_message = data.status;
@@ -252,6 +279,10 @@ export default{
                 console.log(data);
             }).catch(function({response}){
                 console.log(response);
+                self.showLoading = false;
+            }).then(function(){
+                self.showsuccess = true;
+                self.showLoading = false;
             });
         },
         MinusQuantity:async function(item){
@@ -261,32 +292,58 @@ export default{
                 return;
             }
             field.type = "minus";
+            self.showLoading = true;
             await axios.put('/api/marketer-carts/'+item.id,field).then(function({data}){
                 self.cart_items = data.cart_items;
                 self.$emit('updateQuantity',data.total_quantity,data.cart_items);
+                self.total_cart_cost = data.total_cart_cost;
+                self.total_cart_items = data.total_cart_items;
+                self.total_products = data.total_products;
+                self.total_marketer_profits = data.total_marketer_profits;
                 console.log(data);
             }).catch(function({response}){
                 console.log(response);
+                self.showLoading = false;
+            }).then(function(){
+                self.showsuccess = true;
+                self.showLoading = false;
             });
         },
         deleteItemFromCart:async function(item){
             let self = this;
+            self.showLoading = true;
             await axios.delete('/api/marketer-carts/'+item.id).then(function({data}){
                 self.cart_items = data.cart_items;
+                self.total_cart_cost = data.total_cart_cost;
+                self.total_cart_items = data.total_cart_items;
+                self.total_products = data.total_products;
+                self.total_marketer_profits = data.total_marketer_profits;
                 self.$emit('updateQuantity',data.total_quantity,data.cart_items);
                 console.log(data);
             }).catch(function({response}){
                 console.log(response);
+                self.showLoading = false;
+            }).then(function(){
+                self.showsuccess = true;
+                self.showLoading = false;
             });
         },
         AddCustomerInfo:async function(){
             let self = this;
+            self.showLoading = true;
             window.localStorage.setItem('customer',JSON.stringify(this.customer));
             await axios.post('/api/marketer-orders',this.customer).then(function({data}){
                 console.log(data);
+                self.$emit('updateQuantity',0,[]);
                 self.$router.push({path:'/marketer/carts/order-status/'+data.order.id})
             }).catch(function({response}){
                 console.log(response);
+                self.showerrors = true;
+                self.errors = response.data.errors;
+                self.showLoading = false;
+            }).then(function(){
+                self.showsuccess = true;
+                self.showLoading = false;
             });
         }
     },
@@ -484,5 +541,22 @@ export default{
 .order-status-summary tr:last-child th ,
 .order-status-summary tr:last-child td{
     border-bottom: 0px;
+}
+.loading-overflow{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1000000;
+    width: 100% !important;
+    text-align: center;
+    padding-top: 12%;
+    background-color: #06060647;
+}
+.loading-overflow img{
+    width: 20% !important;
+    margin: auto;
+    
 }
 </style>

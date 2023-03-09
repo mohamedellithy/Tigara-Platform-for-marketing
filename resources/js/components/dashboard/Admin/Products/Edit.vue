@@ -19,18 +19,6 @@
                 </div>
             </div>
             <div class="row">
-                <div v-if="Object.keys(this.errors).length !== 0" class="col-12 container-errors">
-                    <div class="alert alert-danger">
-                         <ul>
-                            <li v-for="(error,index) in errors" :key="index"> {{ error[0] }}</li>
-                         </ul>
-                    </div>
-                </div>
-                <div v-if="this.success" class="col-12 container-errors">
-                    <div class="alert alert-success">
-                         <p>{{ success }}</p>
-                    </div>
-                </div>
                 <div class="col-lg-8 container-form-new-merchant">
                     <div class="row">
                         <div class="form-group col-md-6">
@@ -50,14 +38,14 @@
                         <div class="form-group col-md-6">
                             <label for="merchant-name">
                                 <i class="fas fa-user-edit" style="padding: 5px;"></i>
-                                عمولة التاجر بالنسبة المئوية (%)
+                                تكلفة المنتج للتاجر ( USD )
                             </label>
                             <input id="merchant-name" placeholder="عمولة التاجر" class="form-control" type="text" v-model="product.merchant_commission"/>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="merchant-name">
                                 <i class="fas fa-user-edit" style="padding: 5px;"></i>
-                                عمولة المسوق بالقيمة ( USD )
+                                عمولة المسوق بالقيمة ( % )
                             </label>
                             <input id="merchant-name" placeholder="عمولة المسوق" class="form-control" type="text" v-model="product.marketer_commission"/>
                         </div>
@@ -111,6 +99,11 @@
                 </div>
             </div>
         </form>
+        <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
+        @update_success="showsuccess = false"
+        @update_errors="showerrors = false" :errors="errors"
+        :success_message="success_message"
+        :error_message="error_message"></alert-response>
     </div>
 </template>
 <script>
@@ -136,7 +129,11 @@ export default {
             thumbnail_url:ImageUploadHere,
             attachments_urls:[],
             attachments_ids:[],
-            delete_media_ids:[]
+            delete_media_ids:[],
+            showsuccess:false,
+            showerrors:false,
+            success_message:'تم انشاء التاجر بنجاح',
+            error_message:'حدث خطأ اثناء انشاء التاجر'
         }
     },
     methods:{
@@ -151,6 +148,8 @@ export default {
                 attachments        = data.product.attachments_items.data;
             }).catch(function({response}) {
                 self.errors = response.data;
+            }).then(function(){
+                self.product.status = 1;
             });
 
             if(attachments.length != 0 ){
@@ -200,13 +199,15 @@ export default {
 
             axios.post('/api/update-products/'+this.$route.params.id,product).then(function({data}) {
                 self.errors  = {};
-                self.success = data.result;
+                self.showsuccess = true;
+                self.success_message = data.result;
             }).catch(function({response}) {
+                self.showerrors = true;
                 self.errors = response.data;
             });
         },
         UpdateDraftProduct:function(){
-            this.field.status = 0;
+            this.product.status = 0;
             this.UpdateProduct();
         },
         UploadThumbnail:function(thumbnail){

@@ -72,6 +72,11 @@
                 </div>
             </div>
         </form>
+        <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
+        @update_success="showsuccess = false"
+        @update_errors="showerrors = false" :errors="errors"
+        :success_message="success_message"
+        :error_message="error_message"></alert-response>
     </div>
 </template>
 <script>
@@ -88,7 +93,11 @@ export default {
                 password_confirmation:null
             },
             errors:{},
-            success:null
+            success:null,
+            showsuccess:false,
+            showerrors:false,
+            success_message:'تم انشاء التاجر بنجاح',
+            error_message:'حدث خطأ اثناء انشاء التاجر'
         }
     },
     methods:{
@@ -96,15 +105,16 @@ export default {
             let self = this;
             axios.post('/api/deliveries',this.field).then(function({data}){
                 console.log(data);
-                self.success = data.result;
+                self.showsuccess = true;
+                self.success_message = data.result;
                 self.errors  = {};
                 self.field   = {
                     account_type:2,
                 };
             }).catch(function({response}) {
                 console.log(response);
+                self.showerrors = true;
                 self.errors = response.data;
-                console.log(self.errors);
             });
         },
         CreateNewDraftDelivery:function(){

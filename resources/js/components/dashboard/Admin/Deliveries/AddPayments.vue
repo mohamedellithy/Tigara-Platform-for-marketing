@@ -37,7 +37,7 @@
                              <input type="text" class="form-control" v-model="delivery.name" disabled/>
                         </template>
                         <template v-else>
-                            <select @change="SelectMerchant()" id="merchant-name" placeholder="اسم شركة الشحن" class="form-control" type="text" v-model="payment.delivery_id">
+                            <select @change="SelectDelivery()" id="merchant-name" placeholder="اسم شركة الشحن" class="form-control" type="text" v-model="payment.delivery_id">
                                 <option value="null">اختيار شركة الشحن</option>
                                 <option v-for="(delivery,index) in deliveries" :value="delivery.id" :key="index">{{ delivery.name  }}</option>
                             </select>
@@ -99,6 +99,11 @@
                 </div>
             </div>
         </form>
+        <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
+        @update_success="showsuccess = false"
+        @update_errors="showerrors = false" :errors="errors"
+        :success_message="success_message"
+        :error_message="error_message"></alert-response>
     </div>
 </template>
 <script>
@@ -117,6 +122,10 @@ export default {
             iconsProfile,
             errors:{},
             success:null,
+            showsuccess:false,
+            showerrors:false,
+            success_message:'تم انشاء التاجر بنجاح',
+            error_message:'حدث خطأ اثناء انشاء التاجر'
         }
     },
     methods:{
@@ -124,16 +133,18 @@ export default {
             let self = this;
             axios.post('/api/delivery-payments',this.payment).then(function({data}) {
                 console.log(data);
-                self.success = data.result;
+                self.showsuccess = true;
+                self.success_message = data.result;
                 self.payment = {
-                    delivery_id: self.$route.params.id ? self.$route.params.id : null,
+                    delivery_id: self.delivery.id ? self.delivery.id : null,
                     type:0,
                     value:0
                 };
                 self.SelectDelivery();
             }).catch(function({response}) {
-               console.log(response);
-               self.errors = response.data;
+                console.log(response);
+                self.showerrors = true;
+                self.errors = response.data;
             });
         },
         SelectDelivery:function(){

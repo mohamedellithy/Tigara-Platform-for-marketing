@@ -29,6 +29,7 @@
                                     <th>المنتج</th>
                                     <th>كمية المنتج</th>
                                     <th>سعر المنتج</th>
+                                    <th>ارباحك</th>
                                     <th></th>
                                 </tr>
                                 <tr v-for="(item,key) in order.order_details" :key="key">
@@ -44,6 +45,7 @@
                                         <span class="fas fa-minus quantity-varite" @click="MinusQuantity(item,key)"></span>
                                     </td>
                                     <td>{{ item.unit_price }} USD</td>
+                                    <td>{{ item.product.marketer_profit * item.quantity }} USD</td>
                                     <td>
                                         <i class="fas fa-times-circle" @click="deleteItemFromOrder(item,key)"></i>
                                     </td>
@@ -105,33 +107,33 @@
                     <h5 style="padding:20px">تفاصيل الطلب</h5>
                     <table class="table">
                         <tr>
-                            <th>كمية الطلبية</th>
+                            <th>رقم الطلبية</th>
                             <td>
-                                <strong>1220 USD</strong>
+                                <strong># {{ order.id }}</strong>
                             </td>
                         </tr>
                         <tr>
-                            <th>عدد المنتجات</th>
+                            <th>كمية الطلبية</th>
                             <td>
-                                <strong>122</strong>
+                                <strong>{{ order.quantity }} قطعة</strong>
                             </td>
                         </tr>
                         <tr>
                             <th>الخصم على الطلبية</th>
                             <td>
-                                <strong>1220 USD</strong>
+                                <strong>0 USD</strong>
                             </td>
                         </tr>
                         <tr>
                             <th>اجمالى الطلبية</th>
                             <td>
-                                <strong>109374 USD</strong>
+                                <strong>{{ order.total }} USD</strong>
                             </td>
                         </tr>
                         <tr>
                             <th>الربح من الطلبية</th>
                             <td>
-                                <strong>122 USD</strong>
+                                <strong>{{ order.marketer_profit }} USD</strong>
                             </td>
                         </tr>
                        
@@ -147,14 +149,25 @@
                 </div>
             </div>
         </div>
+        <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
+        @update_success="showsuccess = false"
+        @update_errors="showerrors = false" :errors="errors"
+        :success_message="success_message"
+        :error_message="error_message"></alert-response>
+        <div class="loading-overflow" v-show="showLoading">
+            <img :src="loading" />
+        </div>
     </div>
 </template>
 
 <script>
+import loading from '@/img/loading.webp';
 export default{
+    components: {loading},
     data(){
         return {
             message: 'Hello World',
+            loading,
             customer:{},
             cities:[
                 'نواكشوط',
@@ -163,7 +176,12 @@ export default{
             ],
             order:{
                 customer:{}
-            }
+            },
+            showsuccess:false,
+            showerrors:false,
+            success_message:'تم تحديث الطلب بنجاح',
+            error_message:'حدث خطأ اثناء تحديث الطلب ',
+            showLoading:false
         }
     },
     methods : { 
@@ -178,11 +196,21 @@ export default{
         },
         UpdateOrder:async function(field){
             let self = this;
+            self.showLoading = true;
             axios.put('/api/marketer-orders/'+this.$route.params.order_id,field).then(function({data}){
                 console.log(data);
                 self.order = data.order;
+                if(data.status){
+                    self.showerrors = true;
+                    self.error_message = data.status;
+                } else {
+                    self.showsuccess = true;
+                }
+                self.showLoading = false;
             }).catch(function({response}){
                 console.log(response);
+                self.showerrors = true;
+                self.showLoading = false;
             });
         },
         PlusQuantity:async function(item,key){
@@ -398,5 +426,23 @@ export default{
 .order-status-summary tr:last-child th ,
 .order-status-summary tr:last-child td{
     border-bottom: 0px;
+}
+
+.loading-overflow{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1000000;
+    width: 100% !important;
+    text-align: center;
+    padding-top: 12%;
+    background-color: #06060647;
+}
+.loading-overflow img{
+    width: 20% !important;
+    margin: auto;
+    
 }
 </style>

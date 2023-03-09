@@ -13,16 +13,27 @@
                                     </router-link>
                                 </li>
                                 <li class="filter-item">
-                                    <i class="fas fa-users"></i>
-                                    2340130 تاجر
+                                    {{ payment_total }} USD
+                                    
+                                     اجمالى المدفوعات
                                 </li>
+
                                 <li class="filter-item">
-                                    <i class="fas fa-user-check"></i>
-                                    2330 مسددة
+                                    {{ payment_due }} USD
+                                    
+                                     المدفوعات المستحقة
                                 </li>
+
                                 <li class="filter-item">
-                                    <i class="fas fa-user-slash"></i>
-                                    2330 غير مسددة
+                                    {{ payment_made }} USD
+                                    
+                                     المدفوعات المسددة
+                                </li>
+                                <br/><br/>
+                                <li class="filter-item" style="background-color: rgb(255, 234, 234);">
+                                    <i class="fas fa-eye" data-v-d0b1f818=""></i>
+                                    {{ merchants.length }} 
+                                    المعروض
                                 </li>
                             </ul>
                         </div>
@@ -148,6 +159,7 @@ export default {
                 console.log(data);
                 self.infos              = data.data_info;
                 self.merchants          = self.infos.data;
+                self.payment_total      = data.payment_total;
                 self.payment_due        = data.payment_due;
                 self.payment_made       = data.payment_made;
             }).catch(function({response}){

@@ -14,15 +14,15 @@
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-users"></i>
-                                    2340130 تاجر
+                                    {{ payment_total }} احمالى المدفوعات
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-check"></i>
-                                    2330 مسددة
+                                    {{ payment_made }} مسددة
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-slash"></i>
-                                    2330 غير مسددة
+                                    {{ payment_due }} غير مسددة
                                 </li>
                             </ul>
                         </div>
@@ -111,6 +111,11 @@
                 </div>
             </div>
         </div>
+        <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
+        @update_success="showsuccess = false"
+        @update_errors="showerrors = false" :errors="errors"
+        :success_message="success_message"
+        :error_message="error_message"></alert-response>
     </div>
 </template>
 <script>
@@ -133,7 +138,11 @@ export default {
             field:{
                 update_status:0,
                 ids:[]
-            }
+            },
+            showsuccess:false,
+            showerrors:false,
+            success_message:'تم انشاء التاجر بنجاح',
+            error_message:'حدث خطأ اثناء انشاء التاجر'
         };
     },
     methods:{
@@ -145,6 +154,7 @@ export default {
                 console.log(data);
                 self.infos              = data.data_info;
                 self.deliveries          = self.infos.data;
+                self.payment_total      = data.payment_total;
                 self.payment_due        = data.payment_due;
                 self.payment_made       = data.payment_made;
             }).catch(function({response}){

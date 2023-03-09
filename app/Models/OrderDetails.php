@@ -5,13 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\DB;
 class OrderDetails extends Model
 {
     use HasFactory;
 
     protected $appends = [
         'sub_total',
-        'product_name'
+        'sub_total_original',
+        'product_name',
+        'sub_marketer_profit'
     ];
 
     protected $fillable = ['order_id', 'quantity','product_id','unit_price', 'discount'];
@@ -22,6 +25,17 @@ class OrderDetails extends Model
 
     public function product(){
         return $this->belongsTo('App\Models\Product','product_id','id');
+    }
+
+    public function merchant_payment(){
+        return $this->hasOne('App\Models\MerchantPayment','item_id','id');
+    }
+
+    public function SubTotalOriginal() : Attribute
+    {
+        return Attribute::make(
+            get : fn() => intval($this->quantity) * floatval($this->product->merchant_commission)
+        );
     }
 
     public function ProductName() : Attribute
@@ -42,6 +56,13 @@ class OrderDetails extends Model
     {
         return Attribute::make(
             get : fn() => ($this->unit_price * $this->quantity)
+        );
+    }
+
+    public function SubMarketerProfit() : Attribute
+    {
+        return Attribute::make(
+            get : fn() => $this->quantity * ( (($this->unit_price - $this->product->merchant_commission)  * $this->product->marketer_commission ) / 100),
         );
     }
 }

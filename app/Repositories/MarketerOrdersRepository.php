@@ -12,10 +12,15 @@ class MarketerOrdersRepository extends MarketerOrdersRepositoryInterface{
 
     public function all(Request $request){
         return response()->json([
-            'data_info'          => $request->user()->orders()->orderBy('created_at','desc')->paginate(10),
-            'active_products'    => $request->user()->orders()->count(),
-            'finished_products'  => $request->user()->orders()->count()
-        ]);
+            'data_info'        => $request->user()->orders()->orderBy('created_at','desc')->paginate(10),
+            'all_orders'       => $request->user()->orders()->count(),
+            'wait_orders'      => $request->user()->orders()->where('order_status',0)->count(),
+            'process_orders'   => $request->user()->orders()->where('order_status',1)->count(),
+            'complete_orders'  => $request->user()->orders()->where('order_status',2)->count(),
+            'refused_orders'   => $request->user()->orders()->where('order_status',3)->count(),
+            'total_costs'      => $request->user()->orders()->where('orders.order_status',2)->join('order_details', 'orders.id','=','order_details.order_id')
+            ->select('orders.*','order_details.quantity','order_details.unit_price')->groupby('orders.id')->sum(DB::Raw('order_details.quantity * order_details.unit_price')),
+            'total_profits'    => $request->user()->orders()->where('orders.order_status',2)->sum('marketer_profit')]);
     }
 
     public function save(Request $request){
@@ -78,11 +83,13 @@ class MarketerOrdersRepository extends MarketerOrdersRepositoryInterface{
     public function update(Request $request,$id){
         $query_order  = $request->user()->orders()->where('id',$id);
 
+        $order_status = $query_order->first()->order_status;
         $update_order = $query_order->update($request->except(['order_details','customer']));
 
         if($request->has('order_status')):
             // process the order
             $order_process = new OrderActionsProcess($query_order->first());
+            $order_process->prev_status_order = $order_status;
 
             // incase restore order cancelled 
             // if($order_process->order_stock_availability() == false):

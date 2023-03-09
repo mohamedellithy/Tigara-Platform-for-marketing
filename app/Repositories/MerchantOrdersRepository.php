@@ -9,9 +9,20 @@ class MerchantOrdersRepository extends MerchantOrdersRepositoryInterface{
 
     public function all(Request $request){
         return response()->json([
-            'data_info'          => $request->user()->order_details()->with('order')->paginate(10),
-            'active_products'    => $request->user()->order_details()->count(),
-            'finished_products'  => $request->user()->order_details()->count()
+            'data_info'        => $request->user()->order_details()->orderBy('created_at','desc')->with('order','merchant_payment')->paginate(15),
+            'all_orders'       => $request->user()->order_details()->count(),
+            'wait_orders'      => $request->user()->order_details()->whereHas('order',function($query){
+                $query->where('order_status',0);
+            })->count(),
+            'process_orders'   => $request->user()->order_details()->whereHas('order',function($query){
+                $query->where('order_status',1);
+            })->count(),
+            'complete_orders'  => $request->user()->order_details()->whereHas('order',function($query){
+                $query->where('order_status',2);
+            })->count(),
+            'refused_orders'   => $request->user()->order_details()->whereHas('order',function($query){
+                $query->where('order_status',3);
+            })->count(),
         ]);
     }
 

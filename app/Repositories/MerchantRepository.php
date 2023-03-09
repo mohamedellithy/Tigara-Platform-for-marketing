@@ -33,7 +33,8 @@ class MerchantRepository extends MerchantRepositoryInterface{
             'phone'         => $data['phone'],
             'store_name'    => $data['store_name'],
             'email'         => $data['email'],
-            'account_type'  => $data['account_type'],
+            'status'        => $data['status'],
+            'account_type'  => 1,
             'password'      => Hash::make($data['password']),
         ]);
 

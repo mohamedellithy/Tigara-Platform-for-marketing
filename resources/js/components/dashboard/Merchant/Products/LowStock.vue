@@ -19,12 +19,14 @@
             </div>
         </div>
         <div class="row">
-            <ul class="content-page col-12">
+            <ul class="content-page row">
                 <li v-for="(product,key) in products" :key="key" class="col-md-3 item-product">
                     <div class="inner-product-item">
-                        <span v-if="product.quantity == 0" style="color: red;position: absolute;font-weight: bold;">منتهى</span>
                         <img :src="product.thumbnail_item.image_url || ImageProd1" class="image-product">
                         <p>{{ product.name }}</p>
+                        <p>
+                            <span v-if="product.quantity == 0" style="color: red;font-weight: bold;">منتهى</span>
+                        </p>
                         <p>
                             <strong>USD {{ product.price }} </strong> /
                             <strong>الكمية {{ product.quantity }} </strong>
@@ -200,7 +202,7 @@ export default {
     margin-bottom: 0;
 }
 .content-page{
-    display: inline-table;
+    display: inline-flex;
 }
 .inner-product-item strong{
     line-height: 2.5em;

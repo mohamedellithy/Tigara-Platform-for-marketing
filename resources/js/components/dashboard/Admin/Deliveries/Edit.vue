@@ -72,6 +72,11 @@
                 </div>
             </div>
         </form>
+        <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
+        @update_success="showsuccess = false"
+        @update_errors="showerrors = false" :errors="errors"
+        :success_message="success_message"
+        :error_message="error_message"></alert-response>
     </div>
 </template>
 <script>
@@ -80,7 +85,11 @@ export default {
         return{
             delivery:{},
             errors:{},
-            success:null
+            success:null,
+            showsuccess:false,
+            showerrors:false,
+            success_message:'تم انشاء التاجر بنجاح',
+            error_message:'حدث خطأ اثناء انشاء التاجر'
         }
     },
     methods:{
@@ -94,23 +103,26 @@ export default {
             }).catch(function({response}) {
                 console.log(response);
                 self.errors = response.data;
-            })
-            console.log(this.delivery);
+            }).then(function(){
+                self.delivery.status = 1;
+            });
         },
         UpdateDelivery:function(){
             let self = this;
             axios.put('/api/deliveries/'+this.$route.params.id,this.delivery).then(function({data}) {
                 console.log(data);
                 self.errors   = {};
-                self.success  = data.result;
+                self.showsuccess = true;
+                self.success_message = data.result;
                 console.log(self.success);
             }).catch(function({response}) {
                 console.log(response);
+                self.showerrors = true;
                 self.errors = response.data;
             })
         },
         UpdateDraftDelivery:function(){
-            this.field.status = 0;
+            this.delivery.status = 0;
             this.UpdateDelivery();
         }
     },

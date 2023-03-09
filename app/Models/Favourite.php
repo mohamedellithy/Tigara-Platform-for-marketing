@@ -11,8 +11,6 @@ class Favourite extends Model
 
     protected $fillable = ['product_id', 'marketer_id'];
 
-    protected $table="favorits";
-
     public function products(){
         return $this->belongsTo('App\Models\Product','product_id','id');
     }

@@ -25,6 +25,15 @@
                                 </label>
                                 <p class="alert">{{product.price}}</p>
                             </div>
+                            <div class="form-group">
+                                <label for="merchant-name">
+                                    <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
+                                    عمولة المسوق بالقيمة ( % )
+                                </label>
+                                <p class="alert"> 
+                                    {{ product.marketer_commission }}
+                                </p>
+                            </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
@@ -34,6 +43,23 @@
                                 </label>
                                 <p class="alert"> {{ product.quantity }}</p>
                             </div>
+                            <div class="form-group">
+                                <label for="merchant-name">
+                                    <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
+                                    التاجر
+                                </label>
+                                <p class="alert"> 
+                                    {{ product.merchant.name }}
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label for="merchant-name">
+                                    <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
+                                    تكلفة المنتج للتاجر ( USD )
+                                </label>
+                                <p class="alert"> {{ product.merchant_commission }}</p>
+                            </div>
+                           
                         </div>
                         <div class="col-lg-12">
                             <div class="form-group">
@@ -77,7 +103,8 @@ export default {
                 price:0.0,
                 quantity:1,
                 thumbnail:[],
-                attachments:[]
+                attachments:[],
+                merchant:{}
             },
             errors:{},
             success:null,
@@ -98,6 +125,7 @@ export default {
                 self.product       = data.product;
                 self.thumbnail_url = data.product.thumbnail_item.image_url;
                 attachments        = data.product.attachments_items.data;
+                console.log(self.product);
             }).catch(function({response}) {
                 self.errors = response.data;
             });

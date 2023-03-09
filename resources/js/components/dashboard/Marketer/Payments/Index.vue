@@ -3,19 +3,6 @@
         <div class="row">
             <div class="filter-bar">
                 <div class="row">
-                    <div v-if="Object.keys(this.errors).length !== 0" class="col-12 container-errors">
-                        <div class="alert alert-danger">
-                            <ul>
-                                <li v-for="(error,index) in errors" :key="index"> {{ error[0] }}</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div v-if="this.success" class="col-12 container-errors">
-                        <div class="alert alert-success">
-                            <p>{{ success }}</p>
-                        </div>
-                    </div>
-                    
                     <div class="col-md-8">
                         <button @click="ShowModelPop" type="button" class="btn btn-primary btn-sm btn-block" style="margin:10px">
                             <i class="fas fa-plus"></i>
@@ -24,11 +11,15 @@
                         <ul class="filter-results">
                             <li class="filter-item">
                                 <i class="fas fa-users"></i>
-                                12344 اجمالى المبالغ 
+                               USD {{ total_profits }} اجمالى المبالغ 
                             </li>
                             <li class="filter-item">
                                 <i class="fas fa-users"></i>
-                                12344 اجمالى المبالغ الغير مسددة
+                                USD {{ total_payments }} اجمالى المبالغ مسددة
+                            </li>
+                            <li class="filter-item">
+                                <i class="fas fa-users"></i>
+                                USD {{ total_profits - total_payments }} اجمالى المبالغ غير مسددة
                             </li>
                         </ul>
                     </div>
@@ -138,6 +129,11 @@
                 </div>
             </div>
         </div>
+        <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
+        @update_success="showsuccess = false"
+        @update_errors="showerrors = false" :errors="errors"
+        :success_message="success_message"
+        :error_message="error_message"></alert-response>
     </div>
 </template>
 <script>
@@ -153,8 +149,8 @@ export default {
                 q:null,
                 merchant_id:null
             },
-            no_active_orders:0,
-            active_orders:0,
+            total_profits:0,
+            total_payments:0,
             infos:[],
             payments: [],
             search:null,
@@ -169,6 +165,10 @@ export default {
                 id:null
             },
             iconsProfile,
+            showsuccess:false,
+            showerrors:false,
+            success_message:'تم تحديث الطلب بنجاح',
+            error_message:'حدث خطأ اثناء تحديث الطلب'
         }
     },
     methods:{
@@ -180,8 +180,8 @@ export default {
                 console.log(data);
                 self.infos             = data.data_info;
                 self.payments          = self.infos.data;
-                self.no_active_payment = data.no_active_payment;
-                self.active_payment    = data.active_payment;
+                self.total_profits     = data.total_profits;
+                self.total_payments    = data.total_payments;
             }).catch(function({response}){
                 console.log(response);
             });
@@ -194,20 +194,24 @@ export default {
             if(self.field.id){
                 await axios.put('/api/marketer-payments/'+self.field.id,self.field).then(function({data}){
                     console.log(data);
-                    self.success = data.success;
+                    self.showsuccess = true;
+                    self.success_message = data.result;
                     self.FetchPayments();
                     self.ShowModelPop();
                 }).catch(function({response}){
                     console.log(response);
+                    self.errors = response.data;
                 });
             } else {
                 await axios.post('/api/marketer-payments',self.field).then(function({data}){
                     console.log(data);
-                    self.success = data.success;
+                    self.showsuccess = true;
+                    self.success_message = data.result;
                     self.FetchPayments();
                     self.ShowModelPop();
                 }).catch(function({response}){
                     console.log(response);
+                    self.errors = response.data;
                 });
             }
         },
@@ -215,9 +219,12 @@ export default {
             let self = this;
             await axios.put('/api/marketer-payments/'+payment_id,field).then(function({data}){
                 console.log(data);
+                self.showsuccess = true;
+                self.success_message = data.result;
                 self.FetchPayments();
             }).catch(function({response}){
                 console.log(response);
+                self.errors = response.data;
             });
         },
         CancelPayment:async function(payment_id){

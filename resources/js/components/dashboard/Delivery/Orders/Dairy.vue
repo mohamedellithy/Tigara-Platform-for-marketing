@@ -217,7 +217,7 @@ export default {
                 self.success  = data.result;
                 console.log(self.success);
                 self.params.page = (self.$route.params.page_no ? self.$route.params.page_no : 1);
-                self.params.type = 0;
+                self.params.type = -1;
                 self.FetchOrders();
                 self.CloseModelUpdateStatus();
             }).catch(function({response}) {

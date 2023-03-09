@@ -20,23 +20,35 @@
                             <ul class="filter-results">
                                 <li class="filter-item">
                                     <i class="fas fa-users"></i>
-                                    {{ orders.length }} الطلبات
+                                   USD {{ total_costs }} اجمالى الطلبات
+                                </li>
+                                <li class="filter-item">
+                                    <i class="fas fa-users"></i>
+                                   USD {{ total_profits }} اجمالى الارباح
+                                </li>
+                                <li class="filter-item">
+                                    <i class="fas fa-users"></i>
+                                    {{ all_orders }} الطلبات
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-check"></i>
-                                    {{ active_orders }} جاري التنفيذ
+                                    {{ process_orders }} جاري التنفيذ
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-slash"></i>
-                                    {{ no_active_orders }} انتظار الموافقة
+                                    {{ wait_orders }} انتظار الموافقة
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-check"></i>
-                                    {{ active_orders }} المكتملة
+                                    {{ complete_orders }} المكتملة
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-slash"></i>
-                                    {{ no_active_orders }} المرفوضة
+                                    {{ refused_orders }} المرفوضة
+                                </li>
+                                <br/><br/>
+                                <li class="">
+                                    {{ orders.length }} طلبات
                                 </li>
                             </ul>
                         </div>
@@ -69,7 +81,7 @@
                                 <th scope="row"> # {{ order.id }}</th>
                                 <td>{{ order.quantity }} قطعة</td>
                                 <td>{{ order.total }} USD</td>
-                                <td>{{ order.total }} USD</td>
+                                <td>{{ order.marketer_profit }} USD</td>
                                 <td>{{ order.discount }}</td>
                                 <td>{{ order.order_status_txt }}</td>
                                 <td>{{ order.shipping_status_txt }}</td>
@@ -127,16 +139,25 @@
                 </div>
             </div>
         </div>
+        <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
+        @update_success="showsuccess = false"
+        @update_errors="showerrors = false" :errors="errors"
+        :success_message="success_message"
+        :error_message="error_message"></alert-response>
     </div>
 </template>
 <script>
-import { CanceledError } from 'axios';
 
 export default {
     data() {
         return {
-            no_active_orders:0,
-            active_orders:0,
+            all_orders:0,
+            process_orders:0,
+            wait_orders:0,
+            complete_orders:0,
+            refused_orders:0,
+            total_profits:0,
+            total_costs:0,
             infos:[],
             orders: [],
             search:null,
@@ -151,7 +172,11 @@ export default {
                 shipping_status:0,
                 order_id:null,
                 ids:[]
-            }
+            },
+            showsuccess:false,
+            showerrors:false,
+            success_message:'تم تحديث الطلب بنجاح',
+            error_message:'حدث خطأ اثناء تحديث الطلب'
         };
     },
     methods:{
@@ -163,8 +188,13 @@ export default {
                 console.log(data);
                 self.infos            = data.data_info;
                 self.orders           = self.infos.data;
-                self.no_active_orders = data.no_active_orders;
-                self.active_orders    = data.active_orders;
+                self.all_orders       = data.all_orders;
+                self.total_costs      = data.total_costs;
+                self.total_profits    = data.total_profits;
+                self.process_orders   = data.process_orders;
+                self.wait_orders      = data.wait_orders;
+                self.complete_orders  = data.complete_orders;
+                self.refused_orders   = data.refused_orders;
                 console.log(self.orders);
             }).catch(function({response}){
                 console.log(response);
@@ -188,7 +218,8 @@ export default {
             axios.put('/api/orders/update-status',this.field).then(function({data}) {
                 console.log(data);
                 self.errors   = {};
-                self.success  = data.result;
+                self.showsuccess = true;
+                self.success_message = data.result;
                 console.log(self.success);
                 self.params = {
                     page:(self.$route.params.page_no ? self.$route.params.page_no : 1)
@@ -212,7 +243,8 @@ export default {
             axios.put('/api/orders/'+order_id,this.field).then(function({data}) {
                 console.log(data);
                 self.errors   = {};
-                self.success  = data.result;
+                self.showsuccess = true;
+                self.success_message = data.result;
                 console.log(self.success);
                 self.params = {
                     page:(self.$route.params.page_no ? self.$route.params.page_no : 1)
@@ -228,6 +260,8 @@ export default {
             let self = this;
             await axios.put('/api/marketer-orders/'+order_id,field).then(function({data}) {
                     self.FetchOrders();
+                    self.showsuccess = true;
+                    self.success_message = data.result;
                 }).catch(function({response}){
                 console.log(response);
                 });
@@ -313,7 +347,7 @@ export default {
     display: inline-block;
     width: auto;
     background-color: #eee;
-    margin: 0px 3px;
+    margin: 3px;
 }
 .filter-bar .search-input{
     border:1px solid #eee;

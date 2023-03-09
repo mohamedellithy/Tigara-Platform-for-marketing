@@ -85,7 +85,7 @@
                                 <td>{{ product.merchant.name }}</td>
                                 <td>{{ product.price }} USD</td>
                                 <td>{{ product.quantity }} منتج</td>
-                                <td>{{ product.status }}</td>
+                                <td>{{ product.status_text }}</td>
                                 <td class="actions-btn">
                                     <button @click="DeleteProduct(product.id,product.name)" class="btn btn-danger btn-sm">
                                         حذف
@@ -165,6 +165,11 @@
                 </div>
             </div>
         </div>
+        <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
+        @update_success="showsuccess = false"
+        @update_errors="showerrors = false" :errors="errors"
+        :success_message="success_message"
+        :error_message="error_message"></alert-response>
     </div>
 </template>
 <script>
@@ -185,7 +190,11 @@ export default {
             field:{
                 update_status:0,
                 ids:[]
-            }
+            },
+            showsuccess:false,
+            showerrors:false,
+            success_message:'تم انشاء التاجر بنجاح',
+            error_message:'حدث خطأ اثناء انشاء التاجر'
         };
     },
     methods:{
@@ -210,13 +219,16 @@ export default {
                 axios.delete('/api/products/'+id).then(function({data}){
                     console.log(data);
                     self.errors   = {};
-                    self.success  = data.result;
+                    self.showsuccess = true;
+                    self.success_message = data.result;
                     self.params = {
                         page:(self.$route.params.page_no ? self.$route.params.page_no : 1)
                     };
                     self.FetchProducts();
                 }).catch(function({response}){
                     console.log(response);
+                    self.showerrors = true;
+                    self.errors = response.data;
                 });
             }
         },
@@ -230,13 +242,16 @@ export default {
                 }).then(function({data}){
                     console.log(data);
                     self.errors   = {};
-                    self.success  = data.result;
+                    self.showsuccess = true;
+                    self.success_message = data.result;
                     self.params = {
                         page:1
                     };
                     self.FetchProducts();
                 }).catch(function({response}){
                     console.log(response);
+                    self.showerrors = true;
+                    self.errors = response.data;
                 });
             }
         },
@@ -251,13 +266,16 @@ export default {
                 }).then(function({data}){
                     console.log(data);
                     self.errors   = {};
-                    self.success  = data.result;
+                    self.showsuccess = true;
+                    self.success_message = data.result;
                     self.params = {
                         page:(self.$route.params.page_no ? self.$route.params.page_no : 1)
                     };
                     self.FetchProducts();
                 }).catch(function({response}){
                     console.log(response);
+                    self.showerrors = true;
+                    self.errors = response.data;
                 });
             }
         },
@@ -273,7 +291,8 @@ export default {
             axios.put('/api/products/update-status',this.field).then(function({data}) {
                 console.log(data);
                 self.errors   = {};
-                self.success  = data.result;
+                self.showsuccess = true;
+                self.success_message = data.result;
                 console.log(self.success);
                 self.params = {
                     page:(self.$route.params.page_no ? self.$route.params.page_no : 1)
@@ -282,6 +301,7 @@ export default {
                 self.CloseModelUpdateStatus();
             }).catch(function({response}) {
                 console.log(response);
+                self.showerrors = true;
                 self.errors = response.data;
             })
         }

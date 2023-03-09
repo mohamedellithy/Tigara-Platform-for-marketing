@@ -4,22 +4,10 @@
             <div class="content-page col-12">
                 <div class="filter-bar">
                     <div class="row">
-                        <div v-if="Object.keys(this.errors).length !== 0" class="col-12 container-errors">
-                            <div class="alert alert-danger">
-                                <ul>
-                                    <li v-for="(error,index) in errors" :key="index"> {{ error[0] }}</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div v-if="this.success" class="col-12 container-errors">
-                            <div class="alert alert-success">
-                                <p>{{ success }}</p>
-                            </div>
-                        </div>
                         <div class="col-md-8">
                             <ul class="filter-results">
                                 <li class="actions-btn">
-                                    <button @click="ShowModelUpdateStatus" class="btn btn-warning btn-sm" :disabled="(selected.length == 0)">
+                                    <button v-if="this.$route.params.type != 'complete'" @click="ShowModelUpdateStatus" class="btn btn-warning btn-sm" :disabled="(selected.length == 0)">
                                         تحديث الحالة
                                     </button>
                                 </li>
@@ -73,7 +61,8 @@
                                     <router-link :to="{path:'/delivery/delivery-show-orders/'+order.id}"  class="btn btn-primary btn-sm">
                                         عرض
                                     </router-link>
-                                    <button @click="SingleStatus(order)" class="btn btn-warning btn-sm">
+                                    <!-- v-if="this.$route.params.type != 'complete'" -->
+                                    <button  @click="SingleStatus(order)" class="btn btn-warning btn-sm">
                                         تحديث الحالة
                                     </button>
                                 </td>
@@ -138,7 +127,7 @@
                             <select type="text" class="form-control" v-model="field.shipping_status">
                                 <option :value="0" selected>بانتظار الموافقة</option>
                                 <option :value="1">جاري التنفيذ</option>
-                                <option :value="2">مكتملة</option>
+                                <option :value="2" v-if="field.order_id">مكتملة</option>
                                 <option :value="3">مرفوضة</option>
                                 <option :value="4">مرتجع</option>
                             </select>
@@ -169,9 +158,15 @@
                 </div>
             </div>
         </div>
+        <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
+        @update_success="showsuccess = false"
+        @update_errors="showerrors = false" :errors="errors"
+        :success_message="success_message"
+        :error_message="error_message"></alert-response>
     </div>
 </template>
 <script>
+import AlertResponse from '../../../AlertResponse.vue';
 export default {
     data() {
         return {
@@ -203,13 +198,17 @@ export default {
                 shipping_status:0,
                 order_id:null,
                 ids:[]
-            }
+            },
+            showsuccess:false,
+            showerrors:false,
+            success_message:'تم تحديث الطلب بنجاح',
+            error_message:'حدث خطأ اثناء تحديث الخطأ'
         };
     },
     methods:{
-        FetchOrders:function(){
+        FetchOrders:async function(){
             let self = this;
-            axios.get('/api/orders',{
+            await axios.get('/api/orders',{
                 params:self.params
             }).then(function({data}){
                 console.log(data);
@@ -233,16 +232,16 @@ export default {
             }
            this.showModel = false;
         },
-        UpdateStatus:function(){
+        UpdateStatus:async function(){
             let self = this;
             this.field.ids = this.selected;
-            axios.put('/api/orders/update-status',this.field).then(function({data}) {
+            await axios.put('/api/orders/update-status',this.field).then(function({data}) {
                 console.log(data);
                 self.errors   = {};
                 self.success  = data.result;
                 console.log(self.success);
                 self.params.page = (self.$route.params.page_no ? self.$route.params.page_no : 1);
-                self.params.type = 1;
+                self.params.type = self.types_orders[self.$route.params.type];
                 self.FetchOrders();
                 self.CloseModelUpdateStatus();
             }).catch(function({response}) {
@@ -260,20 +259,20 @@ export default {
             this.field.order_id = order.id;
             this.ShowModelUpdateStatus();
         },
-        UpdateSingleStatus:function(order_id){
+        UpdateSingleStatus:async function(order_id){
             let self = this;
-            axios.put('/api/orders/'+order_id,this.field).then(function({data}) {
+            await axios.put('/api/orders/'+order_id,this.field).then(function({data}) {
                 console.log(data);
-                self.errors   = {};
-                self.success  = data.result;
-                console.log(self.success);
+                self.success_message = data.result;
+                self.showsuccess = true;
                 self.params.page = (self.$route.params.page_no ? self.$route.params.page_no : 1);
-                self.params.type = 1;
+                self.params.type = self.types_orders[self.$route.params.type];
                 self.FetchOrders();
                 self.CloseModelUpdateStatus();
             }).catch(function({response}) {
                 console.log(response);
-                self.errors = response.data;
+                self.showerrors = true;
+                self.errors = response.data.errors;
             });
         }
     },
@@ -300,7 +299,7 @@ export default {
                 });
             }else{
                 self.params.page = (this.$route.params.page_no ? this.$route.params.page_no : 1);
-                self.params.type = 1;
+                self.params.type = this.types_orders[this.$route.params.type] || 0;
                 self.FetchProducts();
             }
         },

@@ -13,13 +13,13 @@ class MerchantProductsRepository extends MerchantProductsRepositoryInterface{
         if($request->has('filter_products')):
             $request->query('filter_products') == 1 ? $order_by = 'desc' : $order_by = 'asc';
             return response()->json([
-                'data_info'          => $request->user()->products()->withCount('order_details')->orderBy('order_details_count',$order_by)->paginate(5),
+                'data_info'          => $request->user()->products()->withCount('order_details')->orderBy('order_details_count',$order_by)->paginate(15),
                 'active_products'    => $request->user()->products()->count(),
                 'finished_products'  => $request->user()->products()->where('quantity',0)->count()
             ]);
         else:
             return response()->json([
-                'data_info'          => $request->user()->products()->withCount('order_details')->paginate(5),
+                'data_info'          => $request->user()->products()->withCount('order_details')->paginate(15),
                 'active_products'    => $request->user()->products()->count(),
                 'finished_products'  => $request->user()->products()->where('quantity',0)->count()
             ]);

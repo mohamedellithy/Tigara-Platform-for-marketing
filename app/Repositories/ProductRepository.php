@@ -11,13 +11,13 @@ class ProductRepository extends ProductRepositoryInterface{
        // return response()->json(['data' => $request->all()]);
         if($request->has('merchant_id')):
             return response()->json([
-                'data_info'          => new ProductResource(Product::where('merchant_id',$request->query('merchant_id'))->with('merchant')->paginate(2)),
+                'data_info'          => new ProductResource(Product::where('merchant_id',$request->query('merchant_id'))->orderBy('created_at','desc')->with('merchant')->paginate(15)),
                 'active_products'    => Product::where('status',1)->count(),
                 'no_active_products' => Product::where('status',0)->count()
             ]);
         else:
             return response()->json([
-                'data_info'          => new ProductResource(Product::with('merchant')->paginate(10)),
+                'data_info'          => new ProductResource(Product::with('merchant')->orderBy('created_at','desc')->paginate(15)),
                 'active_products'    => Product::where('status',1)->count(),
                 'no_active_products' => Product::where('status',0)->count()
             ]);
@@ -79,7 +79,7 @@ class ProductRepository extends ProductRepositoryInterface{
 
     public function show($id){
         return response()->json([
-            'product'          => new ProductResource(Product::find($id))
+            'product'          => new ProductResource(Product::with('merchant')->find($id))
         ]);
     }
 

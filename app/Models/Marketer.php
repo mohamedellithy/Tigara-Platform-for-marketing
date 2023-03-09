@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-
+use Illuminate\Support\Facades\DB;
 class Marketer extends Authenticatable
 {
      use HasApiTokens, HasFactory, Notifiable;
@@ -121,18 +121,19 @@ class Marketer extends Authenticatable
     public function totalSales() : Attribute
     {
         return Attribute::make(
-        get: fn() => $this->orders_details->sum(function ($order_details) {
-                return $order_details['unit_price'] * $order_details['quantity'];
-            })
+            get: fn() => $this->orders()->where('order_status',2)
+            ->join('order_details','orders.id','=','order_details.order_id')
+            ->sum(DB::raw('unit_price * quantity'))
+            // order_details()->sum(function($order_details) {
+            //     return $order_details['unit_price'] * $order_details['quantity'];
+            // })
         );
     }
 
     public function totalProfites():Attribute
     {
         return Attribute::make(
-        get: fn() => $this->orders_details->sum(function ($order_details) {
-                return $order_details['unit_price'];
-            })
+        get: fn() => $this->orders()->sum('marketer_profit')
         );
     }
 

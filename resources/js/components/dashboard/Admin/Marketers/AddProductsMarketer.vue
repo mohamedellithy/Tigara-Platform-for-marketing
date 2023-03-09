@@ -61,7 +61,7 @@
             </div>
         </div>
         <div class="row">
-            <ul class="content-page col-12">
+            <ul class="content-page row">
                 <li v-for="(product,key) in products" :key="key" class="col-md-3 item-product">
                     <div class="inner-product-item">
                         <p class="top-label">
@@ -116,6 +116,11 @@
                 </ul>
             </nav>
         </div>
+        <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
+        @update_success="showsuccess = false"
+        @update_errors="showerrors = false" :errors="errors"
+        :success_message="success_message"
+        :error_message="error_message"></alert-response>
     </div>
 </template>
 <script>
@@ -149,7 +154,11 @@ export default {
             showModel:false,
             field:{
                 products:[]
-            }
+            },
+            showsuccess:false,
+            showerrors:false,
+            success_message:'تم اضافة المنتج للمسوق',
+            error_message:'حدث خطأ اثناء اضافة المنتج للمسوق'
         }
     },
     methods:{
@@ -184,9 +193,11 @@ export default {
                 console.log(data);
                 self.field.products = [];
                 self.products = data.result.data;
+                self.showsuccess = true;
                 self.FetchMarketer();
             }).catch(function({response}){
                 console.log(response);
+                self.showerrors = true;
             });
         }
     },
@@ -254,7 +265,9 @@ export default {
     position: relative;
 }
 .item-product img.image-product{
-    width:95%;
+    /* width:95%; */
+    width: 86%;
+    height: 210px;
 
 }
 .item-product p
@@ -264,7 +277,7 @@ export default {
     margin-bottom: 0;
 }
 .content-page{
-    display: inline-table;
+    display: inline-flex;
 }
 .inner-product-item strong{
     line-height: 2.5em;

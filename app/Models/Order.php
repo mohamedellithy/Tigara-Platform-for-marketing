@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\DB;
 class Order extends Model
 {
     use HasFactory;
@@ -18,12 +19,14 @@ class Order extends Model
         'track_notice_order',
         'cash_delivered',
         'cash_delivery_refund',
-        'delivery_notice'
+        'delivery_notice',
+        'marketer_profit',
     ];
 
     protected $appends = [
        'quantity',
        'total',
+       'total_original',
        'order_status_txt',
        'shipping_status_txt'
     ];
@@ -55,6 +58,24 @@ class Order extends Model
     {
         return Attribute::make(
             get : fn() => $this->order_details()->selectRaw('sum(unit_price * quantity) as total')->first()->total ?: 0
+        );
+    }
+
+    public function MarketerProfit() : Attribute
+    {
+        return Attribute::make(
+            get : fn($value) => $value > 0 ? $value : $this->order_details()->join('products','order_details.product_id','=','products.id')
+            ->select('order_details.*','products.merchant_commission as merchant_commission','products.marketer_commission as marketer_commission')
+            ->groupby('order_details.id')->sum(DB::Raw('order_details.quantity * ( ((order_details.unit_price - merchant_commission)  * marketer_commission ) / 100)')),
+        );
+    }
+    
+
+    public function TotalOriginal() : Attribute
+    {
+        return Attribute::make(
+            get : fn() => $this->order_details()->join('products','order_details.product_id','=','products.id')
+            ->sum(DB::raw('products.merchant_commission * order_details.quantity'))
         );
     }
 

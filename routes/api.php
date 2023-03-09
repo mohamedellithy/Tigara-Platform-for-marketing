@@ -179,6 +179,6 @@ Route::domain('marketer.'.env('MAIN_DOMAIN'))->group(function () {
         Route::apiResource('marketer-favourits',MarketerFavouritController::class);
 
         Route::apiResource('/marketer-payments',MarketerPaymentsController::class);
-        Route::get('merchant-statics',[MerchantStaticsController::class,'index']);
+        Route::get('marketer-statics',[MarketerStaticsController::class,'index']);
     });
 });

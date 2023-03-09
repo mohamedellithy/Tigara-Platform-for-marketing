@@ -13,15 +13,19 @@
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-users"></i>
-                                    2340130 مسوقين
+                                    {{ active_marketers }} مسوقين
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-check"></i>
-                                    2330 مسددة
+                                    {{ payments_make }} مسددة
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-slash"></i>
-                                    2330 غير مسددة
+                                    {{ payments_due }} غير مسددة
+                                </li>
+                                <li class="filter-item">
+                                    <i class="fas fa-user-check"></i>
+                                    {{ profits }} الارباح
                                 </li>
                             </ul>
                         </div>
@@ -147,14 +151,21 @@
                 </div>
             </div>
         </div>
+        <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
+        @update_success="showsuccess = false"
+        @update_errors="showerrors = false" :errors="errors"
+        :success_message="success_message"
+        :error_message="error_message"></alert-response>
     </div>
 </template>
 <script>
 export default {
      data() {
         return {
-            no_active_marketer:0,
-            active_marketer:0,
+            active_marketers:0,
+            payments_due:0,
+            payments_make:0,
+            profits:0,
             infos:[],
             payments:[],
             search:null,
@@ -169,7 +180,11 @@ export default {
                 value:null,
                 marketer:null,
                 ids:[]
-            }
+            },
+            showsuccess:false,
+            showerrors:false,
+            success_message:'تم انشاء التاجر بنجاح',
+            error_message:'حدث خطأ اثناء انشاء التاجر'
         };
     },
     methods:{
@@ -180,9 +195,11 @@ export default {
             }).then(function({data}){
                 console.log(data);
                 self.infos              = data.data_info;
-                self.payments          = self.infos.data;
-                self.no_active_marketer = data.no_active_marketer;
-                self.active_marketer    = data.active_marketer;
+                self.payments           = self.infos.data;
+                self.active_marketers   = data.active_marketers;
+                self.payments_due       = data.payments_due;
+                self.payments_make      = data.payments_make; 
+                self.profits            = data.profits; 
             }).catch(function({response}){
                 console.log(response);
             });
@@ -202,7 +219,8 @@ export default {
             axios.put('/api/marketers-payments',this.field).then(function({data}) {
                 console.log(data);
                 self.errors   = {};
-                self.success  = data.result;
+                self.showsuccess = true;
+                self.success_message = data.result;
                 console.log(self.success);
                 self.params = {
                     page:(self.$route.params.page_no ? self.$route.params.page_no : 1)
@@ -211,6 +229,7 @@ export default {
                 self.CloseModelUpdateStatus();
             }).catch(function({response}) {
                 console.log(response);
+                self.showerrors = true;
                 self.errors = response.data;
             })
         },

@@ -13,9 +13,10 @@ class MarketerRepository extends MarketerRepositoryInterface{
     public function all(){
        // return response()->json(['data' => $request->all()]);
         return response()->json([
-            'data_info'          => new MarketerResource(Marketer::paginate(2)),
-            'active_marketers'    => Marketer::where('status',1)->count(),
-            'no_active_marketers' => Marketer::where('status',0)->count()
+            'data_info'           => new MarketerResource(Marketer::paginate(15)),
+            'all_marketers'       => Marketer::count(),
+            'active_marketer'    => Marketer::where('status',1)->count(),
+            'no_active_marketer' => Marketer::where('status',0)->count()
         ]);
     }
 

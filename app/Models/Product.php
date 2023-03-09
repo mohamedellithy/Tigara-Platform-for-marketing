@@ -14,7 +14,7 @@ class Product extends Model
     use HasFactory;
 
     protected $appends = [
-        'thumbnail_item','attachments_items','status_text','hold_stock'
+        'thumbnail_item','attachments_items','status_text','hold_stock','marketer_profit'
     ];
     protected $fillable = [
         'name','price','quantity','description','status','merchant_id','marketer_commission','merchant_commission'
@@ -50,11 +50,19 @@ class Product extends Model
         );
     }
 
+    public function MarketerProfit(): Attribute
+    {
+        $platform = ($this->price - floatval($this->merchant_commission));
+        return Attribute::make(
+            get:fn() => ($platform * floatval($this->marketer_commission)) / 100
+        );
+    }
+
      public function StatusText(): Attribute
     {
         $status = [
-            '0' => 'مفعل',
-            '1' => 'غير مفعل',
+            '1' => 'مفعل',
+            '0' => 'غير مفعل',
         ];
         return Attribute::make(
             get : fn() => $status[$this->status] ?: ''

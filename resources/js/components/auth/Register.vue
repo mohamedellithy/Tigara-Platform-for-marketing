@@ -98,7 +98,18 @@ export default {
             let self = this;
             await axios.post('/api/register',this.field).then(function({data}){
                 self.$auth.setAuthToken(data.access_token);
-                self.$router.push({name: 'dashboard-reports'});
+                if(data.account_type == '0'){
+                    self.$router.push({name: 'dashboard-reports'});
+                }
+                else if(data.account_type == '1'){
+                    self.$router.push({name: 'merchant-reports'});
+                }
+                else if(data.account_type == '2'){
+                    self.$router.push({name: 'delivery-reports'});
+                }
+                else if(data.account_type == '3'){
+                    self.$router.push({name: 'marketer-reports'});
+                }
                 console.log(data);
             }).catch(function({response}){
                 console.log(response);

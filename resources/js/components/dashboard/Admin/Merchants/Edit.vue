@@ -80,6 +80,7 @@ export default {
         return{
             merchant:{},
             errors:{},
+            field:{},
             success:null,
             showsuccess:false,
             showerrors:false,
@@ -95,7 +96,9 @@ export default {
                 self.merchant = data.merchant;
             }).catch(function({response}) {
                 console.log(response);
-            })
+            }).then(function(){
+                self.merchant.status = 1;
+            });
         },
         UpdateMerchant:function(){
             let self = this;
@@ -113,7 +116,7 @@ export default {
             })
         },
         UpdateDraftMerchant:function(){
-            this.field.status = 0;
+            this.merchant.status = 0;
             this.UpdateMerchant();
         }
     },

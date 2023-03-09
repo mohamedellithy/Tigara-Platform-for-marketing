@@ -20,6 +20,14 @@
                     </p>
                 </li>
                 <li>
+                    <i style="color: #ffa5007d;" class="fas fa-shopping-cart"></i>
+                    <strong>{{ statics.orders_compeleted }}</strong>
+                    <p>
+                        اجمالى  الطلبات المكتملة
+                    </p>
+                </li>
+                
+                <li>
                     <i style="color: #b8dcb9;" class="fas fa-pallet"></i>
                     <strong>{{ statics.total_sales }} <span>USD</span></strong>
                     <p>
@@ -28,9 +36,9 @@
                 </li>
                 <li>
                     <i style="color: #ffccbc;" class="fas fa-money-check-alt"></i>
-                    <strong>{{ statics.payments_total }} <span>USD</span></strong>
+                    <strong>{{ statics.total_profits }} <span>USD</span></strong>
                     <p>
-                        اجمالى المدفوعات
+                        اجمالى الارباح
                     </p>
                 </li>
                 <li>
@@ -68,11 +76,11 @@
                         <tbody>
                             <tr v-for="(order,index) in statics.orders" :key="index">
                                 <td>{{ order.order_id }}#</td>
-                                <td>{{ order.product.name }}</td>
-                                <td>{{ order.quantity }}</td>
+                                <td>{{ order.order_status_text }}</td>
+                                <td>{{ order.marketer_profit }}</td>
                                 <td>{{ order.created_at }}</td>
                                 <td>
-                                    <router-link :to="{path:'/merchant/show-product/'+order.product.id}" class="btn btn-primary btn-sm">عرض المنتج</router-link>
+                                    <router-link :to="{path:'/marketer/show-order/'+order.id}" class="btn btn-primary btn-sm">عرض المنتج</router-link>
                                 </td>
                             </tr>
                         </tbody>
@@ -124,7 +132,7 @@ export default {
     },
     created(){
         let self = this;
-        axios.get('/api/merchant-statics').then(function({data}){
+        axios.get('/api/marketer-statics').then(function({data}){
             console.log(data);
             self.statics = data;
         }).catch(function({response}){

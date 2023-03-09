@@ -11,10 +11,11 @@ class DeliveryRepository extends DeliveryRepositoryInterface{
         if($request->query('paginate') == '-1'){
             $deliveries = new DeliveryResource(Delivery::all());
         } else {
-            $deliveries = new DeliveryResource(Delivery::paginate(2));
+            $deliveries = new DeliveryResource(Delivery::paginate(15));
         }
         return response()->json([
             'data_info'            => $deliveries,
+            'all_deliveries'       => Delivery::count(),
             'active_deliveries'    => Delivery::where('status',1)->count(),
             'no_active_deliveries' => Delivery::where('status',0)->count()
         ]);
@@ -34,7 +35,7 @@ class DeliveryRepository extends DeliveryRepositoryInterface{
             'name'          => $data['name'],
             'phone'         => $data['phone'],
             'email'         => $data['email'],
-            'account_type'  => $data['account_type'] ?: 2,
+            'account_type'  => 2,
             'status'        => $data['status'] ?: 1,
             'password'      => Hash::make($data['password']),
         ]);

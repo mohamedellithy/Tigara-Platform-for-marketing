@@ -10,6 +10,7 @@ class DeliveryPayment extends Model
     use HasFactory;
     protected $fillable = [
         'delivery_id',
+        'order_id',
         'value',
         'type'
     ];
@@ -18,6 +19,10 @@ class DeliveryPayment extends Model
 
     public function delivery(){
         return $this->belongsTo('App\Models\Delivery','id','delivery_id');
+    }
+
+    public function order(){
+        return $this->belongsTo('App\Models\Order','order_id','id');
     }
 
      public function TypeText(): Attribute

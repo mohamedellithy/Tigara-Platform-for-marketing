@@ -27,6 +27,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>قيمة المبلغ</th>
+                                <th>تفاصيل الطلبية</th>
                                 <th>نوع المدفوعات</th>
                                 <th></th>
                             </tr>
@@ -37,6 +38,19 @@
                             <tr v-for="(payment, key) in payments" :key="key">
                                 <th scope="row">{{ payment.id }}</th>
                                 <td>{{ payment.value }} USD</td>
+                                <td>
+                                    <template v-if="payment.type == 0">
+                                        <strong> ( {{ payment.item_details.product_name  }} ) </strong>
+                                        (
+                                            {{ payment.item_details.quantity  }} قطعة
+                                            <i class="fas fa-times" style="margin: 10px;color:red"></i>
+                                            {{ payment.item_details.unit_price }} USD
+                                        )
+                                    </template>
+                                    <template v-if="payment.type == 1">
+                                         -
+                                    </template>
+                                </td>
                                 <td>{{ payment.type_text }}</td>
                             </tr>
                         </tbody>

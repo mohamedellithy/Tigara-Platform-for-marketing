@@ -3,27 +3,19 @@
         <div class="row">
             <div class="filter-bar">
                 <div class="row">
-                    <div v-if="Object.keys(this.errors).length !== 0" class="col-12 container-errors">
-                        <div class="alert alert-danger">
-                            <ul>
-                                <li v-for="(error,index) in errors" :key="index"> {{ error[0] }}</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div v-if="this.success" class="col-12 container-errors">
-                        <div class="alert alert-success">
-                            <p>{{ success }}</p>
-                        </div>
-                    </div>
                     <div class="col-md-8">
                         <ul class="filter-results">
                             <li class="filter-item">
                                 <i class="fas fa-users"></i>
-                                12344 اجمالى المبالغ 
+                                {{ payments_total }} اجمالى المبالغ 
                             </li>
                             <li class="filter-item">
                                 <i class="fas fa-users"></i>
-                                12344 اجمالى المبالغ الغير مسددة
+                                {{ payments_due }} اجمالى المبالغ الغير مسددة
+                            </li>
+                            <li class="filter-item">
+                                <i class="fas fa-users"></i>
+                                {{ payments_made }} اجمالى المبالغ  مسددة
                             </li>
                         </ul>
                     </div>
@@ -40,6 +32,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>قيمة المبلغ</th>
+                                <th>تفصيل الطلب</th>
                                 <th>تاريخ الاضافة</th>
                             </tr>
                         </thead>
@@ -49,6 +42,19 @@
                             <tr v-for="(payment, key) in payments" :key="key">
                                 <th scope="row">#{{ payment.id }}</th>
                                 <td>{{ payment.value }} USD</td>
+                                <td>
+                                    <template v-if="payment.type == 0">
+                                        <strong> ( {{ payment.item_details.product_name  }} ) </strong>
+                                        (
+                                            {{ payment.item_details.quantity  }} قطعة
+                                            <i class="fas fa-times" style="margin: 10px;color:red"></i>
+                                            {{ payment.item_details.unit_price }} USD
+                                        )
+                                    </template>
+                                    <template v-if="payment.type == 1">
+                                         -
+                                    </template>
+                                </td>
                                 <td>{{ payment.created_at }}</td>
                             </tr>
                         </tbody>
@@ -111,8 +117,9 @@ export default {
                 q:null,
                 merchant_id:null
             },
-            no_active_orders:0,
-            active_orders:0,
+            payments_total:0,
+            payments_made:0,
+            payments_due:0,
             infos:[],
             payments: [],
             search:null,
@@ -140,8 +147,9 @@ export default {
                 console.log(data);
                 self.infos             = data.data_info;
                 self.payments          = self.infos.data;
-                self.no_active_payment = data.no_active_payment;
-                self.active_payment    = data.active_payment;
+                self.payments_total    = data.payments_total;
+                self.payments_made     = data.payments_made;
+                self.payments_due      = data.payments_due;
             }).catch(function({response}){
                 console.log(response);
             });

@@ -4,18 +4,6 @@
             <div class="content-page col-12">
                 <div class="filter-bar">
                     <div class="row">
-                        <div v-if="Object.keys(this.errors).length !== 0" class="col-12 container-errors">
-                            <div class="alert alert-danger">
-                                <ul>
-                                    <li v-for="(error,index) in errors" :key="index"> {{ error[0] }}</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div v-if="this.success" class="col-12 container-errors">
-                            <div class="alert alert-success">
-                                <p>{{ success }}</p>
-                            </div>
-                        </div>
                         <div class="col-md-8">
                             <ul class="filter-results">
                                 <li class="actions-btn">
@@ -34,7 +22,7 @@
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-users"></i>
-                                    {{ marketers.length }} مسوق
+                                    {{ all_marketers }} مسوق
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-check"></i>
@@ -43,6 +31,11 @@
                                 <li class="filter-item">
                                     <i class="fas fa-user-slash"></i>
                                      {{ no_active_marketer }} غير مفعل
+                                </li>
+                                <br/><br/>
+                                <li class="filter-item" style="background-color: #ffeaea;">
+                                    <i class="fas fa-eye"></i>
+                                    {{ all_marketers }} مسوق
                                 </li>
                             </ul>
                         </div>
@@ -153,14 +146,19 @@
                             </select>
                         </div>
                         <div class="modal-footer">
-                            <button @click="UpdateStatus()" type="button" class="btn btn-primary" fdprocessedid="3xp1pw">تحديث الحالة</button>
-                            <button @click="CloseModelUpdateStatus()" type="button" class="btn btn-secondary" data-dismiss="modal" fdprocessedid="c9npk">الغاء</button>
+                            <button @click="UpdateStatus()" type="button" class="btn btn-primary btn-sm" fdprocessedid="3xp1pw">تحديث الحالة</button>
+                            <button @click="CloseModelUpdateStatus()" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" fdprocessedid="c9npk">الغاء</button>
                         </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
+        @update_success="showsuccess = false"
+        @update_errors="showerrors = false" :errors="errors"
+        :success_message="success_message"
+        :error_message="error_message"></alert-response>
     </div>
 </template>
 <script>
@@ -169,6 +167,7 @@ export default {
         return {
             no_active_marketer:0,
             active_marketer:0,
+            all_marketers:0,
             infos:[],
             marketers:[],
             search:null,
@@ -181,7 +180,11 @@ export default {
             field:{
                 update_status:0,
                 ids:[]
-            }
+            },
+            showsuccess:false,
+            showerrors:false,
+            success_message:'تم انشاء التاجر بنجاح',
+            error_message:'حدث خطأ اثناء انشاء التاجر'
         };
     },
     methods:{
@@ -195,6 +198,7 @@ export default {
                 self.marketers          = self.infos.data;
                 self.no_active_marketer = data.no_active_marketer;
                 self.active_marketer    = data.active_marketer;
+                self.all_marketers      = data.all_marketers;
             }).catch(function({response}){
                 console.log(response);
             });
@@ -205,13 +209,16 @@ export default {
                 axios.delete('/api/marketers/'+id).then(function({data}){
                     console.log(data);
                     self.errors   = {};
-                    self.success  = data.result;
+                    self.showsuccess = true;
+                    self.success_message = data.result;
                     self.params = {
                         page:(self.$route.params.page_no ? self.$route.params.page_no : 1)
                     };
                     self.FetchMarketers();
                 }).catch(function({response}){
                     console.log(response);
+                    self.showerrors = true;
+                    self.errors = response.data;
                 });
             }
         },
@@ -225,13 +232,16 @@ export default {
                 }).then(function({data}){
                     console.log(data);
                     self.errors   = {};
-                    self.success  = data.result;
+                    self.showsuccess = true;
+                    self.success_message = data.result;
                     self.params = {
                         page:1
                     };
                     self.FetchMarketers();
                 }).catch(function({response}){
                     console.log(response);
+                    self.showerrors = true;
+                    self.errors = response.data;
                 });
             }
         },
@@ -246,13 +256,16 @@ export default {
                 }).then(function({data}){
                     console.log(data);
                     self.errors   = {};
-                    self.success  = data.result;
+                    self.showsuccess = true;
+                    self.success_message = data.result;
                     self.params = {
                         page:(self.$route.params.page_no ? self.$route.params.page_no : 1)
                     };
                     self.FetchMarketers();
                 }).catch(function({response}){
                     console.log(response);
+                    self.showerrors = true;
+                    self.errors = response.data;
                 });
             }
         },
@@ -268,7 +281,8 @@ export default {
             axios.put('/api/marketers/update-status',this.field).then(function({data}) {
                 console.log(data);
                 self.errors   = {};
-                self.success  = data.result;
+                self.showsuccess = true;
+                self.success_message = data.result;
                 console.log(self.success);
                 self.params = {
                     page:(self.$route.params.page_no ? self.$route.params.page_no : 1)
@@ -277,6 +291,7 @@ export default {
                 self.CloseModelUpdateStatus();
             }).catch(function({response}) {
                 console.log(response);
+                self.showerrors = true;
                 self.errors = response.data;
             })
         }

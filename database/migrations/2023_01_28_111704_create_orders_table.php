@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('marketer_id');
             $table->foreign('marketer_id')->references('id')->on('users')->onDelete('Cascade');
-            $table->unsignedBigInteger('delivery_id');
+            $table->unsignedBigInteger('delivery_id')->nullable();
             $table->foreign('delivery_id')->references('id')->on('users')->onDelete('set Null');
             $table->string('order_status')->default('0')->comment('0 => pending , 1 => processing , 2 => completed , 3 => refused , 4 => cancelled');
             $table->string('shipping_status')->default('0')->comment('0 => pending , 1 => processing , 2 => completed , 3 => refused');
@@ -25,6 +25,7 @@ return new class extends Migration
             $table->decimal('cash_delivered',12,2)->default(0);
             $table->decimal('cash_delivery_refund',12,2)->nullable();
             $table->text('delivery_notice')->nullable();
+            $table->decimal('marketer_profit',12,2)->default(0);
             $table->timestamps();
         });
     }

@@ -5,6 +5,7 @@ use App\Models\Product;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Services\OrderActionsProcess;
 class DeliveryOrdersRepository extends DeliveryOrdersRepositoryInterface{
 
     public function all(Request $request){
@@ -44,7 +45,7 @@ class DeliveryOrdersRepository extends DeliveryOrdersRepositoryInterface{
             ]);
         endif;
         return response()->json([
-            'data_info'          => $order_query->paginate(10),
+            'data_info'          => $order_query->orderBy('created_at','desc')->paginate(10),
             'orders_count'       => $order_query->count()
         ]);
     }
@@ -59,21 +60,39 @@ class DeliveryOrdersRepository extends DeliveryOrdersRepositoryInterface{
 
     public function update($data,$id){
         $order = Order::find($id);
+        $order_shipping_status = $order->shipping_status;
+        $order_status          = $order->order_status;
         if($order):
+
+            $data['order_status'] = $data['shipping_status'];
+
             $update_new_order = $order->update($data);
 
+            if($update_new_order):
+                // if(in_array($data['shipping_status'],["2"])):
+                    if($order_shipping_status !=  $data['shipping_status']):
+                        $order_process = new OrderActionsProcess($order);
+                        $order_process->prev_status_order = $order_status;
+                        $order_process->handle_process_order_status();
+                    endif;
+                // endif;
+            endif;
+
             return response()->json([
-                'result' => 'تم تعديل الطلب بنجاح'
+                'result' => 'تم تعديل الطلب بنجاح',
+                'order'  => $order,
+                'shipping_status' => $order->shipping_status,
+                'shipping_status_1'=>$order_shipping_status
             ]);
         endif;
     }
 
     public function bulk_update_status($data){
-        
+
         $update_product = Order::whereIn('id',$data['ids'])->update([
             'shipping_status' => $data['shipping_status']
         ]);
-    
+
         if($update_product):
             return response()->json([
                 'result' => 'تم تحديث الطلب بنجاح'
