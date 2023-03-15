@@ -3,35 +3,45 @@
         <div class="row">
             <ul class="reports-tabs">
                 <li>
-                    <i style="color: #880e4f42;" class="fas fa-users"></i>
-                    <strong>{{ statics.merchants_count }}</strong>
-                    <p>التجار</p>
+                    <router-link :to="{path:'/dashboard/merchants'}">
+                        <i style="color: #880e4f42;" class="fas fa-users"></i>
+                        <strong>{{ statics.merchants_count }}</strong>
+                        <p>التجار</p>
+                    </router-link>
                 </li>
                 <li>
-                    <i style="color: #1565c052;" class="fas fa-user-tie"></i>
-                    <strong>{{ statics.marketers_count }}</strong>
-                    <p>المسوقين</p>
+                    <router-link :to="{path:'/dashboard/marketers'}">
+                        <i style="color: #1565c052;" class="fas fa-user-tie"></i>
+                        <strong>{{ statics.marketers_count }}</strong>
+                        <p>المسوقين</p>
+                    </router-link>
                 </li>
                 <li>
-                    <i style="color: #ffa5007d;" class="fas fa-shipping-fast"></i>
-                    <strong>{{ statics.deliveries_count }}</strong>
-                    <p>
-                        شركات الشحن
-                    </p>
+                    <router-link :to="{path:'/dashboard/deliveries'}">
+                        <i style="color: #ffa5007d;" class="fas fa-shipping-fast"></i>
+                        <strong>{{ statics.deliveries_count }}</strong>
+                        <p>
+                            شركات الشحن
+                        </p>
+                    </router-link>
                 </li>
                 <li>
-                    <i style="color: #b8dcb9;" class="fas fa-pallet"></i>
-                    <strong>{{ statics.products_count }}</strong>
-                    <p>
-                        المنتجات
-                    </p>
+                    <router-link :to="{path:'/dashboard/products'}">
+                        <i style="color: #b8dcb9;" class="fas fa-pallet"></i>
+                        <strong>{{ statics.products_count }}</strong>
+                        <p>
+                            المنتجات
+                        </p>
+                    </router-link>
                 </li>
                 <li>
-                    <i style="color: #ffccbc;" class="fas fa-pallet"></i>
-                    <strong>{{ statics.orders_count }}</strong>
-                    <p>
-                        الطلبات
-                    </p>
+                    <router-link :to="{path:'/dashboard/orders'}">
+                        <i style="color: #ffccbc;" class="fas fa-pallet"></i>
+                        <strong>{{ statics.orders_count }}</strong>
+                        <p>
+                            الطلبات
+                        </p>
+                    </router-link>
                 </li>
             </ul>
         </div>

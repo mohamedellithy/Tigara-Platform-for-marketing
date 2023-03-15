@@ -39,8 +39,11 @@
                 <li class="list-filter-item">
                     <button @click="BrowseProduct('low-price')" :class="$route.query.filter == 'low-price' ? 'active' : ''"  >الاقل سعرا</button>
                 </li>
+                <li class="list-filter-item">
+                    <button @click="BrowseProduct('low-stock')" :class="$route.query.filter == 'low-stock' ? 'active' : ''"  >المنتهية</button>
+                </li>
                 <br/><br/>
-                
+
             </ul>
             <label>
                 {{ products.length }} المعروض
@@ -77,7 +80,8 @@
                                     <span class="fas fa-minus quantity-varite" @click="MinusQuantity(product)"></span>
                                 </td>
                                 <td>
-                                    <span v-if="product.quantity == 0" style="color: red;font-weight: bold;">منتهى</span>
+                                    <span v-if="product.stock_quantity == 0" style="color: red;font-weight: bold;">منتهى</span>
+                                    <span v-else> {{ product.stock_quantity }} قطعة</span>
                                 </td>
                             </tr>
                             <tr class="actions">
@@ -288,7 +292,7 @@ export default {
             let self = this;
             let filters = {};
             filters.filter = filter;
-            this.$router.replace({ 
+            this.$router.replace({
                 query:filters
             });
         }
@@ -567,6 +571,6 @@ export default {
 .loading-overflow img{
     width: 20% !important;
     margin: auto;
-    
+
 }
 </style>

@@ -14,16 +14,18 @@ class MerchantPaymentRepository extends MerchantPaymentRepositoryInterface{
        // return response()->json(['data' => $request->all()]);
         if($request->has('merchant_id')):
             return response()->json([
-                'data_info'          => new MerchantPaymentResource(MerchantPayment::where('merchant_id', $request->query('merchant_id'))->with('item_details')->paginate(15))
+                'data_info'          => new MerchantPaymentResource(MerchantPayment::where('merchant_id', $request->query('merchant_id'))->with('item_details')->orderBy('created_at','desc')->paginate(15))
             ]);
         else:
-            $payment_made = MerchantPayment::where('type',1)->sum('value');
-            $payment_total = MerchantPayment::where('type',0)->sum('value');
+            $payment_made    = MerchantPayment::where('type',1)->sum('value');
+            $payment_total   = MerchantPayment::where('type',0)->sum('value');
+            $payment_pending = MerchantPayment::where('item_id','!=',null)->where('created_at','>=',strtotime('-7 day',strtotime(date('d-m-Y'))))->sum('value');
             return response()->json([
-                'data_info'          => new MerchantCollectionsResource(Merchant::whereHas('merchant_payments')->with('merchant_payments')->paginate(15)),
+                'data_info'          => new MerchantCollectionsResource(Merchant::whereHas('merchant_payments')->with('merchant_payments')->orderBy('created_at','desc')->paginate(15)),
                 'payment_total'      => $payment_total,
                 'payment_due'        => ($payment_total - $payment_made),
                 'payment_made'       => $payment_made,
+                'payment_pending'    => $payment_pending,
             ]);
         endif;
     }
@@ -54,66 +56,62 @@ class MerchantPaymentRepository extends MerchantPaymentRepositoryInterface{
         endif;
     }
 
-    public function show($id){
-        return response()->json([
-            'merchant'          => new MerchantResource(Merchant::find($id))
-        ]);
-    }
+    // public function show($id){
+    //     return response()->json([
+    //         'merchant'          => new MerchantResource(Merchant::find($id))
+    //     ]);
+    // }
 
     public function update($data,$id){
-        $merchant = Merchant::find($id);
-        if($merchant):
+        $merchant_payment = MerchantPayment::find($id);
+        if($merchant_payment):
 
-            if(isset($data['password'])):
-                $data['password'] = Hash::make($data['password']);
-            endif;
-
-            $add_new_merchant = $merchant->update($data);
+            $add_new_merchant = $merchant_payment->update($data);
 
             if($add_new_merchant):
                 return response()->json([
-                    'result' => 'تم تعديل حساب تاجر بنجاح'
+                    'result' => 'تم تعديل المدفوعات بنجاح'
                 ]);
             endif;
         endif;
     }
 
-    public function bulk_update($data){
+    // public function bulk_update($data){
 
-        $update_merchant = Merchant::whereIn('id',$data['ids'])->update([
-            'status' => $data['update_status']
-        ]);
+    //     $update_merchant = MerchantPayment::whereIn('id',$data['ids'])->update([
+    //         'status' => $data['update_status']
+    //     ]);
 
-        if($update_merchant):
-            return response()->json([
-                'result' => 'تم تعديل  بنجاح'
-            ]);
-        endif;
-    }
+    //     if($update_merchant):
+    //         return response()->json([
+    //             'result' => 'تم تعديل المدفوعات بنجاح'
+    //         ]);
+    //     endif;
+    // }
 
     public function delete($id){
-        $merchant = Merchant::find($id);
-        if($merchant):
-            $delete_merchant = $merchant->delete();
-            if($delete_merchant):
+        $merchant_payment = MerchantPayment::find($id);
+        if($merchant_payment):
+            $delete_merchant_payment = $merchant_payment->delete();
+            if($delete_merchant_payment):
                 return response()->json([
-                    'result' => 'تم حذف حساب تاجر بنجاح'
+                    'result' => 'تم حذف المدفوعات بنجاح'
                 ]);
             endif;
         endif;
     }
 
-    public function delete_items($data){
-        if($data['type'] == 'all'):
-            $remove_merchant = Merchant::truncate();
-        else:
-            $remove_merchant = Merchant::destroy($data['merchants']);
-        endif;
+    // public function delete_items($data){
+    //     if($data['type'] == 'all'):
+    //         $remove_merchant = Merchant::truncate();
+    //     else:
+    //         $remove_merchant = Merchant::destroy($data['merchants']);
+    //     endif;
 
-        if($remove_merchant):
-            return response()->json([
-                'result' => 'تم حذف بنجاح'
-            ]);
-        endif;
-    }
+    //     if($remove_merchant):
+    //         return response()->json([
+    //             'result' => 'تم حذف بنجاح'
+    //         ]);
+    //     endif;
+    // }
 }

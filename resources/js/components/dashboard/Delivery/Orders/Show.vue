@@ -88,10 +88,6 @@
                                         <td>{{ order.customer.name  }}</td>
                                     </tr>
                                     <tr>
-                                        <th>البريد الالكترونى</th>
-                                        <td>{{ order.customer.email  }}</td>
-                                    </tr>
-                                    <tr>
                                         <th>رقم الجوال</th>
                                         <td>{{ order.customer.phone  }}</td>
                                     </tr>

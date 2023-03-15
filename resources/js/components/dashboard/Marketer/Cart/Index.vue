@@ -85,21 +85,18 @@
                                     <!-- <label class="form-label">اسم الزبون</label> -->
                                     <input v-model="customer.name" type="text" class="form-control" placeholder="اسم الزبون" required/>
                                 </div>
-                                <div class="form-group col-md-12">
-                                    <!-- <label class="form-label">البريد الالكترونى</label> -->
-                                    <input v-model="customer.email" type="text" class="form-control" placeholder="البريد الالكترونى" required/>
-                                </div>
                                 <div class="form-group col-md-6">
                                     <!-- <label class="form-label">رقم الجوال</label> -->
                                     <input v-model="customer.phone" type="text" class="form-control" placeholder="رقم الجوال" required/>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <!-- <label class="form-label">رقم الجوال</label> -->
-                                    <input v-model="customer.another_phone" type="text" class="form-control" placeholder="رقم جوال بديل"/>
+                                    <input v-model="customer.another_phone" type="text" class="form-control" placeholder="رقم جوال أخر"/>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <!-- <label class="form-label">المدينة</label> -->
                                     <select v-model="customer.city" class="form-control" placeholder="المدينة" required>
+                                        <option value="undefined" disabled selected>المدينة</option>
                                         <option v-for="(city,key) in cities" :value="city" :key="key">{{ city }}</option>
                                     </select>
                                 </div>
@@ -194,7 +191,7 @@
                                 <strong>{{ total_marketer_profits }} USD</strong>
                             </td>
                         </tr>
-                       
+
                         <tr>
                             <td colspan="2" class="text-center">
                                 <button class="btn completeShoping">
@@ -234,7 +231,7 @@ export default{
             customer:{},
             cities:[
                 'نواكشوط',
-                'المدينة',
+                'المدينة1',
                 'البليلة'
             ],
             order:{},
@@ -245,7 +242,7 @@ export default{
             showLoading:false
         }
     },
-    methods : { 
+    methods : {
         FetchCartItems:async function(){
             let self = this;
             await axios.get('/api/marketer-carts').then(function({data}){
@@ -409,7 +406,7 @@ export default{
     padding: 22px 40px;
 }
 .top-cart-complete li span
-{    
+{
     display: block;
     background-color: white;
     padding: 19px;
@@ -557,6 +554,6 @@ export default{
 .loading-overflow img{
     width: 20% !important;
     margin: auto;
-    
+
 }
 </style>

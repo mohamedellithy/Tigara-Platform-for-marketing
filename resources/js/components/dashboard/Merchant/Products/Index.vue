@@ -36,11 +36,9 @@
                         <img :src="product.thumbnail_item.image_url || ImageProd1" class="image-product">
                         <p>{{ product.name }}</p>
                         <p>
-                            <span v-if="product.quantity == 0" style="color: red;font-weight: bold;">منتهى</span>
-                        </p>
-                        <p>
                             <strong>USD {{ product.price }} </strong> /
-                            <strong>الكمية {{ product.quantity }} </strong>
+                            <strong v-if="product.quantity == 0" style="color: red;font-weight: bold;">منتهى</strong>
+                            <strong v-else>الكمية {{ product.quantity }} قطعة</strong>
                         </p>
                         <router-link :to="{path:'/merchant/show-product/'+product.id}" class="btn btn-success btn-sm">تصفح المنتج </router-link>
                         <br/>
@@ -214,7 +212,7 @@ export default {
 .item-product {
     padding: 20px;
     text-align: center;
-    
+
     margin: 10px 0px;
     list-style: none;
     display: inline-block;

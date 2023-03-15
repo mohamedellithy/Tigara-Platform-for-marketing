@@ -28,7 +28,6 @@ class MarketerOrdersRepository extends MarketerOrdersRepositoryInterface{
             'phone'      => $request->input('phone'),
         ],[
             'name'       => $request->input('name'),
-            'email'      => $request->input('email'),
             'city'       => $request->input('city'),
             'address'    => $request->input('address'),
             'notice'     => $request->input('notice')
@@ -91,7 +90,7 @@ class MarketerOrdersRepository extends MarketerOrdersRepositoryInterface{
             $order_process = new OrderActionsProcess($query_order->first());
             $order_process->prev_status_order = $order_status;
 
-            // incase restore order cancelled 
+            // incase restore order cancelled
             // if($order_process->order_stock_availability() == false):
             //     return response()->json([
             //         'status' => 'كمية الطلبات غير متوفرة فى المخزن'
@@ -102,13 +101,13 @@ class MarketerOrdersRepository extends MarketerOrdersRepositoryInterface{
         endif;
 
         if($request->has('order_details')):
-            
+
             $order = $query_order->first();
 
             foreach($request->input('order_details') as $order_detail):
 
                 $item_order = $order->order_details()->where('id',$order_detail['id']);
-                
+
                 // check stock availability
                 $stock = new StockService(
                     Product::find($order_detail['product_id'])
@@ -131,7 +130,7 @@ class MarketerOrdersRepository extends MarketerOrdersRepositoryInterface{
                     $stock->required_quantity = intval($old_quantity - $order_detail['quantity']);
 
                     $stock->increase_stock();
-                
+
                 endif;
 
                 $item_order->delete();
@@ -148,7 +147,6 @@ class MarketerOrdersRepository extends MarketerOrdersRepositoryInterface{
             $customer = $request->input('customer');
             $order->customer()->where('id',$customer['id'])->update([
                 'name' => $customer['name'],
-                'email' => $customer['email'],
                 'phone' => $customer['phone'],
                 'another_phone' => $customer['another_phone'],
                 'city' => $customer['city'],

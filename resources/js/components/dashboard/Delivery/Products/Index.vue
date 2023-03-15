@@ -33,13 +33,14 @@
             <ul class="content-page col-12">
                 <li v-for="(product,key) in products" :key="key" class="col-md-3 item-product">
                     <div class="inner-product-item">
-                        <span v-if="product.quantity == 0" style="color: red;position: absolute;font-weight: bold;">منتهى</span>
                         <img :src="product.thumbnail_item.image_url || ImageProd1" class="image-product">
                         <p>{{ product.name }}</p>
                         <p>
                             <strong>USD {{ product.price }} </strong> /
-                            <strong>الكمية {{ product.quantity }} </strong>
+                            <strong v-if="product.stock_quantity == 0" style="color: red;font-weight: bold;">منتهى</strong>
+                            <strong v-else>الكمية {{ product.stock_quantity }} قطعة</strong>
                         </p>
+
                         <router-link :to="{path:'/merchant/show-product/'+product.id}" class="btn btn-success btn-sm">تصفح المنتج </router-link>
                         <br/>
                     </div>
@@ -212,7 +213,7 @@ export default {
 .item-product {
     padding: 20px;
     text-align: center;
-    
+
     margin: 10px 0px;
     list-style: none;
     display: inline-block;

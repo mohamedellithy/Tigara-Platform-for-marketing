@@ -114,36 +114,36 @@
                     <nav v-if="this.infos.length != 0" aria-label="Page navigation example">
                         <ul v-if="this.infos.total > orders.length" class="pagination">
                             <li v-if="(this.infos.current_page != 1)" class="page-item">
-                                <router-link class="page-link" :to="{path: '/dashboard/show-orders-merchant/'+this.$route.params.id+'/'+(this.infos.current_page - 1 == 0 ? 1 : this.infos.current_page - 1) }" aria-label="Previous">
+                                <router-link class="page-link" :to="{path: '/dashboard/show-orders-marketer/'+this.$route.params.id+'/'+(this.infos.current_page - 1 == 0 ? 1 : this.infos.current_page - 1) }" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                     <span class="sr-only">Previous</span>
                                 </router-link>
                             </li>
                             <li v-for="page in this.infos.last_page" class="page-item" :key="page">
                                 <template v-if="page == 1">
-                                    <router-link class="page-link" :to="{path: '/dashboard/show-orders-merchant/'+this.$route.params.id+'/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/dashboard/show-orders-marketer/'+this.$route.params.id+'/'+page}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="page == this.infos.current_page">
-                                    <router-link class="page-link" :to="{path: '/dashboard/show-orders-merchant/'+this.$route.params.id+'/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/dashboard/show-orders-marketer/'+this.$route.params.id+'/'+page}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="page == this.infos.current_page - 1">
-                                    <router-link class="page-link" :to="{path: '/dashboard/show-orders-merchant/'+this.$route.params.id+'/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/dashboard/show-orders-marketer/'+this.$route.params.id+'/'+page}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="(page == this.infos.current_page + 1) && (this.infos.current_page != this.infos.last_page)">
-                                    <router-link class="page-link" :to="{path: '/dashboard/show-orders-merchant/'+this.$route.params.id+'/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/dashboard/show-orders-marketer/'+this.$route.params.id+'/'+page}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="page == this.infos.last_page">
-                                    <router-link class="page-link" :to="{path: '/dashboard/show-orders-merchant/'+this.$route.params.id+'/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/dashboard/show-orders-marketer/'+this.$route.params.id+'/'+page}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="(page == this.infos.current_page - 2) && (this.infos.current_page != this.infos.last_page)">
-                                    <router-link class="page-link" :to="{path: '/dashboard/show-orders-merchant/'+this.$route.params.id+'/'+page}" active-class="active" exact>..</router-link>
+                                    <router-link class="page-link" :to="{path: '/dashboard/show-orders-marketer/'+this.$route.params.id+'/'+page}" active-class="active" exact>..</router-link>
                                 </template>
                                 <template v-else-if="(page == this.infos.current_page + 2) && (this.infos.current_page != this.infos.last_page)">
-                                    <router-link class="page-link" :to="{path: '/dashboard/show-orders-merchant/'+this.$route.params.id+'/'+page}" active-class="active" exact>..</router-link>
+                                    <router-link class="page-link" :to="{path: '/dashboard/show-orders-marketer/'+this.$route.params.id+'/'+page}" active-class="active" exact>..</router-link>
                                 </template>
                             </li>
                             <li v-if="this.infos.current_page != this.infos.last_page" class="page-item">
-                                <router-link :to="{path: '/dashboard/show-orders-merchant/'+this.$route.params.id+'/'+(this.infos.current_page + 1) }" class="page-link" href="#" aria-label="Next">
+                                <router-link :to="{path: '/dashboard/show-orders-marketer/'+this.$route.params.id+'/'+(this.infos.current_page + 1) }" class="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                     <span class="sr-only">Next</span>
                                 </router-link>

@@ -3,7 +3,6 @@
         <!-- li menu items -->
         <li class="list-items-menu">
             <router-link
-                tag="a"
                 @click="toggleListMenuSidebar('dashboard-reports')"
                 class="item-menu active"
                 active-class="active"
@@ -35,9 +34,8 @@
         </li>
         <br/>
 
-        <li class="list-items-menu active">
+        <li class="list-items-menu">
             <router-link
-                tag="a"
                 @click="toggleListMenuSidebar('merchants')"
                 class="item-menu active"
                 active-class="active"
@@ -315,9 +313,9 @@ export default {
             console.log(this.expanded);
         },
     },
-    created(){
+    async created(){
         console.log(this.$route.meta.menu_id);
-        this.toggleListMenuSidebar(this.$route.meta.menu_id);
+        await this.toggleListMenuSidebar(this.$route.meta.menu_id);
     }
 };
 </script>

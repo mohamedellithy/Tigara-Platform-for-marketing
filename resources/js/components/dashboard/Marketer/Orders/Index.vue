@@ -67,7 +67,7 @@
                                 <th>كمية الطلبية</th>
                                 <th>سعر الطلبية</th>
                                 <th>ربح من الطلبية</th>
-                                <th>الخصم</th>
+                                <th>حالة الربح</th>
                                 <th>حالة الطلب</th>
                                 <th>حالة الشحن</th>
                                 <th>تاريخ الطلب</th>
@@ -82,6 +82,15 @@
                                 <td>{{ order.quantity }} قطعة</td>
                                 <td>{{ order.total }} USD</td>
                                 <td>{{ order.marketer_profit }} USD</td>
+                                <td>
+                                    <template v-if="order.pending_payment">
+                                        <span class="badge text-bg-danger">محظور</span> 
+                                    </template>
+                                    <template v-else>
+                                        <span class="badge text-bg-success">مسموح</span> 
+                                        
+                                    </template>
+                                </td>
                                 <td>{{ order.discount }}</td>
                                 <td>{{ order.order_status_txt }}</td>
                                 <td>{{ order.shipping_status_txt }}</td>

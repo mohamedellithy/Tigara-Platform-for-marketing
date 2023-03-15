@@ -14,13 +14,13 @@ class DeliveryPaymentRepository extends DeliveryPaymentRepositoryInterface{
        // return response()->json(['data' => $request->all()]);
         if($request->has('delivery_id')):
             return response()->json([
-                'data_info'          => new DeliveryPaymentResource(DeliveryPayment::where('delivery_id', $request->query('delivery_id'))->paginate(10))
+                'data_info'          => new DeliveryPaymentResource(DeliveryPayment::where('delivery_id', $request->query('delivery_id'))->OrderBy('created_at','desc')->paginate(10))
             ]);
         else:
             $payment_made = DeliveryPayment::where('type',1)->sum('value');
             $payment_total = DeliveryPayment::where('type',0)->sum('value');
             return response()->json([
-                'data_info'          => new MerchantCollectionsResource(Delivery::whereHas('delivery_payments')->with('delivery_payments')->paginate(2)),
+                'data_info'          => new MerchantCollectionsResource(Delivery::whereHas('delivery_payments')->with('delivery_payments')->OrderBy('created_at','desc')->paginate(2)),
                 'payment_total'      => $payment_total,
                 'payment_due'        => ($payment_total - $payment_made),
                 'payment_made'       => $payment_made,
@@ -51,66 +51,34 @@ class DeliveryPaymentRepository extends DeliveryPaymentRepositoryInterface{
         endif;
     }
 
-    public function show($id){
-        return response()->json([
-            'delivery'          => new DeliveryResource(Delivery::find($id))
-        ]);
-    }
-
     public function update($data,$id){
-        $delivery = Delivery::find($id);
-        if($delivery):
+        $delivery_payment = DeliveryPayment::find($id);
+        if($delivery_payment):
 
             if(isset($data['password'])):
                 $data['password'] = Hash::make($data['password']);
             endif;
 
-            $add_new_merchant = $delivery->update($data);
+            $update_delivery_payment = $delivery_payment->update($data);
 
-            if($add_new_merchant):
+            if($update_delivery_payment):
                 return response()->json([
-                    'result' => 'تم تعديل حساب تاجر بنجاح'
+                    'result' => 'تم تعديل المدفوعات بنجاح'
                 ]);
             endif;
         endif;
     }
 
-    public function bulk_update($data){
-
-        $update_delivery = Delivery::whereIn('id',$data['ids'])->update([
-            'status' => $data['update_status']
-        ]);
-
-        if($update_delivery):
-            return response()->json([
-                'result' => 'تم تعديل  بنجاح'
-            ]);
-        endif;
-    }
 
     public function delete($id){
-        $delivery = Delivery::find($id);
-        if($delivery):
-            $delete_merchant = $delivery->delete();
-            if($delete_merchant):
+        $delivery_payment = DeliveryPayment::find($id);
+        if($delivery_payment):
+            $delete_payment_merchant = $delivery_payment->delete();
+            if($delete_payment_merchant):
                 return response()->json([
-                    'result' => 'تم حذف حساب تاجر بنجاح'
+                    'result' => 'تم حذف المدفوعات بنجاح'
                 ]);
             endif;
-        endif;
-    }
-
-    public function delete_items($data){
-        if($data['type'] == 'all'):
-            $remove_merchant = Delivery::truncate();
-        else:
-            $remove_merchant = Delivery::destroy($data['deliveries']);
-        endif;
-
-        if($remove_merchant):
-            return response()->json([
-                'result' => 'تم حذف بنجاح'
-            ]);
         endif;
     }
 }

@@ -28,7 +28,7 @@ class DeliveryPayment extends Model
      public function TypeText(): Attribute
     {
         $status = [
-            '0' => 'مضافة',
+            '0' => 'مستحقة',
             '1' => 'مسددة '
         ];
         return Attribute::make(
@@ -42,4 +42,5 @@ class DeliveryPayment extends Model
             get : fn($value,$attributes) => $attributes['created_at']
         );
     }
+
 }

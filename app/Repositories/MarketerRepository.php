@@ -48,7 +48,7 @@ class MarketerRepository extends MarketerRepositoryInterface{
 
     public function show($id){
         return response()->json([
-            'marketer'          => new MarketerResource(Marketer::with('products')->find($id))
+            'marketer'          => new MarketerResource(Marketer::with('products','orders_details')->find($id))
         ]);
     }
 

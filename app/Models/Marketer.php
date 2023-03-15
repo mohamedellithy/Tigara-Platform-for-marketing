@@ -26,7 +26,8 @@ class Marketer extends Authenticatable
         'total_profites',
         'total_paid',
         'total_un_paid',
-        'total_cart_items'
+        'total_cart_items',
+        'total_profit_pending'
     ];
 
     /**
@@ -122,8 +123,8 @@ class Marketer extends Authenticatable
     {
         return Attribute::make(
             get: fn() => $this->orders()->where('order_status',2)
-            ->join('order_details','orders.id','=','order_details.order_id')
-            ->sum(DB::raw('unit_price * quantity'))
+            ->join('order_details','orders.id','=','order_details.order_id')->select('orders.*','order_details.unit_price','order_details.quantity')
+            ->sum(DB::Raw('order_details.unit_price * order_details.quantity'))
             // order_details()->sum(function($order_details) {
             //     return $order_details['unit_price'] * $order_details['quantity'];
             // })
@@ -155,6 +156,14 @@ class Marketer extends Authenticatable
     {
         return Attribute::make(
             get: fn() => $this->carts()->sum('quantity')
+        );
+    }
+
+    public function TotalProfitPending(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->orders()
+            ->where('order_status','=',2)->where('created_at','>=',strtotime('-7 day',strtotime(date('d-m-Y'))))->sum('marketer_profit'),
         );
     }
 

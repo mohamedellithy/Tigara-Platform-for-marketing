@@ -54,7 +54,11 @@
                             <tr v-for="(payment, key) in payments" :key="key">
                                 <th scope="row">#{{ payment.id }}</th>
                                 <td>{{ payment.value }} USD</td>
-                                <td># {{ payment.order.id }}</td>
+                                <td>
+                                    <router-link :to="{path:'/delivery/delivery-show-orders/' + payment.order_id}" style="text-decoration:none">
+                                        # {{ payment.order_id }} طلب رقم
+                                    </router-link>
+                                </td>
                                 <td>{{ payment.created_at }}</td>
                             </tr>
                         </tbody>

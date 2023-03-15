@@ -67,11 +67,11 @@ class DeliveryPaymentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-        return $this->deliveryPaymentRepository->show($id);
-    }
+    // public function show($id)
+    // {
+    //     //
+    //     return $this->deliveryPaymentRepository->show($id);
+    // }
 
     /**
      * Update the specified resource in storage.

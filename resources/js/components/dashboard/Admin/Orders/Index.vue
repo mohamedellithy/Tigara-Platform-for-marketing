@@ -87,13 +87,13 @@
                                 <td>{{ order.created_at }}</td>
                                 <td class="actions-btn">
                                     <router-link :to="{path:'/dashboard/show-order/'+order.id}"  class="btn btn-primary btn-sm">
-                                        عرض
+                                        تفاصيل الطلب
                                     </router-link>
                                     <template v-if="order.order_status != '4'">
                                         <button v-if="order.delivery" @click="SingleStatus(order)" class="btn btn-warning btn-sm">
                                             تحديث الحالة
                                         </button>
-    
+
                                         <button v-if="!order.delivery" @click="AttachOrderDelivery(order)" class="btn btn-warning btn-sm">
                                             تحديد شركة الشحن
                                         </button>
@@ -150,7 +150,7 @@
                             <template v-if="field.delivery_model">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLiveLabel">
-                                        ارفاق شركة الشحن للطلبية رقم 
+                                        ارفاق شركة الشحن للطلبية رقم
                                         <template v-if="field.order_id != null">
                                             # {{ field.order_id }}
                                         </template>
@@ -166,7 +166,7 @@
                             <template v-else>
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLiveLabel">
-                                        تحديث حالة الطلب 
+                                        تحديث حالة الطلب
                                         <template v-if="field.order_id != null">
                                             # {{ field.order_id }}
                                         </template>

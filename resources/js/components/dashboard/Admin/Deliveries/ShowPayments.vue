@@ -13,7 +13,7 @@
                     {{ delivery.name }}
                 </p>
                 <p>
-                    <router-link :to="{path:'/dashboard/show-delivery/'+delivery.id}" class="btn btn-danger btn-sm">
+                    <router-link :to="{path:'/dashboard/show-delivery/'+delivery.id}" class="btn btn-warning btn-sm">
                         تفاصيل شركة الشحن
                         <i class="fas fa-eye"></i>
                     </router-link>
@@ -27,7 +27,9 @@
                             <tr>
                                 <th>#</th>
                                 <th>قيمة المبلغ</th>
+                                <th>تفاصيل الطلبية</th>
                                 <th>نوع المدفوعات</th>
+                                <th>تاريخ الاضافة</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -36,8 +38,29 @@
                         <tbody>
                             <tr v-for="(payment, key) in payments" :key="key">
                                 <th scope="row">{{ payment.id }}</th>
-                                <td>{{ payment.value }} USD</td>
+                                <td>
+                                    {{ payment.value }} USD
+                                </td>
+                                <td>
+                                    <template v-if="payment.order_id">
+                                        <router-link :to="{path:'/dashboard/show-order/'+payment.order_id}" style="text-decoration:none">
+                                            رقم الطلبية # {{ payment.order_id }}
+                                        </router-link>
+                                    </template>
+                                    <template v-else>
+                                       -
+                                    </template>
+                                </td>
                                 <td>{{ payment.type_text }}</td>
+                                <td>{{ payment.created_at }}</td>
+                                <td>
+                                    <button v-if="!payment.order_id" @click="DeletePayment(payment.id)" class="btn btn-danger btn-sm" style="margin:0px 7px;">
+                                        حذف
+                                    </button>
+                                    <button v-if="!payment.order_id" @click="ShowSingleUpdate(payment)" class="btn btn-info btn-sm" style="margin: 0px 7px;">
+                                        تعديل
+                                    </button>
+                                </td>
                             </tr>
                         </tbody>
                         <!--Table body-->
@@ -83,7 +106,44 @@
                         </ul>
                     </nav>
                 </div>
+                <!-- Modal -->
+                <div v-show="this.showModel == true " id="exampleModalLive" class="modal fade " :class="[ this.showModel == true ? 'show' : '' ]" tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel" :style="`padding-right: 17px; display:block;padding-top: 10%;z-index: 100000;background: #0000001f;`">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLiveLabel">تحديث الحالة للتاجر</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="merchant-name">
+                                    نوع المدفوعات
+                                </label>
+                                <select id="merchant-name" class="form-control" type="text" v-model="payment.type">
+                                    <option value="0">اضافة مستحقات</option>
+                                    <option value="1">تسديد مستحقات</option>
+                                </select>
+                            </div>
+                            <br/>
+                            <div class="form-group">
+                                <label for="merchant-name">
+                                    المبلغ المطلوب اضافتة
+                                </label>
+                                <input id="merchant-name" placeholder="المبلغ" class="form-control" type="number" v-model="payment.value"/>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button @click="UpdateStatus()" type="button" class="btn btn-primary btn-sm" fdprocessedid="3xp1pw">تحديث الحالة</button>
+                            <button @click="CloseModelUpdateStatus()" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" fdprocessedid="c9npk">الغاء</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
         </div>
+        <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
+        @update_success="showsuccess = false"
+        @update_errors="showerrors = false" :errors="errors"
+        :success_message="success_message"
+        :error_message="error_message"></alert-response>
     </div>
 </template>
 <script>
@@ -99,6 +159,7 @@ export default {
                 q:null,
                 delivery_id:null
             },
+            payment:{},
             no_active_orders:0,
             active_orders:0,
             infos:[],
@@ -116,7 +177,11 @@ export default {
                 order_id:null,
                 ids:[]
             },
-            iconsProfile
+            iconsProfile,
+            showsuccess:false,
+            showerrors:false,
+            success_message:'تم انشاء المدفوعات بنجاح',
+            error_message:'حدث خطأ اثناء حذف المدفوعات'
         }
     },
     methods:{
@@ -146,6 +211,53 @@ export default {
             }).catch(function({response}){
                 console.log(response);
             });
+        },
+        DeletePayment:function(id){
+            if(confirm(`تأكيد حذف المدفوعات رقم  ${ id }`)){
+                let self = this;
+                axios.delete('/api/delivery-payments/'+id).then(function({data}){
+                    console.log(data);
+                    self.errors   = {};
+                    self.showsuccess = true;
+                    self.success_message = data.result;
+                    self.params = {
+                        page:(self.$route.params.page_no ? self.$route.params.page_no : 1),
+                        delivery_id:self.$route.params.id
+                    };
+                    self.FetchPayments();
+                }).catch(function({response}){
+                    console.log(response);
+                    self.showerrors = false;
+                    self.error_message = 'فشل حذف المدفوعات';
+                });
+            }
+        },
+        ShowSingleUpdate:function(payment){
+           this.payment = payment;
+           this.showModel = true;
+        },
+        CloseModelUpdateStatus:function(){
+           this.showModel = false;
+        },
+        UpdateStatus:function(){
+            let self = this;
+            axios.put('/api/delivery-payments/'+this.payment.id,this.payment).then(function({data}) {
+                console.log(data);
+                self.errors   = {};
+                self.showsuccess = true;
+                self.success_message = data.result;
+                console.log(self.success);
+                self.params = {
+                    page:(self.$route.params.page_no ? self.$route.params.page_no : 1),
+                    delivery_id:self.$route.params.id
+                };
+                self.FetchPayments();
+                self.CloseModelUpdateStatus();
+            }).catch(function({response}) {
+                console.log(response);
+                self.showerrors = false;
+                self.errors = response.data;
+            })
         }
     },
     created(){

@@ -13,19 +13,23 @@
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-users"></i>
-                                    {{ active_marketers }} مسوقين
+                                    {{ active_marketers }} USD مسوقين
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-check"></i>
-                                    {{ payments_make }} مسددة
+                                    {{ payments_make }} USD مسددة
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-slash"></i>
-                                    {{ payments_due }} غير مسددة
+                                    {{ payments_due }} USD غير مسددة
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-check"></i>
-                                    {{ profits }} الارباح
+                                    {{ profits }} USD الارباح
+                                </li>
+                                <li class="filter-item">
+                                    <i class="fas fa-user-check"></i>
+                                    {{ pending_profits }} USD المحظور
                                 </li>
                             </ul>
                         </div>
@@ -48,6 +52,7 @@
                                 <th>المدفوعات المستحقة</th>
                                 <th>اجمالى المدفوعات</th>
                                 <th>المسموح السحب</th>
+                                <th>المحظور</th>
                                 <th>المبلغ المطلوب </th>
                                 <th>حالة الطلب</th>
                                 <th></th>
@@ -63,8 +68,9 @@
                                 <th scope="row">{{ payment.id }}</th>
                                 <td>{{ payment.marketer.name }}</td>
                                 <td>{{ payment.marketer.total_profites }} USD</td>
-                                <td>{{ payment.marketer.total_paid }} USD</td>
-                                <td>{{ payment.marketer.total_un_paid }} USD</td>
+                                <td>{{ payment.marketer.total_paid  }} USD</td>
+                                <td>{{ payment.marketer.total_un_paid - payment.marketer.total_profit_pending }} USD</td>
+                                <td>{{ payment.marketer.total_profit_pending }} USD</td>
                                 <td>{{ payment.value }} USD</td>
                                 <td>
                                     <span class="badge text-bg-primary">
@@ -165,6 +171,7 @@ export default {
             active_marketers:0,
             payments_due:0,
             payments_make:0,
+            pending_profits:0,
             profits:0,
             infos:[],
             payments:[],
@@ -200,6 +207,7 @@ export default {
                 self.payments_due       = data.payments_due;
                 self.payments_make      = data.payments_make; 
                 self.profits            = data.profits; 
+                self.pending_profits    = data.pending_profits;
             }).catch(function({response}){
                 console.log(response);
             });

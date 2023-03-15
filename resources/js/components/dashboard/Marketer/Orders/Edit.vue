@@ -74,11 +74,16 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <!-- <label class="form-label">رقم الجوال</label> -->
+                                    <input v-model="order.customer.another_phone" type="text" class="form-control" placeholder="رقم جوال أخر" required/>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <!-- <label class="form-label">رقم الجوال</label> -->
                                     <input v-model="order.customer.phone" type="text" class="form-control" placeholder="رقم الجوال" required/>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <!-- <label class="form-label">المدينة</label> -->
                                     <select v-model="order.customer.city" class="form-control" placeholder="المدينة" required>
+                                        <option value="undefined" disabled selected>المدينة</option>
                                         <option v-for="(city,key) in cities" :value="city" :key="key">{{ city }}</option>
                                     </select>
                                 </div>
@@ -136,7 +141,7 @@
                                 <strong>{{ order.marketer_profit }} USD</strong>
                             </td>
                         </tr>
-                       
+
                         <tr>
                             <td colspan="2" class="text-center">
                                 <router-link :to="{path:'/marketer/show-order/'+this.$route.params.order_id}" class="btn completeShoping">
@@ -184,7 +189,7 @@ export default{
             showLoading:false
         }
     },
-    methods : { 
+    methods : {
         FetchOrderItems:async function(){
             let self = this;
             await axios.get('/api/marketer-orders/'+this.$route.params.order_id).then(function({data}){
@@ -294,7 +299,7 @@ export default{
     padding: 22px 40px;
 }
 .top-cart-complete li span
-{    
+{
     display: block;
     background-color: white;
     padding: 19px;
@@ -443,6 +448,6 @@ export default{
 .loading-overflow img{
     width: 20% !important;
     margin: auto;
-    
+
 }
 </style>

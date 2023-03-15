@@ -23,14 +23,17 @@ class MarketerProductsRepository extends MarketerProductsRepositoryInterface{
             
                 $products = Product::join('order_details','products.id','=','order_details.product_id')
                 ->select('products.*',DB::Raw('sum(order_details.quantity) as order_quantity'))->groupby('products.id')->orderby('order_quantity','desc');
-            
             elseif($request->query('filter') == 'less-sales'):
             
                 $products = Product::join('order_details','products.id','=','order_details.product_id')
                 ->select('products.*',DB::Raw('sum(order_details.quantity) as order_quantity'))->groupby('products.id')->orderby('order_quantity','asc');
+            elseif($request->query('filter') == 'low-stock'):
                 
+                $products = Product::join('carts','products.id','=','carts.product_id')
+                ->select('products.*',DB::Raw('sum(carts.quantity) as cart_quantity'))->groupby('products.id')->havingRaw('IF(products.quantity > cart_quantity,products.quantity - cart_quantity,products.quantity) = 0');
+                //DB::Raw('sum(carts.quantity) as carts.carts_qty')
             else:
-            
+
                 $products = Product::query();
             endif;
             return response()->json([

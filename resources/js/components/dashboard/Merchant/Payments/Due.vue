@@ -33,6 +33,7 @@
                                 <th>#</th>
                                 <th>قيمة المبلغ</th>
                                 <th>تفصيل الطلب</th>
+                                <th>حالة المدفوعات</th>
                                 <th>تاريخ الاضافة</th>
                             </tr>
                         </thead>
@@ -43,7 +44,7 @@
                                 <th scope="row">#{{ payment.id }}</th>
                                 <td>{{ payment.value }} USD</td>
                                 <td>
-                                    <template v-if="payment.type == 0">
+                                    <template v-if="payment.item_id">
                                         <strong> ( {{ payment.item_details.product_name  }} ) </strong>
                                         (
                                             {{ payment.item_details.quantity  }} قطعة
@@ -53,6 +54,16 @@
                                     </template>
                                     <template v-if="payment.type == 1">
                                          -
+                                    </template>
+                                </td>
+                                <td>
+                                    <template v-if="payment.item_id">
+                                        <strong v-if="payment.pending_payment"> 
+                                            <span class="badge text-bg-danger">محظورة</span>
+                                        </strong>
+                                    </template>
+                                    <template v-else>
+                                        متاحة
                                     </template>
                                 </td>
                                 <td>{{ payment.created_at }}</td>

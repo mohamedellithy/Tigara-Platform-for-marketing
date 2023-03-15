@@ -23,11 +23,11 @@
                         </a>
                     </div>
                 </li>
-
-                <admin-sidebar v-if="this.$auth.user.account_type == 0"></admin-sidebar>
-                <merchant-sidebar v-if="this.$auth.user.account_type == 1"></merchant-sidebar>
-                <delivery-sidebar v-if="this.$auth.user.account_type == 2"></delivery-sidebar>
-                <marketer-sidebar v-if="this.$auth.user.account_type == 3"></marketer-sidebar>
+                <admin-sidebar     v-if="this.$auth.user.account_type == 0"></admin-sidebar>
+                <merchant-sidebar   v-if="this.$auth.user.account_type == 1"></merchant-sidebar>
+                <delivery-sidebar  v-if="this.$auth.user.account_type == 2"></delivery-sidebar>
+                <marketer-sidebar  v-if="this.$auth.user.account_type == 3"></marketer-sidebar>
+                <!-- :key="$route.path" -->
                 <!-- end menu items -->
             </ul>
         </div>
@@ -49,7 +49,7 @@
                             <input placeholder="Search..." name="" class="form-control search-navbar"/>
                         </li>
                         <!-- end search bar -->
-                        <li v-if="this.$auth.user.account_type == '3'" class="nav-item top-cart-icon" @click="ToggleMiniCart">
+                        <li :key="$route.fullPath" v-if="this.$auth.user.account_type == '3'" class="nav-item top-cart-icon" @click="ToggleMiniCart">
                             <a class="nav-link">
                                 <i class="fas fa-shopping-cart"></i>
                                 <span class="show-cart-notification">{{ this.total_cart_items || 0  }}</span>
@@ -258,6 +258,9 @@ export default {
 }
 </script>
 <style>
+.reports-tabs li a{
+    text-decoration: none;
+}
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
@@ -278,6 +281,10 @@ export default {
 ::-webkit-scrollbar-thumb:hover {
     background: hsl(0deg 3% 20% / 74%);
     border-radius: 10px;
+}
+.sidemenu .menu-list{
+    height: 100%;
+    overflow-y: auto;
 }
 </style>
 <style scoped>

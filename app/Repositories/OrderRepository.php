@@ -26,19 +26,19 @@ class OrderRepository extends OrderRepositoryInterface{
             ]);
         elseif($request->has('marketer_id')):
             return response()->json([
-                'data_info' => new OrderResource(Order::where('marketer_id', $request->query('marketer_id'))->with('delivery','marketer','order_details')->orderBy('created_at','desc')->paginate(2)),
+                'data_info' => new OrderResource(Order::where('marketer_id', $request->query('marketer_id'))->with('delivery','marketer','order_details')->orderBy('created_at','desc')->paginate(15)),
                 'active_orders'    => Order::where('marketer_id', $request->query('marketer_id'))->where('order_status',1)->count(),
                 'no_active_orders' => Order::where('marketer_id', $request->query('marketer_id'))->where('order_status',0)->count()
             ]);
         elseif($request->has('delivery_id')):
             return response()->json([
-                'data_info' => new OrderResource(Order::where('delivery_id', $request->query('delivery_id'))->with('delivery','marketer','order_details')->orderBy('created_at','desc')->paginate(5)),
+                'data_info' => new OrderResource(Order::where('delivery_id', $request->query('delivery_id'))->with('delivery','marketer','order_details')->orderBy('created_at','desc')->paginate(15)),
                 'active_orders'    => Order::where('delivery_id', $request->query('delivery_id'))->where('order_status',1)->count(),
                 'no_active_orders' => Order::where('delivery_id', $request->query('delivery_id'))->where('order_status',0)->count()
             ]);
         else:
             return response()->json([
-                'data_info'        => new OrderResource(Order::with('delivery','marketer','order_details')->orderBy('created_at','desc')->paginate(12)),
+                'data_info'        => new OrderResource(Order::with('delivery','marketer','order_details')->orderBy('created_at','desc')->paginate(15)),
                 'all_orders'       => Order::count(),
                 'wait_orders'      => Order::where('order_status',0)->count(),
                 'process_orders'   => Order::where('order_status',1)->count(),
@@ -81,7 +81,7 @@ class OrderRepository extends OrderRepositoryInterface{
 
     public function show($id){
         return response()->json([
-            'order'          => new OrderResource(Order::with('order_details','delivery','marketer')->find($id))
+            'order'          => new OrderResource(Order::with('order_details','delivery','marketer','customer')->find($id))
         ]);
     }
 

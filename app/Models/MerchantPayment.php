@@ -16,7 +16,7 @@ class MerchantPayment extends Model
         'item_id'
     ];
 
-    protected $appends = ['type_text'];
+    protected $appends = ['type_text','pending_payment'];
 
     public function merchant(){
         return $this->belongsTo('App\Models\Merchant','id','merchant_id');
@@ -41,6 +41,21 @@ class MerchantPayment extends Model
     {
         return Attribute::make(
             get : fn($value,$attributes) => $attributes['created_at']
+        );
+    }
+
+    public function PendingPayment() : Attribute
+    {
+        $status = true;
+        if($this->item_id == null):
+            $status = false;
+        else:
+            if(strtotime(Date('d-m-Y')) > strtotime('+7 day',strtotime($this->created_at)) ):
+                $status = false;
+            endif; 
+        endif;
+        return Attribute::make(
+            get : fn() => $status
         );
     }
 }

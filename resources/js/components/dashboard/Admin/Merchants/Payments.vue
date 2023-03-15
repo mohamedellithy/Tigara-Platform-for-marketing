@@ -19,7 +19,12 @@
                                 </li>
 
                                 <li class="filter-item">
-                                    {{ payment_due }} USD
+                                    {{ payment_pending }} USD
+                                    المدفوعات المحظورة
+                                </li>
+
+                                <li class="filter-item">
+                                    {{ payment_due - payment_pending }} USD
                                     
                                      المدفوعات المستحقة
                                 </li>
@@ -29,6 +34,7 @@
                                     
                                      المدفوعات المسددة
                                 </li>
+                                
                                 <br/><br/>
                                 <li class="filter-item" style="background-color: rgb(255, 234, 234);">
                                     <i class="fas fa-eye" data-v-d0b1f818=""></i>
@@ -52,6 +58,7 @@
                                 <th>اسم التاجر</th>
                                 <th>اسم المتجر</th>
                                 <th>اجمالى المدفوعات</th>
+                                <th>المدفوعات المحظورة</th>
                                 <th>المدفوعات المستحقة</th>
                                 <th>المدفوعات المسددة</th>
                                 <th></th>
@@ -65,7 +72,8 @@
                                 <td>{{ merchant.name }}</td>
                                 <td>{{ merchant.store_name || '-' }}</td>
                                 <td>{{ merchant.payments_total }} {{ currency }}</td>
-                                <td>{{ merchant.payments_due }} {{ currency }}</td>
+                                <td>{{ merchant.total_pending }} {{ currency }}</td>
+                                <td>{{ merchant.payments_due - merchant.total_pending }} {{ currency }}</td>
                                 <td>{{ merchant.payments_made }} {{ currency }}</td>
                                 <td class="actions-btn">
                                     <router-link :to="{path:'/dashboard/show-payments-merchant/'+merchant.id}"  class="btn btn-primary btn-sm">
@@ -124,6 +132,11 @@
                 </div>
             </div>
         </div>
+        <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
+        @update_success="showsuccess = false"
+        @update_errors="showerrors = false" :errors="errors"
+        :success_message="success_message"
+        :error_message="error_message"></alert-response>
     </div>
 </template>
 <script>
@@ -133,6 +146,7 @@ export default {
             payment_due:0,
             payment_made:0,
             payment_total:0,
+            payment_pending:0,
             infos:[],
             merchants:[],
             search:null,
@@ -147,7 +161,10 @@ export default {
                 update_status:0,
                 ids:[]
             },
-            merchants: [],
+            showsuccess:false,
+            showerrors:false,
+            success_message:'تم انشاء المدفوعات بنجاح',
+            error_message:'حدث خطأ اثناء حذف المدفوعات'
         };
     },
     methods:{
@@ -162,6 +179,7 @@ export default {
                 self.payment_total      = data.payment_total;
                 self.payment_due        = data.payment_due;
                 self.payment_made       = data.payment_made;
+                self.payment_pending    = data.payment_pending;
             }).catch(function({response}){
                 console.log(response);
             });
@@ -216,7 +234,7 @@ export default {
     display: inline-block;
     width: auto;
     background-color: #eee;
-    margin: 0px 3px;
+    margin: 3px;
 }
 .filter-bar .search-input{
     border:1px solid #eee;

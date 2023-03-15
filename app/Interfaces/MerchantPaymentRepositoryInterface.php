@@ -8,13 +8,13 @@ class MerchantPaymentRepositoryInterface{
 
     public function save($data){}
 
-    public function show($id){}
+    // public function show($id){}
 
     public function update($data,$id){}
 
-    public function bulk_update($data){}
+    // public function bulk_update($data){}
 
     public function delete($id){}
 
-    public function delete_items($data){}
+    // public function delete_items($data){}
 }

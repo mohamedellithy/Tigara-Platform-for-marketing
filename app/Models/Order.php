@@ -28,7 +28,8 @@ class Order extends Model
        'total',
        'total_original',
        'order_status_txt',
-       'shipping_status_txt'
+       'shipping_status_txt',
+       'pending_payment'
     ];
 
     public function marketer(){
@@ -111,6 +112,19 @@ class Order extends Model
     {
         return Attribute::make(
             get : fn($value,$attributes) => $attributes['created_at']
+        );
+    }
+
+    public function PendingPayment() : Attribute
+    {
+        $status = true;
+        if($this->order_status == 2):
+            if(strtotime(Date('d-m-Y')) > strtotime('+7 day',strtotime($this->created_at)) ):
+                $status = false;
+            endif; 
+        endif;
+        return Attribute::make(
+            get : fn() => $status
         );
     }
 }

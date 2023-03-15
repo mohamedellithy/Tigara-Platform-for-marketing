@@ -65,11 +65,11 @@ class MerchantPaymentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-        return $this->merchantPaymentRepository->show($id);
-    }
+    // public function show($id)
+    // {
+    //     //
+    //     return $this->merchantPaymentRepository->show($id);
+    // }
 
     /**
      * Update the specified resource in storage.

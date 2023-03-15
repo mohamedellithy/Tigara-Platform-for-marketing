@@ -20,7 +20,13 @@ class Merchant extends Authenticatable
 
     protected $primaryKey = 'id';
 
-    protected $appends = ['payments_total','payments_due','payments_made','total_sales'];
+    protected $appends = [
+        'payments_total',
+        'payments_due',
+        'payments_made',
+        'total_sales',
+        'total_pending'
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -129,4 +135,13 @@ class Merchant extends Authenticatable
             get: fn() => $this->merchant_payments()->where('type','1')->sum('value'),
         );
     }
+
+    public function TotalPending(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->merchant_payments()
+            ->where('item_id','!=',null)->where('created_at','>=',strtotime('-7 day',strtotime(date('d-m-Y'))))->sum('value'),
+        );
+    }
+    
 }

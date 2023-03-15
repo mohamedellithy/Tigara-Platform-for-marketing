@@ -16,11 +16,15 @@
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-slash"></i>
-                                    {{ total_sales }} مبيعات
+                                    {{ total_sales }} USD مبيعات
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-slash"></i>
-                                    {{ profits }} أرباح
+                                    {{ profits }} USD أرباح
+                                </li>
+                                <li class="filter-item">
+                                    <i class="fas fa-user-slash"></i>
+                                     {{ pending_profits }} USD الأرباح المحظورة
                                 </li>
                             </ul>
                         </div>
@@ -41,6 +45,7 @@
                                 <th>الطلبات</th>
                                 <th>اجمالى المبيعات</th>
                                 <th>اجمالى الارباح</th>
+                                <th>الارباح المحظورة</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -54,6 +59,7 @@
                                 <td>{{ marketer.orders.length }} طلبية</td>
                                 <td>{{ marketer.total_sales }} USD</td>
                                 <td>{{ marketer.total_profites }} USD</td>
+                                <td>{{ marketer.total_profit_pending }} USD</td>
                                 <td class="actions-btn">
                                     <router-link :to="{path:'show-marketer/'+marketer.id}"  class="btn btn-primary btn-sm">
                                         عرض
@@ -116,6 +122,7 @@ export default {
             total_sales:0,
             total_orders:0,
             active_marketer:0,
+            pending_profits:0,
             infos:[],
             marketers:[],
             search:null,
@@ -144,6 +151,7 @@ export default {
                 self.total_sales        = data.total_sales;
                 self.total_orders       = data.total_orders;
                 self.active_marketer    = data.active_marketer;
+                self.pending_profits    = data.pending_profits; 
             }).catch(function({response}){
                 console.log(response);
             });

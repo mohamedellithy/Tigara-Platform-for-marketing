@@ -3,60 +3,85 @@
         <div class="row">
             <ul class="reports-tabs">
                 <li>
-                    <i style="color: #ffa5007d;" class="fas fa-dolly-flatbed"></i>
-                    <strong>{{ statics.orders_count }}</strong>
-                    <p>
-                        اجمالى الطلبات
-                    </p>
+                    <router-link :to="{path:'/delivery/delivery-orders/dairy'}">
+                        <i style="color: #ffa5007d;" class="fas fa-dolly-flatbed"></i>
+                        <strong>{{ statics.orders_count }}</strong>
+                        <p>
+                            اجمالى الطلبات
+                        </p>
+                    </router-link>
                 </li>
                 <li>
-                    <i style="color: #ffa5007d;" class="fas fa-dolly-flatbed"></i>
-                    <strong>{{ statics.orders_wait_count }}</strong>
-                    <p>
-                        اجمالى الطلبات المنتظرة
-                    </p>
+                    <router-link :to="{path:'/delivery/delivery-orders/dairy'}">
+                        <i style="color: #ffa5007d;" class="fas fa-dolly-flatbed"></i>
+                        <strong>{{ statics.orders_dairy_count }}</strong>
+                        <p>
+                            اجمالى اليومية
+                        </p>
+                    </router-link>
                 </li>
                 <li>
-                    <i style="color: #ffa5007d;" class="fas fa-dolly-flatbed"></i>
-                    <strong>{{ statics.orders_process_count }}</strong>
-                    <p>
-                        اجمالى الطلبات قيد التنفيذ
-                    </p>
+                    <router-link :to="{path:'/delivery/delivery-orders/wait'}">
+                        <i style="color: #ffa5007d;" class="fas fa-dolly-flatbed"></i>
+                        <strong>{{ statics.orders_wait_count }}</strong>
+                        <p>
+                            اجمالى الطلبات المنتظرة
+                        </p>
+                    </router-link>
                 </li>
                 <li>
-                    <i style="color: #ffa5007d;" class="fas fa-dolly-flatbed"></i>
-                    <strong>{{ statics.orders_completed_count }}</strong>
-                    <p>
-                        اجمالى الطلبات مكتملة
-                    </p>
+                    <router-link :to="{path:'/delivery/delivery-orders/process'}">
+                        <i style="color: #ffa5007d;" class="fas fa-dolly-flatbed"></i>
+                        <strong>{{ statics.orders_process_count }}</strong>
+                        <p>
+                            اجمالى الطلبات قيد التنفيذ
+                        </p>
+                    </router-link>
                 </li>
                 <li>
-                    <i style="color: #ffa5007d;" class="fas fa-dolly-flatbed"></i>
-                    <strong>{{ statics.orders_cancelled_count }}</strong>
-                    <p>
-                        اجمالى الطلبات المرفوضة
-                    </p>
+                    <router-link :to="{path:'/delivery/delivery-orders/complete'}">
+                        <i style="color: #ffa5007d;" class="fas fa-dolly-flatbed"></i>
+                        <strong>{{ statics.orders_completed_count }}</strong>
+                        <p>
+                            اجمالى الطلبات مكتملة
+                        </p>
+                    </router-link>
                 </li>
                 <li>
-                    <i style="color: #ffa5007d;" class="fas fa-dolly-flatbed"></i>
-                    <strong>{{ statics.orders_returned_count }}</strong>
-                    <p>
-                        اجمالى الطلبات المرتجع
-                    </p>
+                    <router-link :to="{path:'/delivery/delivery-orders/cancelled'}">
+                        <i style="color: #ffa5007d;" class="fas fa-dolly-flatbed"></i>
+                        <strong>{{ statics.orders_cancelled_count }}</strong>
+                        <p>
+                            اجمالى الطلبات المرفوضة
+                        </p>
+                    </router-link>
                 </li>
                 <li>
-                    <i style="color: #b8dcb9;" class="fas fa-pallet"></i>
-                    <strong>{{ statics.total_sales }} <span>USD</span></strong>
-                    <p>
-                        اجمالى المبيعات
-                    </p>
+                    <router-link :to="{path:'/delivery/delivery-orders/return'}">
+                        <i style="color: #ffa5007d;" class="fas fa-dolly-flatbed"></i>
+                        <strong>{{ statics.orders_returned_count }}</strong>
+                        <p>
+                            اجمالى الطلبات المرتجع
+                        </p>
+                    </router-link>
                 </li>
                 <li>
-                    <i style="color: #ffccbc;" class="fas fa-money-check-alt"></i>
-                    <strong>{{ statics.payments_total }} <span>USD</span></strong>
-                    <p>
-                        اجمالى المدفوعات
-                    </p>
+                    <router-link :to="{path:'/delivery/show-due-delivery-payments'}">
+                        <i style="color: #b8dcb9;" class="fas fa-pallet"></i>
+                        <strong>{{ statics.total_sales }} <span>USD</span></strong>
+                        <p>
+                            اجمالى المبيعات
+                        </p>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link :to="{path:'/delivery/show-due-delivery-payments'}">
+                        <i style="color: #ffccbc;" class="fas fa-money-check-alt"></i>
+                        <strong>{{ statics.payments_total }} <span>USD</span></strong>
+                        <p>
+                            اجمالى المدفوعات
+                        </p>
+                    </router-link>
                 </li>
                 <li>
                     <i style="color: #ffccbc;" class="fas fa-money-check-alt"></i>
@@ -66,11 +91,13 @@
                     </p>
                 </li>
                 <li>
-                    <i style="color: #ffccbc;" class="fas fa-money-check-alt"></i>
-                    <strong>{{ statics.payments_made }} <span>USD</span></strong>
-                    <p>
-                        اجمالى المدفوعات المسددة
-                    </p>
+                    <router-link :to="{path:'/delivery/show-made-delivery-payments'}">
+                        <i style="color: #ffccbc;" class="fas fa-money-check-alt"></i>
+                        <strong>{{ statics.payments_made }} <span>USD</span></strong>
+                        <p>
+                            اجمالى المدفوعات المسددة
+                        </p>
+                    </router-link>
                 </li>
             </ul>
         </div>

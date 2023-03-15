@@ -3,21 +3,27 @@
         <div class="row">
             <ul class="reports-tabs">
                 <li>
-                    <i style="color: #880e4f42;" class="fas fa-th-large"></i>
-                    <strong>{{ statics.products_count }}</strong>
-                    <p>المنتجات</p>
+                    <router-link :to="{path:'/marketer/products'}">
+                        <i style="color: #880e4f42;" class="fas fa-th-large"></i>
+                        <strong>{{ statics.products_count }}</strong>
+                        <p>المنتجات</p>
+                    </router-link>
                 </li>
                 <li>
-                    <i style="color: #1565c052;" class="fas fa-th-large"></i>
-                    <strong>{{ statics.lowstock_products_count }}</strong>
-                    <p>المنتجات المنتهية</p>
+                    <router-link :to="{path:'/marketer/products?',query:{filter:'low-stock'}}">
+                        <i style="color: #1565c052;" class="fas fa-th-large"></i>
+                        <strong>{{ statics.lowstock_products_count }}</strong>
+                        <p>المنتجات المنتهية</p>
+                    </router-link>
                 </li>
                 <li>
-                    <i style="color: #ffa5007d;" class="fas fa-shopping-cart"></i>
-                    <strong>{{ statics.orders_count }}</strong>
-                    <p>
-                        اجمالى الطلبات
-                    </p>
+                    <router-link :to="{path:'/marketer/orders'}">
+                        <i style="color: #ffa5007d;" class="fas fa-shopping-cart"></i>
+                        <strong>{{ statics.orders_count }}</strong>
+                        <p>
+                            اجمالى الطلبات
+                        </p>
+                    </router-link>
                 </li>
                 <li>
                     <i style="color: #ffa5007d;" class="fas fa-shopping-cart"></i>
@@ -49,11 +55,13 @@
                     </p>
                 </li>
                 <li>
-                    <i style="color: #ffccbc;" class="fas fa-money-check-alt"></i>
-                    <strong>{{ statics.payments_made }} <span>USD</span></strong>
-                    <p>
-                        اجمالى المدفوعات المسددة
-                    </p>
+                    <router-link :to="{path:'/marketer/payments'}">
+                        <i style="color: #ffccbc;" class="fas fa-money-check-alt"></i>
+                        <strong>{{ statics.payments_made }} <span>USD</span></strong>
+                        <p>
+                            اجمالى المدفوعات المسددة
+                        </p>
+                    </router-link>
                 </li>
             </ul>
         </div>

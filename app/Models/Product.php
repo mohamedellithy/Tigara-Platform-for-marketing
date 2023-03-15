@@ -14,10 +14,14 @@ class Product extends Model
     use HasFactory;
 
     protected $appends = [
-        'thumbnail_item','attachments_items','status_text','hold_stock','marketer_profit'
+        'thumbnail_item','attachments_items','status_text','hold_stock','marketer_profit','stock_quantity'
     ];
     protected $fillable = [
         'name','price','quantity','description','status','merchant_id','marketer_commission','merchant_commission'
+    ];
+
+    protected $casts = [
+        'stock_quantity',
     ];
 
     /**
@@ -66,6 +70,13 @@ class Product extends Model
         ];
         return Attribute::make(
             get : fn() => $status[$this->status] ?: ''
+        );
+    }
+
+    public function StockQuantity(): Attribute
+    {
+        return Attribute::make(
+            get : fn() => ($this->quantity >= $this->hold_stock ? ($this->quantity - $this->hold_stock) : ( $this->quantity ?: 0))
         );
     }
 
