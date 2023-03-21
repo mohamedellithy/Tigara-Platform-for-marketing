@@ -14,13 +14,14 @@ use Illuminate\Support\Facades\DB;
 class MarketerRepository extends MarketerRepositoryInterface{
 
     public function all(Request $request){
-        if($request->has('marketer_profits')):
-            $marketer = Marketer::whereHas('orders',function($query){
-                $query->where('order_status',2);
-            })->paginate(12);
-        else:
-            $marketer = Marketer::paginate(12);
-        endif;
+        // if($request->has('marketer_profits')):
+        //     $marketer = Marketer::whereHas('orders',function($query){
+        //         $query->where('order_status',2);
+        //     })->paginate(12);
+        // else:
+        //     $marketer = Marketer::paginate(12);
+        // endif;
+        $marketer = Marketer::paginate(12);
 
         $all_marketer_and_platform_orders_profits = Order::where('order_status',2)
             ->join('order_details','orders.id','=','order_details.order_id')
@@ -88,7 +89,7 @@ class MarketerRepository extends MarketerRepositoryInterface{
             endif;
 
             $add_new_market = $marketer->update($data);
-       
+
             if($add_new_market):
                 return response()->json([
                     'result' => 'تم تعديل حساب تاجر بنجاح'
@@ -98,11 +99,11 @@ class MarketerRepository extends MarketerRepositoryInterface{
     }
 
     public function bulk_update($data){
-        
+
         $update_marketer = Marketer::whereIn('id',$data['ids'])->update([
             'status' => $data['update_status']
         ]);
-    
+
         if($update_marketer):
             return response()->json([
                 'result' => 'تم تعديل  بنجاح'
@@ -160,7 +161,7 @@ class MarketerRepository extends MarketerRepositoryInterface{
         $merketer = Marketer::find($id);
         if(count($data['products']) > 0){
             $merketer->products()->detach($data['products'],['status'=>1]);
-            
+
             $products = Product::whereHas('marketers', function(Builder $query) use ($id){
                 $query->where('marketer_id', $id);
             });
