@@ -3,7 +3,18 @@
         <div :class="[ (this.toggleSide ? 'active': 'no-active') + ' sidemenu' ]">
             <div class="header-shop">
                 <label class="header-shop-logo"></label>
-                <img class="header-shop-name" :src="this.tigaraIcon" />
+                <router-link v-if="this.$auth.user.account_type == 0" :to="{path:'/dashboard/dashboard-reports'}">
+                    <img class="header-shop-name" :src="this.tigaraIcon" />
+                </router-link>
+                <router-link v-if="this.$auth.user.account_type == 1" :to="{path:'/merchant/dashboard-reports'}">
+                    <img class="header-shop-name" :src="this.tigaraIcon" />
+                </router-link>
+                <router-link v-if="this.$auth.user.account_type == 2" :to="{path:'/delivery/dashboard-reports'}">
+                    <img class="header-shop-name" :src="this.tigaraIcon" />
+                </router-link>
+                <router-link v-if="this.$auth.user.account_type == 3" :to="{path:'/marketer/dashboard-reports'}">
+                    <img class="header-shop-name" :src="this.tigaraIcon" />
+                </router-link>
                 <!-- <label class="header-shop-name">
                 </label> -->
             </div>
