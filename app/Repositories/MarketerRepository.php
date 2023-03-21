@@ -14,14 +14,13 @@ use Illuminate\Support\Facades\DB;
 class MarketerRepository extends MarketerRepositoryInterface{
 
     public function all(Request $request){
-        // if($request->has('marketer_profits')):
-        //     $marketer = Marketer::whereHas('orders',function($query){
-        //         $query->where('order_status',2);
-        //     })->paginate(12);
-        // else:
-        //     $marketer = Marketer::paginate(12);
-        // endif;
-        $marketer = Marketer::paginate(12);
+        if($request->has('marketer_profits')):
+            $marketer = Marketer::whereHas('orders',function($query){
+                $query->where('order_status',2);
+            })->paginate(12);
+        else:
+            $marketer = Marketer::paginate(12);
+        endif;
 
         $all_marketer_and_platform_orders_profits = Order::where('order_status',2)
             ->join('order_details','orders.id','=','order_details.order_id')
