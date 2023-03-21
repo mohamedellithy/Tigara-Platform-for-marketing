@@ -3,7 +3,9 @@
         <div :class="[ (this.toggleSide ? 'active': 'no-active') + ' sidemenu' ]">
             <div class="header-shop">
                 <label class="header-shop-logo"></label>
-                <label class="header-shop-name">Logo</label>
+                <img class="header-shop-name" :src="this.tigaraIcon" />
+                <!-- <label class="header-shop-name">
+                </label> -->
             </div>
             <!-- mobile Profile dropdown menu -->
             <ul class="menu-list">
@@ -144,8 +146,9 @@ import AdminSidebar from './SideBars/AdminSidebar.vue';
 import MerchantSidebar from './SideBars/MerchantSidebar.vue';
 import DeliverySidebar from './SideBars/DeliverySidebar.vue';
 import MarketerSidebar from './SideBars/MarketerSidebar.vue';
+import tigaraIcon from '@/img/tigara.png';
 export default {
-    components: { AdminSidebar,MerchantSidebar,DeliverySidebar,MarketerSidebar},
+    components: { AdminSidebar,MerchantSidebar,DeliverySidebar,MarketerSidebar,tigaraIcon},
     data(){
         return {
            toggle:false,
@@ -153,6 +156,7 @@ export default {
            toggleMiniCart:false,
            svgrepoCom,
            iconsProfile,
+           tigaraIcon,
            expanded:[],
            total_cart_items:0,
            cart_items:[],
@@ -286,6 +290,10 @@ export default {
     height: 100%;
     overflow-y: auto;
 }
+/* .text-nowrap {
+    white-space: normal !important;
+} */
+
 </style>
 <style scoped>
 
@@ -327,10 +335,10 @@ export default {
 }
 .header-shop-name
 {
-    margin-top: 21px;
+    /* margin-top: 21px; */
     margin-left:20px;
     width: auto;
-    height: 36px;
+    height: 80px;
     font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-600) 26px/39px var(--unnamed-font-family-poppins);
     letter-spacing: var(--unnamed-character-spacing-0);
     color: var(--heading);
@@ -428,6 +436,9 @@ export default {
     padding: 0px 20px;
     direction: rtl;
     margin: 0px 15px;
+}
+.navbar-expand-lg .navbar-nav{
+    float: left;
 }
 .navbar-expand-lg .navbar-nav .nav-item img{
     width: 30px;

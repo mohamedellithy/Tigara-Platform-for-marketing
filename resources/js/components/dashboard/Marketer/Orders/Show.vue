@@ -87,7 +87,7 @@
                                     ملاحظات على الطلب
                                 </label>
                                 <p class="alert">
-                                    لايوجد اى ملاحظات
+                                    {{ order.delivery_notice || 'لا يوجد ملاحظات' }}
                                 </p>
                             </div>
                         </div>

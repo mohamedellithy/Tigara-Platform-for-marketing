@@ -47,13 +47,13 @@
                                 <th>
                                     <input class="" type="checkbox" v-model="selected_all"/>
                                 </th>
-                                <th>#</th>
                                 <th>اسم المسوق</th>
-                                <th>المدفوعات المستحقة</th>
-                                <th>اجمالى المدفوعات</th>
+                                <!-- <th>المدفوعات المستحقة</th>
+                                <th>اجمالى المدفوعات</th> -->
                                 <th>المسموح السحب</th>
                                 <th>المحظور</th>
                                 <th>المبلغ المطلوب </th>
+                                <th>ملاحظات الدفع</th>
                                 <th>حالة الطلب</th>
                                 <th></th>
                             </tr>
@@ -65,13 +65,17 @@
                                 <th scope="row">
                                     <input type="checkbox" v-model="selected" :value="payment.id" :checked="selected.indexOf(payment.id) != -1"/>
                                 </th>
-                                <th scope="row">{{ payment.id }}</th>
                                 <td>{{ payment.marketer.name }}</td>
-                                <td>{{ payment.marketer.total_profites }} USD</td>
-                                <td>{{ payment.marketer.total_paid  }} USD</td>
+                                <!-- <td>{{ payment.marketer.total_profites }} USD</td>
+                                <td>{{ payment.marketer.total_paid  }} USD</td> -->
                                 <td>{{ payment.marketer.total_un_paid - payment.marketer.total_profit_pending }} USD</td>
                                 <td>{{ payment.marketer.total_profit_pending }} USD</td>
                                 <td>{{ payment.value }} USD</td>
+                                <td>
+                                    <p class="notice">
+                                        {{ payment.notice }}
+                                    </p>
+                                </td>
                                 <td>
                                     <span class="badge text-bg-primary">
                                         {{ payment.status_text }}
@@ -321,5 +325,10 @@ export default {
     border-radius: 0px;
     height: 46px;
     margin-top: 34px;
+}
+td p.notice
+{
+    width: 80%;
+    white-space: normal !important;
 }
 </style>

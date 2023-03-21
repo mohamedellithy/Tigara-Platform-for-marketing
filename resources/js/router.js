@@ -55,7 +55,9 @@ import EditOrder from './components/dashboard/Admin/Orders/Edit.vue';
 import ShowOrder from './components/dashboard/Admin/Orders/Show.vue';
 
 //all profites
-import AllProfites from './components/dashboard/Admin/Profites.vue';
+import MerchantProfites from './components/dashboard/Admin/Profits/Merchant.vue';
+import MarketerProfites from './components/dashboard/Admin/Profits/Marketer.vue';
+import DeliveryProfites from './components/dashboard/Admin/Profits/Delivery.vue';
 
 
 
@@ -70,6 +72,7 @@ import MerchantOrders from './components/dashboard/Merchant/Orders/Index.vue';
 import ShowDueMerchantPayments from './components/dashboard/Merchant/Payments/Due.vue';
 import ShowMadeMerchantPayments from './components/dashboard/Merchant/Payments/Made.vue';
 import MerchantDashboard from './components/dashboard/Merchant/DashboardReports.vue';
+import AboutToRunOutMerchantProduct from './components/dashboard/Merchant/Products/AboutToRunOut.vue';
 
 /**
  * @Delivery area
@@ -503,12 +506,34 @@ const routes = [{
                 // end Orders in Admin
                 // all profites
                 {
-                    path: 'all-profites',
-                    name: 'all-profites',
-                    component: AllProfites,
+                    path: 'merchant-profites',
+                    name: 'merchant-profites',
+                    component: MerchantProfites,
                     meta: {
-                        ar_name: 'الأرباح',
-                        menu_id: 'all-profites',
+                        ar_name: 'أرباح التجار',
+                        menu_id: 'profites',
+                        requiresAuth: true,
+                        AccountType: 'admin'
+                    }
+                },
+                {
+                    path: 'marketer-profites',
+                    name: 'marketer-profites',
+                    component: MarketerProfites,
+                    meta: {
+                        ar_name: 'أرباح المسوقين',
+                        menu_id: 'profites',
+                        requiresAuth: true,
+                        AccountType: 'admin'
+                    }
+                },
+                {
+                    path: 'delivery-profites',
+                    name: 'delivery-profites',
+                    component: DeliveryProfites,
+                    meta: {
+                        ar_name: 'أرباح شركات الشحن',
+                        menu_id: 'profites',
                         requiresAuth: true,
                         AccountType: 'admin'
                     }
@@ -566,9 +591,20 @@ const routes = [{
                         AccountType: 'merchant'
                     }
                 },
+                {
+                    path: 'about-to-run-out',
+                    name: 'about-to-run-out-merchant-products',
+                    component: AboutToRunOutMerchantProduct,
+                    meta: {
+                        ar_name: 'عرض المنتجات أوشكت على الانتهاء',
+                        menu_id: 'about-to-run-out-merchant-products',
+                        requiresAuth: true,
+                        AccountType: 'merchant'
+                    }
+                },
                 // end of products
                 {
-                    path: 'orders/:page_no?',
+                    path: 'orders/:type?/:page_no?',
                     name: 'merchant-orders',
                     component: MerchantOrders,
                     meta: {
@@ -715,8 +751,8 @@ const routes = [{
                     name: 'show-marketer-product',
                     component: ShowMarketerProduct,
                     meta: {
-                        ar_name: 'عرض منتج',
-                        menu_id: 'marketer-products',
+                        ar_name: 'تفاصيل منتج',
+                        menu_id: 'marketer-details-product',
                         requiresAuth: true,
                         AccountType: 'marketer'
                     }
@@ -734,7 +770,7 @@ const routes = [{
                 },
                 // end of products
                 {
-                    path: 'orders/:page_no?',
+                    path: 'orders/:type?/:page_no?',
                     name: 'marketer-orders',
                     component: MarketerOrders,
                     meta: {

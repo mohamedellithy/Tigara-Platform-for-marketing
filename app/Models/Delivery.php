@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-
+use Illuminate\Support\Facades\DB;
 class Delivery extends Authenticatable
 {
      use HasApiTokens, HasFactory, Notifiable;
@@ -24,7 +24,13 @@ class Delivery extends Authenticatable
         'payments_total',
         'payments_due',
         'payments_made',
-        'status_text'
+        'status_text',
+        'total_orders',
+        'total_sales',
+        'total_profits',
+        'total_delivery_profits',
+        'total_platforms_profit_from_delivery_cash'
+
     ];
 
     /**
@@ -91,12 +97,45 @@ class Delivery extends Authenticatable
         return $this->hasMany('App\Models\Order','delivery_id','id');
     }
 
+    public function totalOrders() : Attribute
+    {
+        return Attribute::make(
+        get: fn() => $this->orders()->where('order_status',2)->count()
+        );
+    }
     public function totalSales() : Attribute
     {
         return Attribute::make(
-        get: fn() => $this->orders->sum(function ($order_details) {
-                return $order_details['unit_price'] * $order_details['quantity'];
-            })
+        get: fn() => $this->orders()->where('order_status',2)
+                    ->join('order_details','orders.id','=','order_details.order_id')->select('orders.*','order_details.unit_price','order_details.quantity')
+                    ->sum(DB::Raw('order_details.unit_price * order_details.quantity'))
+        );
+    }
+
+    public function TotalProfits() : Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->orders()->where('order_status',2)
+            ->join('order_details','orders.id','=','order_details.order_id')->select('orders.*','order_details.unit_price','order_details.quantity')
+            ->sum(DB::Raw('(orders.cash_delivered - (order_details.unit_price * order_details.quantity))'))
+        );
+    }
+
+    public function TotalDeliveryProfits() : Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->orders()->where('order_status',2)
+            ->join('order_details','orders.id','=','order_details.order_id')->select('orders.*','order_details.unit_price','order_details.quantity')
+            ->sum(DB::Raw('(orders.cash_delivered - (order_details.unit_price * order_details.quantity)) - (20 * (orders.cash_delivered - (order_details.unit_price * order_details.quantity)) / 100)'))
+        );
+    }
+
+    public function TotalPlatformsProfitFromDeliveryCash() : Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->orders()->where('order_status',2)
+            ->join('order_details','orders.id','=','order_details.order_id')->select('orders.*','order_details.unit_price','order_details.quantity')
+            ->sum(DB::Raw('20 * (orders.cash_delivered - (order_details.unit_price * order_details.quantity)) / 100'))
         );
     }
 

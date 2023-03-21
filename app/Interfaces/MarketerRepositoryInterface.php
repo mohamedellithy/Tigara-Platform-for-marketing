@@ -1,10 +1,10 @@
 <?php
 namespace App\Interfaces;
-
+use Illuminate\Http\Request;
 class MarketerRepositoryInterface{
-    public function all(){}
+    public function all(Request $request){}
 
-    public function search($search = null){}
+    public function search(Request $request){}
 
     public function save($data){}
 

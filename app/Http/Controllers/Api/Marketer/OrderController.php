@@ -52,6 +52,11 @@ class OrderController extends Controller
         return $this->marketer_orders->show($request,$id);
     }
 
+    public function search(Request $request){
+        return $this->marketer_orders->search($request);
+    }
+
+
     /**
      * Update the specified resource in storage.
      *

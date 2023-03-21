@@ -2,30 +2,55 @@
 namespace App\Repositories;
 use App\Interfaces\DeliveryRepositoryInterface;
 use App\Models\Delivery;
+use App\Models\Order;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\Delivery as DeliveryResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 class DeliveryRepository extends DeliveryRepositoryInterface{
 
     public function all(Request $request){
         if($request->query('paginate') == '-1'){
             $deliveries = new DeliveryResource(Delivery::all());
         } else {
-            $deliveries = new DeliveryResource(Delivery::paginate(15));
+            if($request->query('delivery_profits') == true){
+                $deliveries = new DeliveryResource(Delivery::whereHas('orders',function($query){
+                    $query->where('order_status',2);
+                })->paginate(15));
+            } else {
+                $deliveries = new DeliveryResource(Delivery::paginate(15));
+            }
         }
         return response()->json([
             'data_info'            => $deliveries,
             'all_deliveries'       => Delivery::count(),
             'active_deliveries'    => Delivery::where('status',1)->count(),
-            'no_active_deliveries' => Delivery::where('status',0)->count()
+            'total_delivery_profits' => Order::where('order_status',2)
+            ->join('order_details','orders.id','=','order_details.order_id')->select('orders.*','order_details.unit_price','order_details.quantity')
+            ->sum(DB::Raw('(orders.cash_delivered - (order_details.unit_price * order_details.quantity)) - (20 * (orders.cash_delivered - (order_details.unit_price * order_details.quantity)) / 100)')),
+
+            'total_profits'          =>  Order::where('order_status',2)
+            ->join('order_details','orders.id','=','order_details.order_id')->select('orders.*','order_details.unit_price','order_details.quantity')
+            ->sum(DB::Raw('(orders.cash_delivered - (order_details.unit_price * order_details.quantity))')),
+        
+            'total_platform_profits' => Order::where('order_status',2)
+            ->join('order_details','orders.id','=','order_details.order_id')->select('orders.*','order_details.unit_price','order_details.quantity')
+            ->sum(DB::Raw('20 * (orders.cash_delivered - (order_details.unit_price * order_details.quantity)) / 100'))
         ]);
     }
 
-    public function search($search = null){
+    public function search(Request $request){
+        if($request->query('delivery_profits') == true):
+            $delivery = Delivery::whereHas('orders',function($query){
+                $query->where('order_status',2);
+            })->where('name','Like','%'.$request->query('q').'%')->get();
+        else:
+            $delivery = Delivery::where('name','Like','%'.$request->query('q').'%')->get();
+        endif;
         return response()->json([
-            'data_info'          => DeliveryResource::collection(Delivery::where('name','Like','%'.$search.'%')->get()),
-            'active_deliveries'    => Delivery::where('status',1)->where('name','Like','%'.$search.'%')->count(),
-            'no_active_deliveries' => Delivery::where('status',0)->where('name','Like','%'.$search.'%')->count()
+            'data_info'          => DeliveryResource::collection($delivery),
+            'active_deliveries'    => Delivery::where('status',1)->where('name','Like','%'.$request->query('q').'%')->count(),
+            'no_active_deliveries' => Delivery::where('status',0)->where('name','Like','%'.$request->query('q').'%')->count()
         ]);
 
     }

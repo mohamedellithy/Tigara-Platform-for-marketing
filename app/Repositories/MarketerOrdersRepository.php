@@ -11,8 +11,21 @@ use App\Services\StockService;
 class MarketerOrdersRepository extends MarketerOrdersRepositoryInterface{
 
     public function all(Request $request){
+        if($request->query('type') == 'wait'):
+            $data_orders = $request->user()->orders()->where('order_status',0)->orderBy('created_at','desc')->paginate(15);
+        elseif($request->query('type') == 'processing'):
+            $data_orders = $request->user()->orders()->where('order_status',1)->orderBy('created_at','desc')->paginate(15);
+        elseif($request->query('type') == 'completed'):
+            $data_orders = $request->user()->orders()->where('order_status',2)->orderBy('created_at','desc')->paginate(15);
+        elseif($request->query('type') == 'refused'):
+            $data_orders = $request->user()->orders()->where('order_status',3)->orderBy('created_at','desc')->paginate(15);
+        elseif($request->query('type') == 'cancelled'):
+            $data_orders = $request->user()->orders()->where('order_status',4)->orderBy('created_at','desc')->paginate(15);
+        else:
+            $data_orders = $request->user()->orders()->orderBy('created_at','desc')->paginate(15);
+        endif;
         return response()->json([
-            'data_info'        => $request->user()->orders()->orderBy('created_at','desc')->paginate(10),
+            'data_info'        => $data_orders,
             'all_orders'       => $request->user()->orders()->count(),
             'wait_orders'      => $request->user()->orders()->where('order_status',0)->count(),
             'process_orders'   => $request->user()->orders()->where('order_status',1)->count(),
@@ -66,9 +79,7 @@ class MarketerOrdersRepository extends MarketerOrdersRepositoryInterface{
 
     public function search(Request $request){
         return response()->json([
-            'data_info'          => $request->user()->products()->where('name','Like','%'.$request->query('q').'%')->get(),
-            'active_merchant'    => $request->user()->products()->where('status',1)->where('name','Like','%'.$request->query('q').'%')->count(),
-            'no_active_merchant' => $request->user()->products()->where('status',0)->where('name','Like','%'.$request->query('q').'%')->count()
+            'data_info'          => $request->user()->orders()->where('id',$request->query('q'))->get(),
         ]);
 
     }

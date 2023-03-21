@@ -28,6 +28,9 @@
                                 <th>#</th>
                                 <th>قيمة المبلغ</th>
                                 <th>تفاصيل الطلبية</th>
+                                <th>المبلغ المحصل</th>
+                                <th>قيمة الطلبية</th>
+                                <th>ربح المنصة</th>
                                 <th>نوع المدفوعات</th>
                                 <th>تاريخ الاضافة</th>
                                 <th></th>
@@ -50,6 +53,24 @@
                                     <template v-else>
                                        -
                                     </template>
+                                </td>
+                                <td>
+                                    <template v-if="payment.order_id">
+                                        {{ payment.order.cash_delivered }} USD
+                                    </template>
+                                    <template v-else> - </template>
+                                </td>
+                                <td>
+                                    <template v-if="payment.order_id">
+                                        {{ payment.order.order_total }} USD
+                                    </template>
+                                    <template v-else> - </template>
+                                </td>
+                                <td>
+                                    <template v-if="payment.order_id">
+                                        {{ payment.order.platforms_profit_from_delivery_cash }} USD
+                                    </template>
+                                    <template v-else> - </template>
                                 </td>
                                 <td>{{ payment.type_text }}</td>
                                 <td>{{ payment.created_at }}</td>

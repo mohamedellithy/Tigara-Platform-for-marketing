@@ -37,6 +37,7 @@
                             <th>#</th>
                             <th>المبلغ المطلوب</th>
                             <th>حالة الطلب</th>
+                            <th>ملاحظات طلب الدفع</th>
                             <th>تاريخ الاضافة</th>
                             <th></th>
                         </tr>
@@ -48,6 +49,11 @@
                             <th scope="row">#{{ payment.id }}</th>
                             <td>{{ payment.value }} USD</td>
                             <td>{{ payment.status_text }}</td>
+                            <td>
+                                <p class="notice">
+                                    {{ payment.notice || 'بدون ملاحظات' }}
+                                </p>
+                            </td>
                             <td>{{ payment.created_at }}</td>
                             <td class="action">
                                 <button @click="CancelPayment(payment.id)" v-if="payment.payment_status == 0" class="btn btn-danger btn-sm">الغاء الطلب</button>
@@ -112,6 +118,10 @@
                             <div class="form-group">
                                 <label class="label-input">قيمة المبلغ المطلوب للسحب</label>
                                 <input v-model="field.value" type="text" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label class="label-input">ملاحظة ( طريقة استلام المدفوعات ) </label>
+                                <textarea v-model="field.notice" type="text" class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="footer-overflow-model">
@@ -236,8 +246,9 @@ export default {
             }
         },
         EditPayment:function(payment){
-            this.field.value = payment.value;
-            this.field.id    = payment.id;
+            this.field.value  = payment.value;
+            this.field.notice = payment.notice;
+            this.field.id     = payment.id;
             this.ShowModelPop();
         }
     },
@@ -415,5 +426,13 @@ export default {
 }
 table .action .btn{
     margin: 5px;
+}
+.overflow-model .body .form-group{
+    padding: 5px;
+}
+td p.notice
+{
+    width: 80%;
+    white-space: normal !important;
 }
 </style>

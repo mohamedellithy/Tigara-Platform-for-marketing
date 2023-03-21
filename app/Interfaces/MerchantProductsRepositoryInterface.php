@@ -10,4 +10,6 @@ class MerchantProductsRepositoryInterface{
 
     public function lowstock_products(Request $request){}
 
+    public function about_to_out_products(Request $request){}
+
 }

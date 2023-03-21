@@ -16,7 +16,8 @@ class MarketerPayment extends Model
      protected $fillable = [
         'marketer_id',
         'value',
-        'payment_status'
+        'payment_status',
+        'notice'
     ];
 
     public function marketer()

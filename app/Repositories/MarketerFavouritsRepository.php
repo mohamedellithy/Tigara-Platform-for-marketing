@@ -39,13 +39,10 @@ class MarketerFavouritsRepository extends MarketerFavouritsRepositoryInterface{
 
     public function search(Request $request){
         return response()->json([
-            'data_info'          => $request->user()->products()->withCount('order_details')->where('name','Like','%'.$request->query('q').'%')->get(),
-            'active_merchant'    => $request->user()->products()->where('status',1)->where('name','Like','%'.$request->query('q').'%')->count(),
-            'no_active_merchant' => $request->user()->products()->where('status',0)->where('name','Like','%'.$request->query('q').'%')->count()
+            'data_info'          => $request->user()->products_favourits()->where('name','Like','%'.$request->query('q').'%')->get(),
         ]);
 
     }
-
 
     public function delete(Request $request , $id){
         $request->user()->favourites()->where([

@@ -34,7 +34,7 @@ class DeliveryController extends Controller
     {
         //
         //return response()->json(['data' => $request->query('q')]);
-        return $this->deliveryRepository->search($request->query('q'));
+        return $this->deliveryRepository->search($request);
     }
 
     /**

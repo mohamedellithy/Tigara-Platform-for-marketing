@@ -46,7 +46,7 @@
 
             </ul>
             <label>
-                {{ products.length }} المعروض
+                {{ products.length || 0 }} المعروض
             </label>
             <ul class="content-page row">
                 <li v-for="(product,key) in products" :key="key" class="col-md-3 item-product">
@@ -55,7 +55,9 @@
                            @click="addToFavourit(product.id)"
                            :style="this.favourits.indexOf(product.id) != -1 ? 'color:#cb1515' : ''"></i>
                         <img :src="product.thumbnail_item.image_url || ImageProd1" class="image-product">
-                        <p>{{ product.name }}</p>
+                        <router-link :to="{path:'/marketer/show-product/'+product.id}" style="text-decoration:none;">
+                            <p>{{ product.name }}</p>
+                        </router-link>
                         <table class="table product-info-details">
                             <tr>
                                 <td>
@@ -102,7 +104,7 @@
                     </div>
                 </li>
             </ul>
-            <nav v-if="this.infos.length != 0" aria-label="Page navigation example">
+            <nav v-if="this.infos" aria-label="Page navigation example">
                 <ul v-if="this.infos.total > products.length" class="pagination">
                     <li v-if="(this.infos.current_page != 1)" class="page-item">
                         <router-link class="page-link" :to="{path: '/marketer/products/'+(this.infos.current_page - 1 == 0 ? 1 : this.infos.current_page - 1),query:$route.query }" aria-label="Previous">
@@ -307,14 +309,12 @@ export default {
             let self = this;
             if((search.length != 0) && (search != null)){
                 this.params.q = search;
-                axios.get('/api/products/search',{
+                axios.get('/api/marketer-products/search',{
                     params:self.params
                 }).then(function({data}){
                     self.infos              = [];
                     self.products          = data.data_info;
-                    self.finished_products = data.finished_products;
-                    self.active_products    = data.active_products;
-                    self.total_products     = data.total_products;
+                    console.log(data);
                 }).catch(function({response}){
                     console.log(response);
                 });
@@ -337,30 +337,7 @@ export default {
                     self.selected.splice(self.selected.indexOf(item.id),1);
                 });
             }
-        },
-        // filter_products:function(filter_products){
-        //     let self =this;
-        //     window.localStorage.setItem('filter_products',filter_products);
-        //     this.params.filter_products = filter_products;
-        //     if((filter_products.length != 0) && (filter_products != null)){
-        //         axios.get('/api/products',{
-        //             params:self.params
-        //         }).then(function({data}){
-        //             console.log(data);
-        //             self.infos              = data.data_info;
-        //             self.products           = self.infos.data;
-        //             self.finished_products = data.finished_products;
-        //             self.active_products    = data.active_products;
-        //             self.total_products     = data.total_products;
-        //         }).catch(function({response}){
-        //             console.log(response);
-        //         });
-        //     }else{
-        //         this.params.filter_products = null;
-        //         self.params.page = (this.$route.params.page_no ? this.$route.params.page_no : 1)
-        //         self.FetchProducts();
-        //     }
-        // }
+        }
     }
 }
 </script>

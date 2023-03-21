@@ -28,4 +28,8 @@ class ProductController extends Controller
     public function lowstock_products(Request $request){
         return $this->merchant_products->lowstock_products($request);
     }
+
+    public function about_to_out_products(Request $request){
+        return $this->merchant_products->about_to_out_products($request);
+    }
 }

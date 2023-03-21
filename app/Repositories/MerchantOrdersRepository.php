@@ -8,8 +8,37 @@ use Illuminate\Http\Request;
 class MerchantOrdersRepository extends MerchantOrdersRepositoryInterface{
 
     public function all(Request $request){
+        if($request->query('type') == 'wait'):
+            $data_orders = $request->user()->order_details()->whereHas('order',function($query){
+                $query->where('order_status',0);
+            })->orderBy('created_at','desc')->with('order','merchant_payment')->paginate(15);
+
+        elseif($request->query('type') == 'processing'):
+            $data_orders = $request->user()->order_details()->whereHas('order',function($query){
+                $query->where('order_status',1);
+            })->orderBy('created_at','desc')->with('order','merchant_payment')->paginate(15);
+
+        elseif($request->query('type') == 'completed'):
+            $data_orders = $request->user()->order_details()->whereHas('order',function($query){
+                $query->where('order_status',2);
+            })->orderBy('created_at','desc')->with('order','merchant_payment')->paginate(15);
+
+        elseif($request->query('type') == 'refused'):
+            $data_orders = $request->user()->order_details()->whereHas('order',function($query){
+                $query->where('order_status',3);
+            })->orderBy('created_at','desc')->with('order','merchant_payment')->paginate(15);
+
+        elseif($request->query('type') == 'cancelled'):
+            $data_orders = $request->user()->order_details()->whereHas('order',function($query){
+                $query->where('order_status',4);
+            })->orderBy('created_at','desc')->with('order','merchant_payment')->paginate(15);
+            
+        else:
+            $data_orders = $request->user()->orders()->orderBy('created_at','desc')->with('order','merchant_payment')->paginate(15);
+        endif;
+
         return response()->json([
-            'data_info'        => $request->user()->order_details()->orderBy('created_at','desc')->with('order','merchant_payment')->paginate(15),
+            'data_info'        => $data_orders,
             'all_orders'       => $request->user()->order_details()->count(),
             'wait_orders'      => $request->user()->order_details()->whereHas('order',function($query){
                 $query->where('order_status',0);

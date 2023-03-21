@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-
+use Illuminate\Support\Facades\DB;
 class Merchant extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -25,7 +25,10 @@ class Merchant extends Authenticatable
         'payments_due',
         'payments_made',
         'total_sales',
-        'total_pending'
+        'total_pending',
+        'total_merchant_products_sales',
+        'total_compelete_orders',
+        'total_platform_profits'
     ];
 
     /**
@@ -106,12 +109,36 @@ class Merchant extends Authenticatable
         return $this->hasManyThrough('App\Models\OrderDetails','App\Models\Product','merchant_id','product_id','id','id');
     }
 
+    public function totalCompeleteOrders() : Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->order_details()->whereHas('order',function($query){
+                $query->where('order_status',2);
+            })->count()
+        );
+    }
     public function totalSales() : Attribute
     {
         return Attribute::make(
-        get: fn() => $this->orders->sum(function ($order_details) {
-                return $order_details['unit_price'] * $order_details['quantity'];
-            })
+            get: fn() => $this->order_details()->whereHas('order',function($query){
+                $query->where('order_status',2);
+            })->sum(DB::Raw('order_details.unit_price * order_details.quantity'))
+        );
+    }
+
+    public function totalMerchantProductsSales() : Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->order_details()->whereHas('order',function($query){
+                $query->where('order_status',2);
+            })->sum(DB::Raw('products.merchant_commission * order_details.quantity'))
+        );
+    }
+
+    public function TotalPlatformProfits() : Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->total_sales - $this->total_merchant_products_sales
         );
     }
 

@@ -13,7 +13,7 @@ class MerchantStaticsController extends Controller
             'products_count'          => $request->user()->products()->count(),
             'lowstock_products_count' => $request->user()->products()->where('quantity',0)->count(),
             'orders_count'            => $request->user()->order_details()->count(),
-            'total_sales'             => $request->user()->total_sales,
+            'total_sales'             => $request->user()->total_merchant_products_sales,
             'payments_total'          => $request->user()->payments_total,
             'payments_due'            => $request->user()->payments_due,
             'payments_made'           => $request->user()->payments_made,

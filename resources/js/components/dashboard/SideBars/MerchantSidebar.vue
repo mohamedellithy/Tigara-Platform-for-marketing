@@ -104,6 +104,39 @@
         <li class="list-items-menu">
             <router-link
                 tag="a"
+                @click="toggleListMenuSidebar('about-to-run-out-merchant-products')"
+                class="item-menu active"
+                active-class="active"
+                :to="{ name: 'about-to-run-out-merchant-products' }"
+                exact>
+                <i class="fas fa-pallet"></i>
+                <label>المنتجات منخفضة</label>
+                <i
+                    class="fas fa-chevron-down chevron"
+                    v-show="this.expanded.indexOf('about-to-run-out-merchant-products') !== 0"
+                ></i>
+                <i
+                    class="fas fa-chevron-up chevron"
+                    v-show="this.expanded.indexOf('about-to-run-out-merchant-products') === 0"
+                ></i>
+            </router-link>
+            <ul
+                :class="`child-list-items-menu ${
+                    this.expanded.indexOf('about-to-run-out-merchant-products') !== 0 ? 'active' : ''
+                }`"
+            >
+                <li class="li-child-list-items-menu">
+                    <router-link :to="{name:'about-to-run-out-merchant-products'}" class="a-child-list-item-menu" active-class="active" exact>
+                        <i class="fas fa-pallet"></i>
+                        <label>المنتجات منخفضة</label>
+                    </router-link>
+                </li>
+            </ul>
+        </li>
+
+        <li class="list-items-menu">
+            <router-link
+                tag="a"
                 @click="toggleListMenuSidebar('merchant-orders')"
                 class="item-menu active"
                 active-class="active"

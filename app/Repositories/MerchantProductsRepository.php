@@ -47,4 +47,11 @@ class MerchantProductsRepository extends MerchantProductsRepositoryInterface{
             'finished_products' => $request->user()->products()->where('quantity',0)->count()
         ]);
     }
+
+    public function about_to_out_products(Request $request){
+        return response()->json([
+            'data_info'  => $request->user()->products()->where('quantity','<=',5)->paginate(15),
+            'about_to_out_products' => $request->user()->products()->where('quantity','<=',5)->count()
+        ]);
+    }
 }

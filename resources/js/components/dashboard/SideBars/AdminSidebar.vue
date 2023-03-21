@@ -262,31 +262,45 @@
         <li class="list-items-menu">
             <router-link
                 tag="a"
-                @click="toggleListMenuSidebar('all-profites')"
+                @click="toggleListMenuSidebar('profites')"
                 class="item-menu active"
                 active-class="active"
-                :to="{ name: 'all-profites' }"
+                :to="{ name: 'merchant-profites' }"
                 exact>
                  <i class="fas fa-money-check-alt"></i>
                 <label>الارباح</label>
                 <i
                     class="fas fa-chevron-down chevron"
-                    v-show="this.expanded.indexOf('all-profites') !== 0"
+                    v-show="this.expanded.indexOf('profites') !== 0"
                 ></i>
                 <i
                     class="fas fa-chevron-up chevron"
-                    v-show="this.expanded.indexOf('all-profites') === 0"
+                    v-show="this.expanded.indexOf('profites') === 0"
                 ></i>
             </router-link>
             <ul
                 :class="`child-list-items-menu ${
-                    this.expanded.indexOf('all-profites') !== 0 ? 'active' : ''
+                    this.expanded.indexOf('profites') !== 0 ? 'active' : ''
                 }`"
             >
                 <li class="li-child-list-items-menu">
-                    <router-link :to="{name:'all-profites'}" class="a-child-list-item-menu" active-class="active" exact>
+                    <router-link :to="{name:'merchant-profites'}" class="a-child-list-item-menu" active-class="active" exact>
                         <i class="fas fa-money-check-alt"></i>
-                        <label>الارباح</label>
+                        <label>أرباح التجار</label>
+                    </router-link>
+                </li>
+
+                <li class="li-child-list-items-menu">
+                    <router-link :to="{name:'marketer-profites'}" class="a-child-list-item-menu" active-class="active" exact>
+                        <i class="fas fa-money-check-alt"></i>
+                        <label>أرباح المسوقين</label>
+                    </router-link>
+                </li>
+
+                <li class="li-child-list-items-menu">
+                    <router-link :to="{name:'delivery-profites'}" class="a-child-list-item-menu" active-class="active" exact>
+                        <i class="fas fa-money-check-alt"></i>
+                        <label>أرباح شركات الشحن</label>
                     </router-link>
                 </li>
             </ul>

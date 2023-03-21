@@ -7,24 +7,51 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\Marketer as MarketerResource;
 use App\Http\Resources\Product as ProductResource;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
+use App\Models\Order;
+use Illuminate\Support\Facades\DB;
 
 class MarketerRepository extends MarketerRepositoryInterface{
 
-    public function all(){
-       // return response()->json(['data' => $request->all()]);
+    public function all(Request $request){
+        if($request->has('marketer_profits')):
+            $marketer = Marketer::whereHas('orders',function($query){
+                $query->where('order_status',2);
+            })->paginate(12);
+        else:
+            $marketer = Marketer::paginate(12);
+        endif;
+
+        $all_marketer_and_platform_orders_profits = Order::where('order_status',2)
+            ->join('order_details','orders.id','=','order_details.order_id')
+            ->join('products','order_details.product_id','=','products.id')
+            ->select('orders.*','order_details.unit_price','order_details.quantity','products.merchant_commission')
+            ->sum(DB::Raw('(order_details.unit_price - products.merchant_commission) * order_details.quantity'));
+
+        $total_profites = Order::where('order_status',2)->sum('marketer_profit');
+
         return response()->json([
-            'data_info'           => new MarketerResource(Marketer::paginate(15)),
-            'all_marketers'       => Marketer::count(),
-            'active_marketer'    => Marketer::where('status',1)->count(),
-            'no_active_marketer' => Marketer::where('status',0)->count()
+            'data_info'          => new MarketerResource($marketer),
+            'all_marketers'      => Marketer::count(),
+            'all_marketer_and_platform_orders_profits' => $all_marketer_and_platform_orders_profits,
+            'total_profites'     => $total_profites,
+            'total_platform_profits' => $all_marketer_and_platform_orders_profits - $total_profites
         ]);
     }
 
-    public function search($search = null){
+    public function search(Request $request){
+        if($request->has('marketer_profits')):
+            $marketer = Marketer::whereHas('orders',function($query){
+                $query->where('order_status',2);
+            })->where('name','Like','%'.$request->query('q').'%')->get();
+        else:
+            $marketer = Marketer::where('name','Like','%'.$request->query('q').'%')->get();
+        endif;
+
         return response()->json([
-            'data_info'          => MarketerResource::collection(Marketer::where('name','Like','%'.$search.'%')->get()),
-            'active_marketers'    => Marketer::where('status',1)->where('name','Like','%'.$search.'%')->count(),
-            'no_active_marketers' => Marketer::where('status',0)->where('name','Like','%'.$search.'%')->count()
+            'data_info'          => MarketerResource::collection($marketer),
+            'active_marketers'    => Marketer::where('status',1)->where('name','Like','%'.$request->query('q').'%')->count(),
+            'no_active_marketers' => Marketer::where('status',0)->where('name','Like','%'.$request->query('q').'%')->count()
         ]);
 
     }

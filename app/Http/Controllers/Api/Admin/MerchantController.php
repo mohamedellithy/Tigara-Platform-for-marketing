@@ -26,10 +26,10 @@ class MerchantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        return $this->merchantRepository->all();
+        return $this->merchantRepository->all($request);
     }
 
      /**
@@ -41,7 +41,7 @@ class MerchantController extends Controller
     {
         //
         //return response()->json(['data' => $request->query('q')]);
-        return $this->merchantRepository->search($request->query('q'));
+        return $this->merchantRepository->search($request);
     }
 
     /**

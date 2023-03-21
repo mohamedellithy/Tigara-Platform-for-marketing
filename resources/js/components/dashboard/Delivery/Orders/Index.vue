@@ -51,7 +51,7 @@
                                 </th>
                                 <th scope="row"> # {{ order.id }}</th>
                                 <td>{{ order.quantity }} قطعة</td>
-                                <td>{{ order.total }} USD</td>
+                                <td>{{ order.order_total }} USD</td>
                                 <td>{{ order.cash_delivered > 0 ? order.cash_delivered + 'USD' : 'لم يتم تحصيل' }} </td>
                                 <td>{{ order.cash_delivery_refund ? order.cash_delivery_refund  + 'USD' : 'لايوجد'  }} </td>
                                 <td>{{ order.order_status_txt }}</td>

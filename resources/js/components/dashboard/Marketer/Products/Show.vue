@@ -4,7 +4,7 @@
             <div class="row">
                 <h3 class="col-md-8 title-merchant">
                     <i class="fas fa-pallet" style="font-size: 18px;"></i>
-                    عرض المنتج
+                    تفاصيل المنتج
                 </h3>
             </div>
             <div class="row">
@@ -21,27 +21,27 @@
                             <div class="form-group">
                                 <label for="merchant-name">
                                     <i class="fas fa-user-edit" style="padding: 5px;"></i>
-                                    سعر المنتج
+                                    سعر المنتج 
                                 </label>
-                                <p class="alert">{{product.price}}</p>
+                                <p class="alert">{{product.price}} USD</p>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="merchant-name">
                                     <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
-                                    عدد المنتجات
+                                    عدد المنتجات  
                                 </label>
-                                <p class="alert"> {{ product.quantity }}</p>
+                                <p class="alert"> {{ product.quantity }} قطعة</p>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="merchant-name">
                                     <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
-                                    عدد الطلبيات
+                                    عمولة المسوق بالقيمة ( % )
                                 </label>
-                                <p class="alert"> {{ product.order_details_count }}</p>
+                                <p class="alert">
+                                    {{ product.marketer_commission }}
+                                </p>
                             </div>
                         </div>
                         <div class="col-lg-12">
@@ -64,6 +64,7 @@
                         <li v-for="(attachment_url,key) in attachments_urls" :key="key" class="upload-attachments-image">
                             <img style="width:16%" :src="attachment_url" />
                             <label>  مرفقات المنتج رقم ( {{ key+1 }} )</label>
+                            <i @click="RemoveImagefromAttachment(key)" class="fas fa-times" style="color: red;float: left;cursor: pointer;margin-top: 5%;"></i>
                         </li>
                     </ul>
                 </div>
@@ -85,7 +86,8 @@ export default {
                 price:0.0,
                 quantity:1,
                 thumbnail:[],
-                attachments:[]
+                attachments:[],
+                merchant:{}
             },
             errors:{},
             success:null,
@@ -101,12 +103,12 @@ export default {
             let self = this;
             let attachments;
             console.log(this.$route.params.id);
-            await axios.get('/api/products/'+this.$route.params.id).then(function({data}) {
-                // self.errors        = {};
+            await axios.get('/api/marketer-products/'+this.$route.params.id).then(function({data}) {
+                self.errors        = {};
                 self.product       = data.product;
                 self.thumbnail_url = data.product.thumbnail_item.image_url;
                 attachments        = data.product.attachments_items.data;
-                console.log(data);
+                console.log(self.product);
             }).catch(function({response}) {
                 self.errors = response.data;
             });
@@ -127,8 +129,8 @@ export default {
             product.append('price',this.product.price);
             product.append('quantity',this.product.quantity);
             product.append('status',this.product.status);
-            
-            
+
+
             if(this.product.thumbnail){
                 product.append('thumbnail',this.product.thumbnail);
             }
@@ -171,7 +173,7 @@ export default {
         },
         RemoveImagefromAttachment:function(index){
             this.delete_media_ids.push(this.attachments_ids[index]);
-            
+
             if(this.product.attachments){
                 this.product.attachments.splice(index,1);
             }

@@ -75,7 +75,7 @@
                         <thead>
                             <tr>
                                 <th>رقم الطلب</th>
-                                <th>المنتج</th>
+                                <th>حالة الطلبية</th>
                                 <th>كمية الطلب</th>
                                 <th>تاريخ الانشاء</th>
                                 <th></th>
@@ -83,9 +83,9 @@
                         </thead>
                         <tbody>
                             <tr v-for="(order,index) in statics.orders" :key="index">
-                                <td>{{ order.order_id }}#</td>
-                                <td>{{ order.order_status_text }}</td>
-                                <td>{{ order.marketer_profit }}</td>
+                                <td>{{ order.id }}#</td>
+                                <td>{{ order.order_status_txt }}</td>
+                                <td>{{ order.marketer_profit }} USD</td>
                                 <td>{{ order.created_at }}</td>
                                 <td>
                                     <router-link :to="{path:'/marketer/show-order/'+order.id}" class="btn btn-primary btn-sm">عرض المنتج</router-link>

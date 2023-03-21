@@ -17,7 +17,8 @@ class MarketerPaymentsRepository extends MarketerPaymentsRepositoryInterface{
 
     public function save(Request $request){
         $add_new_payment = $request->user()->payments()->create([
-            'value'                => $request->input('value')
+            'value'                => $request->input('value'),
+            'notice'               => $request->input('notice')
         ]);
 
         if($add_new_payment):

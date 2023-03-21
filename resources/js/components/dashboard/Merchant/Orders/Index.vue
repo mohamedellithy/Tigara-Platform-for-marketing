@@ -38,15 +38,28 @@
                                     <i class="fas fa-user-slash"></i>
                                     {{ refused_orders }} المرفوضة
                                 </li>
-                                <br/><br/>
-                                <li>
-                                    {{ orders.length }} المعروض
-                                </li>
                             </ul>
                         </div>
                         <div class="col-md-4">
                             <input type="text" placeholder="البحث فى الطلبات" v-model="search" class="form-control search-input"/>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label style="line-height: 3em;">فلترة الطلبات</label>
+                            <select class="form-control filter-orders" v-model="order_filter">
+                                <option value="all">الكل</option>
+                                <option value="wait">الطلبات المنتظرة</option>
+                                <option value="processing">الطلبات قيد التنفيذ</option>
+                                <option value="completed">الطلبات المكتملة</option>
+                                <option value="refused">الطلبات المرفوضة</option>
+                                <option value="cancelled">الطلبات الملغية</option>
+                            </select>
+                        </div>
+                        <br/>
+                        <p style="padding: 20px 15px 0px 10px;" class="">
+                            {{ orders.length }} طلبات
+                        </p>
                     </div>
                 </div>
                 <div class="table-responsive text-nowrap">
@@ -91,36 +104,36 @@
                     <nav v-if="this.infos.length != 0" aria-label="Page navigation example">
                         <ul v-if="this.infos.total > orders.length" class="pagination">
                             <li v-if="(this.infos.current_page != 1)" class="page-item">
-                                <router-link class="page-link" :to="{path: '/merchant/orders/'+(this.infos.current_page - 1 == 0 ? 1 : this.infos.current_page - 1) }" aria-label="Previous">
+                                <router-link class="page-link" :to="{path: '/merchant/orders/'+order_filter+'/'+(this.infos.current_page - 1 == 0 ? 1 : this.infos.current_page - 1) }" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                     <span class="sr-only">Previous</span>
                                 </router-link>
                             </li>
                             <li v-for="page in this.infos.last_page" class="page-item" :key="page">
                                 <template v-if="page == 1">
-                                    <router-link class="page-link" :to="{path: '/merchant/orders/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/merchant/orders/'+order_filter+'/'+page}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="page == this.infos.current_page">
-                                    <router-link class="page-link" :to="{path: '/merchant/orders/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/merchant/orders/'+order_filter+'/'+page}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="page == this.infos.current_page - 1">
-                                    <router-link class="page-link" :to="{path: '/merchant/orders/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/merchant/orders/'+order_filter+'/'+page}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="(page == this.infos.current_page + 1) && (this.infos.current_page != this.infos.last_page)">
-                                    <router-link class="page-link" :to="{path: '/merchant/orders/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/merchant/orders/'+order_filter+'/'+page}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="page == this.infos.last_page">
-                                    <router-link class="page-link" :to="{path: '/merchant/orders/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/merchant/orders/'+order_filter+'/'+page}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="(page == this.infos.current_page - 2) && (this.infos.current_page != this.infos.last_page)">
-                                    <router-link class="page-link" :to="{path: '/merchant/orders/'+page}" active-class="active" exact>..</router-link>
+                                    <router-link class="page-link" :to="{path: '/merchant/orders/'+order_filter+'/'+page}" active-class="active" exact>..</router-link>
                                 </template>
                                 <template v-else-if="(page == this.infos.current_page + 2) && (this.infos.current_page != this.infos.last_page)">
-                                    <router-link class="page-link" :to="{path: '/merchant/orders/'+page}" active-class="active" exact>..</router-link>
+                                    <router-link class="page-link" :to="{path: '/merchant/orders/'+order_filter+'/'+page}" active-class="active" exact>..</router-link>
                                 </template>
                             </li>
                             <li v-if="this.infos.current_page != this.infos.last_page" class="page-item">
-                                <router-link :to="{path: '/merchant/orders/'+(this.infos.current_page + 1) }" class="page-link" href="#" aria-label="Next">
+                                <router-link :to="{path: '/merchant/orders/'+order_filter+'/'+(this.infos.current_page + 1) }" class="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                     <span class="sr-only">Next</span>
                                 </router-link>
@@ -141,6 +154,7 @@ export default {
             process_orders:0,
             complete_orders:0,
             refused_orders:0,
+            order_filter:'all',
             infos:[],
             orders: [],
             search:null,
@@ -198,6 +212,7 @@ export default {
                 self.success  = data.result;
                 console.log(self.success);
                 self.params = {
+                    type:(self.$route.params.type ? self.$route.params.type : 'all'),
                     page:(self.$route.params.page_no ? self.$route.params.page_no : 1)
                 };
                 self.FetchOrders();
@@ -222,6 +237,7 @@ export default {
                 self.success  = data.result;
                 console.log(self.success);
                 self.params = {
+                    type:(self.$route.params.type ? self.$route.params.type : 'all'),
                     page:(self.$route.params.page_no ? self.$route.params.page_no : 1)
                 };
                 self.FetchOrders();
@@ -234,8 +250,10 @@ export default {
     },
     created:function(){
         this.params = {
+            type:(this.$route.params.type ? this.$route.params.type : 'all'),
             page:(this.$route.params.page_no ? this.$route.params.page_no : 1)
         };
+        this.order_filter = (this.$route.params.type ? this.$route.params.type : 'all');
         this.FetchOrders();
     },
     watch:{
@@ -257,6 +275,7 @@ export default {
                 });
             }else{
                 self.params = {
+                    type:(this.$route.params.type ? this.$route.params.type : 'all'),
                     page:(this.$route.params.page_no ? this.$route.params.page_no : 1)
                 };
                 self.FetchProducts();
@@ -274,6 +293,14 @@ export default {
                     self.selected.splice(self.selected.indexOf(item.id),1);
                 });
             }
+        },
+        order_filter:function(filter){
+           console.log(filter);
+           this.$router.replace({
+            params:{
+                type:filter
+            }
+           });
         }
     }
 };
@@ -303,6 +330,13 @@ export default {
     border-radius: 0px;
     height: 46px;
     margin-top: 34px;
+}
+.filter-bar .filter-orders{
+    border:1px solid #eee;
+    background-color: white;
+    box-shadow: 0px 10px 23px 5px #eee;
+    border-radius: 0px;
+    height: 46px;
 }
 .page-item .page-link{
     margin: 9px 0px;

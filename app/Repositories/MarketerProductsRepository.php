@@ -14,21 +14,21 @@ class MarketerProductsRepository extends MarketerProductsRepositoryInterface{
         if($request->has('filter')):
 
             if($request->query('filter') == 'high-price'):
-            
+
                 $products = Product::orderBy('price','desc');
             elseif($request->query('filter') == 'low-price'):
-            
+
                 $products = Product::orderBy('price','asc');
             elseif($request->query('filter') == 'more-sales'):
-            
+
                 $products = Product::join('order_details','products.id','=','order_details.product_id')
                 ->select('products.*',DB::Raw('sum(order_details.quantity) as order_quantity'))->groupby('products.id')->orderby('order_quantity','desc');
             elseif($request->query('filter') == 'less-sales'):
-            
+
                 $products = Product::join('order_details','products.id','=','order_details.product_id')
                 ->select('products.*',DB::Raw('sum(order_details.quantity) as order_quantity'))->groupby('products.id')->orderby('order_quantity','asc');
             elseif($request->query('filter') == 'low-stock'):
-                
+
                 $products = Product::join('carts','products.id','=','carts.product_id')
                 ->select('products.*',DB::Raw('sum(carts.quantity) as cart_quantity'))->groupby('products.id')->havingRaw('IF(products.quantity > cart_quantity,products.quantity - cart_quantity,products.quantity) = 0');
                 //DB::Raw('sum(carts.quantity) as carts.carts_qty')
@@ -56,16 +56,14 @@ class MarketerProductsRepository extends MarketerProductsRepositoryInterface{
 
     public function search(Request $request){
         return response()->json([
-            'data_info'          => $request->user()->products()->withCount('order_details')->where('name','Like','%'.$request->query('q').'%')->get(),
-            'active_merchant'    => $request->user()->products()->where('status',1)->where('name','Like','%'.$request->query('q').'%')->count(),
-            'no_active_merchant' => $request->user()->products()->where('status',0)->where('name','Like','%'.$request->query('q').'%')->count()
+            'data_info'          => Product::where('name','Like','%'.$request->query('q').'%')->get(),
         ]);
 
     }
 
     public function show(Request $request,$id){
         return response()->json([
-            'product'          => $request->user()->products()->withCount('order_details')->where('id',$id)->first()
+            'product'          => Product::find($id)
         ]);
     }
 

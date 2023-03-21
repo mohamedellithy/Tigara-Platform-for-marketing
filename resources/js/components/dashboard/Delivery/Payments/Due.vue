@@ -44,6 +44,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>قيمة المبلغ</th>
+                                <th>سعر الطلبية</th>
+                                <th>ربح المنصة</th>
                                 <th>رقم الطلبية</th>
                                 <th>تاريخ الاضافة</th>
                             </tr>
@@ -54,6 +56,18 @@
                             <tr v-for="(payment, key) in payments" :key="key">
                                 <th scope="row">#{{ payment.id }}</th>
                                 <td>{{ payment.value }} USD</td>
+                                <td>
+                                    <template v-if="payment.order_id">
+                                        {{ payment.order.order_total }} USD
+                                    </template>
+                                    <template v-else> - </template>
+                                </td>
+                                <td>
+                                    <template v-if="payment.order_id">
+                                        {{ payment.order.platforms_profit_from_delivery_cash }} USD
+                                    </template>
+                                    <template v-else> - </template>
+                                </td>
                                 <td>
                                     <router-link :to="{path:'/delivery/delivery-show-orders/' + payment.order_id}" style="text-decoration:none">
                                         # {{ payment.order_id }} طلب رقم

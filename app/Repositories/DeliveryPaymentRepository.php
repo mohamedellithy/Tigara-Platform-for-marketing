@@ -14,7 +14,7 @@ class DeliveryPaymentRepository extends DeliveryPaymentRepositoryInterface{
        // return response()->json(['data' => $request->all()]);
         if($request->has('delivery_id')):
             return response()->json([
-                'data_info'          => new DeliveryPaymentResource(DeliveryPayment::where('delivery_id', $request->query('delivery_id'))->OrderBy('created_at','desc')->paginate(10))
+                'data_info'          => new DeliveryPaymentResource(DeliveryPayment::where('delivery_id', $request->query('delivery_id'))->with('order')->OrderBy('created_at','desc')->paginate(10))
             ]);
         else:
             $payment_made = DeliveryPayment::where('type',1)->sum('value');

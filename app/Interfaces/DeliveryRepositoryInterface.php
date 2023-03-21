@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 class DeliveryRepositoryInterface{
     public function all(Request $request){}
 
-    public function search($search = null){}
+    public function search(Request $request){}
 
     public function save($data){}
 

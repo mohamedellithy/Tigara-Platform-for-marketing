@@ -18,10 +18,10 @@ class MarketerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        return $this->marketerRepository->all();
+        return $this->marketerRepository->all($request);
     }
 
     /**
@@ -34,6 +34,18 @@ class MarketerController extends Controller
     {
         //
         return $this->marketerRepository->show($id);
+    }
+
+     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        //
+        return $this->marketerRepository->search($request);
     }
 
     /**

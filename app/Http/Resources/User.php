@@ -33,7 +33,11 @@ class User extends JsonResource
             'total_sales' => $this->total_sales,
             'total_un_paid' => $this->total_un_paid,
             'total_cart_cost' => $this->total_cart_cost,
-            'total_cart_profit' => $this->total_cart_profit
+            'total_cart_profit' => $this->total_cart_profit,
+            'total_merchant_products_sales' => $this->total_merchant_products_sales,
+            'total_compelete_orders' => $this->total_compelete_orders,
+            'all_marketer_and_platform_orders_profits' => $this->all_marketer_and_platform_orders_profits,
+            'total_platform_profits'  => $this->total_platform_profits
         ];
     }
 }

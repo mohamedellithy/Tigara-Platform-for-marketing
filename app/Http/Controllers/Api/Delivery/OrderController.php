@@ -35,7 +35,7 @@ class OrderController extends Controller
         if($request->has('shipping_status') && $request->input('shipping_status') == '2'):
             $order = Order::find($id);
             $request->validate([
-                'cash_delivered' => 'sometimes|gte:'.$order->total ?: 0
+                'cash_delivered' => 'sometimes|gt:'.$order->order_total ?: 0
             ]);
         endif;
 

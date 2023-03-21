@@ -26,10 +26,12 @@ class Order extends Model
     protected $appends = [
        'quantity',
        'total',
+       'order_total',
        'total_original',
        'order_status_txt',
        'shipping_status_txt',
-       'pending_payment'
+       'pending_payment',
+       'platforms_profit_from_delivery_cash'
     ];
 
     public function marketer(){
@@ -55,10 +57,17 @@ class Order extends Model
         );
     }
 
+    public function OrderTotal() : Attribute
+    {
+        return Attribute::make(
+            get : fn() => $this->order_details()->sum(DB::Raw('unit_price * quantity')) ?: 0
+        );
+    }
+
     public function Total() : Attribute
     {
         return Attribute::make(
-            get : fn() => $this->order_details()->selectRaw('sum(unit_price * quantity) as total')->first()->total ?: 0
+            get : fn() => $this->order_total + $this->platforms_profit_from_delivery_cash
         );
     }
 
@@ -70,7 +79,14 @@ class Order extends Model
             ->groupby('order_details.id')->sum(DB::Raw('order_details.quantity * ( ((order_details.unit_price - merchant_commission)  * marketer_commission ) / 100)')),
         );
     }
-    
+
+
+    public function PlatformsProfitFromDeliveryCash() : Attribute
+    {
+        return Attribute::make(
+            get: fn() => (20 * ($this->cash_delivered - $this->order_total) / 100)
+        );
+    }
 
     public function TotalOriginal() : Attribute
     {
@@ -121,7 +137,7 @@ class Order extends Model
         if($this->order_status == 2):
             if(strtotime(Date('d-m-Y')) > strtotime('+7 day',strtotime($this->created_at)) ):
                 $status = false;
-            endif; 
+            endif;
         endif;
         return Attribute::make(
             get : fn() => $status

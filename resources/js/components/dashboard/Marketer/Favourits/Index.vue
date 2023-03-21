@@ -42,7 +42,7 @@
                                     <strong>الربح</strong>
                                 </td>
                                 <td>
-                                    <strong>USD {{ product.price }} </strong>
+                                    <strong>USD {{ product.marketer_profit }} </strong>
                                 </td>
                             </tr>
                             <tr>
@@ -63,7 +63,7 @@
                                     </button>
                                 </td>
                                 <td>
-                                    <button class="btn btn-info buy-now" @click="BuyNow">
+                                    <button class="btn btn-info buy-now" @click="BuyNow(product)">
                                         <i class="fas fa-dolly-flatbed"></i>
                                         شراء الان
                                     </button>
@@ -184,6 +184,17 @@ export default {
                 console.log(response);
             });
         },
+        BuyNow:async function(product){
+            this.orders[product.id] = this.orders[product.id] || {};
+            this.orders[product.id].product_id = product.id;
+            this.orders[product.id].quantity   = (this.orders[product.id].quantity ? Number(this.orders[product.id].quantity) : 1);
+            this.orders[product.id].price      = product.price;
+            await this.AddtoCart(product);
+            console.log(product);
+            this.$router.replace({
+                path:'/marketer/carts'
+            });
+        },
         PlusQuantity:function(product){
             this.orders[product.id] = this.orders[product.id] || {};
             this.orders[product.id].product_id = product.id;
@@ -213,13 +224,13 @@ export default {
             let self = this;
             if((search.length != 0) && (search != null)){
                 this.params.q = search;
-                axios.get('/api/products/search',{
+                axios.get('/api/marketer-favourits/search',{
                     params:self.params
                 }).then(function({data}){
                     self.infos              = [];
                     self.products          = data.data_info;
-                    self.finished_products = data.finished_products;
-                    self.active_products    = data.active_products;
+                    // self.finished_products = data.finished_products;
+                    // self.active_products    = data.active_products;
                 }).catch(function({response}){
                     console.log(response);
                 });

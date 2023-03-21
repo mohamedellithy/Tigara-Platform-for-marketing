@@ -28,7 +28,10 @@ class Merchant extends JsonResource
             'status'      => $this->status,
             'payments_total' => $this->payments_total,
             'payments_due' => $this->payments_due,
-            'payments_made'  => $this->payments_made
+            'payments_made'  => $this->payments_made,
+            'total_merchant_products_sales' => $this->total_merchant_products_sales,
+            'total_compelete_orders' => $this->total_compelete_orders,
+            'total_platform_profits'  => $this->total_platform_profits
         ];
     }
 }

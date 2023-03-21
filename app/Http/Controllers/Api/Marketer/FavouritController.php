@@ -37,6 +37,11 @@ class FavouritController extends Controller
         return $this->marketer_favourits->save($request);
     }
 
+    public function search(Request $request){
+        return $this->marketer_favourits->search($request);
+    }
+
+
 
     /**
      * Remove the specified resource from storage.

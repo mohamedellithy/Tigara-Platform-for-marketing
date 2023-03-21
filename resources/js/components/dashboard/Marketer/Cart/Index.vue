@@ -15,6 +15,12 @@
                         </span>
                         <label>بيانات الزبون</label>
                     </li>
+                    <li :class="this.$route.params.action == 'review-order' ? 'active':''">
+                        <span class="container-icon">
+                            <i class="fas fa-receipt"></i>
+                        </span>
+                        <label>مراجعة الطلب</label>
+                    </li>
                     <li :class="this.$route.params.action == 'order-status' ? 'active':''">
                         <span class="container-icon">
                             <i class="fas fa-pallet"></i>
@@ -117,6 +123,91 @@
                                     </button>
                                 </li>
                             </ul>
+                        </form>
+                    </div>
+                    <div class="container-page-content" v-if="this.$route.params.action == 'review-order'">
+                        <form method="post" @submit.prevent="CompleteOrder">
+                            <ul class="buttons-arrows-actions">
+                                <li>
+                                    <router-link :to="{path:'/marketer/carts/customer-info'}" class="btn prev btn-block">
+                                        <i class="fas fa-long-arrow-alt-right"></i>
+                                        السابق
+                                    </router-link>
+                                </li>
+                                <li>
+                                    <button type="submit" class="btn next btn-block" style="color:white">
+                                        ارسال الطلب
+                                        <i class="fas fa-long-arrow-alt-left"></i>
+                                    </button>
+                                </li>
+                            </ul>
+                            <h4 class="title-customer-review-details">
+                                بيانات الزبون
+                                <router-link :to="{ path:'/marketer/carts/customer-info' }" class="btn btn-danger btn-sm">
+                                    تعديل
+                                    <i class="fas fa-edit"></i>
+                                </router-link>
+                            </h4>
+                            <table class="table table-bordered customer-review-details">
+                                <tr>
+                                    <td>
+                                        <h6>اسم الزبون</h6>
+                                        {{ customer.name || '' }}
+                                    </td>
+                                    <td>
+                                        <h6>رقم الجوال</h6>
+                                        {{ customer.phone || '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h6>رقم جوال أخر</h6>
+                                        {{ customer.another_phone || '' }}
+                                    </td>
+                                    <td>
+                                        <h6>المدينة</h6>
+                                        {{ customer.city || '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h6>العنوان كاملا</h6>
+                                        {{ customer.address || '' }}
+                                    </td>
+                                    <td>
+                                        <h6>ملاحظة </h6>
+                                        {{ customer.notice || 'لا يوجد أى ملاحطات' }}
+                                    </td>
+                                </tr>
+                            </table>
+                            <h4 class="title-customer-review-details">
+                                بيانات الطلبية
+                                <router-link :to="{ path:'/marketer/carts' }" class="btn btn-danger btn-sm">
+                                    تعديل
+                                    <i class="fas fa-edit"></i>
+                                </router-link>
+                            </h4>
+                            <table class="table table-bordered order-review-details">
+                                <tr>
+                                    <th>المنتج</th>
+                                    <th>كمية المنتج</th>
+                                    <th>سعر المنتج</th>
+                                    <th>ارباحك</th>
+                                </tr>
+                                <tr v-for="(item,key) in cart_items" :key="key">
+                                    <td>
+                                        <img :src="item.product.thumbnail_item.image_url"  class="mini-cart-product-image"/>
+                                        <label class="product-name">
+                                            {{ item.product.name }}
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label >{{  item.quantity  }} قطعة</label>
+                                    </td>
+                                    <td>{{ item.price }} USD</td>
+                                    <td>{{ item.product.marketer_profit * item.quantity }} USD</td>
+                                </tr>
+                            </table>
                         </form>
                     </div>
                     <div class="container-page-content" v-if="this.$route.params.action == 'order-status'">
@@ -327,12 +418,16 @@ export default{
         },
         AddCustomerInfo:async function(){
             let self = this;
-            self.showLoading = true;
             window.localStorage.setItem('customer',JSON.stringify(this.customer));
+            self.$router.push({path:'/marketer/carts/review-order'})
+        },
+        CompleteOrder:async function(){
+            let self = this;
+            self.showLoading = true;
             await axios.post('/api/marketer-orders',this.customer).then(function({data}){
                 console.log(data);
                 self.$emit('updateQuantity',0,[]);
-                self.$router.push({path:'/marketer/carts/order-status/'+data.order.id})
+                self.$router.push({path:'/marketer/carts/order-status/'+data.order.id});
             }).catch(function({response}){
                 console.log(response);
                 self.showerrors = true;
@@ -347,7 +442,20 @@ export default{
     async created(){
         let self = this;
         this.FetchCartItems();
-        self.customer = JSON.parse(window.localStorage.getItem('customer')) || {};
+        if(this.$route.params.action == "review-order"){
+            self.customer = JSON.parse(window.localStorage.getItem('customer'));
+        }
+
+        if(this.$route.params.action == "customer-info"){
+            let customer = window.localStorage.getItem('customer') || null;
+            if(JSON.parse(customer)){
+                self.customer = JSON.parse(customer);
+            } else {
+                self.customer = {};
+            }
+            console.log(customer,'bbbbbbb');
+        }
+
         if(this.$route.params.action == 'order-status'){
             await axios.get('/api/marketer-orders/'+this.$route.params.order_id).then(function({data}){
                  self.order = data.order;
@@ -355,6 +463,7 @@ export default{
             }).catch(function({response}){
                  console.log(response);
             });
+            window.localStorage.setItem('customer',null);
         }
     }
 }
@@ -435,7 +544,7 @@ export default{
 }
 .container-page-content
 {
-    padding: 10px 7px;
+    padding: 10px 17px;
 }
 
 .container-page-content table.mini-cart tr{
@@ -554,6 +663,33 @@ export default{
 .loading-overflow img{
     width: 20% !important;
     margin: auto;
-
+}
+.customer-review-details tr td{
+    padding: 13px;
+}
+.customer-review-details tr td h6
+{
+    padding: 0px;
+    color: #991414;
+    font-weight: bold;
+}
+.title-customer-review-details{
+    line-height: 2em;
+}
+.order-review-details tr td{
+    width: 62px;
+}
+.order-review-details tr td img
+{
+    width: 62px;
+}
+.order-review-details tr th
+{
+    padding: 13px;
+}
+.title-customer-review-details .btn,
+.order-review-details .btn{
+    float: left;
+    margin: 0px 10px;
 }
 </style>

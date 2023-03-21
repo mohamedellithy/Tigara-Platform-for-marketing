@@ -128,6 +128,7 @@ Route::domain('merchant.'.env('MAIN_DOMAIN'))->group(function () {
         Route::post('/logout',[ApiAuthController::class , 'logout']);
         Route::get('/products/search',[MerchantProductController::class,'search']);
         Route::get('/lowstock-products',[MerchantProductController::class,'lowstock_products']);
+        Route::get('/about-to-out-products',[MerchantProductController::class,'about_to_out_products']);
         Route::apiResource('products',MerchantProductController::class)->only([
             'index','show'
         ]);
@@ -168,15 +169,20 @@ Route::domain('marketer.'.env('MAIN_DOMAIN'))->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('/me',[ApiAuthController::class , 'me']);
         Route::post('/logout',[ApiAuthController::class , 'logout']);
-        Route::get('/products/search',[MerchantProductController::class,'search']);
+        Route::get('/marketer-products/search',[MarketerProductController::class,'search']);
         Route::get('/lowstock-products',[MerchantProductController::class,'lowstock_products']);
         Route::apiResource('marketer-products',MarketerProductController::class)->only([
             'index','show'
         ]);
 
         Route::apiResource('marketer-carts',MarketerCartController::class);
+        Route::get('/marketer-orders/search',[MarketerOrderController::class,'search']);
         Route::apiResource('marketer-orders',MarketerOrderController::class);
-        Route::apiResource('marketer-favourits',MarketerFavouritController::class);
+        Route::apiResource('marketer-favourits',MarketerFavouritController::class)->except([
+            'show'
+        ]);
+        Route::get('/marketer-favourits/search',[MarketerFavouritController::class,'search']);
+        
 
         Route::apiResource('/marketer-payments',MarketerPaymentsController::class);
         Route::get('marketer-statics',[MarketerStaticsController::class,'index']);

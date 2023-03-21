@@ -5,24 +5,52 @@ use App\Models\Merchant;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\Merchant as MerchantResource;
 use App\Http\Resources\MerchantCollections as MerchantCollectionsResource;
+use App\Models\OrderDetails;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 class MerchantRepository extends MerchantRepositoryInterface{
 
-    public function all(){
+    public function all(Request $request){
        // return response()->json(['data' => $request->all()]);
+        if($request->has('merchant_profits')):
+            $merchant = Merchant::whereHas('order_details.order',function($query){
+                $query->where('order_status',2);
+            })->paginate(12);
+        else:
+            $merchant = Merchant::paginate(12);
+        endif;
+        $total_merchant_products_sales = OrderDetails::whereHas('order',function($query){
+            $query->where('order_status',2);
+        })->join('products','products.id','=','order_details.product_id')->select('products.merchant_commission','order_details.*')
+        ->sum(DB::Raw('products.merchant_commission * order_details.quantity'));
+
+        $total_sales = OrderDetails::whereHas('order',function($query){
+            $query->where('order_status',2);
+        })->sum(DB::Raw('order_details.unit_price * order_details.quantity'));
+
+
         return response()->json([
-            'data_info'          => new MerchantCollectionsResource(Merchant::paginate(12)),
+            'data_info'          => new MerchantCollectionsResource($merchant),
             'all_merchants'      => Merchant::count(),
-            'active_merchant'    => Merchant::where('status',1)->count(),
-            'no_active_merchant' => Merchant::where('status',0)->count()
+            'total_merchant_products_sales'    => $total_merchant_products_sales,
+            'total_sales'        => $total_sales,
+            'total_platform_profits' => $total_sales - $total_merchant_products_sales
         ]);
     }
 
-    public function search($search = null){
+    public function search(Request $request){
+        if($request->has('merchant_profits')):
+            $merchant = Merchant::whereHas('order_details.order',function($query){
+                $query->where('order_status',2);
+            })->where('name','Like','%'.$request->query('q').'%')->get();
+        else:
+            $merchant = Merchant::where('name','Like','%'.$request->query('q').'%')->get();
+        endif;
         return response()->json([
-            'data_info'          => MerchantResource::collection(Merchant::where('name','Like','%'.$search.'%')->get()),
+            'data_info'          => MerchantResource::collection($merchant),
             'all_merchants'      => Merchant::count(),
-            'active_merchant'    => Merchant::where('status',1)->where('name','Like','%'.$search.'%')->count(),
-            'no_active_merchant' => Merchant::where('status',0)->where('name','Like','%'.$search.'%')->count()
+            'active_merchant'    => Merchant::where('status',1)->where('name','Like','%'.$request->query('q').'%')->count(),
+            'no_active_merchant' => Merchant::where('status',0)->where('name','Like','%'.$request->query('q').'%')->count()
         ]);
 
     }

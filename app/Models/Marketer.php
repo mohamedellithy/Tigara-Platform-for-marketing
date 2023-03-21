@@ -27,7 +27,10 @@ class Marketer extends Authenticatable
         'total_paid',
         'total_un_paid',
         'total_cart_items',
-        'total_profit_pending'
+        'total_profit_pending',
+        'total_compelete_orders',
+        'total_platform_profits',
+        'all_marketer_and_platform_orders_profits'
     ];
 
     /**
@@ -125,16 +128,38 @@ class Marketer extends Authenticatable
             get: fn() => $this->orders()->where('order_status',2)
             ->join('order_details','orders.id','=','order_details.order_id')->select('orders.*','order_details.unit_price','order_details.quantity')
             ->sum(DB::Raw('order_details.unit_price * order_details.quantity'))
-            // order_details()->sum(function($order_details) {
-            //     return $order_details['unit_price'] * $order_details['quantity'];
-            // })
+        );
+    }
+
+    public function totalCompeleteOrders():Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->orders()->where('order_status',2)->count()
         );
     }
 
     public function totalProfites():Attribute
     {
         return Attribute::make(
-        get: fn() => $this->orders()->sum('marketer_profit')
+        get: fn() => $this->orders()->where('order_status',2)->sum('marketer_profit')
+        );
+    }
+
+    public function AllMarketerAndPlatformOrdersProfits() : Attribute
+    {
+        return Attribute::make(
+            get: fn() =>  $this->orders()->where('order_status',2)
+            ->join('order_details','orders.id','=','order_details.order_id')
+            ->join('products','order_details.product_id','=','products.id')
+            ->select('orders.*','order_details.unit_price','order_details.quantity','products.merchant_commission')
+            ->sum(DB::Raw('(order_details.unit_price - products.merchant_commission) * order_details.quantity'))
+        );
+    }
+
+    public function TotalPlatformProfits() : Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->all_marketer_and_platform_orders_profits - $this->total_profites
         );
     }
 

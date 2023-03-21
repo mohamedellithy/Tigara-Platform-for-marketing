@@ -43,6 +43,44 @@
                         </p>
                     </router-link>
                 </li>
+                <li>
+                    <router-link :to="{path:'/dashboard/orders'}">
+                        <i style="color: #ffccbc;" class="fas fa-pallet"></i>
+                        <strong>{{ statics.total_sales }} <span>USD</span></strong>
+                        <p>
+                            اجمالى المبيعات
+                        </p>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link :to="{path:'/dashboard/orders'}">
+                        <i style="color: #ffccbc;" class="fas fa-pallet"></i>
+                        <strong>{{ statics.total_sale_profits }} <span>USD</span></strong>
+                        <p>
+                            اجمالى أرباح المبيعات
+                        </p>
+                    </router-link>
+                </li>
+
+                <li>
+                    <router-link :to="{path:'/dashboard/orders'}">
+                        <i style="color: #ffccbc;" class="fas fa-pallet"></i>
+                        <strong>{{ statics.total_from_delivery_profits }} <span>USD</span></strong>
+                        <p>
+                            اجمالى أرباح الشحن
+                        </p>
+                    </router-link>
+                </li>
+
+                <li>
+                    <router-link :to="{path:'/dashboard/orders'}">
+                        <i style="color: #ffccbc;" class="fas fa-pallet"></i>
+                        <strong>{{ statics.all_profits }} <span>USD</span></strong>
+                        <p>
+                            اجمالى الأرباح
+                        </p>
+                    </router-link>
+                </li>
             </ul>
         </div>
         <div class="row">
@@ -180,5 +218,9 @@ export default {
 .content-tab-products table
 {
     border-bottom: 1px solid #9bcbfb;
+}
+li strong span{
+    font-size: 13px;
+    color: red;
 }
 </style>

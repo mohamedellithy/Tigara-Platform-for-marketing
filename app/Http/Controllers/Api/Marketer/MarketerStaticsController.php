@@ -23,7 +23,7 @@ class MarketerStaticsController extends Controller
             'products_count'          => Product::count(),
             'lowstock_products_count' => Product::where('quantity',0)->count(),
             'orders_count'            => $request->user()->orders()->count(),
-            'total_sales'             => $request->user()->orders()->where('order_status',2)->join('order_details', 'orders.id','=','order_details.order_id')->select('orders.*','order_details.quantity','order_details.unit_price')->groupby('orders.id')->sum(DB::Raw('order_details.quantity * order_details.unit_price')),
+            'total_sales'             => $request->user()->orders()->where('order_status',2)->join('order_details', 'orders.id','=','order_details.order_id')->select('orders.*','order_details.quantity','order_details.unit_price')->sum(DB::Raw('order_details.quantity * order_details.unit_price')),
             'total_profits'           => $profits,
             'payments_made'           => $payments_made,
             'payments_due'            => $profits - $payments_made,
