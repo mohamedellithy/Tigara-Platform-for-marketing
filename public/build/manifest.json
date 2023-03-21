@@ -11,13 +11,13 @@
     "file": "assets/menu-2-svgrepo-com-ed812ec3.svg",
     "src": "resources/js/img/menu-2-svgrepo-com.svg"
   },
-  "resources/js/img/Digital-Marketing-Transparent-PNG.png": {
-    "file": "assets/Digital-Marketing-Transparent-PNG-35f245ee.png",
-    "src": "resources/js/img/Digital-Marketing-Transparent-PNG.png"
-  },
   "resources/js/img/Circle-icons-profile.svg.png": {
     "file": "assets/Circle-icons-profile.svg-f34676cf.png",
     "src": "resources/js/img/Circle-icons-profile.svg.png"
+  },
+  "resources/js/img/Digital-Marketing-Transparent-PNG.png": {
+    "file": "assets/Digital-Marketing-Transparent-PNG-35f245ee.png",
+    "src": "resources/js/img/Digital-Marketing-Transparent-PNG.png"
   },
   "resources/js/img/tigara.png": {
     "file": "assets/tigara-e3978238.png",
@@ -31,17 +31,17 @@
     "file": "assets/shipping-delivery-4be8b44d.png",
     "src": "resources/js/img/shipping-delivery.png"
   },
-  "resources/js/img/prod-2.png": {
-    "file": "assets/prod-2-629b3c94.png",
-    "src": "resources/js/img/prod-2.png"
+  "resources/js/img/prod-3.png": {
+    "file": "assets/prod-3-3bed2c63.png",
+    "src": "resources/js/img/prod-3.png"
   },
   "resources/js/img/81g63eBEhxL._AC_UF894,1000_QL80_.jpg": {
     "file": "assets/81g63eBEhxL._AC_UF894_1000_QL80_-7aede39b.jpg",
     "src": "resources/js/img/81g63eBEhxL._AC_UF894,1000_QL80_.jpg"
   },
-  "resources/js/img/prod-3.png": {
-    "file": "assets/prod-3-3bed2c63.png",
-    "src": "resources/js/img/prod-3.png"
+  "resources/js/img/prod-2.png": {
+    "file": "assets/prod-2-629b3c94.png",
+    "src": "resources/js/img/prod-2.png"
   },
   "resources/js/img/upload-1118929_960_720.webp": {
     "file": "assets/upload-1118929_960_720-2cfe47ae.webp",
@@ -56,15 +56,15 @@
     "src": "resources/js/img/prod-4.png"
   },
   "resources/js/app.css": {
-    "file": "assets/app-24fb242f.css",
+    "file": "assets/app-d80b0540.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
-    "file": "assets/app-8f21b6fc.js",
+    "file": "assets/app-81510e63.js",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-24fb242f.css"
+      "assets/app-d80b0540.css"
     ],
     "assets": [
       "assets/pattern-464d9bf6.png",
