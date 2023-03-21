@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class MerchantStaticsController extends Controller
 {
-    //    
+    //
     public function index(Request $request){
         return response()->json([
             'products_count'          => $request->user()->products()->count(),
@@ -18,7 +18,7 @@ class MerchantStaticsController extends Controller
             'payments_due'            => $request->user()->payments_due,
             'payments_made'           => $request->user()->payments_made,
             'orders'                  => $request->user()->order_details()->orderBy('created_at','asc')->limit(5)->get(),
-            'products'                => $request->user()->products()->orderBy('created_at','asc')->limit(5)->get(),
+            'products'                => $request->user()->products()->where('quantity',0)->orderBy('created_at','asc')->limit(5)->get(),
         ]);
     }
 }
