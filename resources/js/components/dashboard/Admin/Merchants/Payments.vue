@@ -14,7 +14,7 @@
                                 </li>
                                 <li class="filter-item">
                                     {{ payment_total }} USD
-                                    
+
                                      اجمالى المدفوعات
                                 </li>
 
@@ -25,20 +25,20 @@
 
                                 <li class="filter-item">
                                     {{ payment_due - payment_pending }} USD
-                                    
-                                     المدفوعات المستحقة
+
+                                     المدفوعات الغير مسددة
                                 </li>
 
                                 <li class="filter-item">
                                     {{ payment_made }} USD
-                                    
+
                                      المدفوعات المسددة
                                 </li>
-                                
+
                                 <br/><br/>
                                 <li class="filter-item" style="background-color: rgb(255, 234, 234);">
                                     <i class="fas fa-eye" data-v-d0b1f818=""></i>
-                                    {{ merchants.length }} 
+                                    {{ merchants.length }}
                                     المعروض
                                 </li>
                             </ul>
@@ -59,7 +59,7 @@
                                 <th>اسم المتجر</th>
                                 <th>اجمالى المدفوعات</th>
                                 <th>المدفوعات المحظورة</th>
-                                <th>المدفوعات المستحقة</th>
+                                <th>المدفوعات الغير مسددة</th>
                                 <th>المدفوعات المسددة</th>
                                 <th></th>
                             </tr>
@@ -78,7 +78,7 @@
                                 <td class="actions-btn">
                                     <router-link :to="{path:'/dashboard/show-payments-merchant/'+merchant.id}"  class="btn btn-primary btn-sm">
                                         <i class="fas fa-eye"></i>
-                                           تفاصيل المدفوعات 
+                                           تفاصيل المدفوعات
                                     </router-link>
                                     <router-link :to="{path:'/dashboard/merchant-add-payment/'+merchant.id}" class="btn btn-warning btn-sm">
                                         <i class="fas fa-edit"></i>

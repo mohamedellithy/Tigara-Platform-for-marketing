@@ -59,6 +59,8 @@
                                 <th>رقم الجوال</th>
                                 <th>المنتجات المميزة</th>
                                 <th>حالة المسوق</th>
+                                <th>طلبات المكتملة</th>
+                                <th> أرباح</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -75,6 +77,8 @@
                                 <td>{{ marketer.phone }}</td>
                                 <td>{{ marketer.feature_products }} منتج</td>
                                 <td>{{ marketer.status_text }}</td>
+                                <td>{{ marketer.total_compelete_orders }} طلبية</td>
+                                <td>{{ marketer.total_profites }} USD</td>
                                 <td class="actions-btn">
                                     <button @click="DeleteMarketer(marketer.id,marketer.name)" class="btn btn-danger btn-sm">
                                         حذف

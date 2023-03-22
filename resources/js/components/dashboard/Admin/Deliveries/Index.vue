@@ -8,7 +8,7 @@
                             <ul class="filter-results">
                                 <li class="actions-btn">
                                     <button  @click="TruncateDeliveries()" class="btn btn-danger btn-sm">
-                                        حذف الكل 
+                                        حذف الكل
                                     </button>
                                     <button @click="DeleteSelectedDeliveries()" class="btn btn-danger btn-sm" :disabled="(selected.length == 0)">
                                         حذف المحدد
@@ -54,10 +54,13 @@
                                     <input class="" type="checkbox" v-model="selected_all"/>
                                 </th>
                                 <th>#</th>
-                                <th>اسم شركة الشحن</th>
+                                <th>اسم </th>
                                 <th>البريدالالكترونى</th>
                                 <th>رقم الجوال</th>
-                                <th>حالة شركة الشحن</th>
+                                <th>حال </th>
+                                <th>اجمالى الطلبات</th>
+                                <th>اجمالى المبيعات</th>
+                                <th> أرباح</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -80,6 +83,9 @@
                                          مفعل
                                     </template>
                                 </td>
+                                <td>{{ delivery.total_orders }} طلبية</td>
+                                <td>{{ delivery.total_sales }} USD</td>
+                                <td>{{ delivery.total_delivery_profits }} USD</td>
                                 <td class="actions-btn">
                                     <button @click="DeleteDelivery(delivery.id,delivery.name)" class="btn btn-danger btn-sm">
                                         حذف

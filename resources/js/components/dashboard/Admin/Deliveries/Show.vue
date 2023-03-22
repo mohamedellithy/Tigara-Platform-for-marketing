@@ -33,10 +33,40 @@
                 <div class="form-group">
                     <label for="merchant-name">
                         <i class="fas fa-user-edit" style="padding: 5px;"></i>
-                        اجمالى المبيعات
+                        اجمالى الطلبات
                     </label>
                     <p class="container-value-p">
-                        {{ delivery.total_sales }} USD
+                        {{ delivery.total_orders }} USD
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="merchant-name">
+                        <i class="fas fa-user-edit" style="padding: 5px;"></i>
+                        اجمالى الأرباح
+                    </label>
+                    <p class="container-value-p">
+                        {{ delivery.total_profits }} USD
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="merchant-name">
+                        <i class="fas fa-user-edit" style="padding: 5px;"></i>
+                        اجمالى أرباح المنصة
+                    </label>
+                    <p class="container-value-p">
+                        {{ delivery.total_platforms_profit_from_delivery_cash }} USD
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="merchant-name">
+                        <i class="fas fa-user-edit" style="padding: 5px;"></i>
+                        اجمالى المدفوعات الغير مسددة
+                    </label>
+                    <p class="container-value-p">
+                        {{ delivery.payments_due }} USD
                     </p>
                 </div>
             </div>
@@ -48,7 +78,7 @@
                     </label>
                     <p class="container-value-p">{{ delivery.phone }}</p>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="merchant-name">
                         <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
@@ -59,6 +89,47 @@
                         <router-link :to="{path:'/dashboard/show-orders-delivery/'+delivery.id}" class="btn btn-primary btn-sm show-products-merchants">عرض طلبات شركة شحن</router-link>
                     </p>
                 </div>
+
+                <div class="form-group">
+                    <label for="merchant-name">
+                        <i class="fas fa-user-edit" style="padding: 5px;"></i>
+                        اجمالى المبيعات
+                    </label>
+                    <p class="container-value-p">
+                        {{ delivery.total_sales }} USD
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="merchant-name">
+                        <i class="fas fa-user-edit" style="padding: 5px;"></i>
+                        اجمالى أرباح شركة الشحن
+                    </label>
+                    <p class="container-value-p">
+                        {{ delivery.total_delivery_profits }} USD
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="merchant-name">
+                        <i class="fas fa-user-edit" style="padding: 5px;"></i>
+                         اجمالى المدفوعات المستحقة
+                    </label>
+                    <p class="container-value-p">
+                        {{ delivery.payments_total }} USD
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="merchant-name">
+                        <i class="fas fa-user-edit" style="padding: 5px;"></i>
+                        المدفوعات المسددة
+                    </label>
+                    <p class="container-value-p">
+                        {{ delivery.payments_made }} USD
+                    </p>
+                </div>
+
             </div>
         </div>
     </div>

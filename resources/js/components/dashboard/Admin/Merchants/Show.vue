@@ -46,10 +46,37 @@
                 <div class="form-group">
                     <label for="merchant-name">
                         <i class="fas fa-user-edit" style="padding: 5px;"></i>
+                        اجمالى الطلبات
+                    </label>
+                    <p class="container-value-p">
+                        {{ merchant.total_compelete_orders }} طلبية
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label for="merchant-name">
+                        <i class="fas fa-user-edit" style="padding: 5px;"></i>
                         اجمالى المبيعات
                     </label>
                     <p class="container-value-p">
                         {{ merchant.total_sales }} USD
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label for="merchant-name">
+                        <i class="fas fa-user-edit" style="padding: 5px;"></i>
+                        اجمالى المبالغ المتاحة للسحب
+                    </label>
+                    <p class="container-value-p">
+                        {{ merchant.payments_due - merchant.total_pending }} USD
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label for="merchant-name">
+                        <i class="fas fa-user-edit" style="padding: 5px;"></i>
+                        اجمالى المبالغ المحظورة
+                    </label>
+                    <p class="container-value-p">
+                        {{merchant.total_pending }} USD
                     </p>
                 </div>
             </div>
@@ -79,6 +106,33 @@
                     <p class="container-value-p">
                         {{ merchant.orders ? merchant.orders.length : 0 }} طلبات
                         <router-link :to="{path:'/dashboard/show-orders-merchant/'+merchant.id}" class="btn btn-primary btn-sm show-products-merchants">عرض طلبات التاجر</router-link>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label for="merchant-name">
+                        <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
+                        اجمالى أرباح المنصة
+                    </label>
+                    <p class="container-value-p">
+                        {{ merchant.total_platform_profits }} USD
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label for="merchant-name">
+                        <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
+                        اجمالى المبالغ الغير مسددة
+                    </label>
+                    <p class="container-value-p">
+                        {{ merchant.payments_due }} USD
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label for="merchant-name">
+                        <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
+                        اجمالى المبالغ مسددة
+                    </label>
+                    <p class="container-value-p">
+                        {{ merchant.payments_made }} USD
                     </p>
                 </div>
             </div>

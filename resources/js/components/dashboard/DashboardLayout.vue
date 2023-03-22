@@ -1,8 +1,8 @@
 <template>
     <div class="section-row-layouts">
         <div :class="[ (this.toggleSide ? 'active': 'no-active') + ' sidemenu' ]">
-            <div class="header-shop">
-                <label class="header-shop-logo"></label>
+            <div class="header-shop" style="text-align: center;">
+                <!-- <label class="header-shop-logo"></label> -->
                 <router-link v-if="this.$auth.user.account_type == 0" :to="{path:'/dashboard/dashboard-reports'}">
                     <img class="header-shop-name" :src="this.tigaraIcon" />
                 </router-link>
@@ -157,7 +157,7 @@ import AdminSidebar from './SideBars/AdminSidebar.vue';
 import MerchantSidebar from './SideBars/MerchantSidebar.vue';
 import DeliverySidebar from './SideBars/DeliverySidebar.vue';
 import MarketerSidebar from './SideBars/MarketerSidebar.vue';
-import tigaraIcon from '@/img/tigara.png';
+import tigaraIcon from '@/img/tigara-trans.png';
 export default {
     components: { AdminSidebar,MerchantSidebar,DeliverySidebar,MarketerSidebar,tigaraIcon},
     data(){

@@ -22,7 +22,7 @@
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-users"></i>
-                                    {{ all_merchants  }} عدد  التجار  
+                                    {{ all_merchants  }} عدد  التجار
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-check"></i>
@@ -59,6 +59,8 @@
                                 <th>البريدالالكترونى</th>
                                 <th>رقم الجوال</th>
                                 <th>حالة التاحر</th>
+                                <th>اجمالى الطلبات</th>
+                                <th>اجمالى المبيعات</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -85,6 +87,8 @@
                                     </template>
 
                                 </td>
+                                <td>{{ merchant.total_compelete_orders }} طلبية</td>
+                                <td>{{ merchant.total_merchant_products_sales }} USD</td>
                                 <td class="actions-btn">
                                     <button @click="DeleteMerchant(merchant.id,merchant.name)" class="btn btn-danger btn-sm">
                                         حذف

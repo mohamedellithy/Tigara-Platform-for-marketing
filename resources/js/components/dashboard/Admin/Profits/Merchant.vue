@@ -8,7 +8,7 @@
                             <ul class="filter-results">
                                 <li class="filter-item">
                                     <i class="fas fa-users"></i>
-                                    {{ all_merchants  }} عدد  التجار  
+                                    {{ all_merchants  }} عدد  التجار
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-check"></i>
@@ -48,7 +48,9 @@
                                 <th>اسم المتجر</th>
                                 <th>اجمالى الطلبات</th>
                                 <th>اجمالى المبيعات</th>
-                                <th>اجمالى الأرباح</th>
+                                <th>اجمالى أرباح المنصة</th>
+                                <th>المبالغ الغير مسددة</th>
+                                <th>المبالغ المسددة</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -67,6 +69,8 @@
                                 <td>{{ merchant.total_compelete_orders }} طلبية</td>
                                 <td>{{ merchant.total_merchant_products_sales }} USD</td>
                                 <td>{{ merchant.total_platform_profits }} USD</td>
+                                <td>{{ merchant.payments_due }} USD</td>
+                                <td>{{ merchant.payments_made }} USD</td>
                                 <td class="actions-btn">
                                     <router-link :to="{path:'/dashboard/show-merchant/'+merchant.id}"  class="btn btn-primary btn-sm">
                                         عرض

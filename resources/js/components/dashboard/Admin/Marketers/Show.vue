@@ -51,6 +51,15 @@
                 <div class="form-group">
                     <label for="merchant-name">
                         <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
+                        اجمالى أرباح المسوق
+                    </label>
+                    <p class="container-value-p">
+                        {{ marketer.total_profites }} USD
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label for="merchant-name">
+                        <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
                         المبالغ الغير مسددة
                     </label>
                     <p class="container-value-p">
@@ -82,19 +91,39 @@
                         عدد طلبات الشراء
                     </label>
                     <p class="container-value-p">
-                        {{ marketer.orders_details ? marketer.orders_details.length : 0 }} طلبات
+                        {{ marketer.total_compelete_orders}} طلبات
                         <router-link :to="{path:'/dashboard/show-orders-marketer/'+marketer.id}" class="btn btn-primary btn-sm show-products-merchants">عرض طلبات المسوق</router-link>
                     </p>
                 </div>
                 <div class="form-group">
                     <label for="merchant-name">
                         <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
-                        المبالغ المدفوعة
+                        اجمالى أرباح
+                    </label>
+                    <p class="container-value-p">
+                        {{ marketer.all_marketer_and_platform_orders_profits}} USD
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label for="merchant-name">
+                        <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
+                    اجمالى أرباح المنصة
+                    </label>
+                    <p class="container-value-p">
+                        {{ marketer.total_platform_profits }} USD
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label for="merchant-name">
+                        <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
+                        المبالغ المسددة
                     </label>
                     <p class="container-value-p">
                         {{ marketer.total_paid ? marketer.total_paid : 0 }} USD
                     </p>
                 </div>
+
+
             </div>
         </div>
     </div>
