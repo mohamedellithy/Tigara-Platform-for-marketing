@@ -17,8 +17,8 @@ class Authorize{
     }
 
     public function login(Request $request){
-        if(Auth::guard($this->guard)->attempt(['email' => $request->input('email'), 'password' => $request->input('password'),'account_type' => \Config::get('app.Current_Domain') ])) {
-            $user  = $this->ModelGuard::where('email', $request->input('email'))->firstOrFail();
+        if(Auth::guard($this->guard)->attempt(['phone' => $request->input('phone'), 'password' => $request->input('password'),'account_type' => \Config::get('app.Current_Domain') ])) {
+            $user  = $this->ModelGuard::where('phone', $request->input('phone'))->firstOrFail();
             $token = $user->createToken('authToken')->plainTextToken;
             return response()->json([
                 'access_token' => $token,
@@ -28,7 +28,7 @@ class Authorize{
         }
         else {
             $Check_Where_is_error = $this->ModelGuard::where([
-                'email' => $request->input('email'),
+                'phone' => $request->input('phone'),
                 'account_type' => \Config::get('app.Current_Domain')
             ])->exists();
             if($Check_Where_is_error):
@@ -40,8 +40,8 @@ class Authorize{
             else:
                 return response()->json(['errors'=>
                 [
-                    "email" => [
-                        "Email is not exist please try again " 
+                    "phone" => [
+                        "Phone Number is not exist please try again " 
                     ]
                 ]], 401);
             endif;
@@ -54,7 +54,7 @@ class Authorize{
         $request['account_type']   = \Config::get('app.Current_Domain');
         $user = $this->ModelGuard::create($request->all());
         if(Auth::guard($this->guard)->attempt([
-                'email' => $request->input('email'),
+                'phone' => $request->input('phone'),
                 'password' => $request->input('password_confirmation'),
                 'account_type' => \Config::get('app.Current_Domain')
             ])) {

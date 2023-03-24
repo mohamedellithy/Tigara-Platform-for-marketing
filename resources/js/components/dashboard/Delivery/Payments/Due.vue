@@ -47,6 +47,7 @@
                                 <th>سعر الطلبية</th>
                                 <th>ربح المنصة</th>
                                 <th>رقم الطلبية</th>
+                                <th>الملاحظات</th>
                                 <th>تاريخ الاضافة</th>
                             </tr>
                         </thead>
@@ -72,6 +73,14 @@
                                     <router-link :to="{path:'/delivery/delivery-show-orders/' + payment.order_id}" style="text-decoration:none">
                                         # {{ payment.order_id }} طلب رقم
                                     </router-link>
+                                </td>
+                                <td>
+                                    <p class="notice" v-if="payment.notice">
+                                        {{ payment.notice }}
+                                    </p>
+                                    <p v-else>
+                                        بدون ملاحظة
+                                    </p>
                                 </td>
                                 <td>{{ payment.created_at }}</td>
                             </tr>
@@ -308,5 +317,9 @@ export default {
     color: black;
     margin: 10px;
     border: 1px solid orange;
+}
+p.notice{
+    width: 80%;
+    white-space: normal !important;
 }
 </style>

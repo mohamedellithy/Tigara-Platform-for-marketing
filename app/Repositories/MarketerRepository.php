@@ -146,7 +146,7 @@ class MarketerRepository extends MarketerRepositoryInterface{
             endif;
 
             $merketer->products()->attach($handle_products_ids,['status'=>1]);
-            $products = Product::whereDoesntHave('marketers', function(Builder $query) use ($id){
+            $products = Product::where('private',1)->whereDoesntHave('marketers', function(Builder $query) use ($id){
                 $query->where('marketer_id', $id);
             });
 
@@ -161,7 +161,7 @@ class MarketerRepository extends MarketerRepositoryInterface{
         if(count($data['products']) > 0){
             $merketer->products()->detach($data['products'],['status'=>1]);
 
-            $products = Product::whereHas('marketers', function(Builder $query) use ($id){
+            $products = Product::where('private',1)->whereHas('marketers', function(Builder $query) use ($id){
                 $query->where('marketer_id', $id);
             });
 
@@ -172,11 +172,11 @@ class MarketerRepository extends MarketerRepositoryInterface{
     }
 
     public function marketer_products($id){
-        $products = Product::whereHas('marketers', function(Builder $query) use ($id){
+        $products = Product::where('private',1)->whereHas('marketers', function(Builder $query) use ($id){
             $query->where('marketer_id', $id);
         });
 
-        $no_active_products = Product::whereDoesntHave('marketers', function(Builder $query) use ($id){
+        $no_active_products = Product::where('private',1)->whereDoesntHave('marketers', function(Builder $query) use ($id){
             $query->where('marketer_id', $id);
         });
 
@@ -188,11 +188,11 @@ class MarketerRepository extends MarketerRepositoryInterface{
     }
 
     public function marketer_nothave_products($id){
-        $products = Product::whereDoesntHave('marketers', function(Builder $query) use ($id){
+        $products = Product::where('private',1)->whereDoesntHave('marketers', function(Builder $query) use ($id){
             $query->where('marketer_id', $id);
         });
 
-        $no_active_products = Product::whereHas('marketers', function(Builder $query) use ($id){
+        $no_active_products = Product::where('private',1)->whereHas('marketers', function(Builder $query) use ($id){
             $query->where('marketer_id', $id);
         });
 

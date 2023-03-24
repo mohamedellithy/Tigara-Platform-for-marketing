@@ -25,16 +25,18 @@
                                 <span> أو </span>
                             </div>
                             <div class="form-group">
-                                <label>البريد الالكترونى</label>
-                                <input v-model="field.email" type="email" placeholder="" class="form-control"/>
-                                <template v-if="errors.email">
-                                    <p style="line-height: 2.5em;color: red;" v-for="(error,key) in errors.email" :key="key">{{ error }}</p>
+                                <label>رقم الجوال</label>
+                                <input v-model="field.phone" type="tel" placeholder="" class="form-control"/>
+                                <template v-if="errors.phone">
+                                    <p style="line-height: 2.5em;color: red;" v-for="(error,key) in errors.phone" :key="key">{{ error }}</p>
                                 </template>
                             </div>
                             <div class="form-group">
                                 <label>كلة المرور</label>
-                                <input v-model="field.password" type="password" placeholder="" class="form-control"/>
-                                <img class="img-show-hide-password" :src="this.HideIcon"/>
+                                <input v-model="field.password" :type="showPassword == true ? 'text' : 'password' " placeholder="" class="form-control"/>
+                                <!-- <img @click="showPassword = true" class="img-show-hide-password" :src="this.HideIcon"/> -->
+                                <i @click="showPassword = false"  class="fas fa-eye img-show-hide-password" v-if="showPassword == true"></i>
+                                <i @click="showPassword = true"  class="fas fa-eye-slash img-show-hide-password" v-if="showPassword == false"></i>
                                 <template v-if="errors.password">
                                     <p style="line-height: 2.5em;color: red;" v-for="(error,key) in errors.password" :key="key">{{ error }}</p>
                                 </template>
@@ -44,7 +46,7 @@
                                     <input type="checkbox" checked/>
                                     <label>تذكرني</label>
                                 </span>
-                                <span class="forget-password">
+                                <span v-if="this.domian[0] != 'admin'" class="forget-password">
                                     <a href="#">هل نسيت كلمة المرور</a>
                                 </span>
                             </div>
@@ -53,10 +55,10 @@
                                     تسجيل الدخول
                                 </button>
                             </div>
-                            <div class="RegisterSectionLink">
+                            <div v-if="this.domian[0] == 'marketer'" class="RegisterSectionLink">
                                  <span>ليس لديك حساب ؟</span>
                             </div>
-                            <router-link tag="a" :to="{name:'register'}" class="link-register"> انشاء حساب جديد </router-link>
+                            <router-link v-if="this.domian[0] == 'marketer'" tag="a" :to="{name:'register'}" class="link-register"> انشاء حساب جديد </router-link>
 
                         </div>
                     </form>
@@ -77,7 +79,9 @@ export default {
             errors:{},
             backgroundPatternImage,
             HideIcon,
-            Marketing
+            Marketing,
+            showPassword:false,
+            domian:null,
         }
     },
     methods:{
@@ -103,6 +107,10 @@ export default {
                 self.errors = response.data.errors;
             });
         }
+    },
+    created(){
+        this.domian = window.location.hostname.split('.');
+        console.log(this.domian);
     }
 }
 </script>
@@ -232,7 +240,7 @@ export default {
 .img-show-hide-password{
     position: absolute;
     left: 20px;
-    top: 70px;
+    top: 62px;
     cursor: pointer;
 }
 .img-marketing{

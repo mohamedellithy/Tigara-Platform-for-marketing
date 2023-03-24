@@ -58,6 +58,15 @@
                         <router-link :to="{path:'/marketer/show-product/'+product.id}" style="text-decoration:none;">
                             <p>{{ product.name }}</p>
                         </router-link>
+                        <p>
+                            {{ product.private == 0 ? 'منتج عادى ' : 'منتج مميز ' }}
+                            <template v-if="product.private == 1">
+                                <i class="fas fa-star" style='color:orange;margin: 0px 14px;'></i>
+                            </template>
+                            <template v-if="product.private == 0">
+                                <i class="fas fa-star" style="margin: 0px 14px;"></i>
+                            </template>
+                        </p>
                         <table class="table product-info-details">
                             <tr>
                                 <td>

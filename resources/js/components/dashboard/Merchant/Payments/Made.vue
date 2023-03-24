@@ -32,6 +32,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>قيمة المبلغ</th>
+                                <th>الملاحظات</th>
                                 <th>تاريخ الاضافة</th>
                             </tr>
                         </thead>
@@ -41,6 +42,14 @@
                             <tr v-for="(payment, key) in payments" :key="key">
                                 <th scope="row">#{{ payment.id }}</th>
                                 <td>{{ payment.value }} USD</td>
+                                <td>
+                                    <p class="notice" v-if="payment.notice">
+                                        {{ payment.notice }}
+                                    </p>
+                                    <p v-else>
+                                        بدون ملاحظة
+                                    </p>
+                                </td>
                                 <td>{{ payment.created_at }}</td>
                             </tr>
                         </tbody>
@@ -276,5 +285,9 @@ export default {
     color: black;
     margin: 10px;
     border: 1px solid orange;
+}
+p.notice{
+    width: 80%;
+    white-space: normal !important;
 }
 </style>

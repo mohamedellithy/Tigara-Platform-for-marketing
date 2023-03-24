@@ -18,7 +18,7 @@ class User extends JsonResource
         return [
             'account_type' => $this->account_type,
             'commission'   => $this->commission,
-            'created_at'   => $this->created_at,
+            'created_at'   => date('Y-m-d h:i:s',strtotime($this->created_at)),
             'email'        => $this->email,
             'id'           => $this->id,
             'name'         => $this->name,

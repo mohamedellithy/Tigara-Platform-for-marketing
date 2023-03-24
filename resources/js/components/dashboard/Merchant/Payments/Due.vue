@@ -34,6 +34,7 @@
                                 <th>قيمة المبلغ</th>
                                 <th>تفصيل الطلب</th>
                                 <th>حالة المدفوعات</th>
+                                <th>الملاحظات</th>
                                 <th>تاريخ الاضافة</th>
                             </tr>
                         </thead>
@@ -65,6 +66,14 @@
                                     <template v-else>
                                         متاحة
                                     </template>
+                                </td>
+                                <td>
+                                    <p class="notice" v-if="payment.notice">
+                                        {{ payment.notice }}
+                                    </p>
+                                    <p v-else>
+                                        بدون ملاحظة
+                                    </p>
                                 </td>
                                 <td>{{ payment.created_at }}</td>
                             </tr>
@@ -301,5 +310,9 @@ export default {
     color: black;
     margin: 10px;
     border: 1px solid orange;
+}
+p.notice{
+    width: 80%;
+    white-space: normal !important;
 }
 </style>

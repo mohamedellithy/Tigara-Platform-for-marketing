@@ -29,6 +29,7 @@
                                 <th>قيمة المبلغ</th>
                                 <th>تفاصيل الطلبية</th>
                                 <th>نوع المدفوعات</th>
+                                <th>ملاحظة</th>
                                 <th>تاريخ الاضافة</th>
                                 <th></th>
                             </tr>
@@ -58,6 +59,14 @@
                                     </template>
                                 </td>
                                 <td>{{ payment.type_text }}</td>
+                                <td>
+                                    <p class="notice" v-if="payment.notice">
+                                        {{ payment.notice }}
+                                    </p>
+                                    <p v-else>
+                                        بدون ملاحظة
+                                    </p>
+                                </td>
                                 <td>{{ payment.created_at }}</td>
                                 <td>
                                     <button v-if="!payment.item_id" @click="DeletePayment(payment.id)" class="btn btn-danger btn-sm" style="margin:0px 7px;">
@@ -402,5 +411,9 @@ export default {
     color: black;
     margin: 10px;
     border: 1px solid orange;
+}
+p.notice{
+    width: 80%;
+    white-space: normal !important;
 }
 </style>

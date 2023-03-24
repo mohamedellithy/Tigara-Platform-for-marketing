@@ -26,7 +26,7 @@
                         </template>
                         <template v-else>
                             <select @change="SelectMerchant()" id="merchant-name" placeholder="اسم التاجر" class="form-control" type="text" v-model="payment.merchant_id">
-                                <option value="null">اختيار التاجر</option>
+                                <option :value="undefined" disabled>اختيار التاجر</option>
                                 <option v-for="(merchant,index) in merchants" :value="merchant.id" :key="index">{{ merchant.name  }}</option>
                             </select>
                         </template>
@@ -46,7 +46,15 @@
                             <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
                              المبلغ المطلوب اضافتة
                         </label>
-                        <input id="merchant-name" placeholder="رقم الجوال" class="form-control" type="number" v-model="payment.value"/>
+                        <input id="merchant-name" placeholder="المبلغ" class="form-control" type="number" v-model="payment.value"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="merchant-name">
+                            <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
+                             اضافة ملاحظة
+                        </label>
+                        <textarea id="merchant-name" placeholder="ملاحظة على المدفوعات" class="form-control" v-model="payment.notice">
+                        </textarea>
                     </div>
                 </div>
                 <div  class="col-lg-4 container-form-new-merchant">
@@ -109,7 +117,6 @@ export default {
             merchants:{},
             merchant:{},
             payment:{
-               merchant_id:null,
                type:0,
                value:0
             },
@@ -154,7 +161,7 @@ export default {
     },
     created(){
         let self = this;
-        this.payment.merchant_id = this.$route.params.id;
+        this.payment.merchant_id = this.$route.params.id || undefined;
         if(!this.$route.params.id){
             axios.get('/api/merchants').then(function({data}){
                 self.merchants = data.data_info.data;
@@ -222,7 +229,8 @@ export default {
 }
 .container-form-new-merchant input[type='text'],
 .container-form-new-merchant input[type='number'],
-.container-form-new-merchant select
+.container-form-new-merchant select,
+.container-form-new-merchant textarea
 {
     border:1px solid #eee;
     background-color: white;

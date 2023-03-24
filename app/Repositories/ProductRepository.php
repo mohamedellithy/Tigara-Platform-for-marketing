@@ -51,7 +51,8 @@ class ProductRepository extends ProductRepositoryInterface{
             'price'         => $data['price'],
             'quantity'      => $data['quantity'] ?: 0,
             'description'   => $data['description'] ?: 1,
-            'status'        => $data['status'] ?: 1
+            'status'        => $data['status'] ?: 1,
+            'private'       => $data['private'] ?: 0
         ]);
 
         if($add_new_product):

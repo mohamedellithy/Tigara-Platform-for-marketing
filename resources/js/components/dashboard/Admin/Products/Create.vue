@@ -38,6 +38,22 @@
                         <div class="form-group col-md-6">
                             <label for="merchant-name">
                                 <i class="fas fa-user-edit" style="padding: 5px;"></i>
+                                نوع المنتج
+                            </label>
+                            <ul class="private-products">
+                                <li>
+                                    <label>منتج عادى</label>
+                                    <input type="radio" v-model="product.private" value="0"/>
+                                </li>
+                                <li>
+                                    <label>منتج مميز</label>
+                                    <input type="radio" v-model="product.private" value="1"/>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="merchant-name">
+                                <i class="fas fa-user-edit" style="padding: 5px;"></i>
                                 تكلفة المنتج للتاجر ( USD )
                             </label>
                             <input id="merchant-name" placeholder="عمولة التاجر" class="form-control" type="text" v-model="product.merchant_commission"/>
@@ -145,6 +161,7 @@ export default {
             product.append('price',this.product.price);
             product.append('quantity',this.product.quantity);
             product.append('status',this.product.status);
+            product.append('private',this.product.private);
             product.append('thumbnail',this.product.thumbnail);
             product.append('merchant_id',this.product.merchant_id);
             product.append('merchant_commission',this.product.merchant_commission);
@@ -319,5 +336,30 @@ export default {
     opacity: 0;
     z-index: 1000;
     cursor: pointer;
+}
+
+.private-products{
+    list-style: none;
+    text-align: right;
+    padding: 0px;
+}
+.private-products li{
+    display: inline-block;
+    padding: 0px 34px;
+    direction: ltr;
+}
+.private-products li input[type="radio"]
+{
+    height: 19px;
+    width: 26px;
+    float: right;
+    margin: 6px 2px;
+}
+.private-products li label
+{
+    line-height: 2.5em !important;
+    font-size: 13px !important;
+    font-weight: bold !important;
+    color:#dc3545;
 }
 </style>

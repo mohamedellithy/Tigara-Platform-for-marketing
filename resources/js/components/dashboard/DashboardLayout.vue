@@ -26,7 +26,7 @@
                         {{ $filters.handleEmail($auth.user.email) }}
                     </a>
                     <div v-if="toggle" class="dropdown-menus-vue">
-                        <router-link tag="a" class="dropdown-item" :to="{name:'login'}">
+                        <router-link tag="a" class="dropdown-item" :to="{path:'/dashboard/setting-account'}">
                             <i class="fas fa-users-cog"></i>
                             اعدادات الحساب
                         </router-link>
@@ -75,7 +75,7 @@
                                 {{ $filters.handleEmail($auth.user.email) }}
                             </a>
                             <div v-if="toggle" class="dropdown-menus-vue">
-                                <router-link tag="a" class="dropdown-item" :to="{name:'login'}">
+                                <router-link tag="a" class="dropdown-item" :to="{path:'/dashboard/setting-account'}">
                                     <i class="fas fa-users-cog"></i>
                                     اعدادات الحساب
                                 </router-link>
@@ -104,6 +104,7 @@
                             </router-link>
                         </div>
                         <router-view :key="$route.fullPath" @updateQuantity="updateQuantity"></router-view>
+                        
                     </div>
                 <!-- </div>
             </div> -->
@@ -148,6 +149,9 @@
         @update_errors="showerrors = false" :errors="errors"
         :success_message="success_message"
         :error_message="error_message"></alert-response>
+        <!-- <div v-if="this.loading" style="position: fixed;top: 0px;bottom: 0px;background-color: #47525d5e;left: 0;right: 0;z-index: 100000;">
+            hi mohamed
+        </div> -->
     </div>
 </template>
 <script>

@@ -42,7 +42,23 @@ import router from './router.js';
  */
 const app = createApp({});
 
+// app.config.globalProperties.$loading = false;
+
+// router.afterEach((to, from) => {
+//     setTimeout(function() {
+//         app.config.globalProperties.$loading = false;
+//         console.log(app.config.globalProperties.$loading, 'bbvv22');
+//     }, 5000);
+// });
+
+// router.beforeEach(async(to, from) => {
+//     app.config.globalProperties.$loading = true;
+//     console.log(app.config.globalProperties.$loading, 'bbvv11');
+// });
+
 app.use(router);
+
+
 app.config.globalProperties.$auth = Auth;
 
 import MasterContent from './components/MasterContent.vue';
@@ -56,4 +72,5 @@ app.config.globalProperties.$filters = {
 
 app.component('MasterContent', MasterContent);
 app.component('AlertResponse', AlertResponse);
+
 app.mount('#app');

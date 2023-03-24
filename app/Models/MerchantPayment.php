@@ -13,7 +13,8 @@ class MerchantPayment extends Model
         'merchant_id',
         'value',
         'type',
-        'item_id'
+        'item_id',
+        'notice'
     ];
 
     protected $appends = ['type_text','pending_payment'];

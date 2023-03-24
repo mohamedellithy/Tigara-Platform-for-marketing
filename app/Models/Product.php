@@ -17,7 +17,7 @@ class Product extends Model
         'thumbnail_item','attachments_items','status_text','hold_stock','marketer_profit','stock_quantity'
     ];
     protected $fillable = [
-        'name','price','quantity','description','status','merchant_id','marketer_commission','merchant_commission'
+        'name','price','quantity','description','status','merchant_id','marketer_commission','merchant_commission','private'
     ];
 
     protected $casts = [

@@ -63,6 +63,9 @@ use App\Http\Controllers\Api\Delivery\DeliveryStaticsController;
 Route::post('/login',[ApiAuthController::class , 'login']);
 Route::post('/register',[ApiAuthController::class , 'register']);
 
+Route::middleware('auth:sanctum')->group(function () {
+    Route::put('users', [ApiAuthController::class , 'update']);
+});
 
 Route::domain('admin.'.env('MAIN_DOMAIN'))->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
@@ -182,7 +185,7 @@ Route::domain('marketer.'.env('MAIN_DOMAIN'))->group(function () {
             'show'
         ]);
         Route::get('/marketer-favourits/search',[MarketerFavouritController::class,'search']);
-        
+
 
         Route::apiResource('/marketer-payments',MarketerPaymentsController::class);
         Route::get('marketer-statics',[MarketerStaticsController::class,'index']);

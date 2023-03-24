@@ -19,6 +19,7 @@ class ApiAuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'phone' => 'sometimes|numeric|unique:users,phone'
         ]);
 
         return (new Authorize())->register($request);
@@ -26,7 +27,7 @@ class ApiAuthController extends Controller
 
     public function login(Request $request){
         $validator = Validator::make($request->all(),[
-            'email' => 'required|string|email|max:255',
+            'phone' => 'required|numeric',
             'password' => 'required|string|min:6',
         ]);
 
@@ -40,6 +41,28 @@ class ApiAuthController extends Controller
     public function me(Request $request){
         $user = $request->user();
         return response()->json(['user' => new UserResource($user)], 200);
+    }
+
+    public function update(Request $request){
+        $request->validate([
+            'name' => 'sometimes|string|max:255',
+            'email' => 'sometimes|string|email|max:255|unique:users,email,'.$request->user()->id,
+            'password' => 'sometimes|string|min:6|confirmed',
+            'phone' => 'sometimes|numeric|unique:users,phone,'.$request->user()->id
+        ]);
+
+        if($request->has('password')):
+            $request->merge([
+                'password' => Hash::make($request->input('password'))
+            ]);
+        endif;
+
+        $request->user()->update($request->all());
+
+        return response()->json([
+           'result' => 'تم تحديث البيانات بنجاح',
+           'user' => new UserResource($request->user())
+        ]);
     }
 
     public function logout(Request $request){

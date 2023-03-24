@@ -47,16 +47,20 @@
                             </div>
                             <div class="form-group">
                                 <label>كلة المرور</label>
-                                <input v-model="field.password" type="password" placeholder="" class="form-control"/>
-                                <img class="img-show-hide-password" :src="this.HideIcon"/>
+                                <input v-model="field.password" :type="showPassword == true ? 'text' : 'password' " placeholder="" class="form-control"/>
+                                <!-- <img class="img-show-hide-password" :src="this.HideIcon"/> -->
+                                <i @click="showPassword = false"  class="fas fa-eye img-show-hide-password" v-if="showPassword == true"></i>
+                                <i @click="showPassword = true"  class="fas fa-eye-slash img-show-hide-password" v-if="showPassword == false"></i>
                                 <template v-if="errors.password">
                                     <p style="line-height: 2.5em;color: red;" v-for="(error,key) in errors.password" :key="key">{{ error }}</p>
                                 </template>
                             </div>
                             <div class="form-group">
                                 <label> تأكيد كلمةالمرور </label>
-                                <input v-model="field.password_confirmation" type="password" placeholder="" class="form-control"/>
-                                <img class="img-show-hide-password" :src="this.HideIcon"/>
+                                <input v-model="field.password_confirmation" :type="showPasswordConfirm == true ? 'text' : 'password' " placeholder="" class="form-control"/>
+                                <!-- <img class="img-show-hide-password" :src="this.HideIcon"/> -->
+                                <i @click="showPasswordConfirm = false"  class="fas fa-eye img-show-hide-password" v-if="showPasswordConfirm == true"></i>
+                                <i @click="showPasswordConfirm = true"  class="fas fa-eye-slash img-show-hide-password" v-if="showPasswordConfirm == false"></i>
                                 <template v-if="errors.password_confirmation">
                                     <p style="line-height: 2.5em;color: red;" v-for="(error,key) in errors.password_confirmation" :key="key">{{ error }}</p>
                                 </template>
@@ -70,7 +74,7 @@
                                  <span>هل لديك حساب بالفعل ؟</span>
                             </div>
                             <router-link tag="a" :to="{name:'login'}" class="link-register"> تسجيل الدخول</router-link>
-                            
+
                         </div>
                     </form>
                 </div>
@@ -90,7 +94,9 @@ export default {
             errors:{},
             backgroundPatternImage,
             HideIcon,
-            Marketing
+            Marketing,
+            showPassword:false,
+            showPasswordConfirm:false
         }
     },
     methods:{
@@ -245,7 +251,7 @@ export default {
 .img-show-hide-password{
     position: absolute;
     left: 20px;
-    top: 58px;
+    top: 55px;
     cursor: pointer;
 }
 .img-marketing{

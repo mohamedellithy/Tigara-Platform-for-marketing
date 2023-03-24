@@ -15,21 +15,31 @@ class MarketerProductsRepository extends MarketerProductsRepositoryInterface{
 
             if($request->query('filter') == 'high-price'):
 
-                $products = Product::orderBy('price','desc');
+                $products = Product::whereHas('marketers',function($query) use($request){
+                    $query->where('product_marketers.marketer_id',$request->user()->id);
+                })->orWhere('private',0)->orderBy('price','desc');
             elseif($request->query('filter') == 'low-price'):
 
-                $products = Product::orderBy('price','asc');
+                $products = Product::whereHas('marketers',function($query) use($request){
+                    $query->where('product_marketers.marketer_id',$request->user()->id);
+                })->orWhere('private',0)->orderBy('price','asc');
             elseif($request->query('filter') == 'more-sales'):
 
-                $products = Product::join('order_details','products.id','=','order_details.product_id')
+                $products = Product::whereHas('marketers',function($query) use($request){
+                    $query->where('product_marketers.marketer_id',$request->user()->id);
+                })->orWhere('private',0)->join('order_details','products.id','=','order_details.product_id')
                 ->select('products.*',DB::Raw('sum(order_details.quantity) as order_quantity'))->groupby('products.id')->orderby('order_quantity','desc');
             elseif($request->query('filter') == 'less-sales'):
 
-                $products = Product::join('order_details','products.id','=','order_details.product_id')
+                $products = Product::whereHas('marketers',function($query) use($request){
+                    $query->where('product_marketers.marketer_id',$request->user()->id);
+                })->orWhere('private',0)->join('order_details','products.id','=','order_details.product_id')
                 ->select('products.*',DB::Raw('sum(order_details.quantity) as order_quantity'))->groupby('products.id')->orderby('order_quantity','asc');
             elseif($request->query('filter') == 'low-stock'):
 
-                $products = Product::join('carts','products.id','=','carts.product_id')
+                $products = Product::whereHas('marketers',function($query) use($request){
+                    $query->where('product_marketers.marketer_id',$request->user()->id);
+                })->orWhere('private',0)->join('carts','products.id','=','carts.product_id')
                 ->select('products.*',DB::Raw('sum(carts.quantity) as cart_quantity'))->groupby('products.id')->havingRaw('IF(products.quantity > cart_quantity,products.quantity - cart_quantity,products.quantity) = 0');
                 //DB::Raw('sum(carts.quantity) as carts.carts_qty')
             else:
@@ -38,15 +48,25 @@ class MarketerProductsRepository extends MarketerProductsRepositoryInterface{
             endif;
             return response()->json([
                 'data_info'          => $products->paginate(10),
-                'total_products'     => Product::count(),
-                'active_products'    => Product::where('status',1)->count(),
-                'finished_products'  => Product::where('quantity',0)->count(),
+                'total_products'     => Product::whereHas('marketers',function($query) use($request){
+                    $query->where('product_marketers.marketer_id',$request->user()->id);
+                })->orWhere('private',0)->count(),
+                'active_products'    => Product::whereHas('marketers',function($query) use($request){
+                    $query->where('product_marketers.marketer_id',$request->user()->id);
+                })->orWhere('private',0)->where('status',1)->count(),
+                'finished_products'  => Product::whereHas('marketers',function($query) use($request){
+                    $query->where('product_marketers.marketer_id',$request->user()->id);
+                })->orWhere('private',0)->where('quantity',0)->count(),
                 'favourits'          => $request->user()->favourites()->pluck('product_id')->toArray()
             ]);
         else:
             return response()->json([
-                'data_info'          => Product::paginate(10),
-                'total_products'     => Product::count(),
+                'data_info'          => Product::whereHas('marketers',function($query) use($request){
+                    $query->where('product_marketers.marketer_id',$request->user()->id);
+                })->orWhere('private',0)->paginate(10),
+                'total_products'     => Product::whereHas('marketers',function($query) use($request){
+                    $query->where('product_marketers.marketer_id',$request->user()->id);
+                })->orWhere('private',0)->count(),
                 'active_products'    => $request->user()->products()->count(),
                 'finished_products'  => $request->user()->products()->where('quantity',0)->count(),
                 'favourits'          => $request->user()->favourites()->pluck('product_id')->toArray()
@@ -56,7 +76,9 @@ class MarketerProductsRepository extends MarketerProductsRepositoryInterface{
 
     public function search(Request $request){
         return response()->json([
-            'data_info'          => Product::where('name','Like','%'.$request->query('q').'%')->get(),
+            'data_info'          => Product::whereHas('marketers',function($query) use($request){
+                $query->where('product_marketers.marketer_id',$request->user()->id);
+            })->orWhere('private',0)->where('name','Like','%'.$request->query('q').'%')->get(),
         ]);
 
     }

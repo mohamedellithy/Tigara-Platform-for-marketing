@@ -40,8 +40,9 @@ class DeliveryPaymentRepository extends DeliveryPaymentRepositoryInterface{
     public function save($data){
         $add_new_merchant_payment = DeliveryPayment::create([
             'delivery_id'          => $data['delivery_id'],
-            'value'         => $data['value'],
-            'type'          => $data['type']
+            'value'                => $data['value'],
+            'type'                 => $data['type'],
+            'notice'               => $data['notice']
         ]);
 
         if($add_new_merchant_payment):

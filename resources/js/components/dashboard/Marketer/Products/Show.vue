@@ -10,6 +10,19 @@
             <div class="row">
                 <div class="col-lg-8 container-form-new-merchant">
                     <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <p class="alert" style="background-color: #f8fafc;">
+                                    {{ product.private == 0 ? 'منتج عادى ' : 'منتج مميز ' }}
+                                    <template v-if="product.private == 1">
+                                        <i class="fas fa-star" style='color:orange;margin: 0px 14px;'></i>
+                                    </template>
+                                    <template v-if="product.private == 0">
+                                        <i class="fas fa-star" style="margin: 0px 14px;"></i>
+                                    </template>
+                                </p>
+                            </div>
+                        </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="merchant-name">

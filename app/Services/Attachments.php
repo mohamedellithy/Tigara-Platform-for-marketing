@@ -30,7 +30,7 @@ class Attachments {
         
         $file_extension = $file->getClientOriginalExtension();
         
-        $tem_name = $file_name . '_' . rand(1, 10000) . time() . '.' . $file_extension;
+        $tem_name = 'product_' . rand(1, 10000) . time() . '.' . $file_extension;
         
         $save_attachment = $file->storeAs('public/products',$tem_name);
         

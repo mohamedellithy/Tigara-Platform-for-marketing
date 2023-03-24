@@ -11,6 +11,7 @@ import LoginForm from './components/auth/Login.vue';
 import RegisterForm from './components/auth/Register.vue';
 import Dashboard from './components/dashboard/DashboardLayout.vue';
 import DashboardReports from './components/dashboard/Admin/DashboardReports.vue';
+import SettingAccount from './components/dashboard/SettingAccount.vue';
 
 // merchants in Dashboard admin
 import IndexMerchants from './components/dashboard/Admin/Merchants/Index.vue';
@@ -78,20 +79,9 @@ import AboutToRunOutMerchantProduct from './components/dashboard/Merchant/Produc
  * @Delivery area
  * all components Delivery
  */
-// import DeliveryProducts from './components/dashboard/Delivery/Products/Index.vue';
-// import ShowDeliveryProduct from './components/dashboard/Delivery/Products/Show.vue';
-// import ShowLowStockDeliveryProduct from './components/dashboard/Delivery/Products/LowStock.vue';
-// import DeliveryOrders from './components/dashboard/Delivery/Orders/Index.vue';
-// import ShowDueDeliveryPayments from './components/dashboard/Delivery/Payments/Due.vue';
-// import ShowMadeDeliveryPayments from './components/dashboard/Delivery/Payments/Made.vue';
 import DeliveryDashboard from './components/dashboard/Delivery/DashboardReports.vue';
 import DeliveryOrdersDairy from './components/dashboard/Delivery/Orders/Dairy.vue';
 import DeliveryOrders from './components/dashboard/Delivery/Orders/Index.vue';
-// import DeliveryOrdersWait from './components/dashboard/Delivery/Orders/Index.vue';
-// import DeliveryOrdersProcess from './components/dashboard/Delivery/Orders/Process.vue';
-// import DeliveryOrdersComplete from './components/dashboard/Delivery/Orders/Complete.vue';
-// import DeliveryOrdersReturn from './components/dashboard/Delivery/Orders/Return.vue';
-// import DeliveryOrdersCancelled from './components/dashboard/Delivery/Orders/Cancelled.vue';
 import DeliveryOrdersShow from './components/dashboard/Delivery/Orders/Show.vue';
 import ShowDueDeliveryPayments from './components/dashboard/Delivery/Payments/Due.vue';
 import ShowMadeDeliveryPayments from './components/dashboard/Delivery/Payments/Made.vue';
@@ -151,6 +141,17 @@ const routes = [{
                         ar_name: 'الرئيسية',
                         menu_id: 'dashboard-reports',
                         requiresAuth: true,
+                        AccountType: 'admin'
+                    }
+                },
+                {
+                    path: "setting-account",
+                    name: "dashboard-setting-account",
+                    component: SettingAccount,
+                    meta: {
+                        ar_name: 'اعدادات الحساب',
+                        requiresAuth: true,
+                        menu_id: 'setting-account',
                         AccountType: 'admin'
                     }
                 },
@@ -559,6 +560,15 @@ const routes = [{
                         menu_id: 'merchant-reports',
                     },
                 }, {
+                    path: "setting-account",
+                    name: "setting-account",
+                    component: SettingAccount,
+                    meta: {
+                        ar_name: 'اعدادات الحساب',
+                        requiresAuth: true,
+                        menu_id: 'setting-account',
+                    }
+                }, {
                     path: 'products/:page_no?/:filter_products?',
                     name: 'merchant-products',
                     component: MerchantProducts,
@@ -658,6 +668,16 @@ const routes = [{
                     }
                 },
                 {
+                    path: "setting-account",
+                    name: "setting-account",
+                    component: SettingAccount,
+                    meta: {
+                        ar_name: 'اعدادات الحساب',
+                        requiresAuth: true,
+                        menu_id: 'setting-account',
+                    }
+                },
+                {
                     path: 'delivery-orders/:type/:page_no?',
                     name: 'delivery-orders',
                     component: DeliveryOrders,
@@ -732,6 +752,16 @@ const routes = [{
                         AccountType: 'marketer',
                         menu_id: 'marketer-reports',
                     },
+                },
+                {
+                    path: "setting-account",
+                    name: "setting-account",
+                    component: SettingAccount,
+                    meta: {
+                        ar_name: 'اعدادات الحساب',
+                        requiresAuth: true,
+                        menu_id: 'setting-account',
+                    }
                 }, {
                     path: 'products/:page_no?',
                     name: 'marketer-products',
@@ -871,6 +901,8 @@ router.beforeEach(async(to, from, next) => {
         next();
     }
 });
+
+
 
 
 export default router;

@@ -12,7 +12,8 @@ class DeliveryPayment extends Model
         'delivery_id',
         'order_id',
         'value',
-        'type'
+        'type',
+        'notice'
     ];
 
     protected $appends = ['type_text'];

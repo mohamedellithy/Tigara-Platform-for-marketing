@@ -46,7 +46,8 @@ class MerchantPaymentRepository extends MerchantPaymentRepositoryInterface{
         $add_new_merchant_payment = MerchantPayment::create([
             'merchant_id'   => $data['merchant_id'],
             'value'         => $data['value'],
-            'type'          => $data['type']
+            'type'          => $data['type'],
+            'notice'        => $data['notice']
         ]);
 
         if($add_new_merchant_payment):
