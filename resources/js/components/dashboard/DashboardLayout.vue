@@ -706,7 +706,7 @@ export default {
     }
 
     .sidemenu{
-        width: 60%;
+        width: 80%;
     }
     .item-menu{
         font-size: 14px;
