@@ -6,7 +6,7 @@
                 <ul class="filter-results">
                     <li class="filter-item">
                         <i class="fas fa-user-check"></i>
-                        {{ products.length }} منتجات 
+                        {{ products.length }} منتجات
                     </li>
                     <li class="filter-item">
                         <i class="fas fa-user-check"></i>
@@ -74,6 +74,9 @@
                 </ul>
             </nav>
         </div>
+        <div v-if="this.loading" style="position: fixed;top: 0px;bottom: 0px;background-color:#1d2024d1;left: 0;right: 0;z-index: 100000;text-align: center;">
+            <img style="margin: 10% auto;" src="@/img/Enso-2.gif"/>
+        </div>
     </div>
 </template>
 <script>
@@ -107,7 +110,8 @@ export default {
             showModel:false,
             field:{
                 products:[]
-            }
+            },
+            loading:true
         }
     },
     methods:{
@@ -169,6 +173,12 @@ export default {
                 });
             }
         }
+    },
+    mounted:function(){
+        let self = this;
+        setTimeout(() => {
+            self.loading = false;
+        }, 1000);
     }
 }
 </script>
@@ -176,7 +186,7 @@ export default {
 .item-product {
     padding: 20px;
     text-align: center;
-    
+
     margin: 10px 0px;
     list-style: none;
     display: inline-block;

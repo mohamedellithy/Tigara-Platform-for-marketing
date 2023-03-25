@@ -26,7 +26,7 @@
                     </router-link>
                 </li>
                 <li>
-                    <i style="color: #b8dcb9;" class="fas fa-pallet"></i>
+                    <i style="color: #b8dcb9;" class="fas fa-coins"></i>
                     <strong>{{ statics.total_sales }} <span>USD</span></strong>
                     <p>
                         اجمالى المبيعات

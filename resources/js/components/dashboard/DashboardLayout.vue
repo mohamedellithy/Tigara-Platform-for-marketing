@@ -37,7 +37,7 @@
                     </div>
                 </li>
                 <admin-sidebar     v-if="this.$auth.user.account_type == 0"></admin-sidebar>
-                <merchant-sidebar   v-if="this.$auth.user.account_type == 1"></merchant-sidebar>
+                <merchant-sidebar  v-if="this.$auth.user.account_type == 1"></merchant-sidebar>
                 <delivery-sidebar  v-if="this.$auth.user.account_type == 2"></delivery-sidebar>
                 <marketer-sidebar  v-if="this.$auth.user.account_type == 3"></marketer-sidebar>
                 <!-- :key="$route.path" -->
@@ -94,64 +94,60 @@
                     </ul>
                 </div>
             </nav>
-            <!-- <div class="container">
-                <div class="row"> -->
-                    <div class="container-content">
-                        <div class="topbar-permalink">
-                            <span>الرئيسية / </span>
-                            <router-link tag="span" :to="{name:'login'}" style="text-decoration: none;">
-                                {{ this.$route.meta.ar_name }}
-                            </router-link>
-                        </div>
-                        <router-view :key="$route.fullPath" @updateQuantity="updateQuantity"></router-view>
-                        
-                    </div>
-                <!-- </div>
-            </div> -->
-        </div>
-        <div class="container-mini-cart" v-if="toggleMiniCart">
-            <div class="content-mini-cart">
-                <table class="table mini-cart">
-                    <tr>
-                        <th>المنتج</th>
-                        <th>كمية المنتج</th>
-                        <th>سعر المنتج</th>
-                        <th></th>
-                    </tr>
-                    <tr v-for="(item,key) in cart_items" :key="key">
-                        <td>
-                            <img :src="item.product.thumbnail_item.image_url"  class="mini-cart-product-image"/>
-                            <label class="product-name">
-                                {{ item.product.name }}
-                            </label>
-                        </td>
-                        <td>
-                            <span class="fas fa-plus quantity-varite" @click="PlusQuantity(item)"></span>
-                            <label class="quantity-mini-cart">{{  item.quantity || 1  }}</label>
-                            <span class="fas fa-minus quantity-varite" @click="MinusQuantity(item)"></span>
-                        </td>
-                        <td>{{ item.price }} USD</td>
-                        <td>
-                            <i class="fas fa-times-circle" @click="deleteItemFromCart(item)"></i>
-                        </td>
-                    </tr>
-                </table>
+
+            <div class="container-mini-cart" v-if="toggleMiniCart == true" :key="$route.fullPath">
+                <div class="content-mini-cart">
+                    {{ $loadingCart }}
+                    <table class="table mini-cart">
+                        <tr>
+                            <th>المنتج</th>
+                            <th>كمية المنتج</th>
+                            <th>سعر المنتج</th>
+                            <th></th>
+                        </tr>
+                        <tr v-for="(item,key) in cart_items" :key="key">
+                            <td>
+                                <img :src="item.product.thumbnail_item.image_url"  class="mini-cart-product-image"/>
+                                <label class="product-name">
+                                    {{ item.product.name }}
+                                </label>
+                            </td>
+                            <td>
+                                <span class="fas fa-plus quantity-varite" @click="PlusQuantity(item)"></span>
+                                <label class="quantity-mini-cart">{{  item.quantity || 1  }}</label>
+                                <span class="fas fa-minus quantity-varite" @click="MinusQuantity(item)"></span>
+                            </td>
+                            <td>{{ item.price }} USD</td>
+                            <td>
+                                <i class="fas fa-times-circle" @click="deleteItemFromCart(item)"></i>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="text-center" style="padding:10px">
+                    <router-link class="btn go_to_checkout" :to="{name:'marketer-carts'}">
+                        <i class="fas fa-dolly-flatbed"></i>
+                        استكمال الطلب
+                    </router-link>
+                </div>
             </div>
-            <div class="text-center" style="padding:10px">
-                <router-link class="btn go_to_checkout" :to="{name:'marketer-carts'}">
-                    <i class="fas fa-dolly-flatbed"></i>
-                    استكمال الطلب
-                </router-link>
+            <div class="container-content">
+                <div class="topbar-permalink">
+                    <span>الرئيسية / </span>
+                    <router-link tag="span" :to="{name:'login'}" style="text-decoration: none;">
+                        {{ this.$route.meta.ar_name }}
+                    </router-link>
+                </div>
+                <router-view :key="$route.fullPath" @updateQuantity="updateQuantity"></router-view>
             </div>
         </div>
+
+
         <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
         @update_success="showsuccess = false"
         @update_errors="showerrors = false" :errors="errors"
         :success_message="success_message"
         :error_message="error_message"></alert-response>
-        <!-- <div v-if="this.loading" style="position: fixed;top: 0px;bottom: 0px;background-color: #47525d5e;left: 0;right: 0;z-index: 100000;">
-            hi mohamed
-        </div> -->
     </div>
 </template>
 <script>
@@ -178,12 +174,14 @@ export default {
            showsuccess:false,
            showerrors:false,
            success_message:'تم انشاء التاجر بنجاح',
-           error_message:'حدث خطأ اثناء انشاء التاجر'
+           error_message:'حدث خطأ اثناء انشاء التاجر',
+           loading:true
         }
     },
     methods: {
         toggleDropdown:function(){
             this.toggle        = !this.toggle;
+
         },
         LogOut:async function(){
             let self = this;
@@ -199,7 +197,7 @@ export default {
             this.toggleSide = !this.toggleSide;
         },
         ToggleMiniCart:function(){
-            this.toggleMiniCart = !this.toggleMiniCart;
+            this.toggleMiniCart = !this.$toggleMiniCart;
         },
         toggleListMenuSidebar:function(item){
             if(this.expanded.indexOf(item) !== -1){
@@ -273,6 +271,13 @@ export default {
             this.total_cart_items = this.$auth.user.total_cart_items;
             await this.FetchCartItems();
         }
+        console.log('hiddddddddddd');
+    },
+    watch:{
+        "$route":function(){
+            this.toggleMiniCart = false;
+            this.toggle = false;
+        }
     }
 }
 </script>
@@ -302,7 +307,7 @@ export default {
     border-radius: 10px;
 }
 .sidemenu .menu-list{
-    height: 100%;
+    height: 95%;
     overflow-y: auto;
 }
 /* .text-nowrap {

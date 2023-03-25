@@ -153,6 +153,9 @@
                 </div>
             </div>
         </div>
+        <div v-if="this.loading" style="position: fixed;top: 0px;bottom: 0px;background-color:#1d2024d1;left: 0;right: 0;z-index: 100000;text-align: center;">
+            <img style="margin: 10% auto;" src="@/img/Enso-2.gif"/>
+        </div>
     </div>
 </template>
 <script>
@@ -178,7 +181,8 @@ export default {
                 shipping_status:0,
                 order_id:null,
                 ids:[]
-            }
+            },
+            loading:true
         };
     },
     methods:{
@@ -289,6 +293,12 @@ export default {
                 });
             }
         }
+    },
+    mounted:function(){
+        let self = this;
+        setTimeout(() => {
+            self.loading = false;
+        }, 1000);
     }
 };
 </script>

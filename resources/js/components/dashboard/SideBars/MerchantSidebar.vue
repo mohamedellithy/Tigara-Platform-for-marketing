@@ -43,7 +43,7 @@
                 active-class="active"
                 :to="{ name: 'merchant-products' }"
                 exact>
-                <i class="fas fa-pallet"></i>
+                <i class="fas fa-box"></i>
                 <label>المنتجات</label>
                 <i
                     class="fas fa-chevron-down chevron"
@@ -61,7 +61,7 @@
             >
                 <li class="li-child-list-items-menu">
                     <router-link :to="{name:'merchant-products'}" class="a-child-list-item-menu" active-class="active" exact>
-                        <i class="fas fa-pallet"></i>
+                        <i class="fas fa-box"></i>
                         <label>عرض المنتجات</label>
                     </router-link>
                 </li>
@@ -76,7 +76,7 @@
                 active-class="active"
                 :to="{ name: 'lowstock-merchant-products' }"
                 exact>
-                <i class="fas fa-pallet"></i>
+                <i class="fas fa-box-open"></i>
                 <label>  المنتجات المنتهية</label>
                 <i
                     class="fas fa-chevron-down chevron"
@@ -94,7 +94,7 @@
             >
                 <li class="li-child-list-items-menu">
                     <router-link :to="{name:'lowstock-merchant-products'}" class="a-child-list-item-menu" active-class="active" exact>
-                        <i class="fas fa-pallet"></i>
+                        <i class="fas fa-box-open"></i>
                         <label>المنتجات المنتهية</label>
                     </router-link>
                 </li>
@@ -109,7 +109,7 @@
                 active-class="active"
                 :to="{ name: 'about-to-run-out-merchant-products' }"
                 exact>
-                <i class="fas fa-pallet"></i>
+                <i class="fas fa-box-open"></i>
                 <label>المنتجات منخفضة</label>
                 <i
                     class="fas fa-chevron-down chevron"
@@ -127,7 +127,7 @@
             >
                 <li class="li-child-list-items-menu">
                     <router-link :to="{name:'about-to-run-out-merchant-products'}" class="a-child-list-item-menu" active-class="active" exact>
-                        <i class="fas fa-pallet"></i>
+                        <i class="fas fa-box-open"></i>
                         <label>المنتجات منخفضة</label>
                     </router-link>
                 </li>
@@ -176,7 +176,7 @@
                 active-class="active"
                 :to="{ name: 'show-due-merchant-payments' }"
                 exact>
-                <i class="fas fa-pallet"></i>
+                <i class="fas fa-coins"></i>
                 <label>مدفوعات الارباح</label>
                 <i
                     class="fas fa-chevron-down chevron"
@@ -194,14 +194,14 @@
             >
                 <li class="li-child-list-items-menu">
                     <router-link :to="{name:'show-due-merchant-payments'}" class="a-child-list-item-menu" active-class="active" exact>
-                        <i class="fas fa-pallet"></i>
+                        <i class="fas fa-coins"></i>
                         <label> الارباح المضافة</label>
                     </router-link>
                 </li>
 
                 <li class="li-child-list-items-menu">
                     <router-link :to="{name:'show-made-merchant-payments'}" class="a-child-list-item-menu" active-class="active" exact>
-                        <i class="fas fa-pallet"></i>
+                        <i class="fas fa-coins"></i>
                         <label> الارباح المسددة</label>
                     </router-link>
                 </li>

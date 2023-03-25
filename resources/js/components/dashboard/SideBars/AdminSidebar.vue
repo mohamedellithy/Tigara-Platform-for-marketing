@@ -174,7 +174,7 @@
                 </li>
                 <li class="li-child-list-items-menu">
                     <router-link :to="{name:'create-delivery'}" class="a-child-list-item-menu" active-class="active" exact>
-                        <i class="fas fa-money-check-alt"></i>
+                        <i class="fas fa-plus"></i>
                         <label>اضافة شركة الشحن</label>
                     </router-link>
                 </li>
@@ -195,7 +195,7 @@
                 active-class="active"
                 :to="{ name: 'products' }"
                 exact>
-                <i class="fas fa-pallet"></i>
+                <i class="fas fa-box"></i>
                 <label>المنتجات</label>
                 <i
                     class="fas fa-chevron-down chevron"
@@ -213,13 +213,13 @@
             >
                 <li class="li-child-list-items-menu">
                     <router-link :to="{name:'products'}" class="a-child-list-item-menu" active-class="active" exact>
-                        <i class="fas fa-pallet"></i>
+                        <i class="fas fa-box"></i>
                         <label>عرض المنتجات</label>
                     </router-link>
                 </li>
                 <li class="li-child-list-items-menu">
                     <router-link :to="{name:'create-product'}" class="a-child-list-item-menu" active-class="active" exact>
-                        <i class="fas fa-money-check-alt"></i>
+                        <i class="fas fa-plus"></i>
                         <label>اضافة منتج</label>
                     </router-link>
                 </li>
@@ -267,7 +267,7 @@
                 active-class="active"
                 :to="{ name: 'merchant-profites' }"
                 exact>
-                 <i class="fas fa-money-check-alt"></i>
+                <i class="fas fa-coins"></i>
                 <label>الارباح</label>
                 <i
                     class="fas fa-chevron-down chevron"
@@ -285,21 +285,21 @@
             >
                 <li class="li-child-list-items-menu">
                     <router-link :to="{name:'merchant-profites'}" class="a-child-list-item-menu" active-class="active" exact>
-                        <i class="fas fa-money-check-alt"></i>
+                        <i class="fas fa-coins"></i>
                         <label>أرباح التجار</label>
                     </router-link>
                 </li>
 
                 <li class="li-child-list-items-menu">
                     <router-link :to="{name:'marketer-profites'}" class="a-child-list-item-menu" active-class="active" exact>
-                        <i class="fas fa-money-check-alt"></i>
+                        <i class="fas fa-coins"></i>
                         <label>أرباح المسوقين</label>
                     </router-link>
                 </li>
 
                 <li class="li-child-list-items-menu">
                     <router-link :to="{name:'delivery-profites'}" class="a-child-list-item-menu" active-class="active" exact>
-                        <i class="fas fa-money-check-alt"></i>
+                        <i class="fas fa-coins"></i>
                         <label>أرباح شركات الشحن</label>
                     </router-link>
                 </li>

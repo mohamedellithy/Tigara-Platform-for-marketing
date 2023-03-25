@@ -237,64 +237,67 @@
             </div>
         </form>
         <div v-show="this.showModel == true " id="exampleModalLive" class="modal fade " :class="[ this.showModel == true ? 'show' : '' ]" tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel" :style="`padding-right: 17px; display:block;padding-top: 10%;z-index: 100000;background:rgb(0 0 0 / 28%)`">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <template v-if="field.delivery_model">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLiveLabel">
-                                        ارفاق شركة الشحن للطلبية رقم
-                                        <template v-if="field.order_id != null">
-                                            # {{ field.order_id }}
-                                        </template>
-                                    </h5>
-                                </div>
-                                <div class="modal-body">
-                                    <p>شركة الشحن</p>
-                                    <select type="text" class="form-control" v-model="field.delivery_id">
-                                        <option v-for="(delivery,key) in deliveries" :value="delivery.id" :key="key">{{  delivery.name  }}</option>
-                                    </select>
-                                </div>
-                            </template>
-                            <template v-else>
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLiveLabel">
-                                        تحديث حالة الطلب
-                                        <template v-if="field.order_id != null">
-                                            # {{ field.order_id }}
-                                        </template>
-                                    </h5>
-                                </div>
-                                <div class="modal-body">
-                                    <p>حالة الطلبية</p>
-                                    <select type="text" class="form-control" v-model="field.order_status">
-                                        <option :value="0" selected>بانتظار الموافقة</option>
-                                        <option :value="1">جاري التنفيذ</option>
-                                        <option :value="2">مكتملة</option>
-                                        <option :value="3">مرفوضة</option>
-                                    </select>
-                                </div>
-                                <div class="modal-body">
-                                    <p>حالة الشحن</p>
-                                    <select type="text" class="form-control" v-model="field.shipping_status">
-                                        <option :value="0" selected>بانتظار الموافقة</option>
-                                        <option :value="1">جاري التنفيذ</option>
-                                        <option :value="2">مكتملة</option>
-                                        <option :value="3">مرفوضة</option>
-                                    </select>
-                                </div>
-                            </template>
-                            <div class="modal-footer">
-                                <template v-if="field.order_id == null">
-                                    <button @click="UpdateStatus()" type="button" class="btn btn-primary btn-sm" fdprocessedid="3xp1pw">تحديث الحالة</button>
-                                </template>
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <template v-if="field.delivery_model">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLiveLabel">
+                                ارفاق شركة الشحن للطلبية رقم
                                 <template v-if="field.order_id != null">
-                                    <button @click="UpdateSingleStatus(field.order_id)" type="button" class="btn btn-primary btn-sm" fdprocessedid="3xp1pw">تحديث الحالة</button>
+                                    # {{ field.order_id }}
                                 </template>
-                                <button @click="CloseModelUpdateStatus()" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" fdprocessedid="c9npk">الغاء</button>
-                            </div>
+                            </h5>
                         </div>
+                        <div class="modal-body">
+                            <p>شركة الشحن</p>
+                            <select type="text" class="form-control" v-model="field.delivery_id">
+                                <option v-for="(delivery,key) in deliveries" :value="delivery.id" :key="key">{{  delivery.name  }}</option>
+                            </select>
+                        </div>
+                    </template>
+                    <template v-else>
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLiveLabel">
+                                تحديث حالة الطلب
+                                <template v-if="field.order_id != null">
+                                    # {{ field.order_id }}
+                                </template>
+                            </h5>
+                        </div>
+                        <div class="modal-body">
+                            <p>حالة الطلبية</p>
+                            <select type="text" class="form-control" v-model="field.order_status">
+                                <option :value="0" selected>بانتظار الموافقة</option>
+                                <option :value="1">جاري التنفيذ</option>
+                                <option :value="2">مكتملة</option>
+                                <option :value="3">مرفوضة</option>
+                            </select>
+                        </div>
+                        <div class="modal-body">
+                            <p>حالة الشحن</p>
+                            <select type="text" class="form-control" v-model="field.shipping_status">
+                                <option :value="0" selected>بانتظار الموافقة</option>
+                                <option :value="1">جاري التنفيذ</option>
+                                <option :value="2">مكتملة</option>
+                                <option :value="3">مرفوضة</option>
+                            </select>
+                        </div>
+                    </template>
+                    <div class="modal-footer">
+                        <template v-if="field.order_id == null">
+                            <button @click="UpdateStatus()" type="button" class="btn btn-primary btn-sm" fdprocessedid="3xp1pw">تحديث الحالة</button>
+                        </template>
+                        <template v-if="field.order_id != null">
+                            <button @click="UpdateSingleStatus(field.order_id)" type="button" class="btn btn-primary btn-sm" fdprocessedid="3xp1pw">تحديث الحالة</button>
+                        </template>
+                        <button @click="CloseModelUpdateStatus()" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" fdprocessedid="c9npk">الغاء</button>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div v-if="this.loading" style="position: fixed;top: 0px;bottom: 0px;background-color:#1d2024d1;left: 0;right: 0;z-index: 100000;text-align: center;">
+            <img style="margin: 10% auto;" src="@/img/Enso-2.gif"/>
+        </div>
     </div>
 </template>
 <script>
@@ -323,7 +326,8 @@ export default {
             showsuccess:false,
             showerrors:false,
             success_message:'تم انشاء التاجر بنجاح',
-            error_message:'حدث خطأ اثناء انشاء التاجر'
+            error_message:'حدث خطأ اثناء انشاء التاجر',
+            loading:true
         }
     },
     methods:{
@@ -402,6 +406,12 @@ export default {
     async created(){
         await this.FetchOrder();
         await this.FetchDeliveries();
+    },
+    mounted:function(){
+        let self = this;
+        setTimeout(() => {
+            self.loading = false;
+        }, 1000);
     }
 }
 </script>

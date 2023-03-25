@@ -34,7 +34,7 @@
                             <div class="form-group">
                                 <label for="merchant-name">
                                     <i class="fas fa-user-edit" style="padding: 5px;"></i>
-                                    سعر المنتج 
+                                    سعر المنتج
                                 </label>
                                 <p class="alert">{{product.price}} USD</p>
                             </div>
@@ -43,7 +43,7 @@
                             <div class="form-group">
                                 <label for="merchant-name">
                                     <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
-                                    عدد المنتجات  
+                                    عدد المنتجات
                                 </label>
                                 <p class="alert"> {{ product.quantity }} قطعة</p>
                             </div>
@@ -83,6 +83,9 @@
                 </div>
             </div>
         </form>
+        <div v-if="this.loading" style="position: fixed;top: 0px;bottom: 0px;background-color:#1d2024d1;left: 0;right: 0;z-index: 100000;text-align: center;">
+            <img style="margin: 10% auto;" src="@/img/Enso-2.gif"/>
+        </div>
     </div>
 </template>
 <script>
@@ -108,7 +111,8 @@ export default {
             thumbnail_url:ImageUploadHere,
             attachments_urls:[],
             attachments_ids:[],
-            delete_media_ids:[]
+            delete_media_ids:[],
+            loading:true
         }
     },
     methods:{
@@ -197,6 +201,12 @@ export default {
     },
     created(){
         this.FetchProduct();
+    },
+    mounted:function(){
+        let self = this;
+        setTimeout(() => {
+            self.loading = false;
+        }, 1000);
     }
 }
 </script>

@@ -60,6 +60,9 @@
                 </div>
             </div>
         </form>
+        <div v-if="this.loading" style="position: fixed;top: 0px;bottom: 0px;background-color:#1d2024d1;left: 0;right: 0;z-index: 100000;text-align: center;">
+            <img style="margin: 10% auto;" src="@/img/Enso-2.gif"/>
+        </div>
     </div>
 </template>
 <script>
@@ -84,7 +87,8 @@ export default {
             thumbnail_url:ImageUploadHere,
             attachments_urls:[],
             attachments_ids:[],
-            delete_media_ids:[]
+            delete_media_ids:[],
+            loading:true
         }
     },
     methods:{
@@ -118,8 +122,8 @@ export default {
             product.append('price',this.product.price);
             product.append('quantity',this.product.quantity);
             product.append('status',this.product.status);
-            
-            
+
+
             if(this.product.thumbnail){
                 product.append('thumbnail',this.product.thumbnail);
             }
@@ -162,7 +166,7 @@ export default {
         },
         RemoveImagefromAttachment:function(index){
             this.delete_media_ids.push(this.attachments_ids[index]);
-            
+
             if(this.product.attachments){
                 this.product.attachments.splice(index,1);
             }
@@ -173,6 +177,12 @@ export default {
     },
     created(){
         this.FetchProduct();
+    },
+    mounted:function(){
+        let self = this;
+        setTimeout(() => {
+            self.loading = false;
+        }, 1000);
     }
 }
 </script>

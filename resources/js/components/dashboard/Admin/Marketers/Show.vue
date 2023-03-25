@@ -122,9 +122,10 @@
                         {{ marketer.total_paid ? marketer.total_paid : 0 }} USD
                     </p>
                 </div>
-
-
             </div>
+        </div>
+        <div v-if="this.loading" style="position: fixed;top: 0px;bottom: 0px;background-color:#1d2024d1;left: 0;right: 0;z-index: 100000;text-align: center;">
+            <img style="margin: 10% auto;" src="@/img/Enso-2.gif"/>
         </div>
     </div>
 </template>
@@ -139,7 +140,8 @@ export default {
             marketer:{},
             errors:{},
             success:null,
-            iconsProfile
+            iconsProfile,
+            loading:true
         }
     },
     methods:{
@@ -175,6 +177,12 @@ export default {
     },
     created(){
         this.FetchMarketer();
+    },
+    mounted:function(){
+        let self = this;
+        setTimeout(() => {
+            self.loading = false;
+        }, 1000);
     }
 }
 </script>

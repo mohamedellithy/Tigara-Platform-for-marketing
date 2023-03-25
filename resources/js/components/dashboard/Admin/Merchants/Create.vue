@@ -73,6 +73,9 @@
         @update_errors="showerrors = false" :errors="errors"
         :success_message="success_message"
         :error_message="error_message"></alert-response>
+        <div v-if="this.loading" style="position: fixed;top: 0px;bottom: 0px;background-color:#1d2024d1;left: 0;right: 0;z-index: 100000;text-align: center;">
+            <img style="margin: 10% auto;" src="@/img/Enso-2.gif"/>
+        </div>
 </template>
 <script>
 export default {
@@ -92,7 +95,8 @@ export default {
             showsuccess:false,
             showerrors:false,
             success_message:'تم انشاء التاجر بنجاح',
-            error_message:'حدث خطأ اثناء انشاء التاجر'
+            error_message:'حدث خطأ اثناء انشاء التاجر',
+            loading:true
         }
     },
     methods:{
@@ -115,6 +119,12 @@ export default {
             this.field.status = 0;
             this.CreateNewMerchant();
         }
+    },
+    mounted:function(){
+        let self = this;
+        setTimeout(() => {
+            self.loading = false;
+        }, 1000);
     }
 }
 </script>

@@ -67,7 +67,7 @@
                 </li>
                 <li>
                     <router-link :to="{path:'/delivery/show-due-delivery-payments'}">
-                        <i style="color: #b8dcb9;" class="fas fa-pallet"></i>
+                        <i style="color: #b8dcb9;" class="fas fa-coins"></i>
                         <strong>{{ statics.total_sales }} <span>USD</span></strong>
                         <p>
                             اجمالى المبيعات
@@ -132,6 +132,9 @@
                 </div>
             </div>
         </div>
+        <div v-if="this.loading" style="position: fixed;top: 0px;bottom: 0px;background-color:#1d2024d1;left: 0;right: 0;z-index: 100000;text-align: center;">
+            <img style="margin: 10% auto;" src="@/img/Enso-2.gif"/>
+        </div>
     </div>
 </template>
 <script>
@@ -143,11 +146,9 @@ export default {
     data(){
         return{
             imageLoadNotFound,
-            statics:{}
+            statics:{},
+            loading:true
         }
-    },
-    methods:{
-
     },
     created(){
         let self = this;
@@ -157,6 +158,12 @@ export default {
         }).catch(function({response}){
             console.log(response);
         });
+    },
+    mounted:function(){
+        let self = this;
+        setTimeout(() => {
+            self.loading = false;
+        }, 1000);
     }
 }
 </script>

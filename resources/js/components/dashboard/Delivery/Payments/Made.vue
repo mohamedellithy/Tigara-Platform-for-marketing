@@ -25,77 +25,80 @@
                 </div>
             </div>
             <div class="table-responsive text-nowrap">
-                    <!--Table-->
-                    <table class="table">
-                        <!--Table head-->
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>قيمة المبلغ</th>
-                                <th>الملاحظات</th>
-                                <th>تاريخ الاضافة</th>
-                            </tr>
-                        </thead>
-                        <!--Table head-->
-                        <!--Table body-->
-                        <tbody>
-                            <tr v-for="(payment, key) in payments" :key="key">
-                                <th scope="row">#{{ payment.id }}</th>
-                                <td>{{ payment.value }} USD</td>
-                                <td>
-                                    <p class="notice" v-if="payment.notice">
-                                        {{ payment.notice }}
-                                    </p>
-                                    <p v-else>
-                                        بدون ملاحظة
-                                    </p>
-                                </td>
-                                <td>{{ payment.created_at }}</td>
-                            </tr>
-                        </tbody>
-                        <!--Table body-->
-                    </table>
-                    <!--Table-->
-                    <nav v-if="this.infos.length != 0" aria-label="Page navigation example">
-                        <ul v-if="this.infos.total > payments.length" class="pagination">
-                            <li v-if="(this.infos.current_page != 1)" class="page-item">
-                                <router-link class="page-link" :to="{path: '/dashboard/show-payments-merchant/'+this.$route.params.id+'/'+(this.infos.current_page - 1 == 0 ? 1 : this.infos.current_page - 1) }" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only">Previous</span>
-                                </router-link>
-                            </li>
-                            <li v-for="page in this.infos.last_page" class="page-item" :key="page">
-                                <template v-if="page == 1">
-                                    <router-link class="page-link" :to="{path: '/dashboard/show-payments-merchant/'+this.$route.params.id+'/'+page}" active-class="active" exact>{{ page }}</router-link>
-                                </template>
-                                <template v-else-if="page == this.infos.current_page">
-                                    <router-link class="page-link" :to="{path: '/dashboard/show-payments-merchant/'+this.$route.params.id+'/'+page}" active-class="active" exact>{{ page }}</router-link>
-                                </template>
-                                <template v-else-if="page == this.infos.current_page - 1">
-                                    <router-link class="page-link" :to="{path: '/dashboard/show-payments-merchant/'+this.$route.params.id+'/'+page}" active-class="active" exact>{{ page }}</router-link>
-                                </template>
-                                <template v-else-if="(page == this.infos.current_page + 1) && (this.infos.current_page != this.infos.last_page)">
-                                    <router-link class="page-link" :to="{path: '/dashboard/show-payments-merchant/'+this.$route.params.id+'/'+page}" active-class="active" exact>{{ page }}</router-link>
-                                </template>
-                                <template v-else-if="page == this.infos.last_page">
-                                    <router-link class="page-link" :to="{path: '/dashboard/show-payments-merchant/'+this.$route.params.id+'/'+page}" active-class="active" exact>{{ page }}</router-link>
-                                </template>
-                                <template v-else-if="(page == this.infos.current_page - 2) && (this.infos.current_page != this.infos.last_page)">
-                                    <router-link class="page-link" :to="{path: '/dashboard/show-payments-merchant/'+this.$route.params.id+'/'+page}" active-class="active" exact>..</router-link>
-                                </template>
-                                <template v-else-if="(page == this.infos.current_page + 2) && (this.infos.current_page != this.infos.last_page)">
-                                    <router-link class="page-link" :to="{path: '/dashboard/show-payments-merchant/'+this.$route.params.id+'/'+page}" active-class="active" exact>..</router-link>
-                                </template>
-                            </li>
-                            <li v-if="this.infos.current_page != this.infos.last_page" class="page-item">
-                                <router-link :to="{path: '/dashboard/show-payments-merchant/'+this.$route.params.id+'/'+(this.infos.current_page + 1) }" class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only">Next</span>
-                                </router-link>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+                <!--Table-->
+                <table class="table">
+                    <!--Table head-->
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>قيمة المبلغ</th>
+                            <th>الملاحظات</th>
+                            <th>تاريخ الاضافة</th>
+                        </tr>
+                    </thead>
+                    <!--Table head-->
+                    <!--Table body-->
+                    <tbody>
+                        <tr v-for="(payment, key) in payments" :key="key">
+                            <th scope="row">#{{ payment.id }}</th>
+                            <td>{{ payment.value }} USD</td>
+                            <td>
+                                <p class="notice" v-if="payment.notice">
+                                    {{ payment.notice }}
+                                </p>
+                                <p v-else>
+                                    بدون ملاحظة
+                                </p>
+                            </td>
+                            <td>{{ payment.created_at }}</td>
+                        </tr>
+                    </tbody>
+                    <!--Table body-->
+                </table>
+                <!--Table-->
+                <nav v-if="this.infos.length != 0" aria-label="Page navigation example">
+                    <ul v-if="this.infos.total > payments.length" class="pagination">
+                        <li v-if="(this.infos.current_page != 1)" class="page-item">
+                            <router-link class="page-link" :to="{path: '/dashboard/show-payments-merchant/'+this.$route.params.id+'/'+(this.infos.current_page - 1 == 0 ? 1 : this.infos.current_page - 1) }" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </router-link>
+                        </li>
+                        <li v-for="page in this.infos.last_page" class="page-item" :key="page">
+                            <template v-if="page == 1">
+                                <router-link class="page-link" :to="{path: '/dashboard/show-payments-merchant/'+this.$route.params.id+'/'+page}" active-class="active" exact>{{ page }}</router-link>
+                            </template>
+                            <template v-else-if="page == this.infos.current_page">
+                                <router-link class="page-link" :to="{path: '/dashboard/show-payments-merchant/'+this.$route.params.id+'/'+page}" active-class="active" exact>{{ page }}</router-link>
+                            </template>
+                            <template v-else-if="page == this.infos.current_page - 1">
+                                <router-link class="page-link" :to="{path: '/dashboard/show-payments-merchant/'+this.$route.params.id+'/'+page}" active-class="active" exact>{{ page }}</router-link>
+                            </template>
+                            <template v-else-if="(page == this.infos.current_page + 1) && (this.infos.current_page != this.infos.last_page)">
+                                <router-link class="page-link" :to="{path: '/dashboard/show-payments-merchant/'+this.$route.params.id+'/'+page}" active-class="active" exact>{{ page }}</router-link>
+                            </template>
+                            <template v-else-if="page == this.infos.last_page">
+                                <router-link class="page-link" :to="{path: '/dashboard/show-payments-merchant/'+this.$route.params.id+'/'+page}" active-class="active" exact>{{ page }}</router-link>
+                            </template>
+                            <template v-else-if="(page == this.infos.current_page - 2) && (this.infos.current_page != this.infos.last_page)">
+                                <router-link class="page-link" :to="{path: '/dashboard/show-payments-merchant/'+this.$route.params.id+'/'+page}" active-class="active" exact>..</router-link>
+                            </template>
+                            <template v-else-if="(page == this.infos.current_page + 2) && (this.infos.current_page != this.infos.last_page)">
+                                <router-link class="page-link" :to="{path: '/dashboard/show-payments-merchant/'+this.$route.params.id+'/'+page}" active-class="active" exact>..</router-link>
+                            </template>
+                        </li>
+                        <li v-if="this.infos.current_page != this.infos.last_page" class="page-item">
+                            <router-link :to="{path: '/dashboard/show-payments-merchant/'+this.$route.params.id+'/'+(this.infos.current_page + 1) }" class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </router-link>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div v-if="this.loading" style="position: fixed;top: 0px;bottom: 0px;background-color:#1d2024d1;left: 0;right: 0;z-index: 100000;text-align: center;">
+            <img style="margin: 10% auto;" src="@/img/Enso-2.gif"/>
         </div>
     </div>
 </template>
@@ -130,7 +133,8 @@ export default {
                 order_id:null,
                 ids:[]
             },
-            iconsProfile
+            iconsProfile,
+            loading:true
         }
     },
     methods:{
@@ -156,6 +160,12 @@ export default {
             merchant_id:this.$route.params.id
         };
         this.FetchPayments();
+    },
+    mounted:function(){
+        let self = this;
+        setTimeout(() => {
+            self.loading = false;
+        }, 1000);
     }
 }
 </script>

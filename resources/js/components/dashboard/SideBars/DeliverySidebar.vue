@@ -241,7 +241,7 @@
                 active-class="active"
                 :to="{ name: 'show-due-delivery-payments' }"
                 exact>
-                <i class="fas fa-pallet"></i>
+                <i class="fas fa-money-check-alt"></i>
                 <label>مدفوعات الارباح</label>
                 <i
                     class="fas fa-chevron-down chevron"
@@ -259,20 +259,20 @@
             >
                 <li class="li-child-list-items-menu">
                     <router-link :to="{name:'show-due-delivery-payments'}" class="a-child-list-item-menu" active-class="active" exact>
-                        <i class="fas fa-pallet"></i>
+                        <i class="fas fa-money-check-alt"></i>
                         <label> الارباح المضافة</label>
                     </router-link>
                 </li>
 
                 <li class="li-child-list-items-menu">
                     <router-link :to="{name:'show-made-delivery-payments'}" class="a-child-list-item-menu" active-class="active" exact>
-                        <i class="fas fa-pallet"></i>
+                        <i class="fas fa-money-check-alt"></i>
                         <label> الارباح المسددة</label>
                     </router-link>
                 </li>
             </ul>
         </li>
-
+      <br/>
     </div>
 </template>
 <script>

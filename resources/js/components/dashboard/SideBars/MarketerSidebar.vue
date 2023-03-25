@@ -43,7 +43,7 @@
                 active-class="active"
                 :to="{ name: 'marketer-products' }"
                 exact>
-                <i class="fas fa-pallet"></i>
+                <i class="fas fa-box"></i>
                 <label>المنتجات</label>
                 <i
                     class="fas fa-chevron-down chevron"
@@ -61,7 +61,7 @@
             >
                 <li class="li-child-list-items-menu">
                     <router-link :to="{name:'marketer-products'}" class="a-child-list-item-menu" active-class="active" exact>
-                        <i class="fas fa-pallet"></i>
+                        <i class="fas fa-box"></i>
                         <label>عرض المنتجات</label>
                     </router-link>
                 </li>
@@ -76,7 +76,7 @@
                 active-class="active"
                 :to="{ name: 'marketer-carts' }"
                 exact>
-                <i class="fas fa-pallet"></i>
+                <i class="fas fa-shopping-cart"></i>
                 <label>السلة</label>
                 <i
                     class="fas fa-chevron-down chevron"
@@ -94,7 +94,7 @@
             >
                 <li class="li-child-list-items-menu">
                     <router-link :to="{name:'marketer-carts'}" class="a-child-list-item-menu" active-class="active" exact>
-                        <i class="fas fa-pallet"></i>
+                        <i class="fas fa-shopping-cart"></i>
                         <label>السلة</label>
                     </router-link>
                 </li>
@@ -176,7 +176,7 @@
                 active-class="active"
                 :to="{ name: 'marketer-payments' }"
                 exact>
-                <i class="fas fa-pallet"></i>
+                <i class="fas fa-money-check-alt"></i>
                 <label>طلبات الارباح</label>
                 <i
                     class="fas fa-chevron-down chevron"
@@ -194,7 +194,7 @@
             >
                 <li class="li-child-list-items-menu">
                     <router-link :to="{name:'marketer-payments'}" class="a-child-list-item-menu" active-class="active" exact>
-                        <i class="fas fa-pallet"></i>
+                        <i class="fas fa-money-check-alt"></i>
                         <label> طلبات السحب</label>
                     </router-link>
                 </li>

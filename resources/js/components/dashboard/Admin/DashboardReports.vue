@@ -27,7 +27,7 @@
                 </li>
                 <li>
                     <router-link :to="{path:'/dashboard/products'}">
-                        <i style="color: #b8dcb9;" class="fas fa-pallet"></i>
+                        <i style="color: #b8dcb9;"  class="fas fa-box"></i>
                         <strong>{{ statics.products_count }}</strong>
                         <p>
                             المنتجات
@@ -45,7 +45,7 @@
                 </li>
                 <li>
                     <router-link :to="{path:'/dashboard/orders'}">
-                        <i style="color: #ffccbc;" class="fas fa-pallet"></i>
+                        <i style="color: #ffccbc;"  class="fas fa-coins"></i>
                         <strong>{{ statics.total_sales }} <span>USD</span></strong>
                         <p>
                             اجمالى المبيعات
@@ -54,7 +54,7 @@
                 </li>
                 <li>
                     <router-link :to="{path:'/dashboard/orders'}">
-                        <i style="color: #ffccbc;" class="fas fa-pallet"></i>
+                        <i style="color: #ffccbc;"  class="fas fa-coins"></i>
                         <strong>{{ statics.total_sale_profits }} <span>USD</span></strong>
                         <p>
                             اجمالى أرباح المبيعات
@@ -64,7 +64,7 @@
 
                 <li>
                     <router-link :to="{path:'/dashboard/orders'}">
-                        <i style="color: #ffccbc;" class="fas fa-pallet"></i>
+                        <i style="color: #ffccbc;"  class="fas fa-coins"></i>
                         <strong>{{ statics.total_from_delivery_profits }} <span>USD</span></strong>
                         <p>
                             اجمالى أرباح الشحن
@@ -74,7 +74,7 @@
 
                 <li>
                     <router-link :to="{path:'/dashboard/orders'}">
-                        <i style="color: #ffccbc;" class="fas fa-pallet"></i>
+                        <i style="color: #ffccbc;"  class="fas fa-coins"></i>
                         <strong>{{ statics.all_profits }} <span>USD</span></strong>
                         <p>
                             اجمالى الأرباح
@@ -137,6 +137,9 @@
                 </div>
             </div>
         </div>
+        <div v-if="this.loading" style="position: fixed;top: 0px;bottom: 0px;background-color:#1d2024d1;left: 0;right: 0;z-index: 100000;text-align: center;">
+            <img style="margin: 10% auto;" src="@/img/Enso-2.gif"/>
+        </div>
     </div>
 </template>
 <script>
@@ -148,7 +151,8 @@ export default {
     data(){
         return{
             imageLoadNotFound,
-            statics:{}
+            statics:{},
+            loading:true
         }
     },
     methods:{
@@ -162,6 +166,12 @@ export default {
         }).catch(function({response}){
             console.log(response);
         });
+    },
+    mounted:function(){
+        let self = this;
+        setTimeout(() => {
+            self.loading = false;
+        }, 1000);
     }
 }
 </script>

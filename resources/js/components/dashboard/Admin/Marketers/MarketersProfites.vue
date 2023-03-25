@@ -112,6 +112,9 @@
                 </div>
             </div>
         </div>
+        <div v-if="this.loading" style="position: fixed;top: 0px;bottom: 0px;background-color:#1d2024d1;left: 0;right: 0;z-index: 100000;text-align: center;">
+            <img style="margin: 10% auto;" src="@/img/Enso-2.gif"/>
+        </div>
     </div>
 </template>
 <script>
@@ -135,7 +138,8 @@ export default {
             field:{
                 update_status:0,
                 ids:[]
-            }
+            },
+            loading:true
         };
     },
     methods:{
@@ -151,7 +155,7 @@ export default {
                 self.total_sales        = data.total_sales;
                 self.total_orders       = data.total_orders;
                 self.active_marketer    = data.active_marketer;
-                self.pending_profits    = data.pending_profits; 
+                self.pending_profits    = data.pending_profits;
             }).catch(function({response}){
                 console.log(response);
             });
@@ -187,6 +191,12 @@ export default {
                 self.FetchMarketers();
             }
         }
+    },
+    mounted:function(){
+        let self = this;
+        setTimeout(() => {
+            self.loading = false;
+        }, 1000);
     }
 };
 </script>
