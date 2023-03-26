@@ -80,7 +80,7 @@
                                 <th scope="row"> # {{ order.id }}</th>
                                 <td>{{ order.marketer.name }}</td>
                                 <td>{{ order.quantity }} قطعة</td>
-                                <td>{{ order.total }} USD</td>
+                                <td>{{ order.order_total }} USD</td>
                                 <td>{{ order.delivery ? order.delivery.name : 'لم يحدد' }}</td>
                                 <td>{{ order.order_status_txt }}</td>
                                 <td>{{ order.shipping_status_txt }}</td>

@@ -45,7 +45,7 @@
                                 <i class="fas fa-user-edit" style="padding: 5px;"></i>
                                     سعر الطلبية
                                 </label>
-                                <p class="alert">{{ order.total }} USD</p>
+                                <p class="alert">{{ order.order_total }} USD</p>
                             </div>
                         </div>
                         <div class="col-lg-3">
@@ -225,7 +225,7 @@
                                         </td>
                                         <td colspan="2">
                                             <strong>
-                                                {{ order.total }} USD
+                                                {{ order.order_total }} USD
                                             </strong>
                                         </td>
                                     </tr>
