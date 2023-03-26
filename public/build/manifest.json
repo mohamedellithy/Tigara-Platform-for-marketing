@@ -15,6 +15,10 @@
     "file": "assets/image_processing20200627-19092-c2s8xo-37e02d90.gif",
     "src": "resources/js/img/image_processing20200627-19092-c2s8xo.gif"
   },
+  "resources/js/img/Circle-icons-profile.svg.png": {
+    "file": "assets/Circle-icons-profile.svg-f34676cf.png",
+    "src": "resources/js/img/Circle-icons-profile.svg.png"
+  },
   "resources/js/img/Digital-Marketing-Transparent-PNG.png": {
     "file": "assets/Digital-Marketing-Transparent-PNG-35f245ee.png",
     "src": "resources/js/img/Digital-Marketing-Transparent-PNG.png"
@@ -23,17 +27,17 @@
     "file": "assets/menu-2-svgrepo-com-ed812ec3.svg",
     "src": "resources/js/img/menu-2-svgrepo-com.svg"
   },
-  "resources/js/img/Circle-icons-profile.svg.png": {
-    "file": "assets/Circle-icons-profile.svg-f34676cf.png",
-    "src": "resources/js/img/Circle-icons-profile.svg.png"
+  "resources/js/img/tigara-trans.png": {
+    "file": "assets/tigara-trans-027937ec.png",
+    "src": "resources/js/img/tigara-trans.png"
   },
   "resources/js/img/shipping-delivery.png": {
     "file": "assets/shipping-delivery-4be8b44d.png",
     "src": "resources/js/img/shipping-delivery.png"
   },
-  "resources/js/img/tigara-trans.png": {
-    "file": "assets/tigara-trans-027937ec.png",
-    "src": "resources/js/img/tigara-trans.png"
+  "resources/js/img/81g63eBEhxL._AC_UF894,1000_QL80_.jpg": {
+    "file": "assets/81g63eBEhxL._AC_UF894_1000_QL80_-7aede39b.jpg",
+    "src": "resources/js/img/81g63eBEhxL._AC_UF894,1000_QL80_.jpg"
   },
   "resources/js/img/prod-2.png": {
     "file": "assets/prod-2-629b3c94.png",
@@ -42,10 +46,6 @@
   "resources/js/img/prod-3.png": {
     "file": "assets/prod-3-3bed2c63.png",
     "src": "resources/js/img/prod-3.png"
-  },
-  "resources/js/img/81g63eBEhxL._AC_UF894,1000_QL80_.jpg": {
-    "file": "assets/81g63eBEhxL._AC_UF894_1000_QL80_-7aede39b.jpg",
-    "src": "resources/js/img/81g63eBEhxL._AC_UF894,1000_QL80_.jpg"
   },
   "resources/js/img/upload-1118929_960_720.webp": {
     "file": "assets/upload-1118929_960_720-2cfe47ae.webp",
@@ -60,15 +60,15 @@
     "src": "resources/js/img/prod-4.png"
   },
   "resources/js/app.css": {
-    "file": "assets/app-c4d80953.css",
+    "file": "assets/app-cee30afe.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
-    "file": "assets/app-3fa4acd2.js",
+    "file": "assets/app-2d141d1b.js",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-c4d80953.css"
+      "assets/app-cee30afe.css"
     ],
     "assets": [
       "assets/pattern-464d9bf6.png",
