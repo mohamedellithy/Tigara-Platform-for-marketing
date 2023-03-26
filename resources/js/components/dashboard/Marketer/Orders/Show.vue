@@ -169,7 +169,7 @@
                                         </td>
                                         <td colspan="1">
                                             <strong>
-                                                {{ order.total }} USD
+                                                {{ order.order_total }} USD
                                             </strong>
                                         </td>
                                     </tr>

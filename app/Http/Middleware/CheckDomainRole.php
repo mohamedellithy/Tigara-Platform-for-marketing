@@ -18,9 +18,9 @@ class CheckDomainRole
     {
         $hosts_parts = explode('.', $request->getHttpHost());
         if(count($hosts_parts) != 3){
-            abort('404');
+            return $next($request);
         }
-        
+
         $account_type = \Config::get('app.'.$hosts_parts[0]);
         if(!isset($account_type)){
             abort('404');

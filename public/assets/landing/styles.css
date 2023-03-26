@@ -1,0 +1,391 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&amp;display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+* {
+    font-family: 'Cairo', sans-serif;
+    margin: 0%;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    font-family: 'Cairo', sans-serif;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0%;
+    scroll-behavior: smooth;
+    font-size: 1.5em;
+    line-height: 1.35;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    position: fixed;
+    /* background-color: white; */
+    background-color: black;
+    z-index: 1;
+}
+
+header .logo-headline {
+    display: flex;
+    align-items: center;
+}
+
+header .logo {
+    width: 100%;
+}
+
+.logo-sections {
+    display: flex;
+}
+
+.header-sections-MV {
+    display: none;
+}
+
+.header-sections {
+    display: flex;
+    margin-right: 10%;
+}
+
+header .div-FAQ {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+header .header-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 0% 4%;
+    width: max-content;
+}
+
+header .div-FAQ .FAQ-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #f37115;
+    font-weight: 900;
+    font-size: .6rem;
+    text-decoration: none;
+    width: max-content;
+}
+
+header .login-and-social {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+header .login-and-social .div-social {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+header .login-and-social .social {
+    background: white;
+    border: none;
+    margin: 0% 2%;
+    display: flex;
+}
+
+header .social:hover {
+    opacity: 0.7;
+}
+
+header .login-and-social .div-login {
+    padding: 0%;
+    display: flex;
+}
+
+header .login-and-social .div-login .header-button {
+    background-color: #f37115;
+    color: black;
+    /* background-color: #000000;
+    color: white; */
+    font-style: normal;
+    font-size: 13px;
+    font-weight: 700;
+    border: 1px solid #000000;
+    border-radius: 6px;
+    text-decoration: none;
+    padding: 4% 3%;
+    text-align: center;
+    margin: 3px;
+}
+
+header .login-and-social .div-login .header-button {
+    width: 100%;
+    text-decoration: none;
+}
+
+.form-signup .error-hint-container {
+    font-size: 11px;
+    color: #FB1B1C;
+    justify-content: end;
+    padding-inline-start: 10px;
+    padding-top: 4px;
+    width: 100%;
+    min-height: 24px;
+}
+
+.welcome-view {
+    padding: 9% 0% !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: black;
+    /* background-image: linear-gradient(259.26deg, rgba(0, 0, 0, 0.45) 26.06%, rgba(255, 255, 255, 0) 111.65%), url(../landing/images/landing-background-image-v2.png);
+     */
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 12vh;
+    position: relative;
+}
+
+.welcome-view .div-welcome video {
+    font-weight: bold;
+    width: 100%;
+    margin-top: 0%;
+}
+
+.welcome-view .div-welcome .headline {
+    /* color: #FB1B1C; */
+    color: #f37115;
+    font-family: 'Cairo', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 2.5rem;
+    text-align: right;
+}
+
+.welcome-view .div-welcome .welcome-headline {
+    color: white;
+    font-family: 'Cairo', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.8rem;
+    text-align: right;
+    padding: 1% 0%;
+    margin-top: 5%;
+}
+
+.welcome-view .div-welcome .welcome-subtext {
+    font-family: 'Cairo', sans-serif;
+    color: white;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 1rem;
+    text-align: right;
+    opacity: 0.7;
+    padding-bottom: 5%;
+    margin-top: 2%;
+}
+
+.welcome-view .div-form {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    align-items: center;
+    background: transparent;
+    padding-bottom: 2%;
+}
+
+.welcome-view .div-form .form-signup {
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: #FFFFFF;
+    border-radius: 10px;
+    padding: 5%;
+    z-index: 0;
+}
+
+.welcome-view .div-form .form-signup .form-headline {
+    /* color: #FB1B1C; */
+    color: #f37115;
+    font-style: normal;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    font-size: 1rem;
+    margin-bottom: 5%;
+    font-family: 'Tajawal', sans-serif;
+}
+
+.welcome-view .div-form .form-signup .form-input {
+    font-family: 'Cairo', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    background-color: #F4F5F7;
+    color: black;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    width: 100%;
+    padding: 10px;
+    background: #F4F5F7;
+    border: 1px solid #E6E6EB;
+    box-sizing: border-box;
+    border-radius: 6px;
+    margin-top: 4px;
+    font-family: 'Tajawal', sans-serif;
+}
+
+.welcome-view .div-form .form-signup .form-error {
+    color: #FB1B1C;
+}
+
+.welcome-view .div-form .form-signup .normal-signup {
+    width: 100%;
+}
+
+.welcome-view .div-form .form-signup .normal-signup-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000000;
+    color: #f37115;
+    font-style: normal;
+    font-weight: bold;
+    font-size: .65rem;
+    border: 1px solid #E6E6EB;
+    box-sizing: border-box;
+    border-radius: 47px;
+    width: 100%;
+    padding: 3% 0%;
+    margin-top: 0px;
+    font-family: 'Tajawal', sans-serif;
+}
+
+.welcome-view .div-form .form-signup .form-social-buttons {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.welcome-view .div-form .form-signup .button-1 {
+    margin: 1%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* background: #F4F5F7; */
+    background: #0d6efd;
+    border: 1px solid #E6E6EB;
+    border-radius: 0px;
+    /* color: #777777; */
+    color: white;
+    font-style: normal;
+    font-weight: bold;
+    font-size: .5rem;
+    padding: 3%;
+    cursor: pointer;
+    width: 100%;
+    font-family: 'Tajawal', sans-serif;
+}
+
+.custom-shape-divider-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    z-index: 1;
+}
+
+.custom-shape-divider-bottom svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 95px;
+}
+
+.custom-shape-divider-bottom .shape-fill {
+    fill: #FFFFFF;
+}
+
+@media (max-width: 600px) {
+    .welcome-view .div-form .form-signup .form-social-buttons {
+        flex-direction: column;
+    }
+    .welcome-view {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        /* background-image: linear-gradient(264.1deg, rgba(0, 0, 0, 0.45) 29.84%, rgba(255, 255, 255, 0) 127.96%), url(../landing/images/landing-background-image-v2-MV.png);
+         */
+        align-content: center;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+    .welcome-view .div-welcome {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .welcome-view .div-welcome .welcome-headline {
+        text-align: center;
+    }
+    .welcome-view .div-welcome .welcome-subtext {
+        text-align: center;
+        opacity: 0.9;
+    }
+    .welcome-view .div-form {
+        width: 100%;
+        padding: 5%;
+    }
+    .custom-shape-divider-bottom {
+        display: none;
+    }
+}
+
+@media (max-width: 770px) {
+    header .logo {
+        width: 100%;
+    }
+    header .div-FAQ .FAQ-button {
+        font-size: .5rem;
+    }
+    header .login-and-social .div-social {
+        display: none;
+    }
+    header .login-and-social .div-login .header-button {
+        font-size: .5rem;
+    }
+    .header-sections-MV {
+        display: flex;
+        justify-content: center
+    }
+    .header-sections {
+        display: none;
+    }
+}
+
+
+}
+
+}
+
+}
+
+}

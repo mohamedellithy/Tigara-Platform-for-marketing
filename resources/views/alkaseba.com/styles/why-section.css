@@ -1,0 +1,93 @@
+
+.why-section{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0%;
+    padding-top: 2%;
+}
+.why-section .section{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 0% 8%;
+    justify-content: space-around;
+}
+.why-section .section .text{
+    color: #FB1B1C;
+    margin-top: 40px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 35px;
+    line-height: 60px;
+}
+.why-section .section .why-list{
+    margin: 5% 0px;
+}
+.why-section .section .why-list li{
+    margin-top:5% ;
+    color: #777777;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 150%;
+    list-style-image: url(../icons/list-pin-logo.png)
+}
+.why-section .section .why-img{
+    width: 100%;
+}
+
+@media (max-width: 770px) {
+    
+    .why-section{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin: 0%;
+        align-content: center;
+        flex-wrap: nowrap;
+        padding-top: 20%;
+    }
+    .why-section .section{
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        margin: 0% 8%;
+        justify-content: right;
+        text-align: center;
+        align-content: center;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+    .why-section .section .text{
+        color: #FB1B1C;
+        margin-top: 5%;
+        font-style: bold;
+        font-weight: bold;
+        font-size: 5.5vw;
+        line-height: 8vw;
+        width: 80%;
+        text-align: center;
+    }
+    .why-section .section .why-list{
+        margin: 0% 0px;
+        text-align: right;
+    }
+    .why-section .section .why-list li{
+        margin-top:5% ;
+        color: #777777;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 4vw;
+        line-height: 5vw;
+        list-style-image: url(../icons/list-pin-logo.png)
+    }
+    .why-section .section .why-img{
+        margin: 0% 0%;
+        width: 100%;
+    }
+}

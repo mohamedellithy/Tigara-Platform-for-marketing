@@ -1,0 +1,147 @@
+* {
+    font-family: 'Cairo', sans-serif;
+    margin: 0%;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    font-family: 'Cairo', sans-serif;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0%;
+    scroll-behavior: smooth;
+    font-size: 1.5em;
+    line-height: 1.35;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    position: fixed;
+    background-color: white;
+    z-index: 1;
+}
+
+header .logo-headline {
+    display: flex;
+    align-items: center;
+}
+
+header .logo {
+    width: 100%;
+}
+
+.logo-sections {
+    display: flex;
+}
+
+.header-sections-MV {
+    display: none;
+}
+
+.header-sections {
+    display: flex;
+    margin-right: 10%;
+}
+
+header .div-FAQ {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+header .header-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 0% 4%;
+    width: max-content;
+}
+
+header .div-FAQ .FAQ-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #FB1B1C;
+    font-weight: 900;
+    font-size: .6rem;
+    text-decoration: none;
+    width: max-content;
+}
+
+header .login-and-social {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+header .login-and-social .div-social {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+header .login-and-social .social {
+    background: white;
+    border: none;
+    margin: 0% 2%;
+    display: flex;
+}
+
+header .social:hover {
+    opacity: 0.7;
+}
+
+header .login-and-social .div-login {
+    padding: 0%;
+    display: flex;
+}
+
+header .login-and-social .div-login .header-button {
+    background-color: #fb1b1c;
+    color: white;
+    font-style: normal;
+    font-size: .6rem;
+    font-weight: 700;
+    border: 1px solid #fb1b1c;
+    border-radius: 6px;
+    text-decoration: none;
+    padding: 5% 5%;
+    text-align: center;
+}
+
+header .login-and-social .div-login .header-button {
+    width: 100%;
+    text-decoration: none;
+}
+
+@media (max-width: 770px) {
+    header .logo {
+        width: 100%;
+    }
+    header .div-FAQ .FAQ-button {
+        font-size: .5rem;
+    }
+    header .login-and-social .div-social {
+        display: none;
+    }
+    header .login-and-social .div-login .header-button {
+        font-size: .5rem;
+    }
+    .header-sections-MV {
+        display: flex;
+        justify-content: center
+    }
+    .header-sections {
+        display: none;
+    }
+}

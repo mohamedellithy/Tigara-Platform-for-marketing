@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="الكسيبة هو موقع للعمل كتاجر اونلاين عن طريق التسويق لى منتاجات الموقع و تحقيق الارباح من خلال بيعها">
+    <meta name="keywords" content="الكسيبة,الكسيبه,alkaseba">
+    <meta name="author" content="الكسيبة">
+    <link rel="icon" href="{{ asset('assets/landing/icons/el-kasseba-logo-small.png') }}">
+    <title>الكسيبة</title>
+    <link href="{{ asset('assets/landing/styles/bootstrap-5.0.2/dist/css/bootstrap-grid.rtl.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/landing/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/landing/styles/header.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/landing/styles/welcome-view.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/landing/styles/process-section.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/landing/styles/why-section.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/landing/styles/last-section.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/landing/styles/footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/landing/styles/loader.css') }}">
+</head>
+
+<body>
+    <div id="content-container">
+        <header>
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col-6 col-md-10 logo-sections">
+                        <div style="display: flex; align-items: center; justify-content: center; margin: 4px 0;">
+                            <img width="140" height="52" class="logo" src="{{ asset('assets/images//logo-v2.svg') }}" alt="logo-alkseba">
+                        </div>
+                        <div class="header-sections">
+                            <div class="div-FAQ header-section">
+                                <a class="FAQ-button" href="#welcome">الرئيسية</a>
+                            </div>
+                            <div class="div-FAQ header-section">
+                                <a class="FAQ-button" href="#steps">الخطوات</a>
+                            </div>
+                            <div class="div-FAQ header-section">
+                                <a class="FAQ-button" href="#why">ليه الكسيبة</a>
+                            </div>
+                            <div class="div-FAQ header-section ">
+                                <a class="FAQ-button" href="{{ asset('assets/landing/Help/Help-page.html') }}">مساعدة <img class="px-1"
+                                        src="{{ asset('assets/landing/icons/help-circle.svg') }}" alt="help-circle"></a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="login-and-social col-5 col-md-2 justify-content-end">
+                        <div class="div-login col-12 ">
+                            <a class="header-button" href="https://seller.alkaseba.com/">تسجيل الدخول</a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="header-sections-MV">
+                        <div class="div-FAQ header-section">
+                            <a class="FAQ-button" href="#welcome">الرئيسية</a>
+                        </div>
+                        <div class="div-FAQ header-section">
+                            <a class="FAQ-button" href="#steps">الخطوات</a>
+                        </div>
+                        <div class="div-FAQ header-section">
+                            <a class="FAQ-button" href="#why">ليه الكسيبة</a>
+                        </div>
+                        <div class="div-FAQ header-section ">
+                            <a class="FAQ-button" href="{{ asset('assets/landing/Help/Help-page.html') }}">مساعدة <img class="px-1"
+                                    src="{{ asset('assets/landivideosng/icons/help-circle.svg') }}" alt="help-circle"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <section class="welcome-view tracking-section" id="welcome">
+            <div class="custom-shape-divider-bottom">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" class="shape-fill"></path>
+                </svg>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="div-welcome col-12 col-md-6">
+                        <h1 class="headline"> الكسيبة </h1>
+                        <h2 class="welcome-headline"> حقق حلمك و ابدأ البيع </h2>
+                        <h4 class="welcome-subtext" data-i18n="landingPage.increaseIncome">اشتغل وزوّد دخلك وانت قاعد فى مكانك</h4>
+                        <video width="400px" controls id="alkaseba-video">
+                            <source src="{{ asset('assets/landing/videos/intro.webm') }}" type="video/webm">
+                            <source src="{{ asset('assets/landing/videos/intro.Ogg') }}" type="video/ogg">
+                            <source src="{{ asset('assets/landing/videos/intro.mp4') }}" type="video/mp4">
+                            Your browser does not support the video.
+                        </video>
+                    </div>
+                    <div class="div-form col-12 col-md-6">
+                        <div class="form-signup col-12 col-md-9">
+                            <h2 class="form-headline" data-i18n="landingPage.startNow">ابدأ دلوقتى</h2>
+                            <div class="form-social-buttons">
+                                <button type="button" class="button-1 facebookBTN" id="#facebookBTN-1">سجل عن طريق
+                                    فيسبوك<img class="px-1" src="{{ asset('assets/landing/icons/roundFacbook.svg') }}"
+                                        alt="roundFacbooklogo"></button>
+                                <button type="button" class="button-1 gmailBTN">سجل عن طريق جوجل<img class="px-1"
+                                        src="{{ asset('assets/landing/icons/logos_google-gmail.svg') }}" alt="logos_google-gmail"></button>
+                            </div>
+                            <form class="normal-signup" id="form-signup-1">
+                                <h6 class="form-headline align-items-center " style="color: red; margin:0;">أو</h6>
+                                <input class="form-input" type="text" name="name" placeholder="الاسم*">
+                                <div id="name_error" class="error-hint-container"></div>
+                                <input class="form-input" type="text" inputmode="tel" name="phone_number" data-i18n="landingPage.phoneAsterisk" placeholder="الموبيل*">
+                                <div id="phone_number_error" class="error-hint-container"></div>
+                                <input class="form-input" type="text" inputmode="email" name="email" data-i18n="landingPage.emailAsterisk" placeholder="الايميل*">
+                                <div id="email_error" class="error-hint-container"></div>
+                                <input class="form-input" type="password" name="password" placeholder="كلمة السر*">
+                                <div id="password_error" class="error-hint-container"></div>
+                                <input class="form-input" type="password" name="repassword" data-i18n="landingPage.reEnterPasswordAsterisk" placeholder="اعادة كتابة كلمة السر*">
+                                <div id="repassword_error" class="error-hint-container"></div>
+                                <button style="cursor: pointer;" class="normal-signup-button" type="submit" data-i18n="landingPage.startNow" value="ابدأ دلوقتى">ابدأ دلوقتى</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <section class="process-section tracking-section" id="steps">
+            <h2 class="text" data-i18n="landingPage.wantToBeKaseeb">عايز تبقى كسيب ؟</h2>
+            <div class="process-row">
+
+                <img class="process-img" src="{{ asset('assets/images//Mobile-login-pic.png') }}" alt="Mobile login-bro">
+                <img class="process-img-MV" src="{{ asset('assets/images//Mobile-login-pic-MV.png') }}" alt="Mobile login-bro">
+                <img class="arrow" src="{{ asset('assets/images//arrow.html') }}" alt="Mobile login-bro">
+
+                <img class="process-img" src="{{ asset('assets/images//choose-product.png') }}" alt="Mobile login-bro">
+                <img class="process-img-MV" src="{{ asset('assets/images//choose-product-MV.png') }}" alt="Mobile login-bro">
+                <img class="arrow" src="{{ asset('assets/images//arrow.html') }}" alt="Mobile login-bro">
+
+                <img class="process-img" src="{{ asset('assets/images//marketing-product.png') }}" alt="Mobile login-bro">
+                <img class="process-img-MV" src="{{ asset('assets/images//marketing-product-MV.png') }}" alt="Mobile login-bro">
+
+            </div>
+            <div class="process-row">
+                <img class="process-img" src="{{ asset('assets/images//write-customer-details.png') }}" alt="Mobile login-bro">
+                <img class="process-img-MV" src="{{ asset('assets/images//write-customer-details-MV.png') }}" alt="Mobile login-bro">
+                <img class="arrow" src="{{ asset('assets/images//arrow.html') }}" alt="Mobile login-bro">
+
+                <img class="process-img" src="{{ asset('assets/images//receive-ur-money.png') }}" alt="Mobile login-bro">
+                <img class="process-img-MV" src="{{ asset('assets/images//receive-ur-money-MV.png') }}" alt="Mobile login-bro">
+                <img class="arrow" src="{{ asset('assets/images//arrow.html') }}" alt="Mobile login-bro">
+
+                <img class="process-gif" src="{{ asset('assets/images//earnings.png') }}" alt="Mobile login-bro">
+            </div>
+
+            <a class="signup-btn" href="#last-section" data-i18n="landingPage.startNow">ابدأ الان</a>
+
+
+        </section>
+
+        <section class="why-section tracking-section" id="why">
+            <div class="section">
+                <h2 class="text" data-i18n="landingPage.whyWorkWithKaseeba">ليه تشتغل مع الكسيبة ؟</h2>
+                <ul class="why-list">
+                    <li data-i18n="landingPage.highestSuccessRate">علشان عندنا اعلى معدل نجاح لتوصيل الأوردر و ده هيضمنلك ارباحك</li>
+                    <li data-i18n="landingPage.weTeachMarketing">هنعلمك تسوق ازاى علشان تقدر تبيع وتكسب من بيع منتجاتنا</li>
+                    <li data-i18n="landingPage.weOfferTechSupport">بنوفرلك دعم فنى متواجد دايما يساعدك على حل مشاكلك</li>
+                    <li data-i18n="landingPage.earnHighProfits">تقدر تحقق ارباح كبيرة لانك بتبيع بالسعر المناسب ليك</li>
+                </ul>
+                <div>
+                    <img class="why-img" src="{{ asset('assets/images//line.svg') }}" alt="">
+                </div>
+            </div>
+            <div class="section">
+                <img class="why-img" src="{{ asset('assets/images//why-pic.svg') }}" alt="why-pic">
+            </div>
+
+        </section>
+        <div class="last-section tracking-section" id="last-section">
+            <div class="text-area">
+                <h2 class="text" data-i18n="landingPage.increaseIncome">اشتغل وزوّد دخلك وانت قاعد فى مكانك</h2>
+            </div>
+            <div style="display: flex; padding: 5%; justify-content: center;">
+                <div class="form-signup col-12">
+                    <h2 class="form-headline" data-i18n="landingPage.startNow">ابدأ دلوقتى</h2>
+                    <div class="form-social-buttons">
+                        <button type="button" class="button-1 facebookBTN" id="#facebookBTN-1">سجل عن طريق
+                                    فيسبوك<img class="px-1" src="{{ asset('assets/landing/icons/roundFacbook.svg') }}"
+                                        alt="roundFacbooklogo"></button>
+                        <button type="button" class="button-1 gmailBTN">سجل عن طريق جوجل<img class="px-1"
+                                        src="{{ asset('assets/landing/icons/logos_google-gmail.svg') }}" alt="logos_google-gmail"></button>
+                    </div>
+                    <form class="normal-signup" id="form-signup-2">
+                        <h6 class="form-headline align-items-center " style="color: red; margin:0;">أو</h6>
+                        <input class="form-input" type="text" name="name" placeholder="الاسم*">
+                        <div id="name_error" class="error-hint-container"></div>
+                        <input class="form-input" type="text" inputmode="tel" name="phone_number" data-i18n="landingPage.phoneAsterisk" placeholder="الموبيل*">
+                        <div id="phone_number_error" class="error-hint-container"></div>
+                        <input class="form-input" type="text" inputmode="email" name="email" data-i18n="landingPage.emailAsterisk" placeholder="الايميل*">
+                        <div id="email_error" class="error-hint-container"></div>
+                        <input class="form-input" type="password" name="password" placeholder="كلمة السر*">
+                        <div id="password_error" class="error-hint-container"></div>
+                        <input class="form-input" type="password" name="repassword" data-i18n=landingPage.reEnterPasswordAsterisk placeholder="اعادة كتابة كلمة السر*">
+                        <div id="repassword_error" class="error-hint-container"></div>
+                        <button style="cursor: pointer;" class="normal-signup-button" type="submit" data-i18n="landingPage.startNow" value="ابدأ دلوقتى">ابدأ دلوقتى</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <section class="logo-section col-m-12">
+                <h2 class="footer-logo">الكسيبة</h2>
+                <div class="text-section">
+                    <a class="privacy-policy" id="privacy-policy">سياسة الخصوصية</a>
+                </div>
+
+            </section>
+            <div class="login-and-social">
+                <div class="div-social">
+                    <a href="https://www.instagram.com/alkaseba/" class="social instagram-icon"><img src="{{ asset('assets/landing/icons/logos_instagram.svg') }}" alt=""></a>
+                    <a href="https://www.youtube.com/channel/UC9MSkyaE5xASpQ8GbdehqRg" class="social youtube-icon"><img src="{{ asset('assets/landing/icons/logos_youtube-icon.svg') }}" alt=""></a>
+                    <a href="https://www.facebook.com/Alkaseba" class="social facebook-icon"><img src="{{ asset('assets/landing/icons/logos_facebook.svg') }}" alt=""></a>
+                </div>
+                <div class="div-login">
+                    <a class="header-button" href="https://seller.alkaseba.com/">تسجيل الدخول</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script type="module" src="{{ asset('assets/landing/JS/main.js') }}"></script>
+</body>
+
+
+<!-- Mirrored from alkaseba.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 Mar 2023 18:59:09 GMT -->
+
+</html>

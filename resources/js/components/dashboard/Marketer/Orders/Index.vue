@@ -93,7 +93,7 @@
                             <tr v-for="(order, key) in orders" :key="key">
                                 <th scope="row"> # {{ order.id }}</th>
                                 <td>{{ order.quantity }} قطعة</td>
-                                <td>{{ order.total }} USD</td>
+                                <td>{{ order.order_total }} USD</td>
                                 <td>{{ order.marketer_profit }} USD</td>
                                 <td>
                                     <template v-if="order.pending_payment">
