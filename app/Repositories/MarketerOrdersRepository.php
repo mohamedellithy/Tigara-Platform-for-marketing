@@ -40,6 +40,7 @@ class MarketerOrdersRepository extends MarketerOrdersRepositoryInterface{
         $customer = Customer::updateOrCreate([
             'phone'      => $request->input('phone'),
         ],[
+            'another_phone' => $request->input('another_phone'),
             'name'       => $request->input('name'),
             'city'       => $request->input('city'),
             'address'    => $request->input('address'),
