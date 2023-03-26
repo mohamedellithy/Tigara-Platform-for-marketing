@@ -32,7 +32,7 @@
                                 <i class="fas fa-user-edit" style="padding: 5px;"></i>
                                     سعر الطلبية
                                 </label>
-                                <p class="alert">{{ order.total }} USD</p>
+                                <p class="alert">{{ order.order_total }} USD</p>
                             </div>
                         </div>
                         <div class="col-lg-3">
