@@ -96,6 +96,7 @@
                                 <td>{{ order.order.order_status_txt }}</td>
                                 <td>{{ order.order.shipping_status_txt }}</td>
                                 <td>{{ order.created_at }}</td>
+
                             </tr>
                         </tbody>
                         <!--Table body-->
