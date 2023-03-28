@@ -49,8 +49,8 @@
                     </div>
                     <div class="login-and-social col-5 col-md-3 justify-content-end">
                         <div class="div-login col-12 ">
-                            <a class="header-button" href="https://seller.alkaseba.com/">تسجيل الدخول</a>
-                            <a class="header-button" href="https://seller.alkaseba.com/">انشاء حساب</a>
+                            <a class="header-button" href="{{ url('login') }}">تسجيل الدخول</a>
+                            <a class="header-button" href="{{ url('register') }}">انشاء حساب</a>
                         </div>
 
                     </div>
@@ -179,7 +179,7 @@
                     <p class="overflow-howtojoin">
                         تمنحك منصة تجارة أعلى نسبة عمولة على مبيعاتك مهما زادت أو قلت تبقي دائما رابح على منصتنا
                     </p>
-                    <a href="#" class="btn btn-howtojoin">أبدأ الان و اجني أرباحك</a>
+                    <a href="{{ url('register') }}" class="btn btn-howtojoin">أبدأ الان و اجني أرباحك</a>
                 </div>
             </div>
 
