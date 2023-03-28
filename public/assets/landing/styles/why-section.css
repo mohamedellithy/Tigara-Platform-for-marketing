@@ -1,47 +1,72 @@
-
-.why-section{
+.why-section {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin: 0%;
     padding-top: 2%;
+    /* background-image: linear-gradient(265deg, rgb(233 228 228 / 0%) 26.06%, rgb(1 1 1 / 0%) 111.65%), url(../images/Untitled.png);
+     */
+    background-color: #e6e6e62b;
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: cover;
 }
-.why-section .section{
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    margin: 0% 8%;
+
+.why-section .section {
     justify-content: space-around;
 }
-.why-section .section .text{
-    color: #FB1B1C;
+
+.why-section .text {
+    color: #000000;
     margin-top: 40px;
     font-style: normal;
     font-weight: bold;
     font-size: 35px;
     line-height: 60px;
 }
-.why-section .section .why-list{
-    margin: 5% 0px;
+
+.why-section .why-list {
+    margin: 5% 9%;
 }
-.why-section .section .why-list li{
-    margin-top:5% ;
+
+.why-section .why-list li {
+    margin-top: 5%;
     color: #777777;
     font-style: normal;
     font-weight: bold;
-    font-size: 22px;
-    line-height: 150%;
-    list-style-image: url(../icons/list-pin-logo.png)
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    color: #a18888;
+    /* box-shadow: 0px 10px 10px 10px #2322222b; */
+    box-shadow: 2px 10px 12px 5px #2322222b;
+    font-size: 18px;
+    text-align: justify;
+    list-style: none;
+    /* list-style-image: url(../icons/list-pin-logo.png) */
+    margin-bottom: 1%;
+    line-height: 1.9em;
 }
-.why-section .section .why-img{
+
+.why-section .why-list li:nth-child(odd) {
+    margin-left: 13%;
+    color: #f37115;
+    border-right: 10px solid black;
+}
+
+.why-section .why-list li:nth-child(even) {
+    margin-right: 13%;
+    color: black;
+    border-right: 10px solid hsla(11, 100%, 62.2%, 1);
+}
+
+.why-section .why-img {
     width: 100%;
 }
 
 @media (max-width: 770px) {
-    
-    .why-section{
+    .why-section {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -52,7 +77,7 @@
         flex-wrap: nowrap;
         padding-top: 20%;
     }
-    .why-section .section{
+    .why-section .section {
         display: flex;
         flex-direction: column;
         width: 80%;
@@ -63,7 +88,7 @@
         align-items: center;
         flex-wrap: nowrap;
     }
-    .why-section .section .text{
+    .why-section .text {
         color: #FB1B1C;
         margin-top: 5%;
         font-style: bold;
@@ -73,12 +98,12 @@
         width: 80%;
         text-align: center;
     }
-    .why-section .section .why-list{
+    .why-section .why-list {
         margin: 0% 0px;
         text-align: right;
     }
-    .why-section .section .why-list li{
-        margin-top:5% ;
+    .why-section .why-list li {
+        margin-top: 5%;
         color: #777777;
         font-style: normal;
         font-weight: normal;
@@ -86,7 +111,7 @@
         line-height: 5vw;
         list-style-image: url(../icons/list-pin-logo.png)
     }
-    .why-section .section .why-img{
+    .why-section .why-img {
         margin: 0% 0%;
         width: 100%;
     }

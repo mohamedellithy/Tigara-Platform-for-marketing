@@ -1,5 +1,4 @@
-
-.process-section{
+.process-section {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,7 +7,8 @@
     margin: 0%;
     margin-top: -2%;
 }
-.process-section .process-row{
+
+.process-section .process-row {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -16,17 +16,20 @@
     margin: 0% 8%;
     justify-content: space-evenly;
 }
-.process-section  h2{
-    color: #FB1B1C;
+
+.process-section h2 {
+    /* color: #FB1B1C; */
+    color: #c2580e;
     margin-top: 40px;
     font-style: normal;
     font-weight: bold;
     text-align: center;
     font-size: 35px;
-    line-height: 60px;
+    /* line-height: 60px; */
+    line-height: 4em;
 }
 
-.process-section  .signup-btn{
+.process-section .signup-btn {
     font-family: 'Cairo', sans-serif;
     background-color: #FB1B1C;
     color: white;
@@ -36,28 +39,28 @@
     padding: 1%;
     border: 1px solid #E6E6EB;
     box-sizing: border-box;
-    border-radius: 8px; 
-    margin: 2% 0% 5%;   
+    border-radius: 8px;
+    margin: 2% 0% 5%;
     width: 10%;
     text-align: center;
     text-decoration: none;
 }
 
-.process-section .process-row .process-img{
+.process-section .process-row .process-img {
     width: 20%;
 }
-.process-section .process-row .process-img-MV{
+
+.process-section .process-row .process-img-MV {
     width: 20%;
     display: none;
 }
-.process-section .process-row .arrow{
+
+.process-section .process-row .arrow {
     width: 15%;
     display: none;
 }
 
-
-
-.process-section .process-row a{
+.process-section .process-row a {
     font-family: 'Cairo', sans-serif;
     background-color: #FB1B1C;
     color: white;
@@ -69,9 +72,9 @@
     border: 1px solid #E6E6EB;
     box-sizing: border-box;
     border-radius: 10px;
-    margin-top: 75px; 
-    margin-bottom: 32px; 
-    Padding :16px, 24px, 16px, 24px;   
+    margin-top: 75px;
+    margin-bottom: 32px;
+    Padding: 16px, 24px, 16px, 24px;
     width: 10%;
     height: 5vh;
     text-decoration: none;
@@ -80,11 +83,7 @@
 }
 
 @media (max-width: 770px) {
-    
-
-    
-    
-    .process-section{
+    .process-section {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -93,7 +92,7 @@
         margin: 0%;
         padding-top: 17%;
     }
-    .process-section .process-row{
+    .process-section .process-row {
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -102,7 +101,7 @@
         align-content: center;
         flex-wrap: nowrap;
     }
-    .process-section  .text{
+    .process-section .text {
         color: #FB1B1C;
         margin: 10%;
         font-style: normal;
@@ -111,26 +110,24 @@
         font-size: 7vw;
         line-height: 2vw;
     }
-    .process-section .process-row .process-img{
+    .process-section .process-row .process-img {
         width: 80%;
         margin-bottom: 25%;
         display: none;
     }
-    .process-section .process-row .process-img-MV{
+    .process-section .process-row .process-img-MV {
         width: 80%;
         margin-bottom: 25%;
         display: block;
     }
-    .process-section .process-row .process-gif{
+    .process-section .process-row .process-gif {
         width: 80%;
         margin-bottom: 10%;
     }
-    .process-section .process-row .arrow{
+    .process-section .process-row .arrow {
         display: none;
     }
-    
-    
-    .process-section  .signup-btn{
+    .process-section .signup-btn {
         font-family: 'Cairo', sans-serif;
         background-color: #FB1B1C;
         color: white;
@@ -140,7 +137,7 @@
         padding: 2%;
         border: 1px solid #E6E6EB;
         box-sizing: border-box;
-        border-radius: 8px;   
+        border-radius: 8px;
         width: 30%;
         text-align: center;
         text-decoration: none;
