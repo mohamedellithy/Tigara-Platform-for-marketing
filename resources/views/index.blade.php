@@ -35,7 +35,7 @@
                                 <a class="FAQ-button" href="#steps">الخطوات</a>
                             </div>
                             <div class="div-FAQ header-section">
-                                <a class="FAQ-button" href="#why">ليه تجارة</a>
+                                <a class="FAQ-button" href="#why">لماذا تجارة ؟</a>
                             </div>
                             <div class="div-FAQ header-section">
                                 <a class="FAQ-button" href="#testominail">أراء المسوقين</a>
@@ -90,21 +90,21 @@
                 <div class="row">
                     <div class="div-welcome col-12 col-md-6">
                         <h1 class="headline">
-                            للمسوقين و الباحثين عن أعلى نسبة عمولة الأن يمكنكم
+                            للمسوقين و الباحثين عن منتجات رائجة يمكنكم
                         </h1>
                         {{-- <h2 class="welcome-headline">
                                 أكسب اعلى نسبة عمولة
                         </h2> --}}
                         <h4 id="headline-tab"  class="welcome-subtext" data-i18n="landingPage.increaseIncome">
                             <span class="TypeOn active">
-                                زيادة أرباحك من خلال تسويق المنتجات من خلالنا
+                               تحقيق أرباح جيدة مع شركة تجارة شوب
                             </span>
                             <span class="TypeOn">
-                                متابعة طلباتك و زيادة رضا عملائك من خلالنا
+                                تحقيق عمولة كبيرة و أختيار طريقة الترويج المناسبة لكم
                             </span>
                         </h4>
                         <p class="some-features">
-                            أعلى معدل طلبات مكتملة و التى ستنعكس بشكل ايجابي على معدل أرباحك بالاضافة للدعم المباشر حتى اكتمال الطلبات
+                            أعلى معدل طلبات مكتملة و التى ستنعكس بشكل ايجابي على معدل أرباحك بالاضافة للدعم المباشر و تعليم استراتيجيات التسويق الالكترونى
                         </p>
                         <a href="{{ url('login') }}" class="btn btn-go">
                             انضم الينا الأن
@@ -129,10 +129,10 @@
                     <img class="img-responsive howtojoin-img" src="{{ asset('assets/landing/images/Mobile-login-pic.png') }}">
                     <span class="dash-no">1</span>
                     <p class="howtojoin-heading">
-                        انشاء حساب على منصة تجارة
+                        انشاء حساب على منصة tigara.shop
                     </p>
                     <p class="howtojoin-desc">
-                        سجل اسمك و ايميلك و رقم جوالك و انضم الينا
+                        سجل اسمك و ايميلك و رقم هاتفك و بريدك الالكتروني و انضم الينا
                     </p>
                 </div>
                 <div class="col-md-4 ">
@@ -159,20 +159,20 @@
                     <img class="img-responsive howtojoin-img" src="{{ asset('assets/landing/images/write-customer-details.png') }}">
                     <span class="dash-no">4</span>
                     <p class="howtojoin-heading">
-                        أكتب معلومات العميل
+                        أكتب معلومات الزبون
                     </p>
                     <p class="howtojoin-desc">
-                        بعد اضافة الطلب الى سلة التسوق قم باضافة بيانات العميل لاستكمال باقي الخطوات
+                        بعد اضافة الطلب الى سلة التسوق قم باضافة بيانات الزبون لاستكمال باقي الخطوات
                     </p>
                 </div>
                 <div class="col-md-4 ">
                     <img class="img-responsive howtojoin-img" src="{{ asset('assets/landing/images/receive-ur-money.png') }}">
                     <span class="dash-no">5</span>
                     <p class="howtojoin-heading">
-                        أستلم فلوسك بعد تسليم الطلب
+                        أستلم أرباحك بعد تسليم الطلب
                     </p>
                     <p class="howtojoin-desc">
-                        بمجرد توصيل الطلب للعميل يتم ايداع أرباحك في حسابك
+                        بمجرد توصيل الطلب الزبون يتم ايداع أرباحك في حسابك
                     </p>
                 </div>
                 <div class="col-md-4 ">
@@ -192,20 +192,19 @@
                     <ul class="why-list">
                         <li data-i18n="landingPage.highestSuccessRate">
                             <i class="fas fa-layer-group"></i>
-                            علشان عندنا اعلى معدل نجاح لتوصيل الأوردر و ده
-                            هيضمنلك ارباحك
+                            أول منصة محلية تتيح لك الربح من منتجات دون امتلاكها
                         </li>
                         <li data-i18n="landingPage.weTeachMarketing">
                             <i class="fas fa-layer-group"></i>
-                            هنعلمك تسوق ازاى علشان تقدر تبيع وتكسب من بيع منتجاتنا
+                            هنعلمك كل استراتيحيات التسويق لكى تحقق أعلى نسبة مبيعات
                         </li>
                         <li data-i18n="landingPage.weOfferTechSupport">
                             <i class="fas fa-layer-group"></i>
-                            بنوفرلك دعم فنى متواجد دايما يساعدك على حل مشاكلك
+                             دعم فنى متواجد دايما يساعدك على حل مشاكلك
                         </li>
                         <li data-i18n="landingPage.earnHighProfits">
                             <i class="fas fa-layer-group"></i>
-                            تقدر تحقق ارباح كبيرة لانك بتبيع بالسعر المناسب ليك
+                            عمولة مناسبة على كل طلبية مكتملة تتم من خلالك
                         </li>
                     </ul>
                     <div>
