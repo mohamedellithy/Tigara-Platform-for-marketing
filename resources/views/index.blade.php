@@ -196,7 +196,7 @@
                         </li>
                         <li data-i18n="landingPage.weTeachMarketing">
                             <i class="fas fa-layer-group"></i>
-                            هنعلمك كل استراتيحيات التسويق لكى تحقق أعلى نسبة مبيعات
+                            سنعلمك كل استراتيحيات التسويق لكى تحقق أعلى نسبة مبيعات
                         </li>
                         <li data-i18n="landingPage.weOfferTechSupport">
                             <i class="fas fa-layer-group"></i>
