@@ -527,6 +527,7 @@ header .login-and-social .div-login .header-button {
     }
     header .header-section {
         margin: 0% 3%;
+        padding: 0px 0px 12px 3px;
     }
 }
 

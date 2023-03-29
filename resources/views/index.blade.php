@@ -75,11 +75,11 @@
                         <div class="div-FAQ header-section">
                             <a class="FAQ-button" href="#testominail">أراء المسوقين</a>
                         </div>
-                        <div class="div-FAQ header-section ">
+                        {{-- <div class="div-FAQ header-section ">
                             <a class="FAQ-button" href="{{ asset('assets/landing/Help/Help-page.html') }}">مساعدة <img
                                     class="px-1" src="{{ asset('assets/landing/icons/help-circle.svg') }}"
                                     alt="help-circle"></a>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
