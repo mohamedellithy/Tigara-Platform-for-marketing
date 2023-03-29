@@ -43,7 +43,7 @@ header .logo {
 }
 
 .logo-sections {
-    display: flex;
+    display: block;
 }
 
 .header-sections-MV {
@@ -51,24 +51,26 @@ header .logo {
 }
 
 .header-sections {
-    display: flex;
+    display: inline-flex;
     margin-right: 10%;
 }
 
 header .div-FAQ {
-    display: flex;
+    display: inline-block;
+    /* display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-end; */
 }
 
 header .header-section {
-    display: flex;
-    flex-direction: row;
+    display: inline-block;
+    margin: 0% 4%;
+    /* flex-direction: row;
     align-items: center;
     justify-content: flex-end;
     margin: 0% 4%;
-    width: max-content;
+    width: max-content; */
 }
 
 header .div-FAQ .FAQ-button {
@@ -83,10 +85,10 @@ header .div-FAQ .FAQ-button {
 }
 
 header .login-and-social {
-    display: flex;
-    flex-direction: row;
+    display: block;
+    /* flex-direction: row;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-end; */
 }
 
 header .login-and-social .div-social {
@@ -449,7 +451,7 @@ header .login-and-social .div-login .header-button {
     left: 8%;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
     .welcome-view .div-form .form-signup .form-social-buttons {
         flex-direction: column;
     }
@@ -475,8 +477,10 @@ header .login-and-social .div-login .header-button {
         text-align: center;
     }
     .welcome-view .div-welcome .welcome-subtext {
-        text-align: center;
-        opacity: 0.9;
+        /* text-align: center;
+        opacity: 0.9; */
+        width: 100%;
+        font-size: .6rem;
     }
     .welcome-view .div-form {
         width: 100%;
@@ -484,6 +488,16 @@ header .login-and-social .div-login .header-button {
     }
     .custom-shape-divider-bottom {
         display: none;
+    }
+    .why-section .text::after {
+        content: "";
+        width: 160px;
+        height: 12px;
+        background-color: orange;
+        display: block;
+        margin-top: -10px;
+        margin-right: auto;
+        margin-left: auto;
     }
 }
 
@@ -501,11 +515,18 @@ header .login-and-social .div-login .header-button {
         font-size: .5rem;
     }
     .header-sections-MV {
-        display: flex;
+        /* display: flex; */
+        display: contents;
         justify-content: center
     }
     .header-sections {
         display: none;
+    }
+    header .login-and-social .div-login {
+        padding: 13px 0px;
+    }
+    header .header-section {
+        margin: 0% 3%;
     }
 }
 
@@ -759,12 +780,13 @@ header .login-and-social .div-login .header-button {
         font-weight: bold;
         font-size: 5.5vw;
         line-height: 8vw;
-        width: 80%;
+        width: 90%;
         text-align: center;
     }
     .why-section .why-list {
-        margin: 0% 0px;
+        margin: 12% 0px;
         text-align: right;
+        padding: 0px;
     }
     .why-section .why-list li {
         margin-top: 5%;
@@ -778,6 +800,9 @@ header .login-and-social .div-login .header-button {
     .why-section .why-img {
         margin: 0% 0%;
         width: 100%;
+    }
+    .card {
+        padding: 2% 12%;
     }
 }
 

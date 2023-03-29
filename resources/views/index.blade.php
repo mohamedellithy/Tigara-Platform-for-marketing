@@ -22,33 +22,39 @@
         <header>
             <div class="container">
                 <div class="row justify-content-between">
-                    <div class="col-6 col-md-9 logo-sections">
-                        <div style="display: flex; align-items: center; justify-content: center; margin: 4px 0;">
-                            <img width="140" height="52" class="logo"
-                                src="{{ asset('assets/landing/images/tigara-trans.png') }}" alt="logo-alkseba">
-                        </div>
-                        <div class="header-sections">
-                            <div class="div-FAQ header-section">
-                                <a class="FAQ-button" href="#welcome">الرئيسية</a>
+                    <div class="col-4 col-md-9 logo-sections">
+                        <div class="row">
+                            <div class="col-md-2 col-12">
+                                <div style="display: inline-block; align-items: center; justify-content: center; margin: 4px 0;">
+                                    <img width="140" height="52" class="logo"
+                                        src="{{ asset('assets/landing/images/tigara-trans.png') }}" alt="logo-alkseba">
+                                </div>
                             </div>
-                            <div class="div-FAQ header-section">
-                                <a class="FAQ-button" href="#steps">الخطوات</a>
-                            </div>
-                            <div class="div-FAQ header-section">
-                                <a class="FAQ-button" href="#why">لماذا تجارة ؟</a>
-                            </div>
-                            <div class="div-FAQ header-section">
-                                <a class="FAQ-button" href="#testominail">أراء المسوقين</a>
-                            </div>
-                            <div class="div-FAQ header-section ">
-                                <a class="FAQ-button" href="{{ asset('assets/landing/Help/Help-page.html') }}">مساعدة
-                                    <img class="px-1" src="{{ asset('assets/landing/icons/help-circle.svg') }}"
-                                        alt="help-circle"></a>
+                            <div class="col-md-10 col-1">
+                                <div class="header-sections">
+                                    <div class="div-FAQ header-section">
+                                        <a class="FAQ-button" href="#welcome">الرئيسية</a>
+                                    </div>
+                                    <div class="div-FAQ header-section">
+                                        <a class="FAQ-button" href="#steps">الخطوات</a>
+                                    </div>
+                                    <div class="div-FAQ header-section">
+                                        <a class="FAQ-button" href="#why">لماذا تجارة ؟</a>
+                                    </div>
+                                    <div class="div-FAQ header-section">
+                                        <a class="FAQ-button" href="#testominail">أراء المسوقين</a>
+                                    </div>
+                                    <div class="div-FAQ header-section ">
+                                        <a class="FAQ-button" href="{{ asset('assets/landing/Help/Help-page.html') }}">مساعدة
+                                            <img class="px-1" src="{{ asset('assets/landing/icons/help-circle.svg') }}"
+                                                alt="help-circle"></a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="login-and-social col-5 col-md-3 justify-content-end">
-                        <div class="div-login col-12 ">
+                    <div class="login-and-social col-md-3 col-8 justify-content-end">
+                        <div class="div-login">
                             <a class="header-button" href="{{ url('login') }}">تسجيل الدخول</a>
                             <a class="header-button" href="{{ url('register') }}">انشاء حساب</a>
                         </div>
@@ -64,11 +70,14 @@
                             <a class="FAQ-button" href="#steps">الخطوات</a>
                         </div>
                         <div class="div-FAQ header-section">
-                            <a class="FAQ-button" href="#why">ليه الكسيبة</a>
+                            <a class="FAQ-button" href="#why">لماذا تجارة ؟</a>
+                        </div>
+                        <div class="div-FAQ header-section">
+                            <a class="FAQ-button" href="#testominail">أراء المسوقين</a>
                         </div>
                         <div class="div-FAQ header-section ">
                             <a class="FAQ-button" href="{{ asset('assets/landing/Help/Help-page.html') }}">مساعدة <img
-                                    class="px-1" src="{{ asset('assets/landivideosng/icons/help-circle.svg') }}"
+                                    class="px-1" src="{{ asset('assets/landing/icons/help-circle.svg') }}"
                                     alt="help-circle"></a>
                         </div>
                     </div>
