@@ -324,15 +324,16 @@ export default {
         height: auto;
     }
     .section-login-form{
-        padding: 2%;
-        margin-top: 40px;
+        padding: 10%;
+        margin-top: 20px;
     }
     .frame-title-login
     {
-        margin-top: 23px !important;
+        margin-top: 15px !important;
         line-height: 2em;
         padding: 0px 15px;
-        margin-bottom: 15%;
+        margin-bottom: 3%;
+        font-size: 16px;
     }
     .row-form-ifram{
         padding-right: 10px;
@@ -345,6 +346,14 @@ export default {
     .img-marketing{
         width: 80%;
         margin-top: 10%;
+    }
+    .facebook-btn{
+        width: 100%;
+        font-size: 9px;
+        padding: 10px;
+    }
+    .RegisterSectionLink span{
+        font-size: 10px;
     }
 }
 </style>

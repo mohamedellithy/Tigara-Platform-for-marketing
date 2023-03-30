@@ -251,6 +251,7 @@ export default {
 }
 .section-login{
     margin-top: 15%;
+
 }
 .facebook-btn{
     width: 100%;
@@ -313,15 +314,15 @@ export default {
         height: auto;
     }
     .section-login-form{
-        padding: 2%;
+        padding: 8%;
         margin-top: 40px;
     }
     .frame-title-login
     {
-        margin-top: 23px !important;
+        margin-top: 0px !important;
         line-height: 2em;
         padding: 0px 15px;
-        margin-bottom: 15%;
+        margin-bottom:6%;
     }
     .row-form-ifram{
         padding-right: 10px;
@@ -334,6 +335,9 @@ export default {
     .img-marketing{
         width: 80%;
         margin-top: 10%;
+    }
+    .facebook-btn{
+        font-size: 11px;
     }
 }
 </style>

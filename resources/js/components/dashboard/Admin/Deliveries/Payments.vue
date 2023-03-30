@@ -231,4 +231,14 @@ export default {
     height: 46px;
     margin-top: 34px;
 }
+@media(max-width:1000px){
+    .container-submit-btn-merchant button{
+        margin: 1px;
+        font-size: 10px;
+    }
+    .filter-bar .filter-results .filter-item{
+        font-size: 11px;
+        margin-bottom: 2px;
+    }
+}
 </style>

@@ -53,8 +53,9 @@
                     <ul class="navbar-nav mr-auto">
                         <!-- logo -->
                         <li class="nav-item mobile-header-logo">
-                            <label class="header-shop-logo"></label>
-                            <label class="header-logo">Logo</label>
+                            <!-- <label class="header-shop-logo"> -->
+                                <img class="header-shop-logo" src="@/img/tigara-trans.png"/>
+                            <!-- </label> -->
                         </li>
                         <!-- end logo -->
                         <!-- search bar -->
@@ -97,7 +98,6 @@
 
             <div class="container-mini-cart" v-if="toggleMiniCart == true" :key="$route.fullPath">
                 <div class="content-mini-cart">
-                    {{ $loadingCart }}
                     <table class="table mini-cart">
                         <tr>
                             <th>المنتج</th>
@@ -180,8 +180,8 @@ export default {
     },
     methods: {
         toggleDropdown:function(){
-            this.toggle        = !this.toggle;
-
+            this.toggle = !this.toggle;
+            this.toggleSide = true;
         },
         LogOut:async function(){
             let self = this;
@@ -197,7 +197,7 @@ export default {
             this.toggleSide = !this.toggleSide;
         },
         ToggleMiniCart:function(){
-            this.toggleMiniCart = !this.$toggleMiniCart;
+            this.toggleMiniCart = !this.toggleMiniCart;
         },
         toggleListMenuSidebar:function(item){
             if(this.expanded.indexOf(item) !== -1){
@@ -276,7 +276,9 @@ export default {
     watch:{
         "$route":function(){
             this.toggleMiniCart = false;
-            this.toggle = false;
+            if(this.toggle != true){
+                this.toggleSide = false;
+            }
         }
     }
 }
@@ -663,7 +665,7 @@ export default {
     }
     .container-dashboard{
         right:0%;
-        width:100%;
+        width:95%;
     }
     .navbar-nav{
         flex-direction: row;
@@ -676,10 +678,11 @@ export default {
         font-size: 1.3pc;
     }
     .mobile-header-logo .header-shop-logo{
-        margin-top: 8px;
+        margin-top: 5px;
         margin-left: 5px;
-        width: 23px;
-        height: 22px;
+        width: 70px !important;
+        height: 40px;
+        background-color:transparent;
     }
     .navbar-brand{
         display: none;
@@ -729,22 +732,72 @@ export default {
     .sidemenu .header-shop .header-shop-name{
         display: inline-block !important;
         text-align:right !important;
+        height: 50px;
     }
     .list-items-menu a.item-menu{
         padding: 15px 10px;
     }
     .mobile-profile-dropdown{
-        padding: 15px 10px 15px 0px;
+        padding: 16px 13px 19px 12px;
         border-bottom: 1px solid #e6e6e6;
         border-top: 1px solid #e6e6e6;
         background-color: #e6e6e6;
         border-radius: 0px;
+        margin-bottom: 14px;
+        background-color: #cff0d0;
+        color: black;
+    }
+    .mobile-profile-dropdown .dropdown-menus-vue{
+        color: black;
+        box-shadow: 0px 0px 0px 0px;
+        margin-top: 13px;
     }
     .mobile-profile-dropdown img{
         width: 20px;
+        margin: 0px 12px;
     }
     .mobile-profile-dropdown a.dropdown-toggle{
         display: inline-block;
+    }
+    .dropdown-menus-vue {
+        position: relative;
+    }
+    .container-body-merchant {
+        padding: 12% !important;
+    }
+
+    .container-mini-cart{
+        width: 100%;
+        left: 0%;
+    }
+    .container-mini-cart table.mini-cart tr th:first-child{
+        width: 25%;
+        font-size: 10px;
+    }
+    .container-mini-cart table.mini-cart tr th{
+        font-size: 12px;
+    }
+    .quantity-varite{
+        font-size: 9px;
+    }
+    .quantity-mini-cart{
+        padding: 4px 15px;
+    }
+    .container-mini-cart table.mini-cart tr td{
+        font-size: 12px;
+    }
+    .container-mini-cart table.mini-cart tr td img.mini-cart-product-image{
+        width: 60%;
+    }
+    .go_to_checkout{
+        font-size: 12px;
+    }
+    .nav-item.top-cart-icon{
+        font-size: 15px;
+    }
+    .nav-item.top-cart-icon .show-cart-notification{
+        min-width: 15px;
+        font-size: 9px;
     }
 }
 </style>

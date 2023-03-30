@@ -127,8 +127,8 @@ export default {
             product.append('price',this.product.price);
             product.append('quantity',this.product.quantity);
             product.append('status',this.product.status);
-            
-            
+
+
             if(this.product.thumbnail){
                 product.append('thumbnail',this.product.thumbnail);
             }
@@ -171,7 +171,7 @@ export default {
         },
         RemoveImagefromAttachment:function(index){
             this.delete_media_ids.push(this.attachments_ids[index]);
-            
+
             if(this.product.attachments){
                 this.product.attachments.splice(index,1);
             }
@@ -303,5 +303,18 @@ export default {
     padding: 10px 32px;
     background-color: #eee;
     border-radius: 0px;
+}
+@media(max-width:1000px){
+    .container-submit-btn-merchant button{
+        margin: 1px;
+        font-size: 12px;
+    }
+    .filter-bar .filter-results .filter-item{
+        font-size: 11px;
+        margin-bottom: 2px;
+    }
+    .container-form-new-merchant{
+        padding: 30px;
+    }
 }
 </style>

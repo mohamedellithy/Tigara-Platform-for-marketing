@@ -225,4 +225,21 @@ li strong span{
     font-size: 13px;
     color: red;
 }
+@media(max-width:1000px){
+    .reports-tabs li{
+        min-width: 45%;
+        box-shadow: 0px 0px 0px 0px !important;
+        margin: 1%;
+    }
+    .reports-tabs li strong{
+        font-size: 15px;
+    }
+    .reports-tabs li p{
+        font-size: 11px;
+        padding: 0px 1px;
+    }
+    .container-body-merchant{
+        padding: 2% !important;
+    }
+}
 </style>

@@ -49,7 +49,7 @@
                 {{ products.length || 0 }} المعروض
             </label>
             <ul class="content-page row">
-                <li v-for="(product,key) in products" :key="key" class="col-md-3 item-product">
+                <li v-for="(product,key) in products" :key="key" class="col-md-3 col-12 item-product">
                     <div class="inner-product-item">
                         <i class="fas fa-heart favourits-add"
                            @click="addToFavourit(product.id)"
@@ -567,6 +567,24 @@ export default {
 .loading-overflow img{
     width: 20% !important;
     margin: auto;
+}
 
+@media(max-width:1000px){
+    .container-submit-btn-merchant button{
+        margin: 1px;
+        font-size: 12px;
+    }
+    .filter-bar .filter-results .filter-item{
+        font-size: 11px;
+        margin-bottom: 2px;
+    }
+    .list-filter-items{
+        padding: 20px 0px;
+    }
+    .list-filter-item button{
+        padding: 4px 10px;
+        font-size: 11px;
+        margin: 5px !important;
+    }
 }
 </style>

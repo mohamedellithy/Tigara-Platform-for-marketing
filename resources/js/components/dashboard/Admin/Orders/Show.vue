@@ -539,4 +539,17 @@ hr{
     height: 1px;
     margin: 18px;
 }
+@media(max-width:1000px){
+    .container-submit-btn-merchant button{
+        margin: 1px;
+        font-size: 12px;
+    }
+    .filter-bar .filter-results .filter-item{
+        font-size: 11px;
+        margin-bottom: 2px;
+    }
+    .container-dashboard{
+        width: 89% !important;
+    }
+}
 </style>

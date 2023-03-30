@@ -332,4 +332,14 @@ p.notice{
     width: 80%;
     white-space: normal !important;
 }
+@media(max-width:1000px){
+    .container-submit-btn-merchant button{
+        margin: 1px;
+        font-size: 12px;
+    }
+    .filter-bar .filter-results .filter-item{
+        font-size: 11px;
+        margin-bottom: 2px;
+    }
+}
 </style>

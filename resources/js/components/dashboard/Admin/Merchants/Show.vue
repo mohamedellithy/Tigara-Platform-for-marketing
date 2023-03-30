@@ -283,4 +283,15 @@ export default {
     padding: 11px 0px;
     margin-bottom: 0px;
 }
+
+@media(max-width:1000px){
+    .container-submit-btn-merchant button{
+        margin: 1px;
+        font-size: 12px;
+    }
+    .filter-bar .filter-results .filter-item{
+        font-size: 11px;
+        margin-bottom: 2px;
+    }
+}
 </style>

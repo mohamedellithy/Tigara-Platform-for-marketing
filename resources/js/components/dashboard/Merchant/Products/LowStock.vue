@@ -6,7 +6,7 @@
                 <ul class="filter-results">
                     <li class="filter-item">
                         <i class="fas fa-user-check"></i>
-                        {{ products.length }} منتجات 
+                        {{ products.length }} منتجات
                     </li>
                     <li class="filter-item">
                         <i class="fas fa-user-check"></i>
@@ -178,7 +178,7 @@ export default {
 .item-product {
     padding: 20px;
     text-align: center;
-    
+
     margin: 10px 0px;
     list-style: none;
     display: inline-block;
@@ -303,5 +303,18 @@ export default {
 .label-count-products{
     padding:0px 20px;
     font-weight: bold;
+}
+@media(max-width:1000px){
+    .container-submit-btn-merchant button{
+        margin: 1px;
+        font-size: 12px;
+    }
+    .filter-bar .filter-results .filter-item{
+        font-size: 11px;
+        margin-bottom: 2px;
+    }
+    .container-form-new-merchant{
+        padding: 30px;
+    }
 }
 </style>

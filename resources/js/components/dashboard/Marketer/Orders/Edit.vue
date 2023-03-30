@@ -460,4 +460,56 @@ export default{
     margin: auto;
 
 }
+@media(max-width:1000px){
+    .top-cart-complete li{
+        padding: 9px 5px;
+    }
+    .top-cart-complete li span{
+        padding: 14px;
+        width: 70px;
+    }
+    .top-cart-complete li span i{
+        font-size: 24px;
+    }
+    .top-cart-complete li label{
+        font-size: 12px;
+    }
+    .buttons-arrows-actions li .btn.prev,
+    .buttons-arrows-actions li .btn.next{
+        font-size: 10px;
+    }
+    .container-page-content  h4{
+        font-size: 14px;
+    }
+    .container-page-content table.mini-cart tr th,
+    .container-page-content table.mini-cart tr td,
+    .order-review-details tr th{
+        font-size: 10px;
+    }
+    .quantity-varite{
+        padding: 1px 2px;
+        font-size: 7px;
+    }
+    .quantity-mini-cart{
+        padding: 4px 10px;
+    }
+    .container-page-content table.mini-cart tr td img.mini-cart-product-image{
+        width: 70%;
+    }
+    .container-page-content table.mini-cart tr td .product-name{
+        font-size: 10px;
+    }
+    .order-details-info{
+        box-shadow:0px 0px 0px 0px;
+    }
+    .order-details-info .table {
+        font-size: 11px;
+    }
+    .DetailsSOrder,
+    .completeShoping{
+        padding: 4px 10px;
+        margin: 1px;
+        font-size: 12px;
+    }
+}
 </style>

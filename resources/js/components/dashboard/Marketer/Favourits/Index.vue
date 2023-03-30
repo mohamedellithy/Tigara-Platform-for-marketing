@@ -24,7 +24,7 @@
         </div>
         <div class="row">
             <ul class="content-page col-12">
-                <li v-for="(product,key) in products" :key="key" class="col-md-3 item-product">
+                <li v-for="(product,key) in products" :key="key" class="col-md-3 col-12 item-product">
                     <div class="inner-product-item">
                         <img :src="product.thumbnail_item.image_url || ImageProd1" class="image-product">
                         <p>{{ product.name }}</p>
@@ -469,5 +469,15 @@ export default {
 }
 .product-info-details .product-info-quantity .quantity-varite{
     cursor: pointer;
+}
+@media(max-width:1000px){
+    .container-submit-btn-merchant button{
+        margin: 1px;
+        font-size: 12px;
+    }
+    .filter-bar .filter-results .filter-item{
+        font-size: 11px;
+        margin-bottom: 2px;
+    }
 }
 </style>

@@ -390,4 +390,20 @@ export default {
     padding:0px 20px;
     font-weight: bold;
 }
+@media(max-width:1000px){
+    .container-submit-btn-merchant button{
+        margin: 1px;
+        font-size: 12px;
+    }
+    .filter-bar .filter-results .filter-item{
+        font-size: 11px;
+        margin-bottom: 2px;
+    }
+    .content-page{
+        padding-bottom: 30%;
+    }
+    .banner-profile-marketer :nth-child(4){
+        display: block !important;
+    }
+}
 </style>

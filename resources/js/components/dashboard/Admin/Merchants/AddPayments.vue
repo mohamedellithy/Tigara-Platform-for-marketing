@@ -296,4 +296,14 @@ p.status-owner-account .fa-circle
     font-weight: bold;
     color: #5d5d5c;
 }
+@media(max-width:1000px){
+    .container-submit-btn-merchant button{
+        margin: 1px;
+        font-size: 12px;
+    }
+    .filter-bar .filter-results .filter-item{
+        font-size: 11px;
+        margin-bottom: 2px;
+    }
+}
 </style>
