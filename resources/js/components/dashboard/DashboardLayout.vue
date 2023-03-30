@@ -23,7 +23,7 @@
                 <li class="nav-item list-items-menu dropdown mobile-profile-dropdown" @click="toggleDropdown">
                     <img :src="this.iconsProfile" />
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" >
-                        {{ $filters.handleEmail($auth.user.email) }}
+                        {{ $filters.handleEmail($auth.user.name) }}
                     </a>
                     <div v-if="toggle" class="dropdown-menus-vue">
                         <router-link tag="a" class="dropdown-item" :to="{path:'/dashboard/setting-account'}">
@@ -73,7 +73,7 @@
                         <li class="nav-item dropdown profile-dropdown" @click="toggleDropdown">
                             <img :src="this.iconsProfile" />
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" >
-                                {{ $filters.handleEmail($auth.user.email) }}
+                                {{ $filters.handleEmail($auth.user.name) }}
                             </a>
                             <div v-if="toggle" class="dropdown-menus-vue">
                                 <router-link tag="a" class="dropdown-item" :to="{path:'/dashboard/setting-account'}">
