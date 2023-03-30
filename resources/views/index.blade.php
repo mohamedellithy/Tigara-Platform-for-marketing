@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="تجارة هو موقع للعمل كتاجر اونلاين عن طريق التسويق لى منتاجات الموقع و تحقيق الارباح من خلال بيعها">
-    <meta name="keywords" content="تجارة,تجارة,tigara">
-    <meta name="author" content="تجارة">
+        content="تجارة شوب هو موقع للعمل كتاجر اونلاين عن طريق التسويق لى منتاجات الموقع و تحقيق الارباح من خلال بيعها">
+    <meta name="keywords" content="تجارة شوب,تجارة,tigara">
+    <meta name="author" content="تجارة شوب">
     <link rel="icon" href="{{ asset('assets/landing/images/favicon.ico') }}">
-    <title>تجارة</title>
+    <title>تجارة شوب</title>
     <link href="{{ asset('assets/landing/styles/bootstrap-5.0.2/dist/css/bootstrap-grid.rtl.min.css') }}"
         rel="stylesheet">
     <link href="//vjs.zencdn.net/7.10.2/video-js.min.css" rel="stylesheet">
