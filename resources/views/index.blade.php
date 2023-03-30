@@ -55,8 +55,8 @@
                     </div>
                     <div class="login-and-social col-md-3 col-8 justify-content-end">
                         <div class="div-login">
-                            <a class="header-button" href="{{ 'marketer.'.env('MAIN_DOMAIN').'/login' }}">تسجيل الدخول</a>
-                            <a class="header-button" href="{{ 'marketer.'.env('MAIN_DOMAIN').'/register' }}">انشاء حساب</a>
+                            <a class="header-button" href="{{ '//marketer.'.env('MAIN_DOMAIN').'/login' }}">تسجيل الدخول</a>
+                            <a class="header-button" href="{{ '//marketer.'.env('MAIN_DOMAIN').'/register' }}">انشاء حساب</a>
                         </div>
 
                     </div>
