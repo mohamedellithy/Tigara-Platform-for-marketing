@@ -181,7 +181,7 @@ export default {
     methods: {
         toggleDropdown:function(){
             this.toggle = !this.toggle;
-            this.toggleSide = true;
+            //this.toggleSide = true;
         },
         LogOut:async function(){
             let self = this;
