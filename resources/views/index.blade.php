@@ -115,7 +115,7 @@
                         <p class="some-features">
                             أعلى معدل طلبات مكتملة و التى ستنعكس بشكل ايجابي على معدل أرباحك بالاضافة للدعم المباشر و تعليم استراتيجيات التسويق الالكترونى
                         </p>
-                        <a href="{{ '//marketer.'.env('MAIN_DOMAIN').'/login' }}" class="btn btn-go">
+                        <a href="{{ '//marketer.'.env('MAIN_DOMAIN').'/register' }}" class="btn btn-go">
                             انضم الينا الأن
                         </a>
                     </div>
