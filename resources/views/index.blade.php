@@ -115,7 +115,7 @@
                         <p class="some-features">
                             أعلى معدل طلبات مكتملة و التى ستنعكس بشكل ايجابي على معدل أرباحك بالاضافة للدعم المباشر و تعليم استراتيجيات التسويق الالكترونى
                         </p>
-                        <a href="{{ url('login') }}" class="btn btn-go">
+                        <a href="{{ '//marketer.'.env('MAIN_DOMAIN').'/login' }}" class="btn btn-go">
                             انضم الينا الأن
                         </a>
                     </div>
@@ -188,7 +188,7 @@
                     <p class="overflow-howtojoin">
                         تمنحك منصة تجارة أعلى نسبة عمولة على مبيعاتك مهما زادت أو قلت تبقي دائما رابح على منصتنا
                     </p>
-                    <a href="{{ url('register') }}" class="btn btn-howtojoin">أبدأ الان و اجني أرباحك</a>
+                    <a href="{{ '//marketer.'.env('MAIN_DOMAIN').'/register' }}" class="btn btn-howtojoin">أبدأ الان و اجني أرباحك</a>
                 </div>
             </div>
 
