@@ -32,19 +32,19 @@
                                 </template>
                             </div>
                             <div class="form-group">
-                                <label>رقم الجوال</label>
+                                <label>رقم الهاتف</label>
                                 <input v-model="field.phone" type="text" placeholder="" class="form-control"/>
                                 <template v-if="errors.phone">
                                     <p style="line-height: 2.5em;color: red;" v-for="(error,key) in errors.phone" :key="key">{{ error }}</p>
                                 </template>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label>البريد الالكترونى</label>
                                 <input v-model="field.email" type="email" placeholder="" class="form-control"/>
                                 <template v-if="errors.email">
                                     <p style="line-height: 2.5em;color: red;" v-for="(error,key) in errors.email" :key="key">{{ error }}</p>
                                 </template>
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <label>كلة المرور</label>
                                 <input v-model="field.password" :type="showPassword == true ? 'text' : 'password' " placeholder="" class="form-control"/>

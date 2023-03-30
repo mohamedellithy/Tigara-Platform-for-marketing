@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone',15);
-            $table->string('email')->unique();
+            $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->integer('account_type')->comment('0 => admin , 1 => merchant, 2 => delivery , 3 => marketer')->default(3);
             $table->integer('status')->comment('0 => not - active , 1 => active')->default(1);
