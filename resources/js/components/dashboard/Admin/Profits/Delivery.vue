@@ -49,6 +49,8 @@
                                 <th>اجمالى الأرباح</th>
                                 <th>اجمالى أرباح شركة الشحن</th>
                                 <th>اجمالى أرباح المنصة</th>
+                                <th> المبالغ الغير مسددة</th>
+                                <th>المبالغ مسددة</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -63,6 +65,8 @@
                                 <td>{{ delivery.total_profits }} USD</td>
                                 <td>{{ delivery.total_delivery_profits }} USD</td>
                                 <td>{{ delivery.total_platforms_profit_from_delivery_cash }} USD</td>
+                                <td>{{ delivery.payments_due }} USD</td>
+                                <td>{{ delivery.payments_made }} USD</td>
                                 <td class="actions-btn">
                                     <router-link :to="{path:'/dashboard/show-delivery/'+delivery.id}"  class="btn btn-primary btn-sm">
                                         عرض

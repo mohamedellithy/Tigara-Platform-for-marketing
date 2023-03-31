@@ -1,11 +1,11 @@
 {
-  "resources/js/img/Hide.png": {
-    "file": "assets/Hide-608a9301.png",
-    "src": "resources/js/img/Hide.png"
-  },
   "resources/js/img/pattern.png": {
     "file": "assets/pattern-464d9bf6.png",
     "src": "resources/js/img/pattern.png"
+  },
+  "resources/js/img/Hide.png": {
+    "file": "assets/Hide-608a9301.png",
+    "src": "resources/js/img/Hide.png"
   },
   "resources/js/img/Digital-Marketing-Transparent-PNG.png": {
     "file": "assets/Digital-Marketing-Transparent-PNG-35f245ee.png",
@@ -39,13 +39,13 @@
     "file": "assets/81g63eBEhxL._AC_UF894_1000_QL80_-7aede39b.jpg",
     "src": "resources/js/img/81g63eBEhxL._AC_UF894,1000_QL80_.jpg"
   },
-  "resources/js/img/prod-3.png": {
-    "file": "assets/prod-3-3bed2c63.png",
-    "src": "resources/js/img/prod-3.png"
-  },
   "resources/js/img/prod-2.png": {
     "file": "assets/prod-2-629b3c94.png",
     "src": "resources/js/img/prod-2.png"
+  },
+  "resources/js/img/prod-3.png": {
+    "file": "assets/prod-3-3bed2c63.png",
+    "src": "resources/js/img/prod-3.png"
   },
   "resources/js/img/upload-1118929_960_720.webp": {
     "file": "assets/upload-1118929_960_720-2cfe47ae.webp",
@@ -60,15 +60,15 @@
     "src": "resources/js/img/prod-4.png"
   },
   "resources/js/app.css": {
-    "file": "assets/app-185aac73.css",
+    "file": "assets/app-291da470.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
-    "file": "assets/app-1d499753.js",
+    "file": "assets/app-e6458ec4.js",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-185aac73.css"
+      "assets/app-291da470.css"
     ],
     "assets": [
       "assets/pattern-464d9bf6.png",

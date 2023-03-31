@@ -60,8 +60,8 @@
                                 <td>{{ marketer.name }}</td>
                                 <td>{{ marketer.email }}</td>
                                 <td>{{ marketer.total_compelete_orders }} طلبية</td>
-                                <td>{{ marketer.all_marketer_and_platform_orders_profits }} USD</td>
                                 <td>{{ marketer.total_sales }} USD</td>
+                                <td>{{ marketer.all_marketer_and_platform_orders_profits }} USD</td>
                                 <td>{{ marketer.total_profites }} USD</td>
                                 <td>{{ marketer.total_platform_profits }} USD</td>
                                 <td class="actions-btn">

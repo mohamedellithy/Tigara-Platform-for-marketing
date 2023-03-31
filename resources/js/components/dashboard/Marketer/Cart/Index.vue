@@ -285,10 +285,10 @@
 
                         <tr>
                             <td colspan="2" class="text-center">
-                                <button class="btn completeShoping">
+                                <router-link :to="{path:'/marketer/products'}" class="btn completeShoping">
                                     <i class="fas fa-shopping-cart"></i>
                                     متابعة التسوق
-                                </button>
+                                </router-link>
                             </td>
                         </tr>
                     </table>
