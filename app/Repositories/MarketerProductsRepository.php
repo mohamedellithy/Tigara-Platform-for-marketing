@@ -25,21 +25,21 @@ class MarketerProductsRepository extends MarketerProductsRepositoryInterface{
                 })->orWhere('private',0)->orderBy('price','asc');
             
             elseif($request->query('filter') == 'more-sales'):
-                DB::statement("SET SQL_MODE=''");
+                //DB::statement("SET SQL_MODE=''");
                 $products = Product::whereHas('marketers',function($query) use($request){
                     $query->where('product_marketers.marketer_id',$request->user()->id);
                 })->orWhere('private',0)->join('order_details','products.id','=','order_details.product_id')
                 ->select('products.*',DB::Raw('sum(order_details.quantity) as order_quantity'))->groupBy('products.id')->orderby('order_quantity','desc');
             
             elseif($request->query('filter') == 'less-sales'):
-                DB::statement("SET SQL_MODE=''");
+                //DB::statement("SET SQL_MODE=''");
                 $products = Product::whereHas('marketers',function($query) use($request){
                     $query->where('product_marketers.marketer_id',$request->user()->id);
                 })->orWhere('private',0)->join('order_details','products.id','=','order_details.product_id')
                 ->select('products.*',DB::Raw('sum(order_details.quantity) as order_quantity'))->groupBy('products.id')->orderby('order_quantity','asc');
             
             elseif($request->query('filter') == 'low-stock'):
-                DB::statement("SET SQL_MODE=''");
+                //DB::statement("SET SQL_MODE=''");
                 $products = Product::whereHas('marketers',function($query) use($request){
                     $query->where('product_marketers.marketer_id',$request->user()->id);
                 })->orWhere('private',0)->join('carts','products.id','=','carts.product_id')
@@ -47,7 +47,7 @@ class MarketerProductsRepository extends MarketerProductsRepositoryInterface{
                 //DB::Raw('sum(carts.quantity) as carts.carts_qty')
 
             elseif($request->query('filter') == 'about-to-low'):
-                DB::statement("SET SQL_MODE=''");
+                //DB::statement("SET SQL_MODE=''");
                 $products = Product::whereHas('marketers',function($query) use($request){
                     $query->where('product_marketers.marketer_id',$request->user()->id);
                 })->orWhere('private',0)->join('carts','products.id','=','carts.product_id')
