@@ -21,9 +21,9 @@
                                     سجل الدخول باستخدام حساب الفيس بوك
                                 </button>
                             </div> -->
-                            <div class="orContainer">
+                            <!-- <div class="orContainer">
                                 <span> أو </span>
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <label>رقم الجوال</label>
                                 <input v-model="field.phone" type="tel" placeholder="" class="form-control"/>

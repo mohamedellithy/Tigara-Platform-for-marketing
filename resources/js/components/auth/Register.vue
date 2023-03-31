@@ -21,9 +21,9 @@
                                     انشاء حساب جديد باستخدام الفيس بوك
                                 </button>
                             </div> -->
-                            <div class="orContainer">
+                            <!-- <div class="orContainer">
                                 <span> أو </span>
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <label>اسم بالكامل</label>
                                 <input v-model="field.name" type="text" placeholder="" class="form-control"/>
