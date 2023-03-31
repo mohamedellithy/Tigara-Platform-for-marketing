@@ -23,7 +23,7 @@ class MarketerProductsRepository extends MarketerProductsRepositoryInterface{
                     $query->where('product_marketers.marketer_id',$request->user()->id);
                 })->orWhere('private',0)->orderBy('price','asc');
             elseif($request->query('filter') == 'more-sales'):
-
+                DB::statement("SET SQL_MODE=''");
                 $products = Product::whereHas('marketers',function($query) use($request){
                     $query->where('product_marketers.marketer_id',$request->user()->id);
                 })->orWhere('private',0)->join('order_details','products.id','=','order_details.product_id')
