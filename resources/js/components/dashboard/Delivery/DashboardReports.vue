@@ -75,6 +75,13 @@
                     </router-link>
                 </li>
                 <li>
+                    <i style="color: #ffccbc;" class="fas fa-money-check-alt"></i>
+                    <strong>{{ statics.total_profits }} <span>USD</span> </strong>
+                    <p>
+                        أرباحي
+                    </p>
+                </li>
+                <li>
                     <router-link :to="{path:'/delivery/show-due-delivery-payments'}">
                         <i style="color: #ffccbc;" class="fas fa-money-check-alt"></i>
                         <strong>{{ statics.payments_total }} <span>USD</span></strong>
