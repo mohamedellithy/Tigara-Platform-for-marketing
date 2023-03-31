@@ -28,7 +28,7 @@ class MarketerStaticsController extends Controller
             'payments_made'           => $payments_made,
             'payments_due'            => $profits - $payments_made,
             'orders_compeleted'       => $request->user()->orders()->where('order_status',2)->count(),
-            'orders'                  => Order::orderBy('created_at','asc')->limit(5)->get(),
+            'orders'                  => $request->user()->orders()->orderBy('created_at','asc')->limit(5)->get(),
             'products'                => Product::where('quantity',0)->orderBy('created_at','asc')->limit(5)->get()
         ]);
     }
