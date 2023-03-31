@@ -12,7 +12,6 @@ class MarketerProductsRepository extends MarketerProductsRepositoryInterface{
 
     public function all(Request $request){
         if($request->has('filter')):
-
             if($request->query('filter') == 'high-price'):
 
                 $products = Product::whereHas('marketers',function($query) use($request){
@@ -30,11 +29,11 @@ class MarketerProductsRepository extends MarketerProductsRepositoryInterface{
                 })->orWhere('private',0)->join('order_details','products.id','=','order_details.product_id')
                 ->select('products.*',DB::Raw('sum(order_details.quantity) as order_quantity'))->groupBy('products.id')->orderby('order_quantity','desc');
             elseif($request->query('filter') == 'less-sales'):
-
+                DB::statement("SET SQL_MODE=''");
                 $products = Product::whereHas('marketers',function($query) use($request){
                     $query->where('product_marketers.marketer_id',$request->user()->id);
                 })->orWhere('private',0)->join('order_details','products.id','=','order_details.product_id')
-                ->select('products.id as product_ids',DB::Raw('sum(order_details.quantity) as order_quantity'))->groupBy('product_ids')->orderby('order_quantity','asc');
+                ->select('products.*',DB::Raw('sum(order_details.quantity) as order_quantity'))->groupBy('products.id')->orderby('order_quantity','asc');
             elseif($request->query('filter') == 'low-stock'):
 
                 $products = Product::whereHas('marketers',function($query) use($request){
