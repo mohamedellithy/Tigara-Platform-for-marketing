@@ -15,12 +15,12 @@
                             <h4 class="frame-title-login">
                                 انشاء حساب جديد
                              </h4>
-                            <div class="social-login">
+                            <!-- <div class="social-login">
                                 <button class="btn btn-primary facebook-btn btn-block">
                                     <i class="fab fa-facebook"></i>
                                     انشاء حساب جديد باستخدام الفيس بوك
                                 </button>
-                            </div>
+                            </div> -->
                             <div class="orContainer">
                                 <span> أو </span>
                             </div>

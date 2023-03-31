@@ -15,12 +15,12 @@
                             <h4 class="frame-title-login">
                                 تسجيل الدخول
                              </h4>
-                            <div class="social-login">
+                            <!-- <div class="social-login">
                                 <button class="btn btn-primary facebook-btn btn-block">
                                     <i class="fab fa-facebook"></i>
                                     سجل الدخول باستخدام حساب الفيس بوك
                                 </button>
-                            </div>
+                            </div> -->
                             <div class="orContainer">
                                 <span> أو </span>
                             </div>
