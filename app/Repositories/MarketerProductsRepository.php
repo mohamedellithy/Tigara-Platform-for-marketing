@@ -28,13 +28,13 @@ class MarketerProductsRepository extends MarketerProductsRepositoryInterface{
                 $products = Product::whereHas('marketers',function($query) use($request){
                     $query->where('product_marketers.marketer_id',$request->user()->id);
                 })->orWhere('private',0)->join('order_details','products.id','=','order_details.product_id')
-                ->select('products.*',DB::Raw('sum(order_details.quantity) as order_quantity'))->groupby('products.id')->orderby('order_quantity','desc');
+                ->select('products.id',DB::Raw('sum(order_details.quantity) as order_quantity'))->groupby('products.id')->orderby('order_quantity','desc');
             elseif($request->query('filter') == 'less-sales'):
 
                 $products = Product::whereHas('marketers',function($query) use($request){
                     $query->where('product_marketers.marketer_id',$request->user()->id);
                 })->orWhere('private',0)->join('order_details','products.id','=','order_details.product_id')
-                ->select('products.*',DB::Raw('sum(order_details.quantity) as order_quantity'))->groupby('products.id')->orderby('order_quantity','asc');
+                ->select('products.id',DB::Raw('sum(order_details.quantity) as order_quantity'))->groupby('products.id')->orderby('order_quantity','asc');
             elseif($request->query('filter') == 'low-stock'):
 
                 $products = Product::whereHas('marketers',function($query) use($request){
