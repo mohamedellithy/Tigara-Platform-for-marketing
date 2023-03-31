@@ -44,6 +44,12 @@
                         </div>
                     </div>
                 </div>
+                <p v-if="showNewPassword == true" class="alert alert-info">
+                    تم تغير كلمة المرور للمسوق و هى 
+                    <code>
+                        {{ NewPassword }}
+                    </code>
+                </p>
                 <div class="table-responsive text-nowrap">
                     <!--Table-->
                     <table class="table">
@@ -55,7 +61,6 @@
                                 </th>
                                 <th>#</th>
                                 <th>اسم المسوق</th>
-                                <th>البريدالالكترونى</th>
                                 <th>رقم الجوال</th>
                                 <th>المنتجات المميزة</th>
                                 <th>حالة المسوق</th>
@@ -73,7 +78,6 @@
                                 </th>
                                 <th scope="row">{{ marketer.id }}</th>
                                 <td>{{ marketer.name }}</td>
-                                <td>{{ marketer.email }}</td>
                                 <td>{{ marketer.phone }}</td>
                                 <td>{{ marketer.feature_products }} منتج</td>
                                 <td>{{ marketer.status_text }}</td>
@@ -89,6 +93,9 @@
                                     <router-link :to="{path:'/dashboard/show-marketer/'+marketer.id}"  class="btn btn-primary btn-sm">
                                         عرض
                                     </router-link>
+                                    <button @click="RegenrateMarketer(marketer.id)" class="btn btn-danger btn-sm">
+                                        استعادة كلمة المرور
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>
@@ -192,7 +199,9 @@ export default {
             showerrors:false,
             success_message:'تم انشاء التاجر بنجاح',
             error_message:'حدث خطأ اثناء انشاء التاجر',
-            loading:true
+            loading:true,
+            showNewPassword:false,
+            NewPassword:null
         };
     },
     methods:{
@@ -274,6 +283,19 @@ export default {
                     console.log(response);
                     self.showerrors = true;
                     self.errors = response.data;
+                });
+            }
+        },
+        RegenrateMarketer:function(marketer_id){
+            if(confirm(`تأكيد توليد كلمة مرور للمسوق المحدد`)){
+                let self = this;
+                axios.post('/api/marketers-regenerate-password/'+marketer_id).then(function({data}){
+                    console.log(data);
+                    self.NewPassword = data.new_password;
+                    self.showNewPassword = true;
+                }).catch(function({response}){
+                     console.log(response);
+                     self.showNewPassword = false;
                 });
             }
         },

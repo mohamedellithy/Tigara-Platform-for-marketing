@@ -69,4 +69,15 @@ class ApiAuthController extends Controller
         // Revoke the token that was used to authenticate the current request...
         return (new Authorize())->logout($request);
     }
+
+    public function regenerate_password(Request $request,$marketer_id){
+        $new_password = Str::random(12);
+        User::where('id',$marketer_id)->update([
+           'password' => Hash::make($new_password)
+        ]);
+        
+        return response()->json([
+           'new_password' => $new_password
+        ]);
+    }
 }

@@ -120,6 +120,8 @@ Route::domain('admin.'.env('MAIN_DOMAIN'))->group(function () {
         Route::apiResource('orders',OrderController::class);
 
         Route::get('/dashboard-statics', [DashboardController::class, 'index']);
+
+        Route::post('marketers-regenerate-password/{marketer_id}',[ApiAuthController::class , 'regenerate_password']);
     });
 });
 
