@@ -42,6 +42,9 @@
                 <li class="list-filter-item">
                     <button @click="BrowseProduct('low-stock')" :class="$route.query.filter == 'low-stock' ? 'active' : ''"  >المنتهية</button>
                 </li>
+                <li class="list-filter-item">
+                    <button @click="BrowseProduct('about-to-low')" :class="$route.query.filter == 'about-to-low' ? 'active' : ''"  >مشرفة على الانتهاء</button>
+                </li>
                 <br/><br/>
 
             </ul>

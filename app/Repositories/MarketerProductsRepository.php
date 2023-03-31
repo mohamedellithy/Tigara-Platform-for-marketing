@@ -41,6 +41,13 @@ class MarketerProductsRepository extends MarketerProductsRepositoryInterface{
                 })->orWhere('private',0)->join('carts','products.id','=','carts.product_id')
                 ->select('products.*',DB::Raw('sum(carts.quantity) as cart_quantity'))->groupBy('products.id')->havingRaw('IF(products.quantity > cart_quantity,products.quantity - cart_quantity,products.quantity) = 0');
                 //DB::Raw('sum(carts.quantity) as carts.carts_qty')
+
+            elseif($request->query('filter') == 'about-to-low'):
+                $products = Product::whereHas('marketers',function($query) use($request){
+                    $query->where('product_marketers.marketer_id',$request->user()->id);
+                })->orWhere('private',0)->join('carts','products.id','=','carts.product_id')
+                ->select('products.*',DB::Raw('sum(carts.quantity) as cart_quantity'))->groupBy('products.id')->havingRaw('IF(products.quantity > cart_quantity,products.quantity - cart_quantity,products.quantity) < 10');
+                
             else:
 
                 $products = Product::query();
