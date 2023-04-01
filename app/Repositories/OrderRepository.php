@@ -33,17 +33,32 @@ class OrderRepository extends OrderRepositoryInterface{
         elseif($request->has('delivery_id')):
             return response()->json([
                 'data_info' => new OrderResource(Order::where('delivery_id', $request->query('delivery_id'))->with('delivery','marketer','order_details')->orderBy('created_at','desc')->paginate(15)),
-                'active_orders'    => Order::where('delivery_id', $request->query('delivery_id'))->where('order_status',1)->count(),
-                'no_active_orders' => Order::where('delivery_id', $request->query('delivery_id'))->where('order_status',0)->count()
+                'active_orders'    => Order::where('delivery_id', $request->query('delivery_id'))->OrdersOfOrderStatus(1)->count(),
+                'no_active_orders' => Order::where('delivery_id', $request->query('delivery_id'))->OrdersOfOrderStatus(0)->count()
             ]);
         else:
+            $order_status = [
+                'wait'       => '0',
+                'processing' => '1',
+                'completed'  => '2',
+                'refused'    => '3',
+                'cancelled'  => '4'
+              ];
+            
+            if(($request->query('type') != 'all') || !$request->has('type')):
+                $status      = $order_status[$request->query('type')];
+                $orders      = Order::OrdersOfOrderStatus($status,'desc');
+            else:
+                $orders      = Order::query();
+            endif;
+
             return response()->json([
-                'data_info'        => new OrderResource(Order::with('delivery','marketer','order_details')->orderBy('created_at','desc')->paginate(15)),
+                'data_info'        => new OrderResource($orders->with('delivery','marketer','order_details')->orderBy('created_at','desc')->paginate(15)),
                 'all_orders'       => Order::count(),
-                'wait_orders'      => Order::where('order_status',0)->count(),
-                'process_orders'   => Order::where('order_status',1)->count(),
-                'complete_orders'  => Order::where('order_status',2)->count(),
-                'refused_orders'   => Order::where('order_status',3)->count()
+                'wait_orders'      => Order::OrdersOfOrderStatus(0)->count(),
+                'process_orders'   => Order::OrdersOfOrderStatus(1)->count(),
+                'complete_orders'  => Order::OrdersOfOrderStatus(2)->count(),
+                'refused_orders'   => Order::OrdersOfOrderStatus(3)->count()
             ]);
         endif;
     }

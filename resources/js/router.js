@@ -475,7 +475,7 @@ const routes = [{
                 // end Products in Admin
                 // start Orders in Admin
                 {
-                    path: 'orders/:page_no?',
+                    path: 'orders/:type?/:page_no?',
                     name: 'orders',
                     component: IndexOrders,
                     meta: {

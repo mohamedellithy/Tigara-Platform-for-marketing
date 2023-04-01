@@ -295,12 +295,12 @@ export default {
             }
         },
         order_filter:function(filter){
-           console.log(filter);
-           this.$router.replace({
-            params:{
-                type:filter
-            }
-           });
+            console.log(filter);
+            this.$router.replace({
+                params:{
+                    type:filter
+                }
+            });
         }
     }
 };
