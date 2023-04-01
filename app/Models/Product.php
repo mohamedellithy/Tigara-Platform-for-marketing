@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Image;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Builder;
 use App\Http\Resources\Image as ImageResource;
+use Illuminate\Support\Facades\DB;
 use App\Http\Resources\ImageCollection as ImageCollectionResource;
 
 class Product extends Model
@@ -23,6 +25,56 @@ class Product extends Model
     protected $casts = [
         'stock_quantity',
     ];
+
+    /**
+     * Scope a query to only include users of a given type.
+     */
+    public function scopeWithMarketerProducts(Builder $query, string $marketer_id): void
+    {
+        $query->whereHas('marketers',function($query) use($marketer_id){
+            $query->where('product_marketers.marketer_id',$marketer_id);
+        })->orWhere('private',0);
+    }
+
+     /**
+     * Scope a query to only include users of a given type.
+     */
+    public function scopeMoreSales(Builder $query): void
+    {
+        $query->LeftJoin('order_details','products.id','=','order_details.product_id')
+        ->select('products.*',DB::Raw('sum(order_details.quantity) as order_quantity'))
+        ->groupBy('products.id')->orderby('order_quantity','desc');
+    }
+
+     /**
+     * Scope a query to only include users of a given type.
+     */
+    public function scopeLessSales(Builder $query): void
+    {
+        $query->LeftJoin('order_details','products.id','=','order_details.product_id')
+        ->select('products.*',DB::Raw('sum(order_details.quantity) as order_quantity'))
+        ->groupBy('products.id')->orderby('order_quantity','asc');
+    }
+
+      /**
+     * Scope a query to only include users of a given type.
+     */
+    public function scopeLowStock(Builder $query): void
+    {
+        $query->LeftJoin('carts','products.id','=','carts.product_id')
+        ->select('products.*',DB::Raw('IFNULL(sum(carts.quantity),0) as cart_quantity'))
+        ->groupBy('products.id')->havingRaw('IF(products.quantity >= cart_quantity,products.quantity - cart_quantity,products.quantity) = 0');
+    }
+
+       /**
+     * Scope a query to only include users of a given type.
+     */
+    public function scopeAboutToLow(Builder $query): void
+    {
+        $query->LeftJoin('carts','products.id','=','carts.product_id')
+        ->select('products.*',DB::Raw('IFNULL(sum(carts.quantity),0) as cart_quantity'))
+        ->groupBy('products.id')->havingRaw('(IF(products.quantity >= cart_quantity,products.quantity - cart_quantity,products.quantity) < 10) AND (IF(products.quantity >= cart_quantity,products.quantity - cart_quantity,products.quantity) > 0 )');
+    }
 
     /**
      * Get all of the images's comments.

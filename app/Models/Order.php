@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 class Order extends Model
 {
     use HasFactory;
@@ -44,6 +46,46 @@ class Order extends Model
 
     public function customer(){
         return $this->belongsTo('App\Models\Customer','customer_id','id');
+    }
+
+    /**
+     * Scope a query to only include popular users.
+     */
+    public function scopeDairyOrders(Builder $query): void
+    {
+        $query->where([
+            'order_status'    => 1,
+            'shipping_status' => 0
+        ])->where('updated_at', '>=', Carbon::today()->toDateString());
+    }
+
+     /**
+     * Scope a query to only include popular users.
+     */
+    public function scopeOrdersOfDeliveryStatus(Builder $query,string $status): void
+    {
+        $query->where([
+            'shipping_status' => $status
+        ]);
+    }
+    
+
+      /**
+     * Scope a query to only include popular users.
+     */
+    public function scopeOrdersOfOrderStatus(Builder $query,string $status,string $sort = 'asc'): void
+    {
+        $query->where([
+            'order_status' => $status
+        ])->orderBy('created_at',$sort);
+    }
+
+     /**
+     * Scope a query to only include popular users.
+     */
+    public function scopeWithOrderDetails(Builder $query): void
+    {
+        $query->join('order_details','orders.id','=','order_details.order_id')->select('orders.*','order_details.unit_price','order_details.quantity');
     }
 
     public function order_details(){

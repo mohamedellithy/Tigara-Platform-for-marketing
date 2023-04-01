@@ -22,7 +22,7 @@ class MarketerRepository extends MarketerRepositoryInterface{
             $marketer = Marketer::paginate(12);
         endif;
 
-        $all_marketer_and_platform_orders_profits = Order::where('order_status',2)
+        $all_marketer_and_platform_orders_profits = Order::OrdersOfOrderStatus(2)
             ->join('order_details','orders.id','=','order_details.order_id')
             ->join('products','order_details.product_id','=','products.id')
             ->select('orders.*','order_details.unit_price','order_details.quantity','products.merchant_commission')

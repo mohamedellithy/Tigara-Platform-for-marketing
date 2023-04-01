@@ -12,9 +12,7 @@ class MarketerCartRepository extends MarketerCartRepositoryInterface{
     public function all(Request $request){
         return response()->json([
             'cart_items'             => CartResource::collection($request->user()->carts),
-            'total_marketer_profits' => $request->user()->carts()->join('products','carts.product_id','=','products.id')
-                                        ->select('carts.*','products.merchant_commission as merchant_commission','products.marketer_commission as marketer_commission')
-                                        ->sum(DB::Raw('carts.quantity * ( ((carts.price - merchant_commission)  * marketer_commission ) / 100)')),
+            'total_marketer_profits' => $request->user()->carts()->WithProducts()->sum(DB::Raw('carts.quantity * ( ((carts.price - merchant_commission)  * marketer_commission ) / 100)')),
             'total_cart_cost'        => $request->user()->carts()->sum(DB::Raw('quantity * price')),
             'total_cart_items'       => $request->user()->carts()->sum('quantity'),
             'total_products'         => $request->user()->carts()->count()
@@ -79,9 +77,7 @@ class MarketerCartRepository extends MarketerCartRepositoryInterface{
                     'status'         => 'كمية المحددة غير متاحة للمنتج',
                     'total_quantity' => $request->user()->total_cart_items,
                     'cart_items' => CartResource::collection($request->user()->carts),
-                    'total_marketer_profits' => $request->user()->carts()->join('products','carts.product_id','=','products.id')
-                        ->select('carts.*','products.merchant_commission as merchant_commission','products.marketer_commission as marketer_commission')
-                        ->sum(DB::Raw('carts.quantity * ( ((carts.price - merchant_commission)  * marketer_commission ) / 100)')),
+                    'total_marketer_profits' => $request->user()->carts()->TotalMarketerProfits(),
                     'total_cart_cost'        => $request->user()->carts()->sum(DB::Raw('quantity * price')),
                     'total_cart_items'       => $request->user()->carts()->sum('quantity'),
                     'total_products'         => $request->user()->carts()->count()
@@ -98,9 +94,7 @@ class MarketerCartRepository extends MarketerCartRepositoryInterface{
         return response()->json([
             'total_quantity' => $request->user()->total_cart_items,
             'cart_items' => CartResource::collection($request->user()->carts),
-            'total_marketer_profits' => $request->user()->carts()->join('products','carts.product_id','=','products.id')
-                        ->select('carts.*','products.merchant_commission as merchant_commission','products.marketer_commission as marketer_commission')
-                        ->sum(DB::Raw('carts.quantity * ( ((carts.price - merchant_commission)  * marketer_commission ) / 100)')),
+            'total_marketer_profits' => $request->user()->carts()->WithProducts()->sum(DB::Raw('carts.quantity * ( ((carts.price - merchant_commission)  * marketer_commission ) / 100)')),
             'total_cart_cost'        => $request->user()->carts()->sum(DB::Raw('quantity * price')),
             'total_cart_items'       => $request->user()->carts()->sum('quantity'),
             'total_products'         => $request->user()->carts()->count()
@@ -113,9 +107,7 @@ class MarketerCartRepository extends MarketerCartRepositoryInterface{
             'data' => $request->user()->carts,
             'total_quantity' => $request->user()->total_cart_items,
             'cart_items' => CartResource::collection($request->user()->carts),
-            'total_marketer_profits' => $request->user()->carts()->join('products','carts.product_id','=','products.id')
-                        ->select('carts.*','products.merchant_commission as merchant_commission','products.marketer_commission as marketer_commission')
-                        ->sum(DB::Raw('carts.quantity * ( ((carts.price - merchant_commission)  * marketer_commission ) / 100)')),
+            'total_marketer_profits' => $request->user()->carts()->WithProducts()->sum(DB::Raw('carts.quantity * ( ((carts.price - merchant_commission)  * marketer_commission ) / 100)')),
             'total_cart_cost'        => $request->user()->carts()->sum(DB::Raw('quantity * price')),
             'total_cart_items'       => $request->user()->carts()->sum('quantity'),
             'total_products'         => $request->user()->carts()->count()

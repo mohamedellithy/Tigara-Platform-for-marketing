@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 class Cart extends Model
 {
     use HasFactory;
@@ -30,4 +31,10 @@ class Cart extends Model
     //         get: fn () => $this->product
     //     );
     // }
+
+    public function scopeWithProducts(Builder $query): void
+    {
+        $query->join('products','carts.product_id','=','products.id')
+        ->select('carts.*','products.merchant_commission as merchant_commission','products.marketer_commission as marketer_commission');
+    }
 }

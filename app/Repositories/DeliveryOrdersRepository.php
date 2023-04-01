@@ -12,37 +12,10 @@ class DeliveryOrdersRepository extends DeliveryOrdersRepositoryInterface{
         $order_query = $request->user()->orders();
         // Dairy
         if($request->query('type') == '0'):
-            $order_query = $order_query->where([
-                'order_status'    => 1,
-                'shipping_status' => 0
-            ])->where('updated_at', '>=', Carbon::today()->toDateString());
+            $order_query = $order_query->DairyOrders();
         // wait
-        elseif($request->query('type') == '1'):
-            $order_query = $order_query->where([
-                'order_status'    => 1,
-                'shipping_status' => 0 // wait
-            ]);
-        // process
-        elseif($request->query('type') == '2'):
-            $order_query = $order_query->where([
-                'order_status'    => 1,
-                'shipping_status' => 1 // process
-            ]);
-        // completed
-        elseif($request->query('type') == '3'):
-            $order_query = $order_query->where([
-                'shipping_status' => 2 // completed
-            ]);
-        // cancelled
-        elseif($request->query('type') == '4'):
-            $order_query = $order_query->where([
-                'shipping_status' => 3 // cancelled
-            ]);
-        // returned
-        elseif($request->query('type') == '5'):
-            $order_query = $order_query->where([
-                'shipping_status' => 4 // returned
-            ]);
+        else:
+            $order_query = $order_query->OrdersOfDeliveryStatus($request->query('type') - 1);
         endif;
         return response()->json([
             'data_info'          => $order_query->orderBy('created_at','desc')->paginate(10),

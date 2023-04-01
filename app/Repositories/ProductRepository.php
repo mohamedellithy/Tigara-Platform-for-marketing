@@ -5,6 +5,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Services\Attachments;
 use App\Http\Resources\Product as ProductResource;
+use Illuminate\Support\Facades\DB;
 class ProductRepository extends ProductRepositoryInterface{
 
     public function all(Request $request){
@@ -16,11 +17,45 @@ class ProductRepository extends ProductRepositoryInterface{
                 'no_active_products' => Product::where('status',0)->count()
             ]);
         else:
-            return response()->json([
-                'data_info'          => new ProductResource(Product::with('merchant')->orderBy('created_at','desc')->paginate(15)),
-                'active_products'    => Product::where('status',1)->count(),
-                'no_active_products' => Product::where('status',0)->count()
-            ]);
+            if($request->has('filter')):
+                if($request->query('filter') == 'high-price'):
+    
+                    $products = Product::orderBy('price','desc');
+                elseif($request->query('filter') == 'low-price'):
+    
+                    $products = Product::orderBy('price','asc');
+                elseif($request->query('filter') == 'more-sales'):
+    
+                    DB::statement("SET SQL_MODE=''");
+                    $products = Product::MoreSales();
+                elseif($request->query('filter') == 'less-sales'):
+    
+                    DB::statement("SET SQL_MODE=''");
+                    $products = Product::LessSales();
+                elseif($request->query('filter') == 'low-stock'):
+    
+                    DB::statement("SET SQL_MODE=''");
+                    $products = Product::LowStock(); //DB::Raw('sum(carts.quantity) as carts.carts_qty')
+                elseif($request->query('filter') == 'about-to-low'):
+
+                    DB::statement("SET SQL_MODE=''");
+                    $products = Product::AboutToLow();
+                else:
+
+                    $products = Product::query();
+                endif;
+                return response()->json([
+                    'data_info'          => new ProductResource($products->with('merchant')->orderBy('created_at','desc')->paginate(15)),
+                    'active_products'    => Product::where('status',1)->count(),
+                    'no_active_products' => Product::where('status',0)->count()
+                ]);
+            else:
+                return response()->json([
+                    'data_info'          => new ProductResource(Product::with('merchant')->orderBy('created_at','desc')->paginate(15)),
+                    'active_products'    => Product::where('status',1)->count(),
+                    'no_active_products' => Product::where('status',0)->count()
+                ]);
+            endif;
         endif;
     }
 

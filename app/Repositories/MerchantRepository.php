@@ -30,11 +30,11 @@ class MerchantRepository extends MerchantRepositoryInterface{
 
 
         return response()->json([
-            'data_info'          => new MerchantCollectionsResource($merchant),
-            'all_merchants'      => Merchant::count(),
+            'data_info'                        => new MerchantCollectionsResource($merchant),
+            'all_merchants'                    => Merchant::count(),
             'total_merchant_products_sales'    => $total_merchant_products_sales,
-            'total_sales'        => $total_sales,
-            'total_platform_profits' => $total_sales - $total_merchant_products_sales
+            'total_sales'                      => $total_sales,
+            'total_platform_profits'           => $total_sales - $total_merchant_products_sales
         ]);
     }
 

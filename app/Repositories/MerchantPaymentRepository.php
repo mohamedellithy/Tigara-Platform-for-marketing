@@ -57,12 +57,6 @@ class MerchantPaymentRepository extends MerchantPaymentRepositoryInterface{
         endif;
     }
 
-    // public function show($id){
-    //     return response()->json([
-    //         'merchant'          => new MerchantResource(Merchant::find($id))
-    //     ]);
-    // }
-
     public function update($data,$id){
         $merchant_payment = MerchantPayment::find($id);
         if($merchant_payment):
@@ -77,19 +71,6 @@ class MerchantPaymentRepository extends MerchantPaymentRepositoryInterface{
         endif;
     }
 
-    // public function bulk_update($data){
-
-    //     $update_merchant = MerchantPayment::whereIn('id',$data['ids'])->update([
-    //         'status' => $data['update_status']
-    //     ]);
-
-    //     if($update_merchant):
-    //         return response()->json([
-    //             'result' => 'تم تعديل المدفوعات بنجاح'
-    //         ]);
-    //     endif;
-    // }
-
     public function delete($id){
         $merchant_payment = MerchantPayment::find($id);
         if($merchant_payment):
@@ -101,18 +82,4 @@ class MerchantPaymentRepository extends MerchantPaymentRepositoryInterface{
             endif;
         endif;
     }
-
-    // public function delete_items($data){
-    //     if($data['type'] == 'all'):
-    //         $remove_merchant = Merchant::truncate();
-    //     else:
-    //         $remove_merchant = Merchant::destroy($data['merchants']);
-    //     endif;
-
-    //     if($remove_merchant):
-    //         return response()->json([
-    //             'result' => 'تم حذف بنجاح'
-    //         ]);
-    //     endif;
-    // }
 }

@@ -51,6 +51,33 @@
                         </div>
                     </div>
                 </div>
+                <ul class="col-12 list-filter-items">
+                    <li class="list-filter-item">
+                        <button @click="BrowseProduct(null)" :class="$route.query.filter == null ? 'active' : ''" >المنتجات</button>
+                    </li>
+                    <li class="list-filter-item">
+                        <button @click="BrowseProduct('more-sales')" :class="$route.query.filter == 'more-sales' ? 'active' : ''" >الاكثر مبيعا</button>
+                    </li>
+                    <li class="list-filter-item">
+                        <button @click="BrowseProduct('less-sales')" :class="$route.query.filter == 'less-sales' ? 'active' : ''" >الاقل مبيعا</button>
+                    </li>
+                    <li class="list-filter-item">
+                        <button @click="BrowseProduct('high-price')" :class="$route.query.filter == 'high-price' ? 'active' : ''" >الاعلي سعرا</button>
+                    </li>
+                    <li class="list-filter-item">
+                        <button @click="BrowseProduct('low-price')" :class="$route.query.filter == 'low-price' ? 'active' : ''"  >الاقل سعرا</button>
+                    </li>
+                    <li class="list-filter-item">
+                        <button @click="BrowseProduct('low-stock')" :class="$route.query.filter == 'low-stock' ? 'active' : ''"  >المنتهية</button>
+                    </li>
+                    <li class="list-filter-item">
+                        <button @click="BrowseProduct('about-to-low')" :class="$route.query.filter == 'about-to-low' ? 'active' : ''"  >مشرفة على الانتهاء</button>
+                    </li>
+                    <br/><br/>
+                </ul>
+                <label>
+                    {{ products.length || 0 }} المعروض
+                </label>
                 <div class="table-responsive text-nowrap">
                     <!--Table-->
                     <table class="table">
@@ -106,36 +133,36 @@
                     <nav v-if="this.infos.length != 0" aria-label="Page navigation example">
                         <ul v-if="this.infos.total > products.length" class="pagination">
                             <li v-if="(this.infos.current_page != 1)" class="page-item">
-                                <router-link class="page-link" :to="{path: '/dashboard/products/'+(this.infos.current_page - 1 == 0 ? 1 : this.infos.current_page - 1) }" aria-label="Previous">
+                                <router-link class="page-link" :to="{path: '/dashboard/products/'+(this.infos.current_page - 1 == 0 ? 1 : this.infos.current_page - 1),query:$route.query }" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                     <span class="sr-only">Previous</span>
                                 </router-link>
                             </li>
                             <li v-for="page in this.infos.last_page" class="page-item" :key="page">
                                 <template v-if="page == 1">
-                                    <router-link class="page-link" :to="{path: '/dashboard/products/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/dashboard/products/'+page,query:$route.query}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="page == this.infos.current_page">
-                                    <router-link class="page-link" :to="{path: '/dashboard/products/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/dashboard/products/'+page,query:$route.query}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="page == this.infos.current_page - 1">
-                                    <router-link class="page-link" :to="{path: '/dashboard/products/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/dashboard/products/'+page,query:$route.query}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="(page == this.infos.current_page + 1) && (this.infos.current_page != this.infos.last_page)">
-                                    <router-link class="page-link" :to="{path: '/dashboard/products/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/dashboard/products/'+page,query:$route.query}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="page == this.infos.last_page">
-                                    <router-link class="page-link" :to="{path: '/dashboard/products/'+page}" active-class="active" exact>{{ page }}</router-link>
+                                    <router-link class="page-link" :to="{path: '/dashboard/products/'+page,query:$route.query}" active-class="active" exact>{{ page }}</router-link>
                                 </template>
                                 <template v-else-if="(page == this.infos.current_page - 2) && (this.infos.current_page != this.infos.last_page)">
-                                    <router-link class="page-link" :to="{path: '/dashboard/products/'+page}" active-class="active" exact>..</router-link>
+                                    <router-link class="page-link" :to="{path: '/dashboard/products/'+page,query:$route.query}" active-class="active" exact>..</router-link>
                                 </template>
                                 <template v-else-if="(page == this.infos.current_page + 2) && (this.infos.current_page != this.infos.last_page)">
-                                    <router-link class="page-link" :to="{path: '/dashboard/products/'+page}" active-class="active" exact>..</router-link>
+                                    <router-link class="page-link" :to="{path: '/dashboard/products/'+page,query:$route.query}" active-class="active" exact>..</router-link>
                                 </template>
                             </li>
                             <li v-if="this.infos.current_page != this.infos.last_page" class="page-item">
-                                <router-link :to="{path: '/dashboard/products/'+(this.infos.current_page + 1) }" class="page-link" href="#" aria-label="Next">
+                                <router-link :to="{path: '/dashboard/products/'+(this.infos.current_page + 1),query:$route.query }" class="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                     <span class="sr-only">Next</span>
                                 </router-link>
@@ -308,10 +335,19 @@ export default {
                 self.showerrors = true;
                 self.errors = response.data;
             })
+        },
+        BrowseProduct:function(filter){
+            let self = this;
+            let filters = {};
+            filters.filter = filter;
+            this.$router.replace({
+                query:filters
+            });
         }
     },
     created:function(){
         this.params = {
+            filter:this.$route.query.filter,
             page:(this.$route.params.page_no ? this.$route.params.page_no : 1)
         };
         this.FetchProducts();
@@ -405,6 +441,26 @@ export default {
     color: black;
     margin: 10px;
     border: 1px solid orange;
+}
+
+.list-filter-items{
+    list-style: none;
+}
+.list-filter-item{
+    display: inline-block;
+}
+.list-filter-item button
+{
+    padding: 9px 15px;
+    color: black;
+    border-radius: 33px;
+    text-decoration: none;
+    border: 0px;
+    margin: 0px 8px;
+}
+.list-filter-item button.active{
+    background: #1b965d;
+    color: white;
 }
 @media(max-width:1000px){
     .container-submit-btn-merchant button{

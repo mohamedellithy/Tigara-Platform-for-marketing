@@ -11,7 +11,6 @@ use App\Http\Resources\MerchantCollections as MerchantCollectionsResource;
 class DeliveryPaymentRepository extends DeliveryPaymentRepositoryInterface{
 
     public function all(Request $request){
-       // return response()->json(['data' => $request->all()]);
         if($request->has('delivery_id')):
             return response()->json([
                 'data_info'          => new DeliveryPaymentResource(DeliveryPayment::where('delivery_id', $request->query('delivery_id'))->with('order')->OrderBy('created_at','desc')->paginate(10))

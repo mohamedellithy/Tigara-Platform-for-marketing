@@ -428,6 +428,9 @@ const routes = [{
                 {
                     path: 'products/:page_no?',
                     name: 'products',
+                    query: {
+                        fitler: null
+                    },
                     component: IndexProducts,
                     meta: {
                         ar_name: 'عرض المنتجات',

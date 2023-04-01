@@ -11,26 +11,25 @@ use App\Services\StockService;
 class MarketerOrdersRepository extends MarketerOrdersRepositoryInterface{
 
     public function all(Request $request){
-        if($request->query('type') == 'wait'):
-            $data_orders = $request->user()->orders()->where('order_status',0)->orderBy('created_at','desc')->paginate(15);
-        elseif($request->query('type') == 'processing'):
-            $data_orders = $request->user()->orders()->where('order_status',1)->orderBy('created_at','desc')->paginate(15);
-        elseif($request->query('type') == 'completed'):
-            $data_orders = $request->user()->orders()->where('order_status',2)->orderBy('created_at','desc')->paginate(15);
-        elseif($request->query('type') == 'refused'):
-            $data_orders = $request->user()->orders()->where('order_status',3)->orderBy('created_at','desc')->paginate(15);
-        elseif($request->query('type') == 'cancelled'):
-            $data_orders = $request->user()->orders()->where('order_status',4)->orderBy('created_at','desc')->paginate(15);
+        $order_status = [
+           "wait"       => '0',
+           "processing" => '1',
+           "completed"  => '2',
+           "refused"    => '3',
+           "cancelled"  => '4',
+        ];
+        if($request->query('type') != 'all'):
+            $data_orders = $request->user()->orders()->OrdersOfOrderStatus($order_status[$request->query('type')],'desc')->paginate(15);
         else:
             $data_orders = $request->user()->orders()->orderBy('created_at','desc')->paginate(15);
         endif;
         return response()->json([
             'data_info'        => $data_orders,
             'all_orders'       => $request->user()->orders()->count(),
-            'wait_orders'      => $request->user()->orders()->where('order_status',0)->count(),
-            'process_orders'   => $request->user()->orders()->where('order_status',1)->count(),
-            'complete_orders'  => $request->user()->orders()->where('order_status',2)->count(),
-            'refused_orders'   => $request->user()->orders()->where('order_status',3)->count(),
+            'wait_orders'      => $request->user()->orders()->OrdersOfOrderStatus(0)->count(),
+            'process_orders'   => $request->user()->orders()->OrdersOfOrderStatus(1)->count(),
+            'complete_orders'  => $request->user()->orders()->OrdersOfOrderStatus(2)->count(),
+            'refused_orders'   => $request->user()->orders()->OrdersOfOrderStatus(3)->count(),
             'total_costs'      => $request->user()->orders()->where('orders.order_status',2)->join('order_details', 'orders.id','=','order_details.order_id')
             ->select('orders.*','order_details.quantity','order_details.unit_price')->groupby('orders.id')->sum(DB::Raw('order_details.quantity * order_details.unit_price')),
             'total_profits'    => $request->user()->orders()->where('orders.order_status',2)->sum('marketer_profit')]);
