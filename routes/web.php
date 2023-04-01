@@ -22,9 +22,9 @@ Route::get('/',function(){
     return view('index');
 });
 
-
 Route::get('/{page?}',function($page = null) {
     return view('render-vue');
 })->where('page','.*');
+
 
 

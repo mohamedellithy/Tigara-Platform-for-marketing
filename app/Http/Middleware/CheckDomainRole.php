@@ -17,9 +17,12 @@ class CheckDomainRole
     public function handle(Request $request, Closure $next)
     {
         $hosts_parts = explode('.', $request->getHttpHost());
-        if(count($hosts_parts) != 3){
-            return $next($request);
-        }
+        if(count($hosts_parts) != 3):
+            if($request->path() == '/'):
+                return $next($request);
+            endif;
+            abort(404);
+        endif;
 
         $account_type = \Config::get('app.'.$hosts_parts[0]);
         if(!isset($account_type)){
