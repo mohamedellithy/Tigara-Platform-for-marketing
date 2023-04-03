@@ -1,31 +1,11 @@
 {
-  "resources/js/img/Hide.png": {
-    "file": "assets/Hide-608a9301.png",
-    "src": "resources/js/img/Hide.png"
-  },
-  "resources/js/img/pattern.png": {
-    "file": "assets/pattern-464d9bf6.png",
-    "src": "resources/js/img/pattern.png"
-  },
-  "resources/js/img/Digital-Marketing-Transparent-PNG.png": {
-    "file": "assets/Digital-Marketing-Transparent-PNG-35f245ee.png",
-    "src": "resources/js/img/Digital-Marketing-Transparent-PNG.png"
-  },
-  "resources/js/img/image_processing20200627-19092-c2s8xo.gif": {
-    "file": "assets/image_processing20200627-19092-c2s8xo-37e02d90.gif",
-    "src": "resources/js/img/image_processing20200627-19092-c2s8xo.gif"
+  "resources/js/img/menu-2-svgrepo-com.svg": {
+    "file": "assets/menu-2-svgrepo-com-ed812ec3.svg",
+    "src": "resources/js/img/menu-2-svgrepo-com.svg"
   },
   "resources/js/img/Circle-icons-profile.svg.png": {
     "file": "assets/Circle-icons-profile.svg-f34676cf.png",
     "src": "resources/js/img/Circle-icons-profile.svg.png"
-  },
-  "resources/js/img/Enso-2.gif": {
-    "file": "assets/Enso-2-3aba6408.gif",
-    "src": "resources/js/img/Enso-2.gif"
-  },
-  "resources/js/img/menu-2-svgrepo-com.svg": {
-    "file": "assets/menu-2-svgrepo-com-ed812ec3.svg",
-    "src": "resources/js/img/menu-2-svgrepo-com.svg"
   },
   "resources/js/img/tigara-trans.png": {
     "file": "assets/tigara-trans-027937ec.png",
@@ -34,6 +14,22 @@
   "resources/js/img/Wavy_Bus-01_Single-02-PhotoRoom.png-PhotoRoom.png": {
     "file": "assets/Wavy_Bus-01_Single-02-PhotoRoom.png-PhotoRoom-393cf4b9.png",
     "src": "resources/js/img/Wavy_Bus-01_Single-02-PhotoRoom.png-PhotoRoom.png"
+  },
+  "resources/js/img/pattern.png": {
+    "file": "assets/pattern-464d9bf6.png",
+    "src": "resources/js/img/pattern.png"
+  },
+  "resources/js/img/Hide.png": {
+    "file": "assets/Hide-608a9301.png",
+    "src": "resources/js/img/Hide.png"
+  },
+  "resources/js/img/Enso-2.gif": {
+    "file": "assets/Enso-2-3aba6408.gif",
+    "src": "resources/js/img/Enso-2.gif"
+  },
+  "resources/js/img/image_processing20200627-19092-c2s8xo.gif": {
+    "file": "assets/image_processing20200627-19092-c2s8xo-37e02d90.gif",
+    "src": "resources/js/img/image_processing20200627-19092-c2s8xo.gif"
   },
   "resources/js/img/shipping-delivery.png": {
     "file": "assets/shipping-delivery-4be8b44d.png",
@@ -51,13 +47,17 @@
     "file": "assets/prod-3-3bed2c63.png",
     "src": "resources/js/img/prod-3.png"
   },
+  "resources/js/img/upload-1118929_960_720.webp": {
+    "file": "assets/upload-1118929_960_720-2cfe47ae.webp",
+    "src": "resources/js/img/upload-1118929_960_720.webp"
+  },
   "resources/js/img/loading.webp": {
     "file": "assets/loading-ff732849.webp",
     "src": "resources/js/img/loading.webp"
   },
-  "resources/js/img/upload-1118929_960_720.webp": {
-    "file": "assets/upload-1118929_960_720-2cfe47ae.webp",
-    "src": "resources/js/img/upload-1118929_960_720.webp"
+  "resources/js/img/Digital-Marketing-Transparent-PNG.png": {
+    "file": "assets/Digital-Marketing-Transparent-PNG-35f245ee.png",
+    "src": "resources/js/img/Digital-Marketing-Transparent-PNG.png"
   },
   "resources/js/img/prod-4.png": {
     "file": "assets/prod-4-6f00b7c8.png",
