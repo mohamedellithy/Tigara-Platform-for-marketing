@@ -1,153 +1,195 @@
 <template>
     <div class="section-row-layouts">
-        <div :class="[ (this.toggleSide ? 'active': 'no-active') + ' sidemenu' ]">
-            <div class="header-shop" style="text-align: center;">
-                <!-- <label class="header-shop-logo"></label> -->
-                <router-link v-if="this.$auth.user.account_type == 0" :to="{path:'/dashboard/dashboard-reports'}">
-                    <img class="header-shop-name" :src="this.tigaraIcon" />
-                </router-link>
-                <router-link v-if="this.$auth.user.account_type == 1" :to="{path:'/merchant/dashboard-reports'}">
-                    <img class="header-shop-name" :src="this.tigaraIcon" />
-                </router-link>
-                <router-link v-if="this.$auth.user.account_type == 2" :to="{path:'/delivery/dashboard-reports'}">
-                    <img class="header-shop-name" :src="this.tigaraIcon" />
-                </router-link>
-                <router-link v-if="this.$auth.user.account_type == 3" :to="{path:'/marketer/dashboard-reports'}">
-                    <img class="header-shop-name" :src="this.tigaraIcon" />
-                </router-link>
-                <!-- <label class="header-shop-name">
-                </label> -->
-            </div>
-            <!-- mobile Profile dropdown menu -->
-            <ul class="menu-list">
-                <li class="nav-item list-items-menu dropdown mobile-profile-dropdown" @click="toggleDropdown">
-                    <img :src="this.iconsProfile" />
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" >
-                        {{ $filters.handleEmail($auth.user.name) }}
-                    </a>
-                    <div v-if="toggle" class="dropdown-menus-vue">
-                        <router-link tag="a" class="dropdown-item" :to="{path:'/dashboard/setting-account'}">
-                            <i class="fas fa-users-cog"></i>
-                            اعدادات الحساب
-                        </router-link>
-                        <a @click="LogOut" class="dropdown-item" href="#">
-                            <i class="fas fa-sign-out-alt"></i>
-                            تسجيل الحروج
+        <template v-if="this.$route.name == 'complete-your-account'">
+            <router-view :key="$route.fullPath" @updateQuantity="updateQuantity"></router-view>
+        </template>
+        <template v-else>
+            <div :class="[ (this.toggleSide ? 'active': 'no-active') + ' sidemenu' ]">
+                <div class="header-shop" style="text-align: center;">
+                    <!-- <label class="header-shop-logo"></label> -->
+                    <router-link v-if="this.$auth.user.account_type == 0" :to="{path:'/dashboard/dashboard-reports'}">
+                        <img class="header-shop-name" :src="this.tigaraIcon" />
+                    </router-link>
+                    <router-link v-if="this.$auth.user.account_type == 1" :to="{path:'/merchant/dashboard-reports'}">
+                        <img class="header-shop-name" :src="this.tigaraIcon" />
+                    </router-link>
+                    <router-link v-if="this.$auth.user.account_type == 2" :to="{path:'/delivery/dashboard-reports'}">
+                        <img class="header-shop-name" :src="this.tigaraIcon" />
+                    </router-link>
+                    <router-link v-if="this.$auth.user.account_type == 3" :to="{path:'/marketer/dashboard-reports'}">
+                        <img class="header-shop-name" :src="this.tigaraIcon" />
+                    </router-link>
+                    <!-- <label class="header-shop-name">
+                    </label> -->
+                </div>
+                <!-- mobile Profile dropdown menu -->
+                <ul class="menu-list">
+                    <li class="nav-item list-items-menu dropdown mobile-profile-dropdown" @click="toggleDropdown">
+                        <img :src="this.iconsProfile" />
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" >
+                            {{ $filters.handleEmail($auth.user.name) }}
                         </a>
-                    </div>
-                </li>
-                <admin-sidebar     v-if="this.$auth.user.account_type == 0"></admin-sidebar>
-                <merchant-sidebar  v-if="this.$auth.user.account_type == 1"></merchant-sidebar>
-                <delivery-sidebar  v-if="this.$auth.user.account_type == 2"></delivery-sidebar>
-                <marketer-sidebar  v-if="this.$auth.user.account_type == 3"></marketer-sidebar>
-                <!-- :key="$route.path" -->
-                <!-- end menu items -->
-            </ul>
-        </div>
-        <div :class="[ (this.toggleSide ? 'active': 'no-active') + ' container-dashboard' ]">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#" @click="ToggleSidebar">
-                    <img :src="this.svgrepoCom"/>
-                </a>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <!-- logo -->
-                        <li class="nav-item mobile-header-logo">
-                            <!-- <label class="header-shop-logo"> -->
-                                <img class="header-shop-logo" src="@/img/tigara-trans.png"/>
-                            <!-- </label> -->
-                        </li>
-                        <!-- end logo -->
-                        <!-- search bar -->
-                        <li class="nav-item search-container">
-                            <input placeholder="Search..." name="" class="form-control search-navbar"/>
-                        </li>
-                        <!-- end search bar -->
-                        <li :key="$route.fullPath" v-if="this.$auth.user.account_type == '3'" class="nav-item top-cart-icon" @click="ToggleMiniCart">
-                            <a class="nav-link">
-                                <i class="fas fa-shopping-cart"></i>
-                                <span class="show-cart-notification">{{ this.total_cart_items || 0  }}</span>
+                        <div v-if="toggle" class="dropdown-menus-vue">
+                            <router-link tag="a" class="dropdown-item" :to="{path:'/dashboard/setting-account'}">
+                                <i class="fas fa-users-cog"></i>
+                                اعدادات الحساب
+                            </router-link>
+                            <a @click="LogOut" class="dropdown-item" href="#">
+                                <i class="fas fa-sign-out-alt"></i>
+                                تسجيل الحروج
                             </a>
-                        </li>
-                        <!-- Profile dropdown menu -->
-                        <li class="nav-item dropdown profile-dropdown" @click="toggleDropdown">
-                            <img :src="this.iconsProfile" />
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" >
-                                {{ $filters.handleEmail($auth.user.name) }}
-                            </a>
-                            <div v-if="toggle" class="dropdown-menus-vue">
-                                <router-link tag="a" class="dropdown-item" :to="{path:'/dashboard/setting-account'}">
-                                    <i class="fas fa-users-cog"></i>
-                                    اعدادات الحساب
-                                </router-link>
-                                <a @click="LogOut" class="dropdown-item" href="#">
-                                    <i class="fas fa-sign-out-alt"></i>
-                                    تسجيل الحروج
+                        </div>
+                    </li>
+                    <admin-sidebar     v-if="this.$auth.user.account_type == 0"></admin-sidebar>
+                    <merchant-sidebar  v-if="this.$auth.user.account_type == 1"></merchant-sidebar>
+                    <delivery-sidebar  v-if="this.$auth.user.account_type == 2"></delivery-sidebar>
+                    <marketer-sidebar  v-if="this.$auth.user.account_type == 3"></marketer-sidebar>
+                    <!-- :key="$route.path" -->
+                    <!-- end menu items -->
+                </ul>
+            </div>
+            <div :class="[ (this.toggleSide ? 'active': 'no-active') + ' container-dashboard' ]">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <a class="navbar-brand" href="#" @click="ToggleSidebar">
+                        <img :src="this.svgrepoCom"/>
+                    </a>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <!-- logo -->
+                            <li class="nav-item mobile-header-logo">
+                                <!-- <label class="header-shop-logo"> -->
+                                    <img class="header-shop-logo" src="@/img/tigara-trans.png"/>
+                                <!-- </label> -->
+                            </li>
+                            <!-- end logo -->
+                            <!-- search bar -->
+                            <li class="nav-item search-container">
+                                <input placeholder="Search..." name="" class="form-control search-navbar"/>
+                            </li>
+                            <!-- end search bar -->
+                            <li :key="$route.fullPath" v-if="this.$auth.user.account_type == '3'" class="nav-item top-cart-icon" @click="ToggleMiniCart">
+                                <a class="nav-link">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <span class="show-cart-notification">{{ this.total_cart_items || 0  }}</span>
                                 </a>
-                            </div>
-                        </li>
-                        <!-- end Profile dropdown menu -->
-                        <!-- toggle btn -->
-                        <li class="nav-item mobile-toggleIcon"  @click="ToggleSidebar">
-                            <img :src="this.svgrepoCom"/>
-                        </li>
-                        <!-- end toggle btn -->
-                    </ul>
-                </div>
-            </nav>
+                            </li>
+                            <!-- Profile dropdown menu -->
+                            <li class="nav-item dropdown profile-dropdown" @click="toggleDropdown">
+                                <img :src="this.iconsProfile" />
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" >
+                                    {{ $filters.handleEmail($auth.user.name) }}
+                                </a>
+                                <div v-if="toggle" class="dropdown-menus-vue">
+                                    <router-link tag="a" class="dropdown-item" :to="{path:'/dashboard/setting-account'}">
+                                        <i class="fas fa-users-cog"></i>
+                                        اعدادات الحساب
+                                    </router-link>
+                                    <a @click="LogOut" class="dropdown-item" href="#">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        تسجيل الحروج
+                                    </a>
+                                </div>
+                            </li>
+                            <!-- end Profile dropdown menu -->
+                            <!-- toggle btn -->
+                            <li class="nav-item mobile-toggleIcon"  @click="ToggleSidebar">
+                                <img :src="this.svgrepoCom"/>
+                            </li>
+                            <!-- end toggle btn -->
+                        </ul>
+                    </div>
+                </nav>
 
-            <div class="container-mini-cart" v-if="toggleMiniCart == true" :key="$route.fullPath">
-                <div class="content-mini-cart">
-                    <table class="table mini-cart">
-                        <tr>
-                            <th>المنتج</th>
-                            <th>كمية المنتج</th>
-                            <th>سعر المنتج</th>
-                            <th></th>
-                        </tr>
-                        <tr v-for="(item,key) in cart_items" :key="key">
-                            <td>
-                                <img :src="item.product.thumbnail_item.image_url"  class="mini-cart-product-image"/>
-                                <label class="product-name">
-                                    {{ item.product.name }}
-                                </label>
-                            </td>
-                            <td>
-                                <span class="fas fa-plus quantity-varite" @click="PlusQuantity(item)"></span>
-                                <label class="quantity-mini-cart">{{  item.quantity || 1  }}</label>
-                                <span class="fas fa-minus quantity-varite" @click="MinusQuantity(item)"></span>
-                            </td>
-                            <td>{{ item.price }} USD</td>
-                            <td>
-                                <i class="fas fa-times-circle" @click="deleteItemFromCart(item)"></i>
-                            </td>
-                        </tr>
-                    </table>
+                <div class="container-mini-cart" v-if="toggleMiniCart == true" :key="$route.fullPath">
+                    <div class="content-mini-cart">
+                        <table class="table mini-cart">
+                            <tr>
+                                <th>المنتج</th>
+                                <th>كمية المنتج</th>
+                                <th>سعر المنتج</th>
+                                <th></th>
+                            </tr>
+                            <tr v-for="(item,key) in cart_items" :key="key">
+                                <td>
+                                    <img :src="item.product.thumbnail_item.image_url"  class="mini-cart-product-image"/>
+                                    <label class="product-name">
+                                        {{ item.product.name }}
+                                    </label>
+                                </td>
+                                <td>
+                                    <span class="fas fa-plus quantity-varite" @click="PlusQuantity(item)"></span>
+                                    <label class="quantity-mini-cart">{{  item.quantity || 1  }}</label>
+                                    <span class="fas fa-minus quantity-varite" @click="MinusQuantity(item)"></span>
+                                </td>
+                                <td>{{ item.price }} USD</td>
+                                <td>
+                                    <i class="fas fa-times-circle" @click="deleteItemFromCart(item)"></i>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="text-center" style="padding:10px">
+                        <router-link class="btn go_to_checkout" :to="{name:'marketer-carts'}">
+                            <i class="fas fa-dolly-flatbed"></i>
+                            استكمال الطلب
+                        </router-link>
+                    </div>
                 </div>
-                <div class="text-center" style="padding:10px">
-                    <router-link class="btn go_to_checkout" :to="{name:'marketer-carts'}">
-                        <i class="fas fa-dolly-flatbed"></i>
-                        استكمال الطلب
-                    </router-link>
+                <div class="container-content">
+                    <div class="topbar-permalink">
+                        <span>الرئيسية / </span>
+                        <router-link tag="span" :to="{name:'login'}" style="text-decoration: none;">
+                            {{ this.$route.meta.ar_name }}
+                        </router-link>
+                    </div>
+                    <template v-if="this.$auth.user.status == 1 && this.$auth.user.account_type == 3 && this.$auth.user.add_informations == true ">
+                        <router-view :key="$route.fullPath" @updateQuantity="updateQuantity"></router-view>
+                    </template>
+                    <template v-if="this.$auth.user.status == 1 && this.$auth.user.account_type != 3">
+                        <router-view :key="$route.fullPath" @updateQuantity="updateQuantity"></router-view>
+                    </template>
+                    <template v-else-if="this.$auth.user.status == 0 && this.$auth.user.account_type != 3">
+                        <div class="alert text-center" style="padding: 6%;">
+                            <img class="img-responsive" style="width: 30%;" src="@/img/Wavy_Bus-01_Single-02-PhotoRoom.png-PhotoRoom.png" />
+                            <br/>
+                            <p class="alert alert-danger" style="font-weight: bold;font-size: 15px;padding: 2%;margin: 16px;">
+                               لم يتم تفعيل حسابك حتى الان من خلال المسؤلين
+                            </p>
+                        </div>
+                    </template>
+                    <template v-else-if="this.$auth.user.status == 0 && this.$auth.user.account_type == 3">
+                        <div class="alert text-center" style="padding: 6%;">
+                            <img class="img-responsive" style="width: 30%;" src="@/img/Wavy_Bus-01_Single-02-PhotoRoom.png-PhotoRoom.png" />
+                            <br/>
+                            <template v-if="this.$auth.user.add_informations == false">
+                                <router-link :to="{name:'complete-your-account'}" class="btn btn-warning">
+                                    استكمال اجراءات الحساب 
+                                </router-link>
+                                <p style="font-weight: bold;font-size: 17px;padding: 2%;">
+                                    حسابك غير مفعل برجاء استكمال الحساب  لتتمكن من البيع و تحقيق الأرباح
+                                </p>
+                            </template>
+                            <template v-else-if="this.$auth.user.add_informations == true">
+                                <router-link :to="{name:'complete-your-account'}" class="btn btn-warning">
+                                    تعديل معلومات التسويق الخاصة بك
+                                </router-link>
+                                <br/>
+                                <p class="alert alert-info" style="font-weight: bold;font-size: 15px;padding: 2%;margin: 16px;">
+                                    طلب انضمامك الى المنصة فى حالة انتظار مراجعة المسؤل فى حالة الموافقة سيتم تفعيل حسابك على الفور
+                                </p>
+                            </template>
+                        </div>
+                    </template>
                 </div>
             </div>
-            <div class="container-content">
-                <div class="topbar-permalink">
-                    <span>الرئيسية / </span>
-                    <router-link tag="span" :to="{name:'login'}" style="text-decoration: none;">
-                        {{ this.$route.meta.ar_name }}
-                    </router-link>
-                </div>
-                <router-view :key="$route.fullPath" @updateQuantity="updateQuantity"></router-view>
-            </div>
-        </div>
 
 
-        <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
-        @update_success="showsuccess = false"
-        @update_errors="showerrors = false" :errors="errors"
-        :success_message="success_message"
-        :error_message="error_message"></alert-response>
+            <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
+            @update_success="showsuccess = false"
+            @update_errors="showerrors = false" :errors="errors"
+            :success_message="success_message"
+            :error_message="error_message"></alert-response>
+        </template>
     </div>
 </template>
 <script>

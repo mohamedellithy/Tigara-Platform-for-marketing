@@ -37,7 +37,9 @@ class User extends JsonResource
             'total_merchant_products_sales' => $this->total_merchant_products_sales,
             'total_compelete_orders' => $this->total_compelete_orders,
             'all_marketer_and_platform_orders_profits' => $this->all_marketer_and_platform_orders_profits,
-            'total_platform_profits'  => $this->total_platform_profits
+            'total_platform_profits'  => $this->total_platform_profits,
+            'add_informations'  => $this->addition_informations != null,
+            'addition_informations'  => $this->addition_informations,
         ];
     }
 }

@@ -114,6 +114,10 @@ class Marketer extends Authenticatable
         return $this->hasManyThrough('App\Models\OrderDetails','App\Models\Order','marketer_id','order_id','id','id');
     }
 
+    public function addition_informations(){
+        return $this->hasOne('App\Models\AdditionInformations','marketer_id','id');
+    }
+
     public function favourites(){
         return $this->hasMany('App\Models\Favourite','marketer_id','id');
     }

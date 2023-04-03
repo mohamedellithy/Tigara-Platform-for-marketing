@@ -114,7 +114,11 @@ export default {
                     self.$router.push({name: 'delivery-reports'});
                 }
                 else if(data.account_type == '3'){
-                    self.$router.push({name: 'marketer-reports'});
+                    if(data.status == '0' && data.add_informations == false){
+                        self.$router.push({name: 'complete-your-account'});
+                    } else {
+                        self.$router.push({name: 'marketer-reports'});
+                    }
                 }
                 console.log(data);
             }).catch(function({response}){
@@ -311,6 +315,14 @@ export default {
 }
 .link-register{
     text-decoration: none;
+}
+.section-login-form .form-group input{
+    height: 48px;
+    /* UI Properties */
+    background: var(--grey-100) 0% 0% no-repeat padding-box;
+    background: #F5F5F5 0% 0% no-repeat padding-box;
+    border-radius: 8px;
+    opacity: 1;
 }
 @media(max-width:1000px){
     .title-login{

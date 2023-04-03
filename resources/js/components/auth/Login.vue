@@ -100,7 +100,12 @@ export default {
                     self.$router.push({name: 'delivery-reports'});
                 }
                 else if(data.account_type == '3'){
-                    self.$router.push({name: 'marketer-reports'});
+                    //complete-your-account
+                    if(data.status == '0' && data.add_informations == false){
+                        self.$router.push({name: 'complete-your-account'});
+                    } else {
+                        self.$router.push({name: 'marketer-reports'});
+                    }
                 }
                 console.log(data);
             }).catch(function({response}){

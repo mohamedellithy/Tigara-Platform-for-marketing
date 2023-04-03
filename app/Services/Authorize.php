@@ -52,6 +52,7 @@ class Authorize{
         $request['password']= Hash::make($request->input('password'));
         $request['remember_token'] = Str::random(10);
         $request['account_type']   = \Config::get('app.Current_Domain');
+        $request['status']         = '0';
         $user = $this->ModelGuard::create($request->all());
         if(Auth::guard($this->guard)->attempt([
                 'phone' => $request->input('phone'),

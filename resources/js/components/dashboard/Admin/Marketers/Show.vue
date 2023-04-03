@@ -14,6 +14,14 @@
                     </template>
                 </p>
             </div>
+            <p style="text-align: left;padding:0% 4%">
+                <button @click="UpdateMarketer(1)" v-if="marketer.status == 0" class="btn btn-success btn-sm" style="margin:2px">
+                    تفعيل المسوق
+                </button>
+                <button @click="UpdateMarketer(0)" v-if="marketer.status == 1" class="btn btn-danger btn-sm" style="margin:2px">
+                     الغاء تفعيل المسوق
+                </button>
+            </p>
             <p>التفاصيل مسوق</p>
             <div class="col-lg-6 container-form-new-merchant">
                 <div class="form-group">
@@ -26,9 +34,30 @@
                 <div class="form-group">
                     <label for="merchant-name">
                         <i class="fas fa-user-edit" style="padding: 5px;"></i>
-                        البريد الالكترونى
+                        تعريف المسوق
                     </label>
-                    <p class="container-value-p">{{ marketer.email }}</p>
+                    <p class="container-value-p" style="color:blueviolet;font-weight: bold;">
+                        <template v-if="marketer.addition_informations != null">
+                            {{ marketer.addition_informations.who_you }}
+                        </template>
+                        <template v-else>
+                            -
+                        </template>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label for="merchant-name">
+                        <i class="fas fa-user-edit" style="padding: 5px;"></i>
+                        طريقة المتبعة للتسويق
+                    </label>
+                    <p class="container-value-p" style="color:blueviolet;font-weight: bold;">
+                        <template v-if="marketer.addition_informations != null">
+                            {{ marketer.addition_informations.which_marketing_will_follow }}
+                        </template>
+                        <template v-else>
+                            -
+                        </template>
+                    </p>
                 </div>
                 <div class="form-group">
                     <label for="merchant-name">
@@ -124,6 +153,11 @@
                 </div>
             </div>
         </div>
+        <alert-response :showsuccess="showsuccess" :showerrors="showerrors"
+        @update_success="showsuccess = false"
+        @update_errors="showerrors = false" :errors="errors"
+        :success_message="success_message"
+        :error_message="error_message"></alert-response>
         <div v-if="this.loading" style="position: fixed;top: 0px;bottom: 0px;background-color:#1d2024d1;left: 0;right: 0;z-index: 100000;text-align: center;">
             <img style="margin: 10% auto;" src="@/img/Enso-2.gif"/>
         </div>
@@ -137,11 +171,18 @@ export default {
     },
     data(){
         return{
-            marketer:{},
+            marketer:{
+                addition_informations:{}
+            },
+            field:{},
             errors:{},
             success:null,
             iconsProfile,
-            loading:true
+            loading:true,
+            showsuccess:false,
+            showerrors:false,
+            success_message:'تم انشاء التاجر بنجاح',
+            error_message:'حدث خطأ اثناء انشاء التاجر',
         }
     },
     methods:{
@@ -158,12 +199,16 @@ export default {
             })
             console.log(this.merchant);
         },
-        UpdateMarketer:function(){
+        UpdateMarketer:function(status){
             let self = this;
-            axios.put('/api/marketers/'+this.$route.params.id,this.marketer).then(function({data}) {
+            this.field.status = status;
+            console.log(this.field);
+            axios.put('/api/marketers/'+this.$route.params.id,this.field).then(function({data}) {
                 console.log(data);
                 self.errors   = {};
-                self.success  = data.result;
+                self.showsuccess = true;
+                self.success_message = data.result;
+                self.FetchMarketer();
                 console.log(self.success);
             }).catch(function({response}) {
                 console.log(response);

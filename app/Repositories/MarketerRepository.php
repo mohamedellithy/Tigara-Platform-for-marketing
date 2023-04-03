@@ -75,23 +75,26 @@ class MarketerRepository extends MarketerRepositoryInterface{
 
     public function show($id){
         return response()->json([
-            'marketer'          => new MarketerResource(Marketer::with('products','orders_details')->find($id))
+            'marketer'          => new MarketerResource(Marketer::with('products','orders_details','addition_informations')->find($id))
         ]);
     }
 
-    public function update($data,$id){
+    public function update(Request $request,$id){
         $marketer = Marketer::find($id);
         if($marketer):
 
-            if(isset($data['password'])):
-                $data['password'] = Hash::make($data['password']);
+            if($request->has('password')):
+                $request->merge([
+                    'password' => Hash::make($request->input('password'))
+                ]);
             endif;
 
-            $add_new_market = $marketer->update($data);
+            $add_new_market = $marketer->update($request->all());
 
             if($add_new_market):
                 return response()->json([
-                    'result' => 'تم تعديل حساب تاجر بنجاح'
+                    'result' => 'تم تعديل حساب مسوق بنجاح',
+                    're' => $request->all()
                 ]);
             endif;
         endif;

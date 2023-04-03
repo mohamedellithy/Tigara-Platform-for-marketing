@@ -36,6 +36,10 @@ class MarketerController extends Controller
         return $this->marketerRepository->show($id);
     }
 
+    public function update(Request $request,$id){
+        return $this->marketerRepository->update($request,$id);
+    }
+
      /**
      * Display the specified resource.
      *

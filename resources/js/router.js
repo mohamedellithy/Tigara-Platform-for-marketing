@@ -92,6 +92,7 @@ import DeliveryShowProduct from './components/dashboard/Delivery/Products/Show.v
  * @Marketer area
  * all components Marketer
  */
+import MarketerCompleteYourAccount from './components/dashboard/Marketer/CompleteAccount.vue';
 import MarketerProducts from './components/dashboard/Marketer/Products/Index.vue';
 import ShowMarketerProduct from './components/dashboard/Marketer/Products/Show.vue';
 import ShowLowStockMarketerProduct from './components/dashboard/Marketer/Products/LowStock.vue';
@@ -746,6 +747,16 @@ const routes = [{
                 AccountType: 'marketer'
             },
             children: [{
+                    path: 'complete-your-account',
+                    name: 'complete-your-account',
+                    component: MarketerCompleteYourAccount,
+                    meta: {
+                        ar_name: 'استكمال حسابك',
+                        requiresAuth: true,
+                        AccountType: 'marketer',
+                        menu_id: 'complete-your-account',
+                    },
+                }, {
                     path: 'marketer-reports',
                     name: 'marketer-reports',
                     component: MarketerDashboard,

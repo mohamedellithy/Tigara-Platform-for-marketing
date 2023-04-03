@@ -1,8 +1,4 @@
 {
-  "resources/js/img/Enso-2.gif": {
-    "file": "assets/Enso-2-3aba6408.gif",
-    "src": "resources/js/img/Enso-2.gif"
-  },
   "resources/js/img/Hide.png": {
     "file": "assets/Hide-608a9301.png",
     "src": "resources/js/img/Hide.png"
@@ -10,6 +6,14 @@
   "resources/js/img/pattern.png": {
     "file": "assets/pattern-464d9bf6.png",
     "src": "resources/js/img/pattern.png"
+  },
+  "resources/js/img/Enso-2.gif": {
+    "file": "assets/Enso-2-3aba6408.gif",
+    "src": "resources/js/img/Enso-2.gif"
+  },
+  "resources/js/img/Circle-icons-profile.svg.png": {
+    "file": "assets/Circle-icons-profile.svg-f34676cf.png",
+    "src": "resources/js/img/Circle-icons-profile.svg.png"
   },
   "resources/js/img/image_processing20200627-19092-c2s8xo.gif": {
     "file": "assets/image_processing20200627-19092-c2s8xo-37e02d90.gif",
@@ -23,9 +27,9 @@
     "file": "assets/menu-2-svgrepo-com-ed812ec3.svg",
     "src": "resources/js/img/menu-2-svgrepo-com.svg"
   },
-  "resources/js/img/Circle-icons-profile.svg.png": {
-    "file": "assets/Circle-icons-profile.svg-f34676cf.png",
-    "src": "resources/js/img/Circle-icons-profile.svg.png"
+  "resources/js/img/Wavy_Bus-01_Single-02-PhotoRoom.png-PhotoRoom.png": {
+    "file": "assets/Wavy_Bus-01_Single-02-PhotoRoom.png-PhotoRoom-393cf4b9.png",
+    "src": "resources/js/img/Wavy_Bus-01_Single-02-PhotoRoom.png-PhotoRoom.png"
   },
   "resources/js/img/tigara-trans.png": {
     "file": "assets/tigara-trans-027937ec.png",
@@ -60,15 +64,15 @@
     "src": "resources/js/img/prod-4.png"
   },
   "resources/js/app.css": {
-    "file": "assets/app-e3e70b0c.css",
+    "file": "assets/app-245de74f.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
-    "file": "assets/app-968a601c.js",
+    "file": "assets/app-00c7f97a.js",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-e3e70b0c.css"
+      "assets/app-245de74f.css"
     ],
     "assets": [
       "assets/pattern-464d9bf6.png",
@@ -77,6 +81,7 @@
       "assets/menu-2-svgrepo-com-ed812ec3.svg",
       "assets/Circle-icons-profile.svg-f34676cf.png",
       "assets/tigara-trans-027937ec.png",
+      "assets/Wavy_Bus-01_Single-02-PhotoRoom.png-PhotoRoom-393cf4b9.png",
       "assets/image_processing20200627-19092-c2s8xo-37e02d90.gif",
       "assets/Enso-2-3aba6408.gif",
       "assets/shipping-delivery-4be8b44d.png",

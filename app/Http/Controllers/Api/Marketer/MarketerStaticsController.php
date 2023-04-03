@@ -32,4 +32,18 @@ class MarketerStaticsController extends Controller
             'products'                => Product::where('quantity',0)->orderBy('created_at','asc')->limit(5)->get()
         ]);
     }
+
+    public function attach_marketing_details(Request $request){
+         $request->user()->addition_informations()->updateOrCreate([
+            'marketer_id' => $request->user()->id
+         ],[
+            'who_you' => $request->input('who_you'),
+            'which_marketing_will_follow' => $request->input('which_marketing_will_follow'),
+         ]);
+
+        return response()->json([
+            'status' => 'success',
+            'result' => 'information added successfully'
+        ]);
+    }
 }

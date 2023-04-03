@@ -10,7 +10,7 @@ class MarketerRepositoryInterface{
 
     public function show($id){}
 
-    public function update($data,$id){}
+    public function update(Request $request,$id){}
 
     public function bulk_update($data){}
 

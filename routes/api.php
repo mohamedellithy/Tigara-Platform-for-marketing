@@ -106,7 +106,7 @@ Route::domain('admin.'.env('MAIN_DOMAIN'))->group(function () {
         Route::get('/marketer-nothave-products/{id}', [MarketerController::class, 'marketer_nothave_products']);
         Route::get('/marketer-products/{id}', [MarketerController::class, 'marketer_products']);
         Route::apiResource('marketers',MarketerController::class)->except([
-            'update','store'
+            'store'
         ]);
         Route::get('/marketer-profits', [MarketerProfitsController::class,'marketer_profits_index']);
         Route::get('/marketer-search-profits', [MarketerProfitsController::class,'marketer_search_profits']);
@@ -172,6 +172,7 @@ Route::domain('delivery.'.env('MAIN_DOMAIN'))->group(function () {
 
 Route::domain('marketer.'.env('MAIN_DOMAIN'))->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
+        Route::post('marketer-attach-marketing-details',[MarketerStaticsController::class,'attach_marketing_details']);
         Route::get('/me',[ApiAuthController::class , 'me']);
         Route::post('/logout',[ApiAuthController::class , 'logout']);
         Route::get('/marketer-products/search',[MarketerProductController::class,'search']);
