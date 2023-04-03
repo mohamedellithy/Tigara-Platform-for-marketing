@@ -142,7 +142,7 @@
                             {{ this.$route.meta.ar_name }}
                         </router-link>
                     </div>
-                    <template v-if="this.$auth.user.status == 1 && this.$auth.user.account_type == 3 && this.$auth.user.add_informations == true ">
+                    <template v-if="this.$auth.user.status == 1 && this.$auth.user.account_type == 3">
                         <router-view :key="$route.fullPath" @updateQuantity="updateQuantity"></router-view>
                     </template>
                     <template v-if="this.$auth.user.status == 1 && this.$auth.user.account_type != 3">
@@ -157,6 +157,7 @@
                             </p>
                         </div>
                     </template>
+                    
                     <template v-else-if="this.$auth.user.status == 0 && this.$auth.user.account_type == 3">
                         <div class="alert text-center" style="padding: 6%;">
                             <img class="img-responsive" style="width: 30%;" src="@/img/Wavy_Bus-01_Single-02-PhotoRoom.png-PhotoRoom.png" />
