@@ -43,17 +43,43 @@ import router from './router.js';
 const app = createApp({});
 
 app.config.globalProperties.$loadingCart = false;
-
-
-// router.beforeEach(async(to, from) => {
-//     app.config.globalProperties.$loadingCart = false;
-//     console.log(app.config.globalProperties.$loadingCart, 'ddj');
-// });
+app.config.globalProperties.$auth = Auth;
 
 app.use(router);
 
 
-app.config.globalProperties.$auth = Auth;
+router.beforeEach(async(to, from, next) => {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (await Auth.authCheck()) {
+            next();
+            return;
+        } else {
+            router.push('/login');
+        }
+    } else if (to.matched.some(record => record.meta.PreventAuth)) {
+        if (Auth.token != null) {
+            await Auth.authCheck();
+            if (app.config.globalProperties.$auth.user.account_type == '0') {
+                router.push({ name: 'dashboard-reports' });
+            } else if (app.config.globalProperties.$auth.user.account_type == '1') {
+                router.push({ name: 'merchant-reports' });
+            } else if (app.config.globalProperties.$auth.user.account_type == '2') {
+                router.push({ name: 'delivery-reports' });
+            } else if (app.config.globalProperties.$auth.user.account_type == '3') {
+                if (app.config.globalProperties.$auth.user.status == '0' || app.config.globalProperties.$auth.user.add_informations == false) {
+                    router.push({ name: 'complete-your-account' });
+                } else {
+                    router.push({ name: 'marketer-reports' });
+                }
+
+            }
+        } else {
+            next();
+        }
+    } else {
+        next();
+    }
+});
 
 import MasterContent from './components/MasterContent.vue';
 import AlertResponse from './components/AlertResponse.vue';

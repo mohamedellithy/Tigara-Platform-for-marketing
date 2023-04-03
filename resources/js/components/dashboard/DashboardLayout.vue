@@ -157,14 +157,14 @@
                             </p>
                         </div>
                     </template>
-                    
+
                     <template v-else-if="this.$auth.user.status == 0 && this.$auth.user.account_type == 3">
                         <div class="alert text-center" style="padding: 6%;">
                             <img class="img-responsive" style="width: 30%;" src="@/img/Wavy_Bus-01_Single-02-PhotoRoom.png-PhotoRoom.png" />
                             <br/>
                             <template v-if="this.$auth.user.add_informations == false">
                                 <router-link :to="{name:'complete-your-account'}" class="btn btn-warning">
-                                    استكمال اجراءات الحساب 
+                                    استكمال اجراءات الحساب
                                 </router-link>
                                 <p style="font-weight: bold;font-size: 17px;padding: 2%;">
                                     حسابك غير مفعل برجاء استكمال الحساب  لتتمكن من البيع و تحقيق الأرباح
@@ -231,7 +231,7 @@ export default {
             await axios.post('/api/logout').then(function({data}){
                console.log(data);
                self.$auth.logoutAuthToken();
-               self.$router.push({name: 'login'})
+               self.$router.go(0);
             }).catch(function({response}){
                 console.log(response);
             });

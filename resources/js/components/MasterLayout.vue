@@ -1,5 +1,7 @@
 <template>
-    <router-view></router-view>
+    <router-view v-if="(this.$route.meta.requiresAuth == true) && (this.$auth.user.account_type == this.$route.meta.AccountID)"></router-view>
+    <router-view v-else-if="this.$route.meta.requiresAuth == false"></router-view>
+    <img style="width:50%;margin-right: 25%;" src="@/img/404.png" v-else/>
 </template>
 
 <script>

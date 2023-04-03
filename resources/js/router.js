@@ -142,7 +142,8 @@ const routes = [{
                         ar_name: 'الرئيسية',
                         menu_id: 'dashboard-reports',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -153,7 +154,8 @@ const routes = [{
                         ar_name: 'اعدادات الحساب',
                         requiresAuth: true,
                         menu_id: 'setting-account',
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 // Start merchants in Admin
@@ -165,7 +167,8 @@ const routes = [{
                         ar_name: 'عرض التجار',
                         menu_id: 'merchants',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -176,7 +179,8 @@ const routes = [{
                         ar_name: 'اضافة تاجر',
                         menu_id: 'merchants',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -187,7 +191,8 @@ const routes = [{
                         ar_name: 'عرض التاجر',
                         menu_id: 'merchants',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -198,7 +203,8 @@ const routes = [{
                         ar_name: 'تعديل التاجر',
                         menu_id: 'merchants',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -209,7 +215,8 @@ const routes = [{
                         ar_name: 'عرض  منتجات التاجر',
                         menu_id: 'merchants',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -220,7 +227,8 @@ const routes = [{
                         ar_name: 'عرض  مبيعات التاجر',
                         menu_id: 'merchants',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -231,7 +239,8 @@ const routes = [{
                         ar_name: 'عرض  مدفوعات التاجر',
                         menu_id: 'merchants',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -242,7 +251,8 @@ const routes = [{
                         ar_name: 'المدفوعات',
                         menu_id: 'merchants',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -253,7 +263,8 @@ const routes = [{
                         ar_name: 'اضافة مدغوعات للتاجر',
                         menu_id: 'merchants',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 // End Merchants in Admin
@@ -266,7 +277,8 @@ const routes = [{
                         ar_name: 'عرض شركات الشحن',
                         menu_id: 'deliveries',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -277,7 +289,8 @@ const routes = [{
                         ar_name: 'اضافة شركة الشحن',
                         menu_id: 'deliveries',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -288,7 +301,8 @@ const routes = [{
                         ar_name: 'عرض شركة الشحن',
                         menu_id: 'deliveries',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -299,7 +313,8 @@ const routes = [{
                         ar_name: 'عرض طلبات شركة الشحن',
                         menu_id: 'deliveries',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -310,7 +325,8 @@ const routes = [{
                         ar_name: 'تعديل شركة الشحن',
                         menu_id: 'deliveries',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -321,7 +337,8 @@ const routes = [{
                         ar_name: 'المدفوعات',
                         menu_id: 'deliveries',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -332,7 +349,9 @@ const routes = [{
                         ar_name: 'اضافة مدفوعات لشركة الشحن',
                         menu_id: 'deliveries',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
+
                     }
                 },
                 {
@@ -343,6 +362,8 @@ const routes = [{
                         ar_name: 'عرض  مدفوعات شركة السحن',
                         menu_id: 'deliveries',
                         requiresAuth: true,
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 // End Delievers in Admin
@@ -355,6 +376,8 @@ const routes = [{
                         ar_name: 'عرض المسوقين',
                         menu_id: 'marketers',
                         requiresAuth: true,
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -365,7 +388,8 @@ const routes = [{
                         ar_name: 'عرض تفاصيل المسوق',
                         menu_id: 'marketers',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -376,7 +400,8 @@ const routes = [{
                         ar_name: 'عرض طلبات المسوق',
                         menu_id: 'marketers',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -387,7 +412,8 @@ const routes = [{
                         ar_name: 'اضافة منتجات للمسوق',
                         menu_id: 'marketers',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -398,7 +424,8 @@ const routes = [{
                         ar_name: 'عرض منتجات المسوق',
                         menu_id: 'marketers',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -409,7 +436,8 @@ const routes = [{
                         ar_name: 'أرباح المسوقين',
                         menu_id: 'marketers',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -420,7 +448,8 @@ const routes = [{
                         ar_name: 'طلبات الدفع من المسوقين',
                         menu_id: 'marketers',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 // End Delievers in Admin
@@ -437,7 +466,8 @@ const routes = [{
                         ar_name: 'عرض المنتجات',
                         menu_id: 'products',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -448,7 +478,8 @@ const routes = [{
                         ar_name: 'اضافة منتج',
                         menu_id: 'products',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -459,7 +490,8 @@ const routes = [{
                         ar_name: 'تعديل منتج',
                         menu_id: 'products',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -470,7 +502,8 @@ const routes = [{
                         ar_name: 'عرض منتج',
                         menu_id: 'products',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 // end Products in Admin
@@ -483,7 +516,8 @@ const routes = [{
                         ar_name: 'عرض الطلبات',
                         menu_id: 'orders',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -494,7 +528,8 @@ const routes = [{
                         ar_name: 'تعديل الطلب',
                         menu_id: 'orders',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -505,7 +540,8 @@ const routes = [{
                         ar_name: 'عرض الطلب',
                         menu_id: 'orders',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 // end Orders in Admin
@@ -518,7 +554,8 @@ const routes = [{
                         ar_name: 'أرباح التجار',
                         menu_id: 'profites',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -529,7 +566,8 @@ const routes = [{
                         ar_name: 'أرباح المسوقين',
                         menu_id: 'profites',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 },
                 {
@@ -540,7 +578,8 @@ const routes = [{
                         ar_name: 'أرباح شركات الشحن',
                         menu_id: 'profites',
                         requiresAuth: true,
-                        AccountType: 'admin'
+                        AccountType: 'admin',
+                        AccountID: '0',
                     }
                 }
             ]
@@ -551,7 +590,8 @@ const routes = [{
             component: Dashboard,
             meta: {
                 requiresAuth: true,
-                AccountType: 'merchant'
+                AccountType: 'merchant',
+                AccountID: '1',
             },
             children: [{
                     path: 'merchant-reports',
@@ -561,6 +601,7 @@ const routes = [{
                         ar_name: 'الرئيسية',
                         requiresAuth: true,
                         AccountType: 'merchant',
+                        AccountID: '1',
                         menu_id: 'merchant-reports',
                     },
                 }, {
@@ -570,6 +611,8 @@ const routes = [{
                     meta: {
                         ar_name: 'اعدادات الحساب',
                         requiresAuth: true,
+                        AccountType: 'merchant',
+                        AccountID: '1',
                         menu_id: 'setting-account',
                     }
                 }, {
@@ -580,6 +623,7 @@ const routes = [{
                         ar_name: 'عرض المنتجات',
                         requiresAuth: true,
                         AccountType: 'merchant',
+                        AccountID: '1',
                         menu_id: 'merchant-products',
                     },
                 },
@@ -591,7 +635,8 @@ const routes = [{
                         ar_name: 'عرض منتج',
                         menu_id: 'merchant-products',
                         requiresAuth: true,
-                        AccountType: 'merchant'
+                        AccountType: 'merchant',
+                        AccountID: '1'
                     }
                 },
                 {
@@ -602,6 +647,7 @@ const routes = [{
                         ar_name: 'عرض المنتجات المنتهية',
                         menu_id: 'lowstock-merchant-products',
                         requiresAuth: true,
+                        AccountID: '1',
                         AccountType: 'merchant'
                     }
                 },
@@ -613,6 +659,7 @@ const routes = [{
                         ar_name: 'عرض المنتجات أوشكت على الانتهاء',
                         menu_id: 'about-to-run-out-merchant-products',
                         requiresAuth: true,
+                        AccountID: '1',
                         AccountType: 'merchant'
                     }
                 },
@@ -625,6 +672,7 @@ const routes = [{
                         ar_name: 'عرض الطلبات',
                         requiresAuth: true,
                         AccountType: 'merchant',
+                        AccountID: '1',
                         menu_id: 'merchant-orders',
                     },
                 },
@@ -637,6 +685,7 @@ const routes = [{
                         ar_name: 'عرض الارباح المضافة',
                         requiresAuth: true,
                         AccountType: 'merchant',
+                        AccountID: '1',
                         menu_id: 'show-due-merchant-payments',
                     },
                 },
@@ -648,6 +697,7 @@ const routes = [{
                         ar_name: 'عرض الارباح المسددة',
                         requiresAuth: true,
                         AccountType: 'merchant',
+                        AccountID: '1',
                         menu_id: 'show-made-merchant-payments',
                     },
                 }
@@ -658,7 +708,8 @@ const routes = [{
             component: Dashboard,
             meta: {
                 requiresAuth: true,
-                AccountType: 'delivery'
+                AccountType: 'delivery',
+                AccountID: '2',
             },
             children: [{
                     path: 'delivery-reports',
@@ -668,6 +719,7 @@ const routes = [{
                         ar_name: 'الرئيسية',
                         requiresAuth: true,
                         AccountType: 'delivery',
+                        AccountID: '2',
                         menu_id: 'delivery-reports',
                     }
                 },
@@ -679,6 +731,8 @@ const routes = [{
                         ar_name: 'اعدادات الحساب',
                         requiresAuth: true,
                         menu_id: 'setting-account',
+                        AccountType: 'delivery',
+                        AccountID: '2'
                     }
                 },
                 {
@@ -689,6 +743,7 @@ const routes = [{
                         ar_name: 'الطلبات ',
                         requiresAuth: true,
                         AccountType: 'delivery',
+                        AccountID: '2',
                         menu_id: null,
                     }
                 },
@@ -700,6 +755,7 @@ const routes = [{
                         ar_name: 'عرض الطلب',
                         requiresAuth: true,
                         AccountType: 'delivery',
+                        AccountID: '2',
                         menu_id: 'delivery-show-orders',
                     }
                 },
@@ -711,6 +767,7 @@ const routes = [{
                         ar_name: 'عرض الارباح المضافة',
                         requiresAuth: true,
                         AccountType: 'delivery',
+                        AccountID: '2',
                         menu_id: 'show-due-delivery-payments',
                     },
                 },
@@ -722,6 +779,7 @@ const routes = [{
                         ar_name: 'عرض الارباح المسددة',
                         requiresAuth: true,
                         AccountType: 'delivery',
+                        AccountID: '2',
                         menu_id: 'show-made-delivery-payments',
                     },
                 },
@@ -733,6 +791,7 @@ const routes = [{
                         ar_name: 'عرض المنتج',
                         requiresAuth: true,
                         AccountType: 'delivery',
+                        AccountID: '2',
                         menu_id: 'delivery-show-product',
                     },
                 }
@@ -744,7 +803,8 @@ const routes = [{
             component: Dashboard,
             meta: {
                 requiresAuth: true,
-                AccountType: 'marketer'
+                AccountType: 'marketer',
+                AccountID: '3'
             },
             children: [{
                     path: 'complete-your-account',
@@ -754,6 +814,7 @@ const routes = [{
                         ar_name: 'استكمال حسابك',
                         requiresAuth: true,
                         AccountType: 'marketer',
+                        AccountID: '3',
                         menu_id: 'complete-your-account',
                     },
                 }, {
@@ -764,6 +825,7 @@ const routes = [{
                         ar_name: 'الرئيسية',
                         requiresAuth: true,
                         AccountType: 'marketer',
+                        AccountID: '3',
                         menu_id: 'marketer-reports',
                     },
                 },
@@ -774,6 +836,8 @@ const routes = [{
                     meta: {
                         ar_name: 'اعدادات الحساب',
                         requiresAuth: true,
+                        AccountType: 'marketer',
+                        AccountID: '3',
                         menu_id: 'setting-account',
                     }
                 }, {
@@ -787,6 +851,7 @@ const routes = [{
                         ar_name: 'عرض المنتجات',
                         requiresAuth: true,
                         AccountType: 'marketer',
+                        AccountID: '3',
                         menu_id: 'marketer-products',
                     },
                 },
@@ -798,6 +863,7 @@ const routes = [{
                         ar_name: 'تفاصيل منتج',
                         menu_id: 'marketer-details-product',
                         requiresAuth: true,
+                        AccountID: '3',
                         AccountType: 'marketer'
                     }
                 },
@@ -809,6 +875,7 @@ const routes = [{
                         ar_name: 'عرض المنتجات المنتهية',
                         menu_id: 'lowstock-marketer-products',
                         requiresAuth: true,
+                        AccountID: '3',
                         AccountType: 'marketer'
                     }
                 },
@@ -821,6 +888,7 @@ const routes = [{
                         ar_name: 'عرض الطلبات',
                         requiresAuth: true,
                         AccountType: 'marketer',
+                        AccountID: '3',
                         menu_id: 'marketer-orders',
                     },
                 },
@@ -833,6 +901,7 @@ const routes = [{
                         ar_name: 'طلبات سحب الارباح',
                         requiresAuth: true,
                         AccountType: 'marketer',
+                        AccountID: '3',
                         menu_id: 'marketer-payments',
                     },
                 },
@@ -844,6 +913,7 @@ const routes = [{
                         ar_name: 'السلة',
                         requiresAuth: true,
                         AccountType: 'marketer',
+                        AccountID: '3',
                         menu_id: 'marketer-carts',
                     },
                 },
@@ -855,6 +925,7 @@ const routes = [{
                         ar_name: 'المفضلة',
                         requiresAuth: true,
                         AccountType: 'marketer',
+                        AccountID: '3',
                         menu_id: 'marketer-favourits',
                     },
                 },
@@ -867,6 +938,7 @@ const routes = [{
                         menu_id: 'marketers',
                         requiresAuth: true,
                         AccountType: 'marketer',
+                        AccountID: '3',
                         menu_id: 'marketer-orders',
                     }
                 },
@@ -878,6 +950,7 @@ const routes = [{
                         ar_name: 'تعديل الطلب',
                         requiresAuth: true,
                         AccountType: 'marketer',
+                        AccountID: '3',
                         menu_id: 'marketer-orders',
                     },
                 }
@@ -892,31 +965,6 @@ const router = createRouter({
     routes,
     base: '/',
 });
-
-router.beforeEach(async(to, from, next) => {
-    if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (await Auth.authCheck()) {
-            next();
-            return;
-        } else {
-            router.push('/login');
-        }
-    } else {
-        next();
-    }
-
-    if (to.matched.some(record => record.meta.PreventAuth)) {
-        if (await Auth.authCheck()) {
-            return false;
-        } else {
-            next();
-        }
-    } else {
-        next();
-    }
-});
-
-
 
 
 export default router;
