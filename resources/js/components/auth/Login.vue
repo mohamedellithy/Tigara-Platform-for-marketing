@@ -101,11 +101,12 @@ export default {
                 }
                 else if(data.account_type == '3'){
                     //complete-your-account
-                    if(data.status == 0 || data.add_informations == false){
+                    if(data.status == '0' || data.add_informations == false){
                         self.$router.push({name: 'complete-your-account'});
                     } else {
                         self.$router.push({name: 'marketer-reports'});
                     }
+
                 }
                 console.log(data,'nnbb');
             }).catch(function({response}){
