@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <p v-if="showNewPassword == true" class="alert alert-info">
-                    تم تغير كلمة المرور للمسوق و هى 
+                    تم تغير كلمة المرور للمسوق و هى
                     <code>
                         {{ NewPassword }}
                     </code>
@@ -82,7 +82,7 @@
                                 <td>{{ marketer.feature_products }} منتج</td>
                                 <td>{{ marketer.status_text }}</td>
                                 <td>{{ marketer.total_compelete_orders }} طلبية</td>
-                                <td>{{ marketer.total_profites }} USD</td>
+                                <td>{{ marketer.total_profites }} MRU</td>
                                 <td class="actions-btn">
                                     <button @click="DeleteMarketer(marketer.id,marketer.name)" class="btn btn-danger btn-sm">
                                         حذف

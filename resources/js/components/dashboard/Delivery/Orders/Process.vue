@@ -61,7 +61,7 @@
                                 </th>
                                 <th scope="row"> # {{ order.id }}</th>
                                 <td>{{ order.quantity }} قطعة</td>
-                                <td>{{ order.total }} USD</td>
+                                <td>{{ order.total }} MRU</td>
                                 <td>{{ order.order_status_txt }}</td>
                                 <td>{{ order.shipping_status_txt }}</td>
                                 <td>{{ order.created_at }}</td>

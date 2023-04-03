@@ -110,7 +110,7 @@
                                 </th>
                                 <td>{{ product.name }}</td>
                                 <td>{{ product.merchant.name }}</td>
-                                <td>{{ product.price }} USD</td>
+                                <td>{{ product.price }} MRU</td>
                                 <td>{{ product.quantity }} منتج</td>
                                 <td>{{ product.status_text }}</td>
                                 <td class="actions-btn">

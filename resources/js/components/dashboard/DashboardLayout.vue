@@ -121,7 +121,7 @@
                                     <label class="quantity-mini-cart">{{  item.quantity || 1  }}</label>
                                     <span class="fas fa-minus quantity-varite" @click="MinusQuantity(item)"></span>
                                 </td>
-                                <td>{{ item.price }} USD</td>
+                                <td>{{ item.price }} MRU</td>
                                 <td>
                                     <i class="fas fa-times-circle" @click="deleteItemFromCart(item)"></i>
                                 </td>

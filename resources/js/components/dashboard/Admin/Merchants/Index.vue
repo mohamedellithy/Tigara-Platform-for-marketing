@@ -88,7 +88,7 @@
 
                                 </td>
                                 <td>{{ merchant.total_compelete_orders }} طلبية</td>
-                                <td>{{ merchant.total_merchant_products_sales }} USD</td>
+                                <td>{{ merchant.total_merchant_products_sales }} MRU</td>
                                 <td class="actions-btn">
                                     <button @click="DeleteMerchant(merchant.id,merchant.name)" class="btn btn-danger btn-sm">
                                         حذف

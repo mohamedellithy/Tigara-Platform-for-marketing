@@ -98,7 +98,7 @@
                                     <img style="width: 70px;height: 50px;" :src="product.thumbnail_item.image_url" />
                                 </th>
                                 <td>{{ product.name }}</td>
-                                <td>{{ product.price }} USD</td>
+                                <td>{{ product.price }} MRU</td>
                                 <td>{{ product.quantity }} منتج</td>
                                 <td>{{ product.status_text }}</td>
                                 <td class="actions-btn">

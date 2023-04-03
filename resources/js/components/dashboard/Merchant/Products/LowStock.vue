@@ -28,7 +28,7 @@
                             <span v-if="product.quantity == 0" style="color: red;font-weight: bold;">منتهى</span>
                         </p>
                         <p>
-                            <strong>USD {{ product.price }} </strong> /
+                            <strong>MRU {{ product.price }} </strong> /
                             <strong>الكمية {{ product.quantity }} </strong>
                         </p>
                         <router-link :to="{path:'/merchant/show-product/'+product.id}" class="btn btn-success btn-sm">تصفح المنتج </router-link>

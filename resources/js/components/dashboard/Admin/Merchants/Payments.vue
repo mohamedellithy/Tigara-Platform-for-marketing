@@ -13,24 +13,24 @@
                                     </router-link>
                                 </li>
                                 <li class="filter-item">
-                                    {{ payment_total }} USD
+                                    {{ payment_total }} MRU
 
                                      اجمالى المدفوعات
                                 </li>
 
                                 <li class="filter-item">
-                                    {{ payment_pending }} USD
+                                    {{ payment_pending }} MRU
                                     المدفوعات المحظورة
                                 </li>
 
                                 <li class="filter-item">
-                                    {{ payment_due - payment_pending }} USD
+                                    {{ payment_due - payment_pending }} MRU
 
                                      المدفوعات الغير مسددة
                                 </li>
 
                                 <li class="filter-item">
-                                    {{ payment_made }} USD
+                                    {{ payment_made }} MRU
 
                                      المدفوعات المسددة
                                 </li>
@@ -159,7 +159,7 @@ export default {
             errors:{},
             success:null,
             showModel:false,
-            currency:'USD',
+            currency:'MRU',
             field:{
                 update_status:0,
                 ids:[]

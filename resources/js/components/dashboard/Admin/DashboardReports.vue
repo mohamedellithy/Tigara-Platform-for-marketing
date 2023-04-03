@@ -46,7 +46,7 @@
                 <li>
                     <router-link :to="{path:'/dashboard/orders'}">
                         <i style="color: #ffccbc;"  class="fas fa-coins"></i>
-                        <strong>{{ statics.total_sales }} <span>USD</span></strong>
+                        <strong>{{ statics.total_sales }} <span>MRU</span></strong>
                         <p>
                             اجمالى المبيعات
                         </p>
@@ -55,7 +55,7 @@
                 <li>
                     <router-link :to="{path:'/dashboard/orders'}">
                         <i style="color: #ffccbc;"  class="fas fa-coins"></i>
-                        <strong>{{ statics.total_sale_profits }} <span>USD</span></strong>
+                        <strong>{{ statics.total_sale_profits }} <span>MRU</span></strong>
                         <p>
                             اجمالى أرباح المبيعات
                         </p>
@@ -65,7 +65,7 @@
                 <li>
                     <router-link :to="{path:'/dashboard/orders'}">
                         <i style="color: #ffccbc;"  class="fas fa-coins"></i>
-                        <strong>{{ statics.total_from_delivery_profits }} <span>USD</span></strong>
+                        <strong>{{ statics.total_from_delivery_profits }} <span>MRU</span></strong>
                         <p>
                             اجمالى أرباح الشحن
                         </p>
@@ -75,7 +75,7 @@
                 <li>
                     <router-link :to="{path:'/dashboard/orders'}">
                         <i style="color: #ffccbc;"  class="fas fa-coins"></i>
-                        <strong>{{ statics.all_profits }} <span>USD</span></strong>
+                        <strong>{{ statics.all_profits }} <span>MRU</span></strong>
                         <p>
                             اجمالى الأرباح
                         </p>

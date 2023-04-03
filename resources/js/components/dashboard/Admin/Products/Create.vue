@@ -54,7 +54,7 @@
                         <div class="form-group col-md-6">
                             <label for="merchant-name">
                                 <i class="fas fa-user-edit" style="padding: 5px;"></i>
-                                تكلفة المنتج للتاجر ( USD )
+                                تكلفة المنتج للتاجر ( MRU )
                             </label>
                             <input id="merchant-name" placeholder="عمولة التاجر" class="form-control" type="text" v-model="product.merchant_commission"/>
                         </div>

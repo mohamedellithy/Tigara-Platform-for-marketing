@@ -13,23 +13,23 @@
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-users"></i>
-                                    {{ active_marketers }} USD مسوقين
+                                    {{ active_marketers }} MRU مسوقين
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-check"></i>
-                                    {{ payments_make }} USD مسددة
+                                    {{ payments_make }} MRU مسددة
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-slash"></i>
-                                    {{ payments_due }} USD غير مسددة
+                                    {{ payments_due }} MRU غير مسددة
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-check"></i>
-                                    {{ profits }} USD الارباح
+                                    {{ profits }} MRU الارباح
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-check"></i>
-                                    {{ pending_profits }} USD المحظور
+                                    {{ pending_profits }} MRU المحظور
                                 </li>
                             </ul>
                         </div>
@@ -66,11 +66,11 @@
                                     <input type="checkbox" v-model="selected" :value="payment.id" :checked="selected.indexOf(payment.id) != -1"/>
                                 </th>
                                 <td>{{ payment.marketer.name }}</td>
-                                <!-- <td>{{ payment.marketer.total_profites }} USD</td>
-                                <td>{{ payment.marketer.total_paid  }} USD</td> -->
-                                <td>{{ payment.marketer.total_un_paid - payment.marketer.total_profit_pending }} USD</td>
-                                <td>{{ payment.marketer.total_profit_pending }} USD</td>
-                                <td>{{ payment.value }} USD</td>
+                                <!-- <td>{{ payment.marketer.total_profites }} MRU</td>
+                                <td>{{ payment.marketer.total_paid  }} MRU</td> -->
+                                <td>{{ payment.marketer.total_un_paid - payment.marketer.total_profit_pending }} MRU</td>
+                                <td>{{ payment.marketer.total_profit_pending }} MRU</td>
+                                <td>{{ payment.value }} MRU</td>
                                 <td>
                                     <p class="notice">
                                         {{ payment.notice }}
@@ -144,7 +144,7 @@
                             <div class="modal-body">
 
                                 <p v-if="field.marketer" class="alert alert-primary"> المسوق : {{ field.marketer }}</p>
-                                <p v-if="field.value" class="alert alert-warning"> قيمة المبلغ : {{ field.value }} USD</p>
+                                <p v-if="field.value" class="alert alert-warning"> قيمة المبلغ : {{ field.value }} MRU</p>
                                  <p> حالة المدفوعات</p>
                                 <select type="text" class="form-control" v-model="field.update_status">
                                     <option :value="0" selected>انتظار الدفع</option>

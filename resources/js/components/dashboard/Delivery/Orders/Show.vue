@@ -32,7 +32,7 @@
                                 <i class="fas fa-user-edit" style="padding: 5px;"></i>
                                     سعر الطلبية
                                 </label>
-                                <p class="alert">{{ order.order_total }} USD</p>
+                                <p class="alert">{{ order.order_total }} MRU</p>
                             </div>
                         </div>
                         <div class="col-lg-3">
@@ -135,8 +135,8 @@
                                         </td>
                                         <td>{{ order_detail.quantity }}</td>
                                         <td>{{ order_detail.discount }}</td>
-                                        <td>{{ order_detail.unit_price }} USD</td>
-                                        <td>{{ order_detail.sub_total }} USD</td>
+                                        <td>{{ order_detail.unit_price }} MRU</td>
+                                        <td>{{ order_detail.sub_total }} MRU</td>
                                     </tr>
                                     <tr>
                                         <td colspan="4">
@@ -146,7 +146,7 @@
                                         </td>
                                         <td colspan="2">
                                             <strong>
-                                                {{ order.order_total }} USD
+                                                {{ order.order_total }} MRU
                                             </strong>
                                         </td>
                                     </tr>

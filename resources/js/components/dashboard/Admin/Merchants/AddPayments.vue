@@ -78,19 +78,19 @@
                                     <label>اجمالى المدفوعات الخاصة بالتاجر</label>
                                 </li>
                                 <li class="evenval">
-                                    <strong> {{ merchant.payments_total }} USD</strong>
+                                    <strong> {{ merchant.payments_total }} MRU</strong>
                                 </li>
                                 <li>
                                     <label>اجمالى المدفوعات المستحقة الخاصة بالتاجر</label>
                                 </li>
                                 <li class="evenval">
-                                    <strong> {{ merchant.payments_due }} USD</strong>
+                                    <strong> {{ merchant.payments_due }} MRU</strong>
                                 </li>
                                 <li>
                                     <label>اجمالى المدفوعات المسددة الخاصة بالتاجر</label>
                                 </li>
                                 <li class="evenval">
-                                    <strong> {{ merchant.payments_made }} USD</strong>
+                                    <strong> {{ merchant.payments_made }} MRU</strong>
                                 </li>
                              </ul>
                         </div>

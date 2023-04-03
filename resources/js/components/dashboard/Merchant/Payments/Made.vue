@@ -41,7 +41,7 @@
                         <tbody>
                             <tr v-for="(payment, key) in payments" :key="key">
                                 <th scope="row">#{{ payment.id }}</th>
-                                <td>{{ payment.value }} USD</td>
+                                <td>{{ payment.value }} MRU</td>
                                 <td>
                                     <p class="notice" v-if="payment.notice">
                                         {{ payment.notice }}

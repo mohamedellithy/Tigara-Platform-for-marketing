@@ -36,7 +36,7 @@
                         اجمالى الطلبات
                     </label>
                     <p class="container-value-p">
-                        {{ delivery.total_orders }} USD
+                        {{ delivery.total_orders }} MRU
                     </p>
                 </div>
 
@@ -46,7 +46,7 @@
                         اجمالى الأرباح
                     </label>
                     <p class="container-value-p">
-                        {{ delivery.total_profits }} USD
+                        {{ delivery.total_profits }} MRU
                     </p>
                 </div>
 
@@ -56,7 +56,7 @@
                         اجمالى أرباح المنصة
                     </label>
                     <p class="container-value-p">
-                        {{ delivery.total_platforms_profit_from_delivery_cash }} USD
+                        {{ delivery.total_platforms_profit_from_delivery_cash }} MRU
                     </p>
                 </div>
 
@@ -66,7 +66,7 @@
                         اجمالى المدفوعات الغير مسددة
                     </label>
                     <p class="container-value-p">
-                        {{ delivery.payments_due }} USD
+                        {{ delivery.payments_due }} MRU
                     </p>
                 </div>
             </div>
@@ -96,7 +96,7 @@
                         اجمالى المبيعات
                     </label>
                     <p class="container-value-p">
-                        {{ delivery.total_sales }} USD
+                        {{ delivery.total_sales }} MRU
                     </p>
                 </div>
 
@@ -106,7 +106,7 @@
                         اجمالى أرباح شركة الشحن
                     </label>
                     <p class="container-value-p">
-                        {{ delivery.total_delivery_profits }} USD
+                        {{ delivery.total_delivery_profits }} MRU
                     </p>
                 </div>
 
@@ -116,7 +116,7 @@
                          اجمالى المدفوعات المستحقة
                     </label>
                     <p class="container-value-p">
-                        {{ delivery.payments_total }} USD
+                        {{ delivery.payments_total }} MRU
                     </p>
                 </div>
 
@@ -126,7 +126,7 @@
                         المدفوعات المسددة
                     </label>
                     <p class="container-value-p">
-                        {{ delivery.payments_made }} USD
+                        {{ delivery.payments_made }} MRU
                     </p>
                 </div>
             </div>

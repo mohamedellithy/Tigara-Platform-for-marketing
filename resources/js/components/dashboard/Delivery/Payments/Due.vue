@@ -56,16 +56,16 @@
                         <tbody>
                             <tr v-for="(payment, key) in payments" :key="key">
                                 <th scope="row">#{{ payment.id }}</th>
-                                <td>{{ payment.value }} USD</td>
+                                <td>{{ payment.value }} MRU</td>
                                 <td>
                                     <template v-if="payment.order_id">
-                                        {{ payment.order.order_total }} USD
+                                        {{ payment.order.order_total }} MRU
                                     </template>
                                     <template v-else> - </template>
                                 </td>
                                 <td>
                                     <template v-if="payment.order_id">
-                                        {{ payment.order.platforms_profit_from_delivery_cash }} USD
+                                        {{ payment.order.platforms_profit_from_delivery_cash }} MRU
                                     </template>
                                     <template v-else> - </template>
                                 </td>

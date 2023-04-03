@@ -58,7 +58,7 @@
                         اجمالى المبيعات
                     </label>
                     <p class="container-value-p">
-                        {{ merchant.total_sales }} USD
+                        {{ merchant.total_sales }} MRU
                     </p>
                 </div>
                 <div class="form-group">
@@ -67,7 +67,7 @@
                         اجمالى المبالغ المتاحة للسحب
                     </label>
                     <p class="container-value-p">
-                        {{ merchant.payments_due - merchant.total_pending }} USD
+                        {{ merchant.payments_due - merchant.total_pending }} MRU
                     </p>
                 </div>
                 <div class="form-group">
@@ -76,7 +76,7 @@
                         اجمالى المبالغ المحظورة
                     </label>
                     <p class="container-value-p">
-                        {{merchant.total_pending }} USD
+                        {{merchant.total_pending }} MRU
                     </p>
                 </div>
             </div>
@@ -114,7 +114,7 @@
                         اجمالى أرباح المنصة
                     </label>
                     <p class="container-value-p">
-                        {{ merchant.total_platform_profits }} USD
+                        {{ merchant.total_platform_profits }} MRU
                     </p>
                 </div>
                 <div class="form-group">
@@ -123,7 +123,7 @@
                         اجمالى المبالغ الغير مسددة
                     </label>
                     <p class="container-value-p">
-                        {{ merchant.payments_due }} USD
+                        {{ merchant.payments_due }} MRU
                     </p>
                 </div>
                 <div class="form-group">
@@ -132,7 +132,7 @@
                         اجمالى المبالغ مسددة
                     </label>
                     <p class="container-value-p">
-                        {{ merchant.payments_made }} USD
+                        {{ merchant.payments_made }} MRU
                     </p>
                 </div>
             </div>

@@ -84,8 +84,8 @@
                                     </template>
                                 </td>
                                 <td>{{ delivery.total_orders }} طلبية</td>
-                                <td>{{ delivery.total_sales }} USD</td>
-                                <td>{{ delivery.total_delivery_profits }} USD</td>
+                                <td>{{ delivery.total_sales }} MRU</td>
+                                <td>{{ delivery.total_delivery_profits }} MRU</td>
                                 <td class="actions-btn">
                                     <button @click="DeleteDelivery(delivery.id,delivery.name)" class="btn btn-danger btn-sm">
                                         حذف

@@ -22,8 +22,8 @@
                         <br/>
                         <span class="counter-step">{{ steps }}</span>
                         <div class="form-group container-who-you">
-                            <label> 
-                                عرف نفسك * 
+                            <label>
+                                عرف نفسك *
                                 <p class="description-who-you">
                                     بشكل تفصيلي لكى يتم معرفة مدى قدرتك على التميز فى عمليات البيع و التسويق
                                 </p>
@@ -40,7 +40,7 @@
                             التالي
                             <i class="fas fa-long-arrow-alt-left"></i>
                         </button>
-                        
+
                     </form>
                 </template>
                 <template v-if="steps == 2">
@@ -48,10 +48,10 @@
                         <br/>
                         <span class="counter-step">{{ steps }}</span>
                         <div class="form-group container-who-you">
-                            <label> 
-                                 طريقة التسويق التي ستقوم بها* 
+                            <label>
+                                 طريقة التسويق التي ستقوم بها*
                                 <p class="description-who-you">
-                                    أكتب بالتفصيل طريقة تسويقك التى سوف تتبعها لكى تقوم بعمليات التسويق و البيع داخل المنصة 
+                                    أكتب بالتفصيل طريقة تسويقك التى سوف تتبعها لكى تقوم بعمليات التسويق و البيع داخل المنصة
                                 </p>
                             </label>
                             <textarea class="form-control" v-model="field.which_marketing_will_follow"
@@ -66,7 +66,7 @@
                             التالي
                             <i class="fas fa-long-arrow-alt-left"></i>
                         </button>
-                        
+
                     </form>
                 </template>
                 <template v-if="steps == 3">
@@ -230,6 +230,10 @@ export default {
     }
     .container-alert-integrated{
         padding: 9% 6%;
+    }
+    .counter-step{
+        padding: 0px 14px;
+        font-size: 25px;
     }
 }
 

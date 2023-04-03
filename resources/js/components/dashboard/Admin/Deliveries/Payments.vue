@@ -51,9 +51,9 @@
                             <tr v-for="(delivery, key) in deliveries" :key="key">
                                 <th scope="row">{{ delivery.id }}</th>
                                 <td>{{ delivery.name }}</td>
-                                <td>{{ delivery.payments_total }} USD</td>
-                                <td>{{ delivery.payments_due  }} USD</td>
-                                <td>{{ delivery.payments_made }} USD</td>
+                                <td>{{ delivery.payments_total }} MRU</td>
+                                <td>{{ delivery.payments_due  }} MRU</td>
+                                <td>{{ delivery.payments_made }} MRU</td>
                                 <td class="actions-btn">
                                     <router-link :to="{path:'/dashboard/show-payments-delivery/'+delivery.id}"  class="btn btn-primary btn-sm">
                                         <i class="fas fa-eye"></i>
@@ -137,7 +137,7 @@ export default {
             errors:{},
             success:null,
             showModel:false,
-            currency:'USD',
+            currency:'MRU',
             field:{
                 update_status:0,
                 ids:[]

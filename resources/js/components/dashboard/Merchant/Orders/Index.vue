@@ -90,9 +90,9 @@
                                 </th>
                                 <td>{{ order.product.name }}</td>
                                 <td>{{ order.quantity }} قطعة</td>
-                                <td>{{ order.product.merchant_commission || order.unit_price }} USD</td>
+                                <td>{{ order.product.merchant_commission || order.unit_price }} MRU</td>
                                 <td>{{ order.discount }}</td>
-                                <td>{{ order.sub_total_original || order.sub_total }} USD</td>
+                                <td>{{ order.sub_total_original || order.sub_total }} MRU</td>
                                 <td>{{ order.order.order_status_txt }}</td>
                                 <td>{{ order.order.shipping_status_txt }}</td>
                                 <td>{{ order.created_at }}</td>

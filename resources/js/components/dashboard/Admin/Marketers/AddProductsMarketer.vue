@@ -69,7 +69,7 @@
                         </p>
                         <img :src="product.thumbnail_item.image_url || ImageProd1" class="image-product">
                         <p>{{ product.name }}</p>
-                        <p><strong>USD {{ product.price }} </strong></p>
+                        <p><strong>MRU {{ product.price }} </strong></p>
                         <button type="button" @click="AddProductsToMarketer(product.id)" class="btn btn-warning btn-sm">ارفاق المنتج </button>
                         <router-link :to="{path:'/dashboard/show-product/'+product.id}" class="btn btn-success btn-sm">تصفح المنتج </router-link>
                         <br/>

@@ -11,15 +11,15 @@
                         <ul class="filter-results">
                             <li class="filter-item">
                                 <i class="fas fa-users"></i>
-                               USD {{ total_profits }} اجمالى المبالغ
+                               MRU {{ total_profits }} اجمالى المبالغ
                             </li>
                             <li class="filter-item">
                                 <i class="fas fa-users"></i>
-                                USD {{ total_payments }} اجمالى المبالغ مسددة
+                                MRU {{ total_payments }} اجمالى المبالغ مسددة
                             </li>
                             <li class="filter-item">
                                 <i class="fas fa-users"></i>
-                                USD {{ total_profits - total_payments }} اجمالى المبالغ غير مسددة
+                                MRU {{ total_profits - total_payments }} اجمالى المبالغ غير مسددة
                             </li>
                         </ul>
                     </div>
@@ -47,7 +47,7 @@
                     <tbody>
                         <tr v-for="(payment, key) in payments" :key="key">
                             <th scope="row">#{{ payment.id }}</th>
-                            <td>{{ payment.value }} USD</td>
+                            <td>{{ payment.value }} MRU</td>
                             <td>{{ payment.status_text }}</td>
                             <td>
                                 <p class="notice">

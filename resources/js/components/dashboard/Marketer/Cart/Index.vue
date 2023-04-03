@@ -66,8 +66,8 @@
                                         <label class="quantity-mini-cart">{{  item.quantity || 1  }}</label>
                                         <span class="fas fa-minus quantity-varite" @click="MinusQuantity(item)"></span>
                                     </td>
-                                    <td>{{ item.price }} USD</td>
-                                    <td>{{ item.product.marketer_profit * item.quantity }} USD</td>
+                                    <td>{{ item.price }} MRU</td>
+                                    <td>{{ item.product.marketer_profit * item.quantity }} MRU</td>
                                     <td>
                                         <i class="fas fa-times-circle" @click="deleteItemFromCart(item)"></i>
                                     </td>
@@ -204,8 +204,8 @@
                                     <td>
                                         <label >{{  item.quantity  }} قطعة</label>
                                     </td>
-                                    <td>{{ item.price }} USD</td>
-                                    <td>{{ item.product.marketer_profit * item.quantity }} USD</td>
+                                    <td>{{ item.price }} MRU</td>
+                                    <td>{{ item.product.marketer_profit * item.quantity }} MRU</td>
                                 </tr>
                             </table>
                         </form>
@@ -267,19 +267,19 @@
                         <tr>
                             <th>الخصم على الطلبية</th>
                             <td>
-                                <strong>0 USD</strong>
+                                <strong>0 MRU</strong>
                             </td>
                         </tr>
                         <tr>
                             <th>اجمالى الطلبية</th>
                             <td>
-                                <strong>{{  total_cart_cost  }} USD</strong>
+                                <strong>{{  total_cart_cost  }} MRU</strong>
                             </td>
                         </tr>
                         <tr>
                             <th>الربح من الطلبية</th>
                             <td>
-                                <strong>{{ total_marketer_profits }} USD</strong>
+                                <strong>{{ total_marketer_profits }} MRU</strong>
                             </td>
                         </tr>
 

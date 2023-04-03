@@ -67,10 +67,10 @@
                                 <td>{{ merchant.name }}</td>
                                 <td>{{ merchant.store_name || '-' }}</td>
                                 <td>{{ merchant.total_compelete_orders }} طلبية</td>
-                                <td>{{ merchant.total_merchant_products_sales }} USD</td>
-                                <td>{{ merchant.total_platform_profits }} USD</td>
-                                <td>{{ merchant.payments_due }} USD</td>
-                                <td>{{ merchant.payments_made }} USD</td>
+                                <td>{{ merchant.total_merchant_products_sales }} MRU</td>
+                                <td>{{ merchant.total_platform_profits }} MRU</td>
+                                <td>{{ merchant.payments_due }} MRU</td>
+                                <td>{{ merchant.payments_made }} MRU</td>
                                 <td class="actions-btn">
                                     <router-link :to="{path:'/dashboard/show-merchant/'+merchant.id}"  class="btn btn-primary btn-sm">
                                         عرض

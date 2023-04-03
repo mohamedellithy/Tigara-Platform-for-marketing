@@ -34,7 +34,7 @@
                                     <strong>سعر المنتج</strong>
                                 </td>
                                 <td>
-                                    <strong>USD {{ product.price }} </strong>
+                                    <strong>MRU {{ product.price }} </strong>
                                 </td>
                             </tr>
                             <tr>
@@ -42,7 +42,7 @@
                                     <strong>الربح</strong>
                                 </td>
                                 <td>
-                                    <strong>USD {{ product.marketer_profit }} </strong>
+                                    <strong>MRU {{ product.marketer_profit }} </strong>
                                 </td>
                             </tr>
                             <tr>

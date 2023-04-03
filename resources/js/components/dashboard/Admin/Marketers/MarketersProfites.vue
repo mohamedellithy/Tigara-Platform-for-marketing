@@ -16,15 +16,15 @@
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-slash"></i>
-                                    {{ total_sales }} USD مبيعات
+                                    {{ total_sales }} MRU مبيعات
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-slash"></i>
-                                    {{ profits }} USD أرباح
+                                    {{ profits }} MRU أرباح
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-user-slash"></i>
-                                     {{ pending_profits }} USD الأرباح المحظورة
+                                     {{ pending_profits }} MRU الأرباح المحظورة
                                 </li>
                             </ul>
                         </div>
@@ -57,9 +57,9 @@
                                 <td>{{ marketer.name }}</td>
                                 <td>{{ marketer.products.length }} منتج</td>
                                 <td>{{ marketer.orders.length }} طلبية</td>
-                                <td>{{ marketer.total_sales }} USD</td>
-                                <td>{{ marketer.total_profites }} USD</td>
-                                <td>{{ marketer.total_profit_pending }} USD</td>
+                                <td>{{ marketer.total_sales }} MRU</td>
+                                <td>{{ marketer.total_profites }} MRU</td>
+                                <td>{{ marketer.total_profit_pending }} MRU</td>
                                 <td class="actions-btn">
                                     <router-link :to="{path:'show-marketer/'+marketer.id}"  class="btn btn-primary btn-sm">
                                         عرض

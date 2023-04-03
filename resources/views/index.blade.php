@@ -27,7 +27,7 @@
                             <div class="col-md-2 col-12">
                                 <div style="display: inline-block; align-items: center; justify-content: center; margin: 4px 0;">
                                     <img width="140" height="52" class="logo"
-                                        src="{{ asset('assets/landing/images/tigara-trans.png') }}" alt="logo-alkseba">
+                                        src="{{ asset('assets/landing/images/tigara-logo-land.png') }}" alt="logo-alkseba">
                                 </div>
                             </div>
                             <div class="col-md-10 col-1">
@@ -360,7 +360,7 @@
             <section class="logo-section col-m-12">
                 <h2 class="footer-logo">
                     <img width="140" height="52" class="logo"
-                                src="{{ asset('assets/landing/images/tigara-trans.png') }}" alt="logo-alkseba">
+                                src="{{ asset('assets/landing/images/tigara-logo-land.png') }}" alt="logo-alkseba">
                 </h2>
             </section>
             <div class="login-and-social">

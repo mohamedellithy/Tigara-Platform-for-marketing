@@ -68,7 +68,7 @@
                 <li>
                     <router-link :to="{path:'/delivery/show-due-delivery-payments'}">
                         <i style="color: #b8dcb9;" class="fas fa-coins"></i>
-                        <strong>{{ statics.total_sales }} <span>USD</span></strong>
+                        <strong>{{ statics.total_sales }} <span>MRU</span></strong>
                         <p>
                             اجمالى المبيعات
                         </p>
@@ -76,7 +76,7 @@
                 </li>
                 <li>
                     <i style="color: #ffccbc;" class="fas fa-money-check-alt"></i>
-                    <strong>{{ statics.total_profits }} <span>USD</span> </strong>
+                    <strong>{{ statics.total_profits }} <span>MRU</span> </strong>
                     <p>
                         أرباحي
                     </p>
@@ -84,7 +84,7 @@
                 <li>
                     <router-link :to="{path:'/delivery/show-due-delivery-payments'}">
                         <i style="color: #ffccbc;" class="fas fa-money-check-alt"></i>
-                        <strong>{{ statics.payments_total }} <span>USD</span></strong>
+                        <strong>{{ statics.payments_total }} <span>MRU</span></strong>
                         <p>
                             اجمالى المدفوعات
                         </p>
@@ -92,7 +92,7 @@
                 </li>
                 <li>
                     <i style="color: #ffccbc;" class="fas fa-money-check-alt"></i>
-                    <strong>{{ statics.payments_due }} <span>USD</span> </strong>
+                    <strong>{{ statics.payments_due }} <span>MRU</span> </strong>
                     <p>
                         اجمالى المدفوعات المطلوبة
                     </p>
@@ -100,7 +100,7 @@
                 <li>
                     <router-link :to="{path:'/delivery/show-made-delivery-payments'}">
                         <i style="color: #ffccbc;" class="fas fa-money-check-alt"></i>
-                        <strong>{{ statics.payments_made }} <span>USD</span></strong>
+                        <strong>{{ statics.payments_made }} <span>MRU</span></strong>
                         <p>
                             اجمالى المدفوعات المسددة
                         </p>

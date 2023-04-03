@@ -61,12 +61,12 @@
                                 <th scope="row">{{ delivery.id }}</th>
                                 <td>{{ delivery.name }}</td>
                                 <td>{{ delivery.total_orders }} طلبية</td>
-                                <td>{{ delivery.total_sales }} USD</td>
-                                <td>{{ delivery.total_profits }} USD</td>
-                                <td>{{ delivery.total_delivery_profits }} USD</td>
-                                <td>{{ delivery.total_platforms_profit_from_delivery_cash }} USD</td>
-                                <td>{{ delivery.payments_due }} USD</td>
-                                <td>{{ delivery.payments_made }} USD</td>
+                                <td>{{ delivery.total_sales }} MRU</td>
+                                <td>{{ delivery.total_profits }} MRU</td>
+                                <td>{{ delivery.total_delivery_profits }} MRU</td>
+                                <td>{{ delivery.total_platforms_profit_from_delivery_cash }} MRU</td>
+                                <td>{{ delivery.payments_due }} MRU</td>
+                                <td>{{ delivery.payments_made }} MRU</td>
                                 <td class="actions-btn">
                                     <router-link :to="{path:'/dashboard/show-delivery/'+delivery.id}"  class="btn btn-primary btn-sm">
                                         عرض

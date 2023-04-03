@@ -45,7 +45,7 @@
                                 <i class="fas fa-user-edit" style="padding: 5px;"></i>
                                     سعر الطلبية
                                 </label>
-                                <p class="alert">{{ order.order_total }} USD</p>
+                                <p class="alert">{{ order.order_total }} MRU</p>
                             </div>
                         </div>
                         <div class="col-lg-3">
@@ -72,7 +72,7 @@
                                 <i class="fas fa-user-edit" style="padding: 5px;"></i>
                                     ما تم تحصيلة من الزبون
                                 </label>
-                                <p class="alert">{{ order.cash_delivered }} USD</p>
+                                <p class="alert">{{ order.cash_delivered }} MRU</p>
                             </div>
                         </div>
                         <div class="col-lg-3" v-if="order.cash_delivery_refund">
@@ -81,7 +81,7 @@
                                 <i class="fas fa-user-edit" style="padding: 5px;"></i>
                                     ما تم استرجاعه الى الزبون
                                 </label>
-                                <p class="alert">{{ order.cash_delivery_refund }} USD</p>
+                                <p class="alert">{{ order.cash_delivery_refund }} MRU</p>
                             </div>
                         </div>
                         <div class="col-lg-3">
@@ -215,7 +215,7 @@
                                         </td>
                                         <td>{{ order_detail.quantity }}</td>
                                         <td>{{ order_detail.discount }}</td>
-                                        <td>{{ order_detail.unit_price }} USD</td>
+                                        <td>{{ order_detail.unit_price }} MRU</td>
                                     </tr>
                                     <tr>
                                         <td colspan="3">
@@ -225,7 +225,7 @@
                                         </td>
                                         <td colspan="2">
                                             <strong>
-                                                {{ order.order_total }} USD
+                                                {{ order.order_total }} MRU
                                             </strong>
                                         </td>
                                     </tr>

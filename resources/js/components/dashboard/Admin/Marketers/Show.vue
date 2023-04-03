@@ -65,7 +65,7 @@
                         اجمالى المبيعات
                     </label>
                     <p class="container-value-p">
-                        {{ marketer.total_sales }} USD
+                        {{ marketer.total_sales }} MRU
                     </p>
                 </div>
                 <div class="form-group">
@@ -74,7 +74,7 @@
                         اجمالى الارباح
                     </label>
                     <p class="container-value-p">
-                        {{ marketer.total_profites }} USD
+                        {{ marketer.total_profites }} MRU
                     </p>
                 </div>
                 <div class="form-group">
@@ -83,7 +83,7 @@
                         اجمالى أرباح المسوق
                     </label>
                     <p class="container-value-p">
-                        {{ marketer.total_profites }} USD
+                        {{ marketer.total_profites }} MRU
                     </p>
                 </div>
                 <div class="form-group">
@@ -92,7 +92,7 @@
                         المبالغ الغير مسددة
                     </label>
                     <p class="container-value-p">
-                        {{ marketer.total_un_paid ? marketer.total_un_paid : 0 }} USD
+                        {{ marketer.total_un_paid ? marketer.total_un_paid : 0 }} MRU
                     </p>
                 </div>
             </div>
@@ -130,7 +130,7 @@
                         اجمالى أرباح
                     </label>
                     <p class="container-value-p">
-                        {{ marketer.all_marketer_and_platform_orders_profits}} USD
+                        {{ marketer.all_marketer_and_platform_orders_profits}} MRU
                     </p>
                 </div>
                 <div class="form-group">
@@ -139,7 +139,7 @@
                     اجمالى أرباح المنصة
                     </label>
                     <p class="container-value-p">
-                        {{ marketer.total_platform_profits }} USD
+                        {{ marketer.total_platform_profits }} MRU
                     </p>
                 </div>
                 <div class="form-group">
@@ -148,7 +148,7 @@
                         المبالغ المسددة
                     </label>
                     <p class="container-value-p">
-                        {{ marketer.total_paid ? marketer.total_paid : 0 }} USD
+                        {{ marketer.total_paid ? marketer.total_paid : 0 }} MRU
                     </p>
                 </div>
             </div>

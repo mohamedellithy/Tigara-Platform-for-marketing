@@ -43,14 +43,14 @@
                         <tbody>
                             <tr v-for="(payment, key) in payments" :key="key">
                                 <th scope="row">#{{ payment.id }}</th>
-                                <td>{{ payment.value }} USD</td>
+                                <td>{{ payment.value }} MRU</td>
                                 <td>
                                     <template v-if="payment.item_id">
                                         <strong> ( {{ payment.item_details.product_name  }} ) </strong>
                                         (
                                             {{ payment.item_details.quantity  }} قطعة
                                             <i class="fas fa-times" style="margin: 10px;color:red"></i>
-                                            {{ payment.item_details.unit_price }} USD
+                                            {{ payment.item_details.unit_price }} MRU
                                         )
                                     </template>
                                     <template v-if="payment.type == 1">

@@ -83,19 +83,19 @@
                                     <label>اجمالى المدفوعات الخاصة بشركة الشحن</label>
                                 </li>
                                 <li class="evenval">
-                                    <strong> {{ delivery.payments_total }} USD</strong>
+                                    <strong> {{ delivery.payments_total }} MRU</strong>
                                 </li>
                                 <li>
                                     <label>اجمالى المدفوعات المستحقة الخاصة بشركة الشحن</label>
                                 </li>
                                 <li class="evenval">
-                                    <strong> {{ delivery.payments_due }} USD</strong>
+                                    <strong> {{ delivery.payments_due }} MRU</strong>
                                 </li>
                                 <li>
                                     <label>اجمالى المدفوعات المسددة الخاصة بشركة الشحن</label>
                                 </li>
                                 <li class="evenval">
-                                    <strong> {{ delivery.payments_made }} USD</strong>
+                                    <strong> {{ delivery.payments_made }} MRU</strong>
                                 </li>
                              </ul>
                         </div>

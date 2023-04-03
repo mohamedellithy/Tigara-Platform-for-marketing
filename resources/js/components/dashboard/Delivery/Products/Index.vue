@@ -36,7 +36,7 @@
                         <img :src="product.thumbnail_item.image_url || ImageProd1" class="image-product">
                         <p>{{ product.name }}</p>
                         <p>
-                            <strong>USD {{ product.price }} </strong> /
+                            <strong>MRU {{ product.price }} </strong> /
                             <strong v-if="product.stock_quantity == 0" style="color: red;font-weight: bold;">منتهى</strong>
                             <strong v-else>الكمية {{ product.stock_quantity }} قطعة</strong>
                         </p>

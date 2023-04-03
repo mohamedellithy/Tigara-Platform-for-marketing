@@ -26,7 +26,7 @@
                         <img :src="product.thumbnail_item.image_url || ImageProd1" class="image-product">
                         <p>{{ product.name }}</p>
                         <p>
-                            <strong>USD {{ product.price }} </strong> /
+                            <strong>MRU {{ product.price }} </strong> /
                             <strong>الكمية {{ product.quantity }} </strong>
                         </p>
                         <router-link :to="{path:'/merchant/show-product/'+product.id}" class="btn btn-success btn-sm">تصفح المنتج </router-link>

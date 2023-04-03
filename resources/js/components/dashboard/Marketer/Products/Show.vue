@@ -36,7 +36,7 @@
                                     <i class="fas fa-user-edit" style="padding: 5px;"></i>
                                     سعر المنتج
                                 </label>
-                                <p class="alert">{{product.price}} USD</p>
+                                <p class="alert">{{product.price}} MRU</p>
                             </div>
                         </div>
                         <div class="col-lg-6">

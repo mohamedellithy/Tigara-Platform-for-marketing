@@ -44,8 +44,8 @@
                                         <label class="quantity-mini-cart">{{  item.quantity || 1  }}</label>
                                         <span class="fas fa-minus quantity-varite" @click="MinusQuantity(item,key)"></span>
                                     </td>
-                                    <td>{{ item.unit_price }} USD</td>
-                                    <td>{{ item.product.marketer_profit * item.quantity }} USD</td>
+                                    <td>{{ item.unit_price }} MRU</td>
+                                    <td>{{ item.product.marketer_profit * item.quantity }} MRU</td>
                                     <td>
                                         <i class="fas fa-times-circle" @click="deleteItemFromOrder(item,key)"></i>
                                     </td>
@@ -126,19 +126,19 @@
                         <tr>
                             <th>الخصم على الطلبية</th>
                             <td>
-                                <strong>0 USD</strong>
+                                <strong>0 MRU</strong>
                             </td>
                         </tr>
                         <tr>
                             <th>اجمالى الطلبية</th>
                             <td>
-                                <strong>{{ order.total }} USD</strong>
+                                <strong>{{ order.total }} MRU</strong>
                             </td>
                         </tr>
                         <tr>
                             <th>الربح من الطلبية</th>
                             <td>
-                                <strong>{{ order.marketer_profit }} USD</strong>
+                                <strong>{{ order.marketer_profit }} MRU</strong>
                             </td>
                         </tr>
 

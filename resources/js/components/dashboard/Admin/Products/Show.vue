@@ -68,7 +68,7 @@
                             <div class="form-group">
                                 <label for="merchant-name">
                                     <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
-                                    تكلفة المنتج للتاجر ( USD )
+                                    تكلفة المنتج للتاجر ( MRU )
                                 </label>
                                 <p class="alert"> {{ product.merchant_commission }}</p>
                             </div>

@@ -35,21 +35,21 @@
 
                 <li>
                     <i style="color: #b8dcb9;" class="fas fa-coins"></i>
-                    <strong>{{ statics.total_sales }} <span>USD</span></strong>
+                    <strong>{{ statics.total_sales }} <span>MRU</span></strong>
                     <p>
                         اجمالى المبيعات
                     </p>
                 </li>
                 <li>
                     <i style="color: #b8dcb9;" class="fas fa-coins"></i>
-                    <strong>{{ statics.total_profits }} <span>USD</span></strong>
+                    <strong>{{ statics.total_profits }} <span>MRU</span></strong>
                     <p>
                         اجمالى الارباح
                     </p>
                 </li>
                 <li>
                     <i style="color: #ffccbc;" class="fas fa-money-check-alt"></i>
-                    <strong>{{ statics.payments_due }} <span>USD</span> </strong>
+                    <strong>{{ statics.payments_due }} <span>MRU</span> </strong>
                     <p>
                         اجمالى المدفوعات المطلوبة
                     </p>
@@ -57,7 +57,7 @@
                 <li>
                     <router-link :to="{path:'/marketer/payments'}">
                         <i style="color: #ffccbc;" class="fas fa-money-check-alt"></i>
-                        <strong>{{ statics.payments_made }} <span>USD</span></strong>
+                        <strong>{{ statics.payments_made }} <span>MRU</span></strong>
                         <p>
                             اجمالى المدفوعات المسددة
                         </p>
@@ -85,7 +85,7 @@
                             <tr v-for="(order,index) in statics.orders" :key="index">
                                 <td>{{ order.id }}#</td>
                                 <td>{{ order.order_status_txt }}</td>
-                                <td>{{ order.marketer_profit }} USD</td>
+                                <td>{{ order.marketer_profit }} MRU</td>
                                 <td>{{ order.created_at }}</td>
                                 <td>
                                     <router-link :to="{path:'/marketer/show-order/'+order.id}" class="btn btn-primary btn-sm">عرض المنتج</router-link>

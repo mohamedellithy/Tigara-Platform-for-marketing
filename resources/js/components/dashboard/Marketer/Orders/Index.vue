@@ -20,11 +20,11 @@
                             <ul class="filter-results">
                                 <li class="filter-item">
                                     <i class="fas fa-users"></i>
-                                   USD {{ total_costs }} اجمالى الطلبات
+                                   MRU {{ total_costs }} اجمالى الطلبات
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-users"></i>
-                                   USD {{ total_profits }} اجمالى الارباح
+                                   MRU {{ total_profits }} اجمالى الارباح
                                 </li>
                                 <li class="filter-item">
                                     <i class="fas fa-users"></i>
@@ -93,8 +93,8 @@
                             <tr v-for="(order, key) in orders" :key="key">
                                 <th scope="row"> # {{ order.id }}</th>
                                 <td>{{ order.quantity }} قطعة</td>
-                                <td>{{ order.order_total }} USD</td>
-                                <td>{{ order.marketer_profit }} USD</td>
+                                <td>{{ order.order_total }} MRU</td>
+                                <td>{{ order.marketer_profit }} MRU</td>
                                 <td>
                                     <template v-if="order.pending_payment">
                                         <span class="badge text-bg-danger">محظور</span>
