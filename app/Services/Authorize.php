@@ -23,7 +23,9 @@ class Authorize{
             return response()->json([
                 'access_token' => $token,
                 'token_type' => 'Bearer',
-                'account_type' => $user->account_type
+                'account_type' => $user->account_type,
+                'status' => $user->status,
+                'add_informations'  => $user->addition_informations != null,
             ]);
         }
         else {
@@ -63,7 +65,9 @@ class Authorize{
             return response()->json([
                 'access_token' => $token,
                 'token_type' => 'Bearer',
-                'account_type' => $user->account_type
+                'account_type' => $user->account_type,
+                'status' => $user->status,
+                'add_informations'  => $user->addition_informations != null,
             ]);
         }
         else {

@@ -23,10 +23,6 @@
     "file": "assets/tigara-trans-027937ec.png",
     "src": "resources/js/img/tigara-trans.png"
   },
-  "resources/js/img/image_processing20200627-19092-c2s8xo.gif": {
-    "file": "assets/image_processing20200627-19092-c2s8xo-37e02d90.gif",
-    "src": "resources/js/img/image_processing20200627-19092-c2s8xo.gif"
-  },
   "resources/js/img/Wavy_Bus-01_Single-02-PhotoRoom.png-PhotoRoom.png": {
     "file": "assets/Wavy_Bus-01_Single-02-PhotoRoom.png-PhotoRoom-393cf4b9.png",
     "src": "resources/js/img/Wavy_Bus-01_Single-02-PhotoRoom.png-PhotoRoom.png"
@@ -35,6 +31,14 @@
     "file": "assets/Enso-2-3aba6408.gif",
     "src": "resources/js/img/Enso-2.gif"
   },
+  "resources/js/img/image_processing20200627-19092-c2s8xo.gif": {
+    "file": "assets/image_processing20200627-19092-c2s8xo-37e02d90.gif",
+    "src": "resources/js/img/image_processing20200627-19092-c2s8xo.gif"
+  },
+  "resources/js/img/81g63eBEhxL._AC_UF894,1000_QL80_.jpg": {
+    "file": "assets/81g63eBEhxL._AC_UF894_1000_QL80_-7aede39b.jpg",
+    "src": "resources/js/img/81g63eBEhxL._AC_UF894,1000_QL80_.jpg"
+  },
   "resources/js/img/shipping-delivery.png": {
     "file": "assets/shipping-delivery-4be8b44d.png",
     "src": "resources/js/img/shipping-delivery.png"
@@ -42,10 +46,6 @@
   "resources/js/img/prod-2.png": {
     "file": "assets/prod-2-629b3c94.png",
     "src": "resources/js/img/prod-2.png"
-  },
-  "resources/js/img/81g63eBEhxL._AC_UF894,1000_QL80_.jpg": {
-    "file": "assets/81g63eBEhxL._AC_UF894_1000_QL80_-7aede39b.jpg",
-    "src": "resources/js/img/81g63eBEhxL._AC_UF894,1000_QL80_.jpg"
   },
   "resources/js/img/prod-3.png": {
     "file": "assets/prod-3-3bed2c63.png",
@@ -64,15 +64,15 @@
     "src": "resources/js/img/prod-4.png"
   },
   "resources/js/app.css": {
-    "file": "assets/app-107ca761.css",
+    "file": "assets/app-5c207262.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
-    "file": "assets/app-cd12e574.js",
+    "file": "assets/app-07ee7b9c.js",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-107ca761.css"
+      "assets/app-5c207262.css"
     ],
     "assets": [
       "assets/pattern-464d9bf6.png",
