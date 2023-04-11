@@ -94,14 +94,12 @@ export default {
                 merchant:{}
             },
             errors:{},
-            loading,
             success:null,
             AttachmentsUploadHere,
             thumbnail_url:ImageUploadHere,
             attachments_urls:[],
             attachments_ids:[],
             delete_media_ids:[],
-            loading:true,
             marketer:{},
         }
     },
