@@ -1,91 +1,77 @@
 <template>
-    <div class="container-body-merchant">
+    <div class="container-body-merchant" >
         <form method="post" @submit.prevent="UpdateProduct">
-            <div class="row">
-                <h3 class="col-md-8 title-merchant">
-                    <i class="fas fa-pallet" style="font-size: 18px;"></i>
-                    تفاصيل المنتج
-                </h3>
-                <div class="col-md-4 text-left">
-                    <button type="button" @click="TakeScreenShoot" class="btn btn-warning">
-                        تنزيل مرفقات المنتج
-                    </button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-8 container-form-new-merchant">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <p class="alert" style="background-color: #f8fafc;">
-                                    {{ product.private == 0 ? 'منتج عادى ' : 'منتج مميز ' }}
-                                    <template v-if="product.private == 1">
-                                        <i class="fas fa-star" style='color:orange;margin: 0px 14px;'></i>
-                                    </template>
-                                    <template v-if="product.private == 0">
-                                        <i class="fas fa-star" style="margin: 0px 14px;"></i>
-                                    </template>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="merchant-name">
-                                <i class="fas fa-user-edit" style="padding: 5px;"></i>
-                                    اسم المنتج
-                                </label>
-                                <p class="alert">{{ product.name }}</p>
-                            </div>
-                            <div class="form-group">
-                                <label for="merchant-name">
-                                    <i class="fas fa-user-edit" style="padding: 5px;"></i>
-                                    سعر المنتج
-                                </label>
-                                <p class="alert">{{product.price}} MRU</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="merchant-name">
-                                    <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
-                                    عدد المنتجات
-                                </label>
-                                <p class="alert"> {{ product.quantity }} قطعة</p>
-                            </div>
-                            <div class="form-group">
-                                <label for="merchant-name">
-                                    <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
-                                    عمولة المسوق بالقيمة ( % )
-                                </label>
-                                <p class="alert">
-                                    {{ product.marketer_commission }}
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label for="merchant-name">
-                                    <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
-                                    وصف المنتج
-                                </label>
-                                <p>{{ product.description }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 container-form-new-merchant">
+            <div id="container-prod" class="row" style="border-bottom: 10px solid #ffc107;padding: 0px !important;margin:0px !important;height:auto;">
+                <!-- <span style="border-radius: 37px;
+                            position: absolute;
+                            background-color: orange;
+                            height: 75px;
+                            left: 10px;
+                            top: 10px;
+                            z-index: 1000;
+                            display: inline-block;
+                            margin: auto;
+                            right: auto;
+                            width: 80px;
+                            font-size: 36px;
+                            font-weight: bolder;
+                            padding: 7px 4px;">50%</span> -->
+                <div class="col-lg-12 container-form-new-merchant" style="background-color: #0a2854;padding: 24px;position: relative;">
+                    <h3 class="col-md-12 title-merchant" style="color:white;text-align: center;">
+                        {{ product.name }}
+                    </h3>
                     <ul class="attachments">
                         <li class="upload-product-image">
                             <img style="width:60%" :src="thumbnail_url" />
-                            <p> صورة المنتج</p>
                         </li>
+                        
+                    </ul>
+                    <ul style="text-align: center;">
                         <li v-for="(attachment_url,key) in attachments_urls" :key="key" class="upload-attachments-image">
-                            <img style="width:16%" :src="attachment_url" />
-                            <label>  مرفقات المنتج رقم ( {{ key+1 }} )</label>
-                            <i @click="RemoveImagefromAttachment(key)" class="fas fa-times" style="color: red;float: left;cursor: pointer;margin-top: 5%;"></i>
+                            <img  :src="attachment_url" />
                         </li>
                     </ul>
+                    <br/>
+                    <svg style="position: absolute;bottom: 0px;right: 0;left: 0px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                        <path fill="#eef5ff" fill-opacity="1"
+                            d="M0,32L80,74.7C160,117,320,203,480,250.7C640,299,800,309,960,288C1120,267,1280,213,1360,186.7L1440,160L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
+                            class="shape-fill"></path>
+                    </svg>
                 </div>
+                <div class="col-lg-12 container-form-new-merchant" style="text-align: center;background-color: #eef5ff;">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <span style="border-radius: 37px;
+                            background-color: orange;
+                            height: 75px;
+                            display: inline-block;
+                            margin: auto;
+                            margin-bottom: 10px;
+                            right: auto;
+                            width: 80px;
+                            font-size: 36px;
+                            font-weight: bolder;
+                            padding: 7px 4px;">
+                            خصم <br/>
+                            30%</span>
+                            <h5 style="font-weight: Bolder;font-size: 25px;margin-top: 22px;">سعر المنتج {{product.price}}  أوقية جديدة فقط</h5>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" style="margin: auto;">
+                            <div class="form-group">
+                                <p style="font-size: 18px;font-weight: bold;" v-html="product.description"></p>
+                            </div>
+                            <button class="btn btn-warning" style="display: inline-block;margin: auto;margin-bottom: 45px;font-size: 18px;padding: 13px 62px;">
+                                <p style="font-size: 27px;">للتواصل و طلب المنتج </p>
+                                <p style="font-size: 22px;font-weight: bold;direction: ltr;">
+                                    {{ marketer.phone }}
+                                </p>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </form>
         <div v-if="this.loading" style="position: fixed;top: 0px;bottom: 0px;background-color:#1d2024d1;left: 0;right: 0;z-index: 100000;text-align: center;">
@@ -111,14 +97,16 @@ export default {
                 attachments:[],
                 merchant:{}
             },
-            loading,
             errors:{},
+            loading,
             success:null,
             AttachmentsUploadHere,
             thumbnail_url:ImageUploadHere,
             attachments_urls:[],
             attachments_ids:[],
             delete_media_ids:[],
+            loading:true,
+            marketer:{},
             loading:true,
             showLoading:false,
         }
@@ -207,23 +195,16 @@ export default {
             this.attachments_ids.splice(index,1);
         },
         TakeScreenShoot:async function(){
-            let self = this;
-            this.loading = true;
             await axios.get('/api/take-screenshot-product/'+this.$route.params.id).then(function({data}){
                 console.log(data);
-                const link = document.createElement('a');
-                link.href = data.screenshot_url;
-                link.setAttribute('download', 'screenshot-product-no-'+self.$route.params.id+'.png');
-                document.body.appendChild(link);
-                link.click();
             }).catch(function({response}){
                 console.log(response);
             });
-
-            this.loading = false;
         }
     },
-    created(){
+    async created(){
+        let { data } = await axios.get('/api/me');
+        this.marketer = data.user;
         this.FetchProduct();
     },
     mounted:function(){
@@ -242,6 +223,7 @@ export default {
 .title-merchant{
     line-height:2.5em;
     color: #795548;
+    font-size: 25px;
 }
 .container-form-new-merchant{
     /* padding: 0% 0% 0% 5%; */
@@ -307,13 +289,7 @@ export default {
 .upload-product-image{
     text-align: center;
     list-style: none;
-    text-align: center;
-    list-style: none;
-    padding: 15px;
-    border: 5px dashed #eee;
-    cursor: pointer;
-    margin-bottom:20%;
-    background: #fff;
+    margin-bottom: 3px;
 }
 .upload-product-image p
 {
@@ -326,10 +302,12 @@ export default {
      position:relative;
 }
 .upload-attachments-image{
-    border: 1px solid #f4f2f2;
     list-style: none;
-    background-color: white;
     padding: 12px;
+    display: contents;
+}
+.upload-attachments-image img{
+    width: 20%;
 }
 .upload-attachments-image label{
     padding: 15px;
@@ -352,5 +330,10 @@ export default {
     padding: 10px 32px;
     background-color: #eee;
     border-radius: 0px;
+}
+.container-body-merchant{
+    background-color: white !important;
+    padding: 0% 0%;
+    overflow: hidden;
 }
 </style>

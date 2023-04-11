@@ -10,4 +10,6 @@ class MarketerProductsRepositoryInterface{
 
     public function lowstock_products(Request $request){}
 
+    public function take_screenshot_product(Request $request,$id){}
+
 }

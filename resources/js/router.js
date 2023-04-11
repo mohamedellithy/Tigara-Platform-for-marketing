@@ -103,6 +103,7 @@ import ShowMarketerPayments from './components/dashboard/Marketer/Payments/Index
 import MarketerDashboard from './components/dashboard/Marketer/DashboardReports.vue';
 import MarketerCartsDashboard from './components/dashboard/Marketer/Cart/Index.vue';
 import MarketerFavouritsDashboard from './components/dashboard/Marketer/Favourits/Index.vue';
+import TakeAScreenShot from './components/dashboard/Marketer/Products/screenshot.vue';
 
 
 
@@ -125,6 +126,14 @@ const routes = [{
             meta: {
                 requiresAuth: false,
                 PreventAuth: true
+            }
+        }, {
+            path: 'take-a-screenshot/:id',
+            name: 'take-a-screenshot',
+            component: TakeAScreenShot,
+            meta: {
+                requiresAuth: false,
+                PreventAuth: false
             }
         }, {
             path: 'dashboard',

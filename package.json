@@ -21,6 +21,7 @@
         "bootstrap-vue": "^2.23.1",
         "lang.js": "^1.1.14",
         "laravel-vue-lang": "^3.1.3",
+        "puppeteer": "^17.1.3",
         "vue": "^3.2.36",
         "vue-axios": "^3.5.2",
         "vue-router": "^4.1.6",

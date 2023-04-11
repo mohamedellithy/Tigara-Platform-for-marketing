@@ -177,6 +177,7 @@ Route::domain('marketer.'.env('MAIN_DOMAIN'))->group(function () {
         Route::post('/logout',[ApiAuthController::class , 'logout']);
         Route::get('/marketer-products/search',[MarketerProductController::class,'search']);
         Route::get('/lowstock-products',[MerchantProductController::class,'lowstock_products']);
+        
         Route::apiResource('marketer-products',MarketerProductController::class)->only([
             'index','show'
         ]);
@@ -192,5 +193,7 @@ Route::domain('marketer.'.env('MAIN_DOMAIN'))->group(function () {
 
         Route::apiResource('/marketer-payments',MarketerPaymentsController::class);
         Route::get('marketer-statics',[MarketerStaticsController::class,'index']);
+        Route::get('/take-screenshot-product/{id}',[MarketerProductController::class,'take_screenshot_product']);
     });
 });
+

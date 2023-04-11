@@ -27,4 +27,8 @@ class ProductController extends Controller
     public function lowstock_products(Request $request){
         return $this->marketer_products->lowstock_products($request);
     }
+
+    public function take_screenshot_product(Request $request,$id){
+        return $this->marketer_products->take_screenshot_product($request,$id);
+    }
 }

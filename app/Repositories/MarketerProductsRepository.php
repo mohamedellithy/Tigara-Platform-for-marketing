@@ -8,6 +8,7 @@ use App\Http\Resources\Merchant as MerchantResource;
 use App\Http\Resources\MerchantCollections as MerchantCollectionsResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\Browsershot\Browsershot;
 class MarketerProductsRepository extends MarketerProductsRepositoryInterface{
 
     public function all(Request $request){
@@ -74,6 +75,17 @@ class MarketerProductsRepository extends MarketerProductsRepositoryInterface{
         return response()->json([
             'data_info'  => $request->user()->products()->where('quantity',0)->paginate(5),
             'finished_products' => $request->user()->products()->where('quantity',0)->count()
+        ]);
+    }
+
+    public function take_screenshot_product(Request $request,$id){
+        $path = storage_path('app/public/screenshots/screen'.$id.$request->user()->id.'shot.png');
+        Browsershot::url('http://marketer.tigara.demo/take-a-screenshot/'.$id)
+        ->setOption('args', ['--disable-web-security'])->waitUntilNetworkIdle()->emulateMedia(null)
+        ->fullPage()->windowSize(500,800)->setExtraHttpHeaders(['Authorization' => 'Bearer ' . $request->bearerToken() ])
+        ->showBackground()->save($path);
+        return response()->json([
+           'screenshot_url' =>  asset('storage/screenshots/screen'.$id.$request->user()->id.'shot.png')
         ]);
     }
 }
