@@ -74,17 +74,13 @@
                 
             </div>
         </form>
-        <div v-if="this.loading" style="position: fixed;top: 0px;bottom: 0px;background-color:#1d2024d1;left: 0;right: 0;z-index: 100000;text-align: center;">
-            <img style="margin: 10% auto;" src="@/img/Enso-2.gif"/>
-        </div>
     </div>
 </template>
 <script>
 import ImageUploadHere from '@/img/upload-1118929_960_720.webp';
 import AttachmentsUploadHere from '@/img/upload-1118929_960_720.webp';
-import loading from '@/img/loading.webp';
 export default {
-    components: {ImageUploadHere,AttachmentsUploadHere,loading},
+    components: {ImageUploadHere,AttachmentsUploadHere},
     data(){
         return{
             product:{
@@ -107,8 +103,6 @@ export default {
             delete_media_ids:[],
             loading:true,
             marketer:{},
-            loading:true,
-            showLoading:false,
         }
     },
     methods:{
@@ -195,6 +189,7 @@ export default {
             this.attachments_ids.splice(index,1);
         },
         TakeScreenShoot:async function(){
+            
             await axios.get('/api/take-screenshot-product/'+this.$route.params.id).then(function({data}){
                 console.log(data);
             }).catch(function({response}){
@@ -206,12 +201,6 @@ export default {
         let { data } = await axios.get('/api/me');
         this.marketer = data.user;
         this.FetchProduct();
-    },
-    mounted:function(){
-        let self = this;
-        setTimeout(() => {
-            self.loading = false;
-        }, 1000);
     }
 }
 </script>
