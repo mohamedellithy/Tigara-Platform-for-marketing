@@ -82,7 +82,7 @@ class MarketerProductsRepository extends MarketerProductsRepositoryInterface{
         $path = storage_path('app/public/screenshots/screen'.$id.$request->user()->id.'shot.png');
         Browsershot::url('http://marketer.tigara.demo/take-a-screenshot/'.$id)
         ->setOption('args', ['--disable-web-security'])->waitUntilNetworkIdle()->emulateMedia(null)
-        ->fullPage()->windowSize(500,800)->setExtraHttpHeaders(['Authorization' => 'Bearer ' . $request->bearerToken() ])
+        ->fullPage()->noSandbox()->windowSize(500,800)->setExtraHttpHeaders(['Authorization' => 'Bearer ' . $request->bearerToken() ])
         ->showBackground()->save($path);
         return response()->json([
            'screenshot_url' =>  asset('storage/screenshots/screen'.$id.$request->user()->id.'shot.png')
