@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 
 class DeliveryPaymentController extends Controller
 {
-   
+
     protected DeliveryPaymentRepositoryInterface $deliveryPaymentRepository;
     public function __construct(DeliveryPaymentRepositoryInterface $deliveryPaymentRepository){
         $this->deliveryPaymentRepository = $deliveryPaymentRepository;
@@ -51,7 +51,7 @@ class DeliveryPaymentController extends Controller
         $validate = Validator::make($request->all(),[
             'delivery_id' => ['required','exists:users,id'],
             'type'        => ['required','numeric'],
-            'value'       => ['required','numeric']
+            'value'       => ['required','numeric','gt:0']
         ]);
 
         if ($validate->fails()):
