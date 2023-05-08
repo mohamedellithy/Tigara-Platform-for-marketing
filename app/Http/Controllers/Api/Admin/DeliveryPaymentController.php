@@ -48,7 +48,6 @@ class DeliveryPaymentController extends Controller
     public function store(Request $request)
     {
         //
-        return response()->json(['nb' => $request->all()]);
         $validate = Validator::make($request->all(),[
             'delivery_id' => ['required','exists:users,id'],
             'type'        => ['required','numeric'],

@@ -41,7 +41,7 @@ class DeliveryPaymentRepository extends DeliveryPaymentRepositoryInterface{
             'delivery_id'          => $data['delivery_id'],
             'value'                => $data['value'],
             'type'                 => $data['type'],
-            'notice'               => $data['notice'] ?: null
+            'notice'               => isset($data['notice']) ? $data['notice'] : null
         ]);
 
         if($add_new_merchant_payment):
