@@ -99,7 +99,7 @@
                                 <td>{{ order.shipping_status_txt }}</td>
                                 <td>{{ order.created_at }}</td>
                                 <td class="actions-btn">
-                                    <router-link :to="{path:'/dashboard/edit-product/'+order.id}"  class="btn btn-primary btn-sm">
+                                    <router-link :to="{path:'/dashboard/show-order/'+order.id}"  class="btn btn-primary btn-sm">
                                         عرض
                                     </router-link>
                                     <button @click="SingleStatus(order)" class="btn btn-warning btn-sm">

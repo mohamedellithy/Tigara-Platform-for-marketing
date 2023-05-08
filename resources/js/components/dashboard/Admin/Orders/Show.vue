@@ -209,7 +209,7 @@
                                 <tbody>
                                     <tr v-for="(order_detail,key) in order.order_details" :key="key">
                                         <td>
-                                            <router-link style="text-decoration:none" :to="{path:'/dashboard/show-product/'+order_detail.id}">
+                                            <router-link style="text-decoration:none" :to="{path:'/dashboard/show-product/'+order_detail.product_id}">
                                                 {{ order_detail.product_name }}
                                             </router-link>
                                         </td>
