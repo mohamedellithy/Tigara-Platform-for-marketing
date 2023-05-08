@@ -48,6 +48,7 @@ class DeliveryPaymentController extends Controller
     public function store(Request $request)
     {
         //
+        dd($request->all());
         $validate = Validator::make($request->all(),[
             'delivery_id' => ['required','exists:users,id'],
             'type'        => ['required','numeric'],
