@@ -46,7 +46,7 @@ app.config.globalProperties.$loadingCart = false;
 app.config.globalProperties.$auth = Auth;
 
 app.use(router);
-
+// here
 
 router.beforeEach(async(to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
