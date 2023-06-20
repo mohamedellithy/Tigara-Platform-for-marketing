@@ -7,18 +7,23 @@ class Auth {
     }
     async authCheck() {
         if (!this.token) {
+            this.logoutAuthToken();
             console.log('failed');
             return false;
         }
 
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.token;
-
-        let { data } = await axios.get('/api/me');
-        console.log(data);
-        if (data) {
-            this.user = data.user;
-            return true;
-        } else {
+        try {
+            let { data } = await axios.get('/api/me');
+            if (data) {
+                this.user = data.user;
+                return true;
+            } else {
+                this.logoutAuthToken();
+                console.log('failed');
+                return false;
+            }
+        } catch (e) {
             this.logoutAuthToken();
             console.log('failed');
             return false;
@@ -32,6 +37,8 @@ class Auth {
     }
     logoutAuthToken() {
         window.localStorage.removeItem('login_token');
+        this.token = null;
+        axios.defaults.headers.common['Authorization'] = null;
     }
 }
 

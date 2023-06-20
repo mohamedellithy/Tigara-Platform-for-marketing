@@ -51,10 +51,11 @@ app.use(router);
 router.beforeEach(async(to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
         if (await Auth.authCheck()) {
+            console.log('omm');
             next();
-            return;
         } else {
-            router.push('/login');
+            console.log('omm1');
+            await router.push({ name: 'login' });
         }
     } else if (to.matched.some(record => record.meta.PreventAuth)) {
         if (Auth.token != null) {

@@ -122,9 +122,9 @@
                     <div class="div-form col-12 col-md-6">
                         <video id="my-player" class="video-js" controls preload="auto"
                             poster="{{ asset('assets/landing/images/portrait-smiling-handsome-man-eyeglasses-removebg-preview.png') }}" data-setup='{}'>
-                            <source src="{{ asset('assets/landing/videos/intro.webm') }}" type="video/webm">
+                            {{-- <source src="{{ asset('assets/landing/videos/intro.webm') }}" type="video/webm">
                             <source src="{{ asset('assets/landing/videos/intro.Ogg') }}" type="video/ogg">
-                            <source src="{{ asset('assets/landing/videos/intro.mp4') }}" type="video/mp4">
+                            <source src="{{ asset('assets/landing/videos/intro.mp4') }}" type="video/mp4"> --}}
                             <p class="vjs-no-js"></p>
                         </video>
                     </div>
@@ -320,42 +320,6 @@
                 </div>
             </div>
         </section>
-        {{-- <div class="last-section tracking-section" id="last-section">
-            <div class="text-area">
-                <h2 class="text" data-i18n="landingPage.increaseIncome">اشتغل وزوّد دخلك وانت قاعد فى مكانك</h2>
-            </div>
-            <div style="display: flex; padding: 5%; justify-content: center;">
-                <div class="form-signup col-12">
-                    <h2 class="form-headline" data-i18n="landingPage.startNow">ابدأ دلوقتى</h2>
-                    <div class="form-social-buttons">
-                        <button type="button" class="button-1 facebookBTN" id="#facebookBTN-1">سجل عن طريق
-                            فيسبوك<img class="px-1" src="{{ asset('assets/landing/icons/roundFacbook.svg') }}"
-                                alt="roundFacbooklogo"></button>
-                        <button type="button" class="button-1 gmailBTN">سجل عن طريق جوجل<img class="px-1"
-                                src="{{ asset('assets/landing/icons/logos_google-gmail.svg') }}"
-                                alt="logos_google-gmail"></button>
-                    </div>
-                    <form class="normal-signup" id="form-signup-2">
-                        <h6 class="form-headline align-items-center " style="color: red; margin:0;">أو</h6>
-                        <input class="form-input" type="text" name="name" placeholder="الاسم*">
-                        <div id="name_error" class="error-hint-container"></div>
-                        <input class="form-input" type="text" inputmode="tel" name="phone_number"
-                            data-i18n="landingPage.phoneAsterisk" placeholder="الموبيل*">
-                        <div id="phone_number_error" class="error-hint-container"></div>
-                        <input class="form-input" type="text" inputmode="email" name="email"
-                            data-i18n="landingPage.emailAsterisk" placeholder="الايميل*">
-                        <div id="email_error" class="error-hint-container"></div>
-                        <input class="form-input" type="password" name="password" placeholder="كلمة السر*">
-                        <div id="password_error" class="error-hint-container"></div>
-                        <input class="form-input" type="password" name="repassword"
-                            data-i18n=landingPage.reEnterPasswordAsterisk placeholder="اعادة كتابة كلمة السر*">
-                        <div id="repassword_error" class="error-hint-container"></div>
-                        <button style="cursor: pointer;" class="normal-signup-button" type="submit"
-                            data-i18n="landingPage.startNow" value="ابدأ دلوقتى">ابدأ دلوقتى</button>
-                    </form>
-                </div>
-            </div>
-        </div> --}}
         <footer style="background-color: black;">
             <section class="logo-section col-m-12">
                 <h2 class="footer-logo">
