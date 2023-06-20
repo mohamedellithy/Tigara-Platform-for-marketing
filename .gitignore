@@ -1,5 +1,12 @@
 /node_modules
 /public/storage
+/sammly.net
+/ads.tigara.shop
+/tigara-2.zip
+/tigara-3.zip
+/tigara-4.zip
+/tigara.zip
+/vendor-2.zip
 /storage/*.key
 /vendor
 .env
