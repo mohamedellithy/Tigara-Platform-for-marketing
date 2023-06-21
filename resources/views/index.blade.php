@@ -237,9 +237,9 @@
                             <i class="fas fa-user icon-user-card"></i>
                         </p>
                         <p class="card-desc">
-                            منصة تجارة منصة رائعة فلقد حققت اكثر من 10000 الاف دولار فى خلال فترة قصيرة بدون تأخير فى تسليم الطلبات
+                            منصة تجارة منصة رائعة كنا نحن المسوقين نحتاج إليها كثيرا لتوفير فرصة مربحة في التجارة الالكترونية
                         </p>
-                        <strong class="card-author" style="text-align: center">محمد الليثي</strong>
+                        <strong class="card-author" style="text-align: center">مسوق في تجارة شوب</strong>
                         <p class="card-marketer-active">مسوق نشط</p>
                         <i class="fas fa-quote-right card-quote"></i>
                         <i class="fas fa-quote-right card-quote-last"></i>
@@ -251,9 +251,9 @@
                             <i class="fas fa-user icon-user-card"></i>
                         </p>
                         <p class="card-desc">
-                            منصة تجارة منصة رائعة فلقد حققت اكثر من 10000 الاف دولار فى خلال فترة قصيرة بدون تأخير فى تسليم الطلبات
+                            استخدمت منصة التجارة الإلكترونية هذه لأول مرة وأنا مسرور جدًا بالنتائج التي حققتها. إنها منصة رائعة وسهلة الاستخدام وتوفر لي ولعملائي تجربة تسوق ممتعة ومريحة
                         </p>
-                        <strong class="card-author" style="text-align: center">محمد الليثي</strong>
+                        <strong class="card-author" style="text-align: center">مسوق في تجارة شوب</strong>
                         <p class="card-marketer-active">مسوق نشط</p>
                         <i class="fas fa-quote-right card-quote"></i>
                         <i class="fas fa-quote-right card-quote-last"></i>
@@ -265,24 +265,9 @@
                             <i class="fas fa-user icon-user-card"></i>
                         </p>
                         <p class="card-desc">
-                            منصة تجارة منصة رائعة فلقد حققت اكثر من 10000 الاف دولار فى خلال فترة قصيرة بدون تأخير فى تسليم الطلبات
+                            أنا مذهول بمدى فعالية هذه المنصة في توفير الفرص المربحة للتجارة الإلكترونية. إنها منصة مذهلة ولديها الكثير من الميزات الرائعة التي تجعل تجربة التسوق عبر الإنترنت سهلة وممتعة. بالإضافة إلى ذلك، فإن فريق الدعم الفني لديها متفانٍ ومتعاون ويحرصون دائمًا على تلبية احتياجات العملاء
                         </p>
-                        <strong class="card-author" style="text-align: center">محمد الليثي</strong>
-                        <p class="card-marketer-active">مسوق نشط</p>
-                        <i class="fas fa-quote-right card-quote"></i>
-                        <i class="fas fa-quote-right card-quote-last"></i>
-                    </div>
-                </div>
-
-                <div class="col-md-4 card">
-                    <div class="card-testominail">
-                        <p style="text-align: center">
-                            <i class="fas fa-user icon-user-card"></i>
-                        </p>
-                        <p class="card-desc">
-                            منصة تجارة منصة رائعة فلقد حققت اكثر من 10000 الاف دولار فى خلال فترة قصيرة بدون تأخير فى تسليم الطلبات
-                        </p>
-                        <strong class="card-author" style="text-align: center">محمد الليثي</strong>
+                        <strong class="card-author" style="text-align: center">مسوق في تجارة شوب</strong>
                         <p class="card-marketer-active">مسوق نشط</p>
                         <i class="fas fa-quote-right card-quote"></i>
                         <i class="fas fa-quote-right card-quote-last"></i>
@@ -295,9 +280,9 @@
                             <i class="fas fa-user icon-user-card"></i>
                         </p>
                         <p class="card-desc">
-                            منصة تجارة منصة رائعة فلقد حققت اكثر من 10000 الاف دولار فى خلال فترة قصيرة بدون تأخير فى تسليم الطلبات
+                            لقد استخدمت العديد من منصات التجارة الإلكترونية على مر السنين، ولكن هذه المنصة بالتأكيد تبرز بينهم جميعًا. إنها منصة متطورة وتوفر تجربة تسوق ممتعة ومريحة للعملاء. بالإضافة إلى ذلك، فإن واجهة المستخدم سلسة وسهلة الاستخدام وتوفر لي كل ما أحتاجه لإدارة عملي بكفاءة. لقد حققت نجاحًا كبيرًا في عملي بفضل هذه المنصة
                         </p>
-                        <strong class="card-author" style="text-align: center">محمد الليثي</strong>
+                        <strong class="card-author" style="text-align: center">مسوق في تجارة شوب</strong>
                         <p class="card-marketer-active">مسوق نشط</p>
                         <i class="fas fa-quote-right card-quote"></i>
                         <i class="fas fa-quote-right card-quote-last"></i>
@@ -310,9 +295,24 @@
                             <i class="fas fa-user icon-user-card"></i>
                         </p>
                         <p class="card-desc">
-                            منصة تجارة منصة رائعة فلقد حققت اكثر من 10000 الاف دولار فى خلال فترة قصيرة بدون تأخير فى تسليم الطلبات
+                            منصة التجارة الإلكترونية هذه رائعة! استخدمتها لبضعة أسابيع فقط وحققت نتائج مذهلة.
                         </p>
-                        <strong class="card-author" style="text-align: center">محمد الليثي</strong>
+                        <strong class="card-author" style="text-align: center">مسوق في تجارة شوب</strong>
+                        <p class="card-marketer-active">مسوق نشط</p>
+                        <i class="fas fa-quote-right card-quote"></i>
+                        <i class="fas fa-quote-right card-quote-last"></i>
+                    </div>
+                </div>
+
+                <div class="col-md-4 card">
+                    <div class="card-testominail">
+                        <p style="text-align: center">
+                            <i class="fas fa-user icon-user-card"></i>
+                        </p>
+                        <p class="card-desc">
+                            "منصة التجارة الإلكترونية هذه مدهشة! حققت أرباحًا كبيرة بفضلها. أوصي بها بشدة لأي شخص يرغب في تحقيق النجاح في الأعمال التجارية عبر الإنترنت.
+                        </p>
+                        <strong class="card-author" style="text-align: center">مسوق في تجارة شوب</strong>
                         <p class="card-marketer-active">مسوق نشط</p>
                         <i class="fas fa-quote-right card-quote"></i>
                         <i class="fas fa-quote-right card-quote-last"></i>
