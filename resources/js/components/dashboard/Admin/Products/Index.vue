@@ -108,7 +108,7 @@
                                 <th scope="row">
                                     <img style="width: 70px;height: 50px;" :src="product.thumbnail_item.image_url" />
                                 </th>
-                                <td>{{ product.name }}</td>
+                                <td style="width: 25%;">{{ product.name }}</td>
                                 <td>{{ product.merchant.name }}</td>
                                 <td>{{ product.price }} MRU</td>
                                 <td>{{ product.quantity }} منتج</td>
