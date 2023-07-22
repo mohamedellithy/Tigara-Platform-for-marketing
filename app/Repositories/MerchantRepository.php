@@ -15,10 +15,17 @@ class MerchantRepository extends MerchantRepositoryInterface{
         if($request->has('merchant_profits')):
             $merchant = Merchant::whereHas('order_details.order',function($query){
                 $query->where('order_status',2);
-            })->paginate(12);
+            });
         else:
-            $merchant = Merchant::paginate(12);
+            $merchant = Merchant::query();
         endif;
+
+        if($request->has('withoutPaginate') && $request->query('withoutPaginate') == true):
+            $merchant = $merchant->get();
+        else:
+            $merchant = $merchant->paginate(12);
+        endif;
+
         $total_merchant_products_sales = OrderDetails::whereHas('order',function($query){
             $query->where('order_status',2);
         })->join('products','products.id','=','order_details.product_id')->select('products.merchant_commission','order_details.*')
