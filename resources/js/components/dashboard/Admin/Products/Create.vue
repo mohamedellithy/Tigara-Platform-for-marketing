@@ -223,7 +223,7 @@ export default {
             }
         }).then(function({data}){
             self.infos              = data.data_info;
-            self.merchants          = self.infos.data;
+            self.merchants          = self.infos;
             console.log(self.merchants);
         }).catch(function({response}){
             console.log(response);
