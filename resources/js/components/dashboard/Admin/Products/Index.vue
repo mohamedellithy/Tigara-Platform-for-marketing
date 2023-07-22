@@ -78,7 +78,7 @@
                 <label>
                     {{ products.length || 0 }} المعروض
                 </label>
-                <div class="table-responsive text-nowrap">
+                <div class="table-responsive">
                     <!--Table-->
                     <table class="table">
                         <!--Table head-->
