@@ -1,6 +1,6 @@
 {
   "resources/js/app.css": {
-    "file": "assets/app-84a02e4c.css",
+    "file": "assets/app-89f29781.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
@@ -24,9 +24,9 @@
       "assets/loading-ff732849.webp"
     ],
     "css": [
-      "assets/app-84a02e4c.css"
+      "assets/app-89f29781.css"
     ],
-    "file": "assets/app-3e404cb3.js",
+    "file": "assets/app-53f2429a.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
