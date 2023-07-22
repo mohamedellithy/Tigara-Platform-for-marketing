@@ -218,7 +218,9 @@ export default {
     created(){
         let self = this;
         axios.get('/api/merchants',{
-            withoutPaginate:true
+            params:{
+                withoutPaginate:true
+            }
         }).then(function({data}){
             self.infos              = data.data_info;
             self.merchants          = self.infos.data;
