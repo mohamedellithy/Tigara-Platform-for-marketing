@@ -182,9 +182,13 @@ export default {
         },
         FetchMerchants:function(){
             let self =this;
-            axios.get('/api/merchants').then(function({data}){
+            axios.get('/api/merchants',{
+                params:{
+                    withoutPaginate:true
+                }
+            }).then(function({data}){
                 self.infos              = data.data_info;
-                self.merchants          = self.infos.data;
+                self.merchants          = self.infos;
                 console.log(self.merchants);
             }).catch(function({response}){
                 console.log(response);
