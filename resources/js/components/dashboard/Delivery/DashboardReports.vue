@@ -68,15 +68,15 @@
                 <li>
                     <router-link :to="{path:'/delivery/show-due-delivery-payments'}">
                         <i style="color: #b8dcb9;" class="fas fa-coins"></i>
-                        <strong>{{ statics.total_sales }} <span>MRU</span></strong>
+                        <strong>{{ statics.total_payments_recievied }} <span>MRU</span></strong>
                         <p>
-                            اجمالى المبيعات
+                            اجمالى المدفوعات المحصلة
                         </p>
                     </router-link>
                 </li>
                 <li>
                     <i style="color: #ffccbc;" class="fas fa-money-check-alt"></i>
-                    <strong>{{ statics.total_profits }} <span>MRU</span> </strong>
+                    <strong>{{ statics.total_delivery_profits }} <span>MRU</span> </strong>
                     <p>
                         أرباحي
                     </p>
@@ -86,7 +86,7 @@
                         <i style="color: #ffccbc;" class="fas fa-money-check-alt"></i>
                         <strong>{{ statics.payments_total }} <span>MRU</span></strong>
                         <p>
-                            اجمالى المدفوعات
+                             اجمالى المدفوعات لتجارة شوب
                         </p>
                     </router-link>
                 </li>
@@ -94,7 +94,7 @@
                     <i style="color: #ffccbc;" class="fas fa-money-check-alt"></i>
                     <strong>{{ statics.payments_due }} <span>MRU</span> </strong>
                     <p>
-                        اجمالى المدفوعات المطلوبة
+                        اجمالى المدفوعات الغير مسددة
                     </p>
                 </li>
                 <li>

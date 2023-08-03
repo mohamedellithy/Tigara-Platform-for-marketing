@@ -96,8 +96,11 @@
                                 <td>{{ order.order_total }} MRU</td>
                                 <td>{{ order.marketer_profit }} MRU</td>
                                 <td>
-                                    <template v-if="order.pending_payment">
+                                    <template v-if="order.pending_payment && order.order_status == '2'">
                                         <span class="badge text-bg-danger">محظور</span>
+                                    </template>
+                                    <template v-else-if="order.pending_payment && order.order_status != '2'">
+                                        <span class="badge text-bg-danger">لم يحدد</span>
                                     </template>
                                     <template v-else>
                                         <span class="badge text-bg-success">مسموح</span>

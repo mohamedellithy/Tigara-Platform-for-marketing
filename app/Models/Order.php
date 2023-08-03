@@ -55,7 +55,6 @@ class Order extends Model
     {
         $query->where([
             'order_status'    => 1,
-            'shipping_status' => 0
         ])->where('updated_at', '>=', Carbon::today()->toDateString());
     }
 
@@ -68,7 +67,7 @@ class Order extends Model
             'shipping_status' => $status
         ]);
     }
-    
+
 
       /**
      * Scope a query to only include popular users.

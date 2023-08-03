@@ -27,6 +27,7 @@ class Delivery extends Authenticatable
         'status_text',
         'total_orders',
         'total_sales',
+        'total_payments_recievied',
         'total_profits',
         'total_delivery_profits',
         'total_platforms_profit_from_delivery_cash'
@@ -118,6 +119,15 @@ class Delivery extends Authenticatable
             get: fn() => $this->orders()->where('order_status',2)
             ->join('order_details','orders.id','=','order_details.order_id')->select('orders.*','order_details.unit_price','order_details.quantity')
             ->sum(DB::Raw('(orders.cash_delivered - (order_details.unit_price * order_details.quantity))'))
+        );
+    }
+
+    public function TotalPaymentsRecievied() : Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->orders()->where('order_status',2)
+            ->join('order_details','orders.id','=','order_details.order_id')->select('orders.*','order_details.unit_price','order_details.quantity')
+            ->sum(DB::Raw('orders.cash_delivered'))
         );
     }
 

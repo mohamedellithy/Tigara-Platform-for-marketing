@@ -29,7 +29,7 @@
                         <thead>
                             <tr>
                                 <th>
-                                    <input class="" type="checkbox" v-model="selected_all"/>
+                                    <!-- <input class="" type="checkbox" v-model="selected_all"/> -->
                                 </th>
                                 <th>رقم الطلب</th>
                                 <th>كمية الطلبية</th>
@@ -47,7 +47,7 @@
                         <tbody>
                             <tr v-for="(order, key) in orders" :key="key">
                                 <th scope="row">
-                                    <input type="checkbox" v-model="selected" :value="order.id" :checked="selected.indexOf(order.id) != -1"/>
+                                    <input v-if="order.order_status == '1'" type="checkbox" v-model="selected" :value="order.id" :checked="selected.indexOf(order.id) != -1"/>
                                 </th>
                                 <th scope="row"> # {{ order.id }}</th>
                                 <td>{{ order.quantity }} قطعة</td>
@@ -62,7 +62,7 @@
                                         عرض
                                     </router-link>
                                     <!-- v-if="this.$route.params.type != 'complete'" -->
-                                    <button  @click="SingleStatus(order)" class="btn btn-warning btn-sm">
+                                    <button  v-if="order.order_status == '1'" @click="SingleStatus(order)" class="btn btn-warning btn-sm">
                                         تحديث الحالة
                                     </button>
                                 </td>

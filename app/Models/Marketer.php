@@ -145,7 +145,7 @@ class Marketer extends Authenticatable
     public function totalProfites():Attribute
     {
         return Attribute::make(
-        get: fn() => $this->orders()->where('order_status',2)->sum('marketer_profit')
+            get: fn() => $this->orders()->where('order_status',2)->sum('marketer_profit')
         );
     }
 

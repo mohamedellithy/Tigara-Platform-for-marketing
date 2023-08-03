@@ -20,6 +20,8 @@ class DeliveryStaticsController extends Controller
             'orders_returned_count'   => $request->user()->orders()->where('order_status','!=',0)->where('shipping_status',4)->count(),
             'total_sales'             => $request->user()->total_sales,
             'total_profits'           => $request->user()->total_profits,
+            'total_payments_recievied'=> $request->user()->total_payments_recievied,
+            'total_delivery_profits'  => $request->user()->total_delivery_profits,
             'total_platforms_profit_from_delivery_cash' => $request->user()->total_platforms_profit_from_delivery_cash,
             'payments_total'          => $request->user()->payments_total,
             'payments_due'            => $request->user()->payments_due,
