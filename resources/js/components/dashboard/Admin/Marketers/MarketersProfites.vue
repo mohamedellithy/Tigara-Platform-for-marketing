@@ -46,6 +46,7 @@
                                 <th>اجمالى المبيعات</th>
                                 <th>اجمالى الارباح</th>
                                 <th>الارباح المحظورة</th>
+                                <th>الارباح المتاحة</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -60,6 +61,7 @@
                                 <td>{{ marketer.total_sales }} MRU</td>
                                 <td>{{ marketer.total_profites }} MRU</td>
                                 <td>{{ marketer.total_profit_pending }} MRU</td>
+                                <td>{{ marketer.total_profites - marketer.total_profit_pending }} MRU</td>
                                 <td class="actions-btn">
                                     <router-link :to="{path:'show-marketer/'+marketer.id}"  class="btn btn-primary btn-sm">
                                         عرض

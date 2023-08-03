@@ -50,8 +50,8 @@
                                 <th>اسم المسوق</th>
                                 <!-- <th>المدفوعات المستحقة</th>
                                 <th>اجمالى المدفوعات</th> -->
-                                <th>المسموح السحب</th>
                                 <th>المحظور</th>
+                                <th>المسموح السحب</th>
                                 <th>المبلغ المطلوب </th>
                                 <th>ملاحظات الدفع</th>
                                 <th>حالة الطلب</th>
@@ -68,8 +68,8 @@
                                 <td>{{ payment.marketer.name }}</td>
                                 <!-- <td>{{ payment.marketer.total_profites }} MRU</td>
                                 <td>{{ payment.marketer.total_paid  }} MRU</td> -->
-                                <td>{{ payment.marketer.total_un_paid - payment.marketer.total_profit_pending }} MRU</td>
                                 <td>{{ payment.marketer.total_profit_pending }} MRU</td>
+                                <td>{{ payment.marketer.total_un_paid - payment.marketer.total_profit_pending }} MRU</td>
                                 <td>{{ payment.value }} MRU</td>
                                 <td>
                                     <p class="notice">

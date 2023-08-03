@@ -127,7 +127,7 @@
                 <div class="form-group">
                     <label for="merchant-name">
                         <i class="fas fa-mobile-alt" style="padding: 5px;"></i>
-                        اجمالى أرباح
+                        اجمالى أرباح المنصة و المسوق
                     </label>
                     <p class="container-value-p">
                         {{ marketer.all_marketer_and_platform_orders_profits}} MRU

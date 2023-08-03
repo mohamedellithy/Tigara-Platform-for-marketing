@@ -190,9 +190,10 @@ class Marketer extends Authenticatable
 
     public function TotalProfitPending(): Attribute
     {
+        $startDate = now()->subDays(7);
         return Attribute::make(
             get: fn() => $this->orders()
-            ->where('order_status','=',2)->where('created_at','>=',strtotime('-7 day',strtotime(date('d-m-Y'))))->sum('marketer_profit'),
+            ->where('orders.order_status','=',2)->where('orders.created_at','>=',$startDate)->sum('marketer_profit'),
         );
     }
 
