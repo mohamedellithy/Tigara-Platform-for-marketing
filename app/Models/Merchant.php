@@ -165,9 +165,10 @@ class Merchant extends Authenticatable
 
     public function TotalPending(): Attribute
     {
+        $startDate = now()->subDays(7);
         return Attribute::make(
             get: fn() => $this->merchant_payments()
-            ->where('item_id','!=',null)->where('created_at','>=',strtotime('-7 day',strtotime(date('d-m-Y'))))->sum('value'),
+            ->where('item_id','!=',null)->where('updated_at','>=',$startDate)->sum('value'),
         );
     }
     

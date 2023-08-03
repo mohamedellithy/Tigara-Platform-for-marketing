@@ -193,7 +193,7 @@ class Marketer extends Authenticatable
         $startDate = now()->subDays(7);
         return Attribute::make(
             get: fn() => $this->orders()
-            ->where('orders.order_status','=',2)->where('orders.created_at','>=',$startDate)->sum('marketer_profit'),
+            ->where('orders.order_status','=',2)->where('orders.updated_at','>=',$startDate)->sum('marketer_profit'),
         );
     }
 

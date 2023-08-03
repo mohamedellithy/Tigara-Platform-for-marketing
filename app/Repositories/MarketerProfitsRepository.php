@@ -24,7 +24,7 @@ class MarketerProfitsRepository extends MarketerProfitsRepositoryInterface{
             'total_orders'      => Order::OrdersOfOrderStatus(2)->count(),
             'total_sales'       => Order::OrdersOfOrderStatus(2)->join('order_details','orders.id','=','order_details.order_id')->sum(DB::raw('unit_price * quantity')),
             'profits'           => Order::sum('marketer_profit'),
-            'pending_profits'   => Order::OrdersOfOrderStatus(2)->where('created_at','>=',$startDate)->sum('marketer_profit'),
+            'pending_profits'   => Order::OrdersOfOrderStatus(2)->where('updated_at','>=',$startDate)->sum('marketer_profit'),
         ]);
     }
 
@@ -46,7 +46,7 @@ class MarketerProfitsRepository extends MarketerProfitsRepositoryInterface{
             'payments_due'      => Order::sum('marketer_profit') - $payment_make,
             'payments_make'     => $payment_make,
             'profits'           => Order::sum('marketer_profit'),
-            'pending_profits'   => Order::OrdersOfOrderStatus(2)->where('created_at','>=',$startDate)->sum('marketer_profit'),
+            'pending_profits'   => Order::OrdersOfOrderStatus(2)->where('updated_at','>=',$startDate)->sum('marketer_profit'),
         ]);
     }
 

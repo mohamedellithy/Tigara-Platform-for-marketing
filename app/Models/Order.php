@@ -176,7 +176,7 @@ class Order extends Model
     {
         $status = true;
         if($this->order_status == 2):
-            if(strtotime(Date('d-m-Y')) > strtotime('+7 days',strtotime($this->created_at)) ):
+            if(strtotime(Date('d-m-Y')) > strtotime('+7 days',strtotime($this->updated_at)) ):
                 $status = false;
             endif;
         endif;

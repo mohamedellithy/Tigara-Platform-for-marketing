@@ -11,6 +11,7 @@ use App\Http\Resources\MerchantCollections as MerchantCollectionsResource;
 class MerchantPaymentRepository extends MerchantPaymentRepositoryInterface{
 
     public function all(Request $request){
+        $startDate = now()->subDays(7);
        // return response()->json(['data' => $request->all()]);
         if($request->has('merchant_id')):
             return response()->json([
@@ -19,7 +20,7 @@ class MerchantPaymentRepository extends MerchantPaymentRepositoryInterface{
         else:
             $payment_made    = MerchantPayment::where('type',1)->sum('value');
             $payment_total   = MerchantPayment::where('type',0)->sum('value');
-            $payment_pending = MerchantPayment::where('item_id','!=',null)->where('created_at','>=',strtotime('-7 day',strtotime(date('d-m-Y'))))->sum('value');
+            $payment_pending = MerchantPayment::where('item_id','!=',null)->where('updated_at','>=',$startDate)->sum('value');
             return response()->json([
                 'data_info'          => new MerchantCollectionsResource(Merchant::whereHas('merchant_payments')->with('merchant_payments')->orderBy('created_at','desc')->paginate(15)),
                 'payment_total'      => $payment_total,

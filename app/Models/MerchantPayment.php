@@ -51,7 +51,7 @@ class MerchantPayment extends Model
         if($this->item_id == null):
             $status = false;
         else:
-            if(strtotime(Date('d-m-Y')) > strtotime('+7 day',strtotime($this->created_at)) ):
+            if(strtotime(Date('d-m-Y')) > strtotime('+7 day',strtotime($this->updated_at)) ):
                 $status = false;
             endif; 
         endif;
