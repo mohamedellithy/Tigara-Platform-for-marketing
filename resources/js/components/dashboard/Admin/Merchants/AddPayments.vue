@@ -37,8 +37,7 @@
                             نوع المدفوعات
                         </label>
                         <select id="merchant-name" class="form-control" type="text" v-model="payment.type">
-                            <option value="0">اضافة مستحقات</option>
-                            <option value="1">تسديد مستحقات</option>
+                            <option value="1" selected>تسديد مستحقات</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -120,7 +119,7 @@ export default {
             merchants:{},
             merchant:{},
             payment:{
-               type:0,
+               type:1,
                value:0
             },
             iconsProfile,

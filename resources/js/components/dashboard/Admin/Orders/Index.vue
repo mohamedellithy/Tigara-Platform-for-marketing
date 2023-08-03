@@ -4,7 +4,7 @@
             <div class="content-page col-12">
                 <div class="filter-bar">
                     <div class="row">
-                        <div v-if="Object.keys(this.errors).length !== 0" class="col-12 container-errors">
+                        <!-- <div v-if="Object.keys(this.errors).length !== 0" class="col-12 container-errors">
                             <div class="alert alert-danger">
                                 <ul>
                                     <li v-for="(error,index) in errors" :key="index"> {{ error[0] }}</li>
@@ -15,7 +15,7 @@
                             <div class="alert alert-success">
                                 <p>{{ success }}</p>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-md-8">
                             <ul class="filter-results">
                                 <li class="actions-btn">
@@ -207,6 +207,10 @@
                                         <option :value="3">مرفوضة</option>
                                     </select>
                                 </div>
+                                <div class="modal-body" v-if="field.shipping_status == 2">
+                                    <p>المبلغ الذى تم تحصيلة من الزبون</p>
+                                    <input type="text" class="form-control" v-model="field.cash_delivered"/>
+                                </div>
                             </template>
                             <div class="modal-footer">
                                 <template v-if="field.order_id == null">
@@ -254,6 +258,7 @@ export default {
             field:{
                 order_status:0,
                 shipping_status:0,
+                cash_delivered:0,
                 order_id:null,
                 ids:[],
                 delivery_model:false
@@ -334,8 +339,10 @@ export default {
         },
         SingleStatus:function(order){
             let self = this;
+
             this.field.order_status = order.order_status;
             this.field.shipping_status = order.shipping_status;
+            this.field.cash_delivered = order.cash_delivered;
             this.field.order_id = order.id;
             this.ShowModelUpdateStatus();
         },
@@ -362,7 +369,7 @@ export default {
             }).catch(function({response}) {
                 console.log(response);
                 self.showerrors = true;
-                self.errors = response.data;
+                self.errors = response.data.errors;
             });
         }
     },

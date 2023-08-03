@@ -44,12 +44,12 @@ class OrderRepository extends OrderRepositoryInterface{
                 'refused'    => '3',
                 'cancelled'  => '4'
               ];
-            
-            if(($request->query('type') != 'all') || !$request->has('type')):
+
+            if(($request->query('type') != 'all') || request('type')):
+                $orders      = Order::query();
+            else:
                 $status      = $order_status[$request->query('type')];
                 $orders      = Order::OrdersOfOrderStatus($status,'desc');
-            else:
-                $orders      = Order::query();
             endif;
 
             return response()->json([

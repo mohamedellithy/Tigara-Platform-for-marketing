@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Http\Controllers\Controller;
 use App\Interfaces\OrderRepositoryInterface;
 use Illuminate\Http\Request;
+use App\Models\Order;
 
 class OrderController extends Controller
 {
@@ -56,6 +57,12 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         //
+        if($request->has('shipping_status') && $request->input('shipping_status') == '2'):
+            $order = Order::find($id);
+            $request->validate([
+                'cash_delivered' => 'sometimes|gt:'.$order->order_total ?: 0
+            ]);
+        endif;
         return $this->orderRepository->update($request->all(),$id);
     }
 
